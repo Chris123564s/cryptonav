@@ -139,7 +139,7 @@ const navCategories = categories;
   catsPanel?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeCats));
   // Close on outside click
   document.addEventListener('click', (e) => {
-    if (catsDropdown && !catsDropdown.contains(e.target as Node)) closeCats();
+    if (catsDropdown && !catsDropdown.contains(e.target)) closeCats();
   });
   // Close on Escape
   document.addEventListener('keydown', (e) => {
