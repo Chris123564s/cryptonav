@@ -14,7 +14,7 @@ const reasons = featured.reduce((acc, f) => {
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 flex items-center gap-2">
         <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1l2.5 5.5L18 7l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L10 1z"/></svg>
-        精选推荐
+        Featured Picks
       </h2>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -33,7 +33,7 @@ const reasons = featured.reduce((acc, f) => {
                 <h3 class="font-bold text-surface-800 dark:text-surface-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">{project.name}</h3>
                 {project.symbol && <span class="text-xs font-mono text-surface-400">{project.symbol}</span>}
               </div>
-              {project.sponsored && <span class="sponsored-badge ml-auto">赞助</span>}
+              {project.sponsored && <span class="sponsored-badge ml-auto">Sponsored</span>}
             </div>
             <p class="text-sm text-surface-500 dark:text-surface-400 line-clamp-2 mb-2">{project.description}</p>
             <p class="text-xs text-brand-500 dark:text-brand-400 flex items-center gap-1">

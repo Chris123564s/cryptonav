@@ -15,13 +15,13 @@ const year = new Date().getFullYear();
           <span class="font-bold text-lg text-white">CryptoNav</span>
         </div>
         <p class="text-sm text-surface-400 leading-relaxed">
-          面向中文用户的加密货币综合导航站，聚合优质资源，助你发现好项目。
+          A comprehensive crypto navigation site for global users, aggregating quality resources to help you discover great projects.
         </p>
       </div>
 
       <!-- Categories -->
       <div>
-        <h3 class="text-sm font-semibold text-white mb-3">分类</h3>
+        <h3 class="text-sm font-semibold text-white mb-3">Categories</h3>
         <ul class="space-y-2">
           {categories.slice(0, 5).map(cat => (
             <li>
@@ -32,7 +32,7 @@ const year = new Date().getFullYear();
       </div>
 
       <div>
-        <h3 class="text-sm font-semibold text-white mb-3">更多分类</h3>
+        <h3 class="text-sm font-semibold text-white mb-3">More Categories</h3>
         <ul class="space-y-2">
           {categories.slice(5).map(cat => (
             <li>
@@ -44,26 +44,26 @@ const year = new Date().getFullYear();
 
       <!-- Links -->
       <div>
-        <h3 class="text-sm font-semibold text-white mb-3">关于</h3>
+        <h3 class="text-sm font-semibold text-white mb-3">About</h3>
         <ul class="space-y-2">
-          <li><a href="/submit" class="text-sm hover:text-brand-400 transition-colors">提交收录</a></li>
-          <li><a href="/advertise" class="text-sm hover:text-brand-400 transition-colors">广告合作</a></li>
-          <li><a href="/about" class="text-sm hover:text-brand-400 transition-colors">关于我们</a></li>
+          <li><a href="/submit" class="text-sm hover:text-brand-400 transition-colors">Submit Project</a></li>
+          <li><a href="/advertise" class="text-sm hover:text-brand-400 transition-colors">Advertise</a></li>
+          <li><a href="/about" class="text-sm hover:text-brand-400 transition-colors">About Us</a></li>
         </ul>
       </div>
 
       <!-- Disclaimer -->
       <div>
-        <h3 class="text-sm font-semibold text-white mb-3">免责声明</h3>
+        <h3 class="text-sm font-semibold text-white mb-3">Disclaimer</h3>
         <p class="text-xs text-surface-500 leading-relaxed">
-          本站仅提供信息导航服务，不构成任何投资建议。加密货币投资有风险，请自行研究并承担责任。
+          This site provides information navigation services only and does not constitute investment advice. Crypto investments carry risk — please do your own research.
         </p>
       </div>
     </div>
 
     <div class="border-t border-surface-700 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
       <p class="text-xs text-surface-500">
-        &copy; {year} CryptoNav. 保留所有权利。
+        &copy; {year} CryptoNav. All rights reserved.
       </p>
       <div class="flex items-center gap-4">
         <a href="https://twitter.com" target="_blank" rel="noopener" class="text-surface-400 hover:text-brand-400 transition-colors">

@@ -2,7 +2,7 @@
 import { categories, getProjectsByParentCategory } from '../utils/data';
 import type { Category } from '../types';
 
-// 分类图标 SVG
+// Category icon SVGs
 const icons: Record<string, string> = {
   exchange: '<path d="M3 13h18M3 13l4-4m-4 4l4 4m14-4l-4-4m4 4l-4 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>',
   wallet: '<path d="M21 12V7H5a2 2 0 010-4h14v4M5 3a2 2 0 100 4m0 0a2 2 0 000 4h16v5a2 2 0 01-2 2H5a2 2 0 01-2-2V7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>',
@@ -17,7 +17,7 @@ const icons: Record<string, string> = {
 ---
 
 <section class="mb-12">
-  <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 mb-4">分类导航</h2>
+  <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 mb-4">Browse by Category</h2>
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
     {categories.map(cat => {
       const count = getProjectsByParentCategory(cat.id).length;
@@ -29,7 +29,7 @@ const icons: Record<string, string> = {
             </div>
             <div>
               <h3 class="font-semibold text-sm text-surface-800 dark:text-surface-100">{cat.name}</h3>
-              <p class="text-xs text-surface-400">{count} 个项目</p>
+              <p class="text-xs text-surface-400">{count} projects</p>
             </div>
           </div>
           <p class="text-xs text-surface-500 dark:text-surface-400 line-clamp-1">{cat.description}</p>

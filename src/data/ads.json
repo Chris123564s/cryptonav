@@ -2,7 +2,7 @@
   {
     "id": "ad-001",
     "slot": "home-banner",
-    "title": "XX 交易所注册返佣 20%",
+    "title": "XX Exchange: 20% Rebate on Signup",
     "image": "",
     "link": "#",
     "startAt": "2026-01-01T00:00:00Z",
@@ -13,7 +13,7 @@
   {
     "id": "ad-002",
     "slot": "sidebar-top",
-    "title": "广告位招租 - 侧栏顶部 300x250",
+    "title": "Ad Slot Available - Sidebar Top 300x250",
     "image": "",
     "link": "/advertise",
     "startAt": "2026-01-01T00:00:00Z",
@@ -24,7 +24,7 @@
   {
     "id": "ad-003",
     "slot": "sidebar-bottom",
-    "title": "广告位招租 - 侧栏底部 300x250",
+    "title": "Ad Slot Available - Sidebar Bottom 300x250",
     "image": "",
     "link": "/advertise",
     "startAt": "2026-01-01T00:00:00Z",
@@ -35,7 +35,7 @@
   {
     "id": "ad-004",
     "slot": "footer-banner",
-    "title": "广告位招租 - 底部横幅 728x90",
+    "title": "Ad Slot Available - Footer Banner 728x90",
     "image": "",
     "link": "/advertise",
     "startAt": "2026-01-01T00:00:00Z",
@@ -46,7 +46,7 @@
   {
     "id": "ad-005",
     "slot": "inline-card",
-    "title": "广告位招租 - 内嵌卡片",
+    "title": "Ad Slot Available - Inline Card",
     "image": "",
     "link": "/advertise",
     "startAt": "2026-01-01T00:00:00Z",

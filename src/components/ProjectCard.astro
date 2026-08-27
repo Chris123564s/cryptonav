@@ -9,7 +9,7 @@ interface Props {
 
 const { project, compact = false } = Astro.props;
 
-// 获取分类 slug
+// Get category slug
 function getCategorySlug(categoryId: string): string {
   const parts = categoryId.split('-');
   return parts[0] || categoryId;
@@ -46,16 +46,16 @@ function getCategorySlug(categoryId: string): string {
         {project.sponsored && (
           <span class="sponsored-badge">
             <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1l2.5 5.5L18 7l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L10 1z"/></svg>
-            赞助
+            Sponsored
           </span>
         )}
         {project.featured && !project.sponsored && (
-          <span class="featured-badge">精选</span>
+          <span class="featured-badge">Featured</span>
         )}
         {project.audited && (
           <span class="inline-flex items-center gap-0.5 text-[10px] text-green-600 dark:text-green-400">
             <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 9.83 0 0 0 0 9.999 11.954 9.83 0 0 0 2.166 15c.532-1.623 2.052-2.834 3.834-2.834h10c1.782 0 3.302 1.211 3.834 2.834A11.954 9.83 0 0 0 20 10 11.954 9.83 0 0 0 17.834 5c-.532 1.623-2.052 2.834-3.834 2.834h-10c-1.782 0-3.302-1.211-3.834-2.835z" clip-rule="evenodd"/></svg>
-            已审计
+            Audited
           </span>
         )}
       </div>
@@ -77,7 +77,7 @@ function getCategorySlug(categoryId: string): string {
       {project.metrics && !compact && (
         <div class="flex items-center gap-3 mt-2 text-xs text-surface-400">
           {project.metrics.marketCapRank && (
-            <span>市值 #{project.metrics.marketCapRank}</span>
+            <span>MC Rank #{project.metrics.marketCapRank}</span>
           )}
           {project.metrics.tvl && (
             <span>TVL {formatNumber(project.metrics.tvl)}</span>
@@ -86,7 +86,7 @@ function getCategorySlug(categoryId: string): string {
             <span>24h {formatNumber(project.metrics.volume24h)}</span>
           )}
           {project.metrics.twitterFollowers && project.metrics.twitterFollowers > 10000 && (
-            <span>{(project.metrics.twitterFollowers / 1000).toFixed(0)}K 粉丝</span>
+            <span>{(project.metrics.twitterFollowers / 1000).toFixed(0)}K followers</span>
           )}
         </div>
       )}

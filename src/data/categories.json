@@ -1,39 +1,39 @@
 [
   {
     "id": "exchange",
-    "name": "交易所",
+    "name": "Exchanges",
     "slug": "exchange",
     "icon": "exchange",
-    "description": "中心化和去中心化加密货币交易平台",
+    "description": "Centralized and decentralized crypto trading platforms",
     "subcategories": [
-      { "id": "exchange-cex", "name": "中心化交易所", "slug": "cex", "description": "传统撮合制交易所" },
-      { "id": "exchange-dex", "name": "去中心化交易所", "slug": "dex", "description": "链上自动做市交易所" },
-      { "id": "exchange-derivatives", "name": "衍生品交易所", "slug": "derivatives", "description": "合约、期权等衍生品" },
-      { "id": "exchange-p2p", "name": "P2P 交易", "slug": "p2p", "description": "点对点交易" }
+      { "id": "exchange-cex", "name": "CEX", "slug": "cex", "description": "Traditional order-book exchanges" },
+      { "id": "exchange-dex", "name": "DEX", "slug": "dex", "description": "On-chain automated market maker exchanges" },
+      { "id": "exchange-derivatives", "name": "Derivatives", "slug": "derivatives", "description": "Futures, options, and other derivatives" },
+      { "id": "exchange-p2p", "name": "P2P Trading", "slug": "p2p", "description": "Peer-to-peer trading" }
     ]
   },
   {
     "id": "wallet",
-    "name": "钱包",
+    "name": "Wallets",
     "slug": "wallet",
     "icon": "wallet",
-    "description": "加密货币存储和管理工具",
+    "description": "Crypto storage and management tools",
     "subcategories": [
-      { "id": "wallet-hot", "name": "热钱包", "slug": "hot", "description": "在线钱包，方便快捷" },
-      { "id": "wallet-cold", "name": "硬件钱包", "slug": "cold", "description": "离线存储，安全可靠" },
-      { "id": "wallet-multisig", "name": "多签钱包", "slug": "multisig", "description": "多签名安全钱包" }
+      { "id": "wallet-hot", "name": "Hot Wallets", "slug": "hot", "description": "Online wallets, fast and convenient" },
+      { "id": "wallet-cold", "name": "Hardware Wallets", "slug": "cold", "description": "Offline storage, secure and reliable" },
+      { "id": "wallet-multisig", "name": "Multisig Wallets", "slug": "multisig", "description": "Multi-signature secure wallets" }
     ]
   },
   {
     "id": "market",
-    "name": "行情与数据",
+    "name": "Market & Data",
     "slug": "market",
     "icon": "chart",
-    "description": "行情聚合、链上分析和区块浏览器",
+    "description": "Market aggregation, on-chain analytics, and block explorers",
     "subcategories": [
-      { "id": "market-aggregator", "name": "行情聚合", "slug": "aggregator", "description": "多平台行情聚合" },
-      { "id": "market-analytics", "name": "链上分析", "slug": "analytics", "description": "链上数据分析工具" },
-      { "id": "market-explorer", "name": "区块浏览器", "slug": "explorer", "description": "交易和区块查询" }
+      { "id": "market-aggregator", "name": "Market Aggregators", "slug": "aggregator", "description": "Multi-platform market aggregation" },
+      { "id": "market-analytics", "name": "On-chain Analytics", "slug": "analytics", "description": "On-chain data analysis tools" },
+      { "id": "market-explorer", "name": "Block Explorers", "slug": "explorer", "description": "Transaction and block lookup" }
     ]
   },
   {
@@ -41,12 +41,12 @@
     "name": "DeFi",
     "slug": "defi",
     "icon": "defi",
-    "description": "去中心化金融协议和应用",
+    "description": "Decentralized finance protocols and applications",
     "subcategories": [
-      { "id": "defi-lending", "name": "借贷", "slug": "lending", "description": "去中心化借贷协议" },
-      { "id": "defi-yield", "name": "收益聚合", "slug": "yield", "description": "收益优化和聚合器" },
-      { "id": "defi-bridge", "name": "跨链桥", "slug": "bridge", "description": "跨链资产转移" },
-      { "id": "defi-stablecoin", "name": "稳定币", "slug": "stablecoin", "description": "去中心化稳定币协议" }
+      { "id": "defi-lending", "name": "Lending", "slug": "lending", "description": "Decentralized lending protocols" },
+      { "id": "defi-yield", "name": "Yield", "slug": "yield", "description": "Yield optimization and aggregators" },
+      { "id": "defi-bridge", "name": "Bridges", "slug": "bridge", "description": "Cross-chain asset transfer" },
+      { "id": "defi-stablecoin", "name": "Stablecoins", "slug": "stablecoin", "description": "Decentralized stablecoin protocols" }
     ]
   },
   {
@@ -54,57 +54,57 @@
     "name": "NFT",
     "slug": "nft",
     "icon": "nft",
-    "description": "NFT 交易市场和工具",
+    "description": "NFT marketplaces and tools",
     "subcategories": [
-      { "id": "nft-marketplace", "name": "NFT 交易市场", "slug": "marketplace", "description": "NFT 买卖平台" },
-      { "id": "nft-tools", "name": "NFT 工具", "slug": "tools", "description": "铸造、分析工具" }
+      { "id": "nft-marketplace", "name": "NFT Marketplaces", "slug": "marketplace", "description": "NFT buy/sell platforms" },
+      { "id": "nft-tools", "name": "NFT Tools", "slug": "tools", "description": "Minting and analysis tools" }
     ]
   },
   {
     "id": "infra",
-    "name": "基础设施",
+    "name": "Infrastructure",
     "slug": "infra",
     "icon": "infra",
-    "description": "公链、Layer2 和开发工具",
+    "description": "Public chains, Layer 2, and developer tools",
     "subcategories": [
-      { "id": "infra-chain", "name": "公链", "slug": "chain", "description": "区块链底层网络" },
-      { "id": "infra-layer2", "name": "Layer2", "slug": "layer2", "description": "二层扩容方案" },
-      { "id": "infra-dev-tools", "name": "开发工具", "slug": "dev-tools", "description": "开发SDK和工具" }
+      { "id": "infra-chain", "name": "Public Chains", "slug": "chain", "description": "Blockchain base-layer networks" },
+      { "id": "infra-layer2", "name": "Layer 2", "slug": "layer2", "description": "Layer 2 scaling solutions" },
+      { "id": "infra-dev-tools", "name": "Developer Tools", "slug": "dev-tools", "description": "SDKs and developer tooling" }
     ]
   },
   {
     "id": "security",
-    "name": "安全与审计",
+    "name": "Security & Audit",
     "slug": "security",
     "icon": "shield",
-    "description": "智能合约审计和安全工具",
+    "description": "Smart contract audits and security tools",
     "subcategories": [
-      { "id": "security-audit", "name": "审计公司", "slug": "audit", "description": "智能合约审计服务" },
-      { "id": "security-tools", "name": "安全工具", "slug": "tools", "description": "安全检测和风控" }
+      { "id": "security-audit", "name": "Audit Firms", "slug": "audit", "description": "Smart contract audit services" },
+      { "id": "security-tools", "name": "Security Tools", "slug": "tools", "description": "Security detection and risk control" }
     ]
   },
   {
     "id": "media",
-    "name": "社区与媒体",
+    "name": "Community & Media",
     "slug": "media",
     "icon": "media",
-    "description": "资讯媒体和学习社区",
+    "description": "News media and learning communities",
     "subcategories": [
-      { "id": "media-news", "name": "媒体资讯", "slug": "news", "description": "加密币新闻媒体" },
-      { "id": "media-community", "name": "社区论坛", "slug": "community", "description": "讨论社区" },
-      { "id": "media-education", "name": "教育学习", "slug": "education", "description": "教程和学习资源" }
+      { "id": "media-news", "name": "News Media", "slug": "news", "description": "Crypto news outlets" },
+      { "id": "media-community", "name": "Communities", "slug": "community", "description": "Discussion communities" },
+      { "id": "media-education", "name": "Education", "slug": "education", "description": "Tutorials and learning resources" }
     ]
   },
   {
     "id": "tools",
-    "name": "实用工具",
+    "name": "Utilities",
     "slug": "tools",
     "icon": "tool",
-    "description": "税务、投资组合和交易工具",
+    "description": "Tax, portfolio, and trading tools",
     "subcategories": [
-      { "id": "tools-portfolio", "name": "投资组合", "slug": "portfolio", "description": "资产管理工具" },
-      { "id": "tools-tax", "name": "税务工具", "slug": "tax", "description": "加密货币税务计算" },
-      { "id": "tools-airdrop", "name": "空投工具", "slug": "airdrop", "description": "空投查询和领取" }
+      { "id": "tools-portfolio", "name": "Portfolio", "slug": "portfolio", "description": "Asset management tools" },
+      { "id": "tools-tax", "name": "Tax Tools", "slug": "tax", "description": "Crypto tax calculation" },
+      { "id": "tools-airdrop", "name": "Airdrop Tools", "slug": "airdrop", "description": "Airdrop lookup and claims" }
     ]
   }
 ]
