@@ -1,14 +1,98 @@
 [
-  { "id": "bitcoin", "symbol": "BTC", "name": "Bitcoin", "image": "https://assets.coingecko.com/coins/images/1/small/bitcoin.png", "currentPrice": 65000, "priceChangePercentage24h": 2.5 },
-  { "id": "ethereum", "symbol": "ETH", "name": "Ethereum", "image": "https://assets.coingecko.com/coins/images/279/small/ethereum.png", "currentPrice": 3500, "priceChangePercentage24h": 1.8 },
-  { "id": "binancecoin", "symbol": "BNB", "name": "BNB", "image": "https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2.png", "currentPrice": 600, "priceChangePercentage24h": -0.5 },
-  { "id": "solana", "symbol": "SOL", "name": "Solana", "image": "https://assets.coingecko.com/coins/images/4128/small/solana.png", "currentPrice": 150, "priceChangePercentage24h": 5.2 },
-  { "id": "ripple", "symbol": "XRP", "name": "XRP", "image": "https://assets.coingecko.com/coins/images/44/small/xrp-symbol-white-128.png", "currentPrice": 0.62, "priceChangePercentage24h": -1.2 },
-  { "id": "cardano", "symbol": "ADA", "name": "Cardano", "image": "https://assets.coingecko.com/coins/images/975/small/cardano.png", "currentPrice": 0.45, "priceChangePercentage24h": 3.1 },
-  { "id": "dogecoin", "symbol": "DOGE", "name": "Dogecoin", "image": "https://assets.coingecko.com/coins/images/5/small/dogecoin.png", "currentPrice": 0.11, "priceChangePercentage24h": 8.5 },
-  { "id": "avalanche", "symbol": "AVAX", "name": "Avalanche", "image": "https://assets.coingecko.com/coins/images/12559/small/Avalanche_Circle_RedWhite_Trans.png", "currentPrice": 25, "priceChangePercentage24h": -2.3 },
-  { "id": "polkadot", "symbol": "DOT", "name": "Polkadot", "image": "https://assets.coingecko.com/coins/images/12171/small/polkadot.png", "currentPrice": 4.5, "priceChangePercentage24h": 1.1 },
-  { "id": "chainlink", "symbol": "LINK", "name": "Chainlink", "image": "https://assets.coingecko.com/coins/images/877/small/chainlink-new-logo.png", "currentPrice": 15, "priceChangePercentage24h": 4.2 },
-  { "id": "matic", "symbol": "MATIC", "name": "Polygon", "image": "https://assets.coingecko.com/coins/images/4713/small/polygon.png", "currentPrice": 0.55, "priceChangePercentage24h": -0.8 },
-  { "id": "arbitrum", "symbol": "ARB", "name": "Arbitrum", "image": "https://assets.coingecko.com/coins/images/16547/small/arb.jpg", "currentPrice": 0.8, "priceChangePercentage24h": 6.7 }
+  {
+    "id": "bitcoin",
+    "symbol": "BTC",
+    "name": "Bitcoin",
+    "image": "/logos/coins/btc.png",
+    "currentPrice": 65000,
+    "priceChangePercentage24h": 2.5
+  },
+  {
+    "id": "ethereum",
+    "symbol": "ETH",
+    "name": "Ethereum",
+    "image": "/logos/coins/eth.png",
+    "currentPrice": 3500,
+    "priceChangePercentage24h": 1.8
+  },
+  {
+    "id": "binancecoin",
+    "symbol": "BNB",
+    "name": "BNB",
+    "image": "/logos/coins/bnb.png",
+    "currentPrice": 600,
+    "priceChangePercentage24h": -0.5
+  },
+  {
+    "id": "solana",
+    "symbol": "SOL",
+    "name": "Solana",
+    "image": "/logos/coins/sol.png",
+    "currentPrice": 150,
+    "priceChangePercentage24h": 5.2
+  },
+  {
+    "id": "ripple",
+    "symbol": "XRP",
+    "name": "XRP",
+    "image": "/logos/coins/xrp.png",
+    "currentPrice": 0.62,
+    "priceChangePercentage24h": -1.2
+  },
+  {
+    "id": "cardano",
+    "symbol": "ADA",
+    "name": "Cardano",
+    "image": "/logos/coins/ada.png",
+    "currentPrice": 0.45,
+    "priceChangePercentage24h": 3.1
+  },
+  {
+    "id": "dogecoin",
+    "symbol": "DOGE",
+    "name": "Dogecoin",
+    "image": "/logos/coins/doge.png",
+    "currentPrice": 0.11,
+    "priceChangePercentage24h": 8.5
+  },
+  {
+    "id": "avalanche",
+    "symbol": "AVAX",
+    "name": "Avalanche",
+    "image": "/logos/coins/avax.png",
+    "currentPrice": 25,
+    "priceChangePercentage24h": -2.3
+  },
+  {
+    "id": "polkadot",
+    "symbol": "DOT",
+    "name": "Polkadot",
+    "image": "/logos/coins/dot.png",
+    "currentPrice": 4.5,
+    "priceChangePercentage24h": 1.1
+  },
+  {
+    "id": "chainlink",
+    "symbol": "LINK",
+    "name": "Chainlink",
+    "image": "/logos/coins/link.png",
+    "currentPrice": 15,
+    "priceChangePercentage24h": 4.2
+  },
+  {
+    "id": "matic",
+    "symbol": "MATIC",
+    "name": "Polygon",
+    "image": "/logos/coins/matic.png",
+    "currentPrice": 0.55,
+    "priceChangePercentage24h": -0.8
+  },
+  {
+    "id": "arbitrum",
+    "symbol": "ARB",
+    "name": "Arbitrum",
+    "image": "/logos/coins/arb.png",
+    "currentPrice": 0.8,
+    "priceChangePercentage24h": 6.7
+  }
 ]
