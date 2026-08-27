@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import TickerBar from '../components/TickerBar.astro';
 import AdBanner from '../components/AdBanner.astro';
+import MarketChart from '../components/MarketChart.astro';
 import FeaturedCarousel from '../components/FeaturedCarousel.astro';
 import CategoryGrid from '../components/CategoryGrid.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -29,6 +30,9 @@ const totalProjects = getActiveProjects().length;
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
     <AdBanner slot="home-banner" format="banner" />
   </div>
+
+  <!-- Market Chart (live price走势图) -->
+  <MarketChart />
 
   <!-- Featured -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,0 +1,351 @@
+---
+import { tickerCoins } from '../utils/data';
+
+// 默认币种 & 可切换币种列表（与 Live Prices ticker 一致）
+const coins = tickerCoins.map(c => ({ id: c.id, symbol: c.symbol, name: c.name, image: c.image }));
+const defaultCoin = 'bitcoin';
+const ranges = [
+  { label: '24H', days: 1 },
+  { label: '7D', days: 7 },
+  { label: '30D', days: 30 },
+  { label: '1Y', days: 365 },
+];
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+  <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 p-5 shadow-sm">
+    <div class="flex flex-col lg:flex-row gap-5">
+      <!-- 左侧：币种切换器 -->
+      <aside class="lg:w-64 shrink-0">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+          <h3 class="text-sm font-bold text-surface-800 dark:text-surface-100">Market Chart</h3>
+        </div>
+
+        <!-- 搜索切换 -->
+        <div class="relative mb-3">
+          <input
+            id="chart-coin-search"
+            type="text"
+            placeholder="Search coin..."
+            autocomplete="off"
+            class="search-input !w-full"
+          />
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <div id="chart-coin-list" class="hidden absolute top-full mt-2 left-0 right-0 z-50 bg-white dark:bg-surface-800 rounded-lg shadow-xl border border-surface-200 dark:border-surface-700 max-h-64 overflow-y-auto"></div>
+        </div>
+
+        <!-- 当前选中 -->
+        <div id="chart-current" class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-50 dark:bg-surface-900 mb-3">
+          <img id="chart-current-img" src="" alt="" class="w-6 h-6 rounded-full" />
+          <div class="min-w-0">
+            <div id="chart-current-name" class="text-sm font-semibold text-surface-800 dark:text-surface-100 truncate"></div>
+            <div id="chart-current-price" class="text-xs font-mono text-surface-500 dark:text-surface-400"></div>
+          </div>
+        </div>
+
+        <!-- 快捷币种（ticker 同款） -->
+        <div class="flex flex-wrap gap-1.5">
+          {coins.map(c => (
+            <button
+              class="chart-quick-btn text-xs px-2 py-1 rounded-md border border-surface-200 dark:border-surface-700 text-surface-500 dark:text-surface-300 hover:border-brand-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors"
+              data-coin-id={c.id}
+            >{c.symbol}</button>
+          ))}
+        </div>
+
+        <!-- 时间区间 -->
+        <div class="flex gap-1.5 mt-4">
+          {ranges.map((r, i) => (
+            <button
+              class={`chart-range-btn flex-1 text-xs py-1.5 rounded-md font-medium transition-colors ${i === 0 ? 'bg-brand-600 text-white' : 'bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-600'}`}
+              data-days={r.days}
+            >{r.label}</button>
+          ))}
+        </div>
+      </aside>
+
+      <!-- 右侧：走势图 -->
+      <div class="flex-1 min-w-0">
+        <div class="relative h-[260px] sm:h-[300px]">
+          <canvas id="market-chart-canvas"></canvas>
+          <div id="chart-loading" class="absolute inset-0 flex items-center justify-center text-sm text-surface-400">
+            Loading chart…
+          </div>
+          <div id="chart-error" class="hidden absolute inset-0 flex items-center justify-center text-sm text-surface-400 text-center px-4">
+            Market data temporarily unavailable. Please try again later.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { tickerCoins } from '../utils/data';
+
+  type CoinMeta = { id: string; symbol: string; name: string; image: string };
+  const COINS: CoinMeta[] = tickerCoins.map(c => ({ id: c.id, symbol: c.symbol, name: c.name, image: c.image }));
+
+  let chart: any = null;
+  let currentCoin = 'bitcoin';
+  let currentDays = 1;
+  let loadingEl: HTMLElement | null;
+  let errorEl: HTMLElement | null;
+  let canvasEl: HTMLCanvasElement | null;
+  let ChartLib: any = null;
+  // 简单缓存：key = `${id}_${days}`
+  const cache = new Map<string, { prices: [number, number][]; ts: number }>();
+
+  function fmtPrice(v: number): string {
+    return v >= 1
+      ? `$${v.toLocaleString('en-US', { maximumFractionDigits: 2 })}`
+      : `$${v.toFixed(4)}`;
+  }
+
+  function getCoin(id: string): CoinMeta | undefined {
+    return COINS.find(c => c.id === id);
+  }
+
+  function updateCurrentBadge(price?: number) {
+    const coin = getCoin(currentCoin);
+    const img = document.getElementById('chart-current-img') as HTMLImageElement | null;
+    const name = document.getElementById('chart-current-name');
+    const priceEl = document.getElementById('chart-current-price');
+    if (coin && img) img.src = coin.image;
+    if (coin && name) name.textContent = `${coin.name} (${coin.symbol})`;
+    if (priceEl && price !== undefined) priceEl.textContent = fmtPrice(price);
+  }
+
+  async function ensureChartLib() {
+    if (ChartLib) return ChartLib;
+    const mod = await import('chart.js/auto');
+    ChartLib = mod.default;
+    return ChartLib;
+  }
+
+  function isDark(): boolean {
+    return document.documentElement.classList.contains('dark');
+  }
+
+  function renderChart(labels: string[], values: number[]) {
+    if (!ChartLib || !canvasEl) return;
+    const up = values.length > 1 && values[values.length - 1] >= values[0];
+    const line = up ? '#16a34a' : '#dc2626'; // 涨绿跌红（国际惯例）
+    const fillTop = up ? 'rgba(22,163,74,0.25)' : 'rgba(220,38,38,0.25)';
+
+    const gridColor = isDark() ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)';
+    const tickColor = isDark() ? '#94a3b8' : '#64748b';
+
+    if (chart) {
+      chart.data.labels = labels;
+      chart.data.datasets[0].data = values;
+      chart.data.datasets[0].borderColor = line;
+      chart.data.datasets[0].backgroundColor = (ctx: any) => {
+        const { chart: ch } = ctx;
+        const { ctx: c, chartArea } = ch;
+        if (!chartArea) return fillTop;
+        const g = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+        g.addColorStop(0, fillTop);
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        return g;
+      };
+      chart.options.scales.x.grid.color = gridColor;
+      chart.options.scales.y.grid.color = gridColor;
+      chart.options.scales.x.ticks.color = tickColor;
+      chart.options.scales.y.ticks.color = tickColor;
+      chart.update();
+      return;
+    }
+
+    chart = new ChartLib(canvasEl, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          data: values,
+          borderColor: line,
+          borderWidth: 2,
+          fill: true,
+          backgroundColor: (ctx: any) => {
+            const { chart: ch } = ctx;
+            const { ctx: c, chartArea } = ch;
+            if (!chartArea) return fillTop;
+            const g = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+            g.addColorStop(0, fillTop);
+            g.addColorStop(1, 'rgba(0,0,0,0)');
+            return g;
+          },
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0.25,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { intersect: false, mode: 'index' },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx: any) => fmtPrice(ctx.parsed.y),
+            },
+          },
+        },
+        scales: {
+          x: { grid: { color: gridColor }, ticks: { color: tickColor, maxTicksLimit: 6, maxRotation: 0 } },
+          y: {
+            grid: { color: gridColor },
+            ticks: { color: tickColor, callback: (v: any) => fmtPrice(v) },
+          },
+        },
+      },
+    });
+  }
+
+  function formatLabels(prices: [number, number][], days: number): string[] {
+    const max = days <= 1 ? 6 : days <= 7 ? 7 : days <= 30 ? 8 : 6;
+    const step = Math.max(1, Math.floor(prices.length / max));
+    return prices.map((p, i) => {
+      const d = new Date(p[0]);
+      if (i % step !== 0 && i !== prices.length - 1) return '';
+      if (days <= 1) return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      if (days <= 30) return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      return d.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+    });
+  }
+
+  async function loadChart(coinId: string, days: number, force = false) {
+    currentCoin = coinId;
+    currentDays = days;
+    if (loadingEl) loadingEl.classList.remove('hidden');
+    if (errorEl) errorEl.classList.add('hidden');
+    updateCurrentBadge();
+
+    const key = `${coinId}_${days}`;
+    const cached = cache.get(key);
+    if (cached && !force) {
+      renderChart(formatLabels(cached.prices, days), cached.prices.map(p => p[1]));
+      if (loadingEl) loadingEl.classList.add('hidden');
+      return;
+    }
+
+    try {
+      const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('bad');
+      const json = await res.json();
+      const prices: [number, number][] = json.prices || [];
+      if (prices.length === 0) throw new Error('empty');
+      cache.set(key, { prices, ts: Date.now() });
+      renderChart(formatLabels(prices, days), prices.map(p => p[1]));
+      // 更新 badge 价格为最新点
+      updateCurrentBadge(prices[prices.length - 1][1]);
+    } catch (e) {
+      if (chart) {
+        // 已有图则保留，仅提示
+        if (loadingEl) loadingEl.classList.add('hidden');
+      } else if (errorEl) {
+        errorEl.classList.remove('hidden');
+        if (loadingEl) loadingEl.classList.add('hidden');
+      }
+    } finally {
+      if (loadingEl && !errorEl?.classList.contains('hidden') === false) loadingEl.classList.add('hidden');
+    }
+  }
+
+  function setActiveRange(days: number) {
+    document.querySelectorAll('.chart-range-btn').forEach(b => {
+      const el = b as HTMLButtonElement;
+      const active = Number(el.dataset.days) === days;
+      el.className = `chart-range-btn flex-1 text-xs py-1.5 rounded-md font-medium transition-colors ${active ? 'bg-brand-600 text-white' : 'bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-600'}`;
+    });
+  }
+
+  function setActiveQuick(id: string) {
+    document.querySelectorAll('.chart-quick-btn').forEach(b => {
+      const el = b as HTMLButtonElement;
+      const active = el.dataset.coinId === id;
+      el.classList.toggle('border-brand-400', active);
+      el.classList.toggle('text-brand-600', active);
+      el.classList.toggle('dark:text-brand-400', active);
+    });
+  }
+
+  function wireUp() {
+    loadingEl = document.getElementById('chart-loading');
+    errorEl = document.getElementById('chart-error');
+    canvasEl = document.getElementById('market-chart-canvas') as HTMLCanvasElement | null;
+
+    // 区间按钮
+    document.querySelectorAll('.chart-range-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const days = Number((b as HTMLElement).dataset.days);
+        setActiveRange(days);
+        loadChart(currentCoin, days);
+      });
+    });
+
+    // 快捷币种
+    document.querySelectorAll('.chart-quick-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const id = (b as HTMLElement).dataset.coinId!;
+        setActiveQuick(id);
+        loadChart(id, currentDays);
+      });
+    });
+
+    // 搜索下拉
+    const search = document.getElementById('chart-coin-search') as HTMLInputElement | null;
+    const list = document.getElementById('chart-coin-list');
+    if (search && list) {
+      search.addEventListener('input', () => {
+        const q = search.value.trim().toLowerCase();
+        if (!q) { list.classList.add('hidden'); return; }
+        const matches = COINS.filter(c =>
+          c.name.toLowerCase().includes(q) || c.symbol.toLowerCase().includes(q) || c.id.toLowerCase().includes(q)
+        ).slice(0, 8);
+        list.innerHTML = matches.map(c => `
+          <button class="chart-search-item w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-surface-50 dark:hover:bg-surface-700" data-coin-id="${c.id}">
+            <img src="${c.image}" alt="" class="w-5 h-5 rounded-full" />
+            <span class="text-sm text-surface-700 dark:text-surface-200">${c.name}</span>
+            <span class="text-xs text-surface-400 ml-auto">${c.symbol}</span>
+          </button>
+        `).join('') || '<div class="px-3 py-2 text-sm text-surface-400">No match</div>';
+        list.classList.remove('hidden');
+        list.querySelectorAll('.chart-search-item').forEach(item => {
+          item.addEventListener('click', () => {
+            const id = (item as HTMLElement).dataset.coinId!;
+            search.value = '';
+            list.classList.add('hidden');
+            setActiveQuick(id);
+            loadChart(id, currentDays);
+          });
+        });
+      });
+      search.addEventListener('focus', () => { if (search.value.trim()) list.classList.remove('hidden'); });
+      document.addEventListener('click', (e) => {
+        if (!search.contains(e.target as Node) && !list.contains(e.target as Node)) list.classList.add('hidden');
+      });
+    }
+
+    // 与 Live Prices ticker 联动：点击 ticker 币 -> 切图
+    document.addEventListener('coin-selected', (e: Event) => {
+      const id = (e as CustomEvent).detail?.id;
+      if (!id) return;
+      setActiveQuick(id);
+      loadChart(id, currentDays);
+      // 滚动到图表位置
+      document.getElementById('market-chart-canvas')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // 初始化
+    ensureChartLib().then(() => loadChart('bitcoin', 1));
+    setActiveQuick('bitcoin');
+  }
+
+  document.addEventListener('DOMContentLoaded', wireUp);
+</script>

@@ -74,5 +74,17 @@ const coinIds = tickerCoins.map(c => c.id).join(',');
   document.addEventListener('DOMContentLoaded', () => {
     fetchPrices();
     setInterval(fetchPrices, UPDATE_INTERVAL);
+
+    // 点击 ticker 中的币种 -> 通知走势图切换（与 MarketChart 联动）
+    const tickerEls = document.querySelectorAll('#ticker-track [data-coin-id]');
+    tickerEls.forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = el.getAttribute('data-coin-id');
+        if (id) {
+          document.dispatchEvent(new CustomEvent('coin-selected', { detail: { id } }));
+        }
+      });
+    });
   });
 </script>
