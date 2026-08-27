@@ -1,0 +1,141 @@
+# Decap CMS 配置
+# 当你部署好网站后，把下面的 GitHub 仓库地址改成你自己的
+# 同时需要设置 OAuth 代理（参考 CMS-GUIDE.md）
+
+backend:
+  name: github
+  repo: your-username/cryptonav       # 改成你的 GitHub 仓库地址
+  branch: main
+  auth_type: oauth_request
+  app_id: ""                            # 部署 OAuth 代理后填入，参考 CMS-GUIDE.md
+
+# 本地开发时可以用这个后端调试（不需要 OAuth）
+# local_backend: true
+
+# 发布到 src/data/ 目录（静态站 build 时会读取这些文件）
+media_folder: "public/images/uploads"   # 图片上传保存位置
+public_folder: "/images/uploads"
+
+# ============================================================
+# 内容模型 - 每个集合对应一个 JSON 数据文件
+# ============================================================
+collections:
+  # -----------------------------------------------------------
+  # 1. 项目管理 - 最核心的内容
+  # -----------------------------------------------------------
+  - name: "projects"
+    label: "项目管理"
+    label_singular: "项目"
+    folder: "src/data"
+    create: false
+    delete: false
+    extension: "json"
+    format: "json"
+    slug: "projects"
+    file: "src/data/projects.json"
+    editor:
+      preview: true
+    fields:
+      - { label: "项目列表", name: "", widget: "list", required: true, fields:
+          [
+            { label: "ID", name: "id", widget: "string", hint: "英文唯一标识，如 binance" },
+            { label: "项目名称", name: "name", widget: "string" },
+            { label: "Logo 地址", name: "logo", widget: "string", required: false, hint: "图片 URL" },
+            { label: "分类", name: "category", widget: "select", options:
+              ["exchange-cex", "exchange-dex", "exchange-derivatives", "exchange-p2p",
+               "wallet-hot", "wallet-cold", "wallet-multisig",
+               "market-aggregator", "market-analytics", "market-explorer",
+               "defi-lending", "defi-yield", "defi-bridge", "defi-stablecoin",
+               "nft-marketplace", "nft-tools",
+               "infra-chain", "infra-layer2", "infra-dev-tools",
+               "security-audit", "security-tools",
+               "media-news", "media-community", "media-education",
+               "tools-portfolio", "tools-tax", "tools-airdrop"]
+            },
+            { label: "标签", name: "tags", widget: "list", required: false },
+            { label: "简介", name: "description", widget: "text" },
+            { label: "官网地址", name: "website", widget: "string" },
+            { label: "已认证", name: "verified", widget: "boolean", default: false },
+            { label: "已审计", name: "audited", widget: "boolean", default: false, required: false },
+            { label: "风险等级", name: "riskLevel", widget: "select", options: ["low", "medium", "high"], default: "low", required: false },
+            { label: "推荐展示", name: "featured", widget: "boolean", default: false, required: false },
+            { label: "赞助商", name: "sponsored", widget: "boolean", default: false, required: false },
+            { label: "赞助到期日", name: "sponsoredUntil", widget: "string", required: false, hint: "如 2026-12-31" },
+            { label: "状态", name: "status", widget: "select", options: ["active", "pending", "inactive"], default: "active" },
+            { label: "添加日期", name: "addedAt", widget: "string", hint: "如 2026-01-01" }
+          ]
+        }
+
+  # -----------------------------------------------------------
+  # 2. 广告管理
+  # -----------------------------------------------------------
+  - name: "ads"
+    label: "广告管理"
+    label_singular: "广告"
+    file: "src/data/ads.json"
+    extension: "json"
+    format: "json"
+    create: false
+    delete: false
+    editor:
+      preview: true
+    fields:
+      - { label: "广告列表", name: "", widget: "list", required: true, fields:
+          [
+            { label: "广告 ID", name: "id", widget: "string", hint: "如 ad-001" },
+            { label: "广告位", name: "slot", widget: "select", options:
+              ["home-banner", "sidebar-top", "sidebar-bottom", "footer-banner", "inline-card"] },
+            { label: "广告标题", name: "title", widget: "string" },
+            { label: "图片地址", name: "image", widget: "string", required: false, hint: "留空显示文字广告" },
+            { label: "跳转链接", name: "link", widget: "string" },
+            { label: "权重", name: "weight", widget: "number", default: 1, hint: "数字越大出现概率越高" },
+            { label: "启用", name: "active", widget: "boolean", default: true }
+          ]
+        }
+
+  # -----------------------------------------------------------
+  # 3. 首页推荐位
+  # -----------------------------------------------------------
+  - name: "featured"
+    label: "首页推荐"
+    label_singular: "推荐位"
+    file: "src/data/featured.json"
+    extension: "json"
+    format: "json"
+    create: false
+    delete: false
+    editor:
+      preview: true
+    fields:
+      - { label: "推荐列表", name: "", widget: "list", required: true, fields:
+          [
+            { label: "项目 ID", name: "projectId", widget: "string", hint: "对应项目列表中的 id，如 binance" },
+            { label: "推荐理由", name: "reason", widget: "string" },
+            { label: "排序", name: "order", widget: "number", default: 1, hint: "数字越小越靠前" }
+          ]
+        }
+
+  # -----------------------------------------------------------
+  # 4. 价格 Ticker
+  # -----------------------------------------------------------
+  - name: "ticker"
+    label: "价格 Ticker"
+    label_singular: "币种"
+    file: "src/data/ticker.json"
+    extension: "json"
+    format: "json"
+    create: false
+    delete: false
+    editor:
+      preview: true
+    fields:
+      - { label: "币种列表", name: "", widget: "list", required: true, fields:
+          [
+            { label: "ID", name: "id", widget: "string", hint: "如 bitcoin" },
+            { label: "代币符号", name: "symbol", widget: "string", hint: "如 BTC" },
+            { label: "名称", name: "name", widget: "string" },
+            { label: "Logo", name: "image", widget: "string", required: false },
+            { label: "当前价格", name: "currentPrice", widget: "number", default: 0 },
+            { label: "24h 涨跌幅", name: "priceChangePercentage24h", widget: "number", default: 0, hint: "正数涨，负数跌" }
+          ]
+        }

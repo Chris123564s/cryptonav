@@ -94,6 +94,16 @@ Cloudflare 自动检测到推送 → 自动构建 → 自动部署。不用任�
 
 ---
 
+## 管理后台
+
+网站部署完成后，你可以启用可视化管理后台，不用写代码就能管理项目、广告和推荐位。
+
+详见 **[CMS-GUIDE.md](./CMS-GUIDE.md)**，里面有完整的配置步骤。
+
+简单来说：网站部署好后访问 `https://你的网站地址/admin` 即可进入管理界面。
+
+---
+
 ## 常见问题
 
 **Q: 部署后页面白屏？**
@@ -102,8 +112,11 @@ A: 检查 Cloudflare 构建日志有没有报错。最常见的是依赖没装�
 **Q: 搜索功能不工作？**
 A: `public/data/projects.json` 文件必须存在。这个文件是给前端搜索用的，已在项目中包含。
 
+**Q: 管理后台打不开？**
+A: 确保已完成 `CMS-GUIDE.md` 中的 OAuth 配置。如果还没配，`/admin` 页面会显示但无法登录。
+
 **Q: 怎么加 Google Analytics？**
 A: 在 `src/layouts/Layout.astro` 的 `<head>` 里加你的 GA 代码即可。
 
 **Q: 免费额度够用吗？**
-A: Cloudflare Pages 免费版：不限带宽、不限请求数、每月 500 次构建。对导航站来说完全够用。
+A: Cloudflare Pages 免费版：不限带宽、不限请求数、每月 500 次构建。对导航站来说完全够用。Cloudflare Workers 免费版每天 10 万次请求，做 OAuth 代理绰绰有余。
