@@ -2,7 +2,7 @@
   {
     "id": "binance",
     "name": "Binance",
-    "logo": "https://assets.coingecko.com/markets/images/52/small/binance.jpg",
+    "logo": "/logos/binance.png",
     "category": "exchange-cex",
     "tags": [
       "Largest",
@@ -32,7 +32,7 @@
   {
     "id": "okx",
     "name": "OKX",
-    "logo": "https://assets.coingecko.com/markets/images/534/small/okx.jpg",
+    "logo": "/logos/okx.png",
     "category": "exchange-cex",
     "tags": [
       "Spot+Futures",
@@ -59,7 +59,7 @@
   {
     "id": "bybit",
     "name": "Bybit",
-    "logo": "https://assets.coingecko.com/markets/images/504/small/bybit.jpg",
+    "logo": "/logos/bybit.png",
     "category": "exchange-cex",
     "tags": [
       "Derivatives",
@@ -84,7 +84,7 @@
   {
     "id": "coinbase",
     "name": "Coinbase",
-    "logo": "https://assets.coingecko.com/markets/images/23/small/Coinbase_Coin_Primary.png",
+    "logo": "/logos/coinbase.png",
     "category": "exchange-cex",
     "tags": [
       "US Compliant",
@@ -111,7 +111,7 @@
   {
     "id": "kraken",
     "name": "Kraken",
-    "logo": "https://assets.coingecko.com/markets/images/24/small/kraken.jpg",
+    "logo": "/logos/kraken.png",
     "category": "exchange-cex",
     "tags": [
       "Established",
@@ -137,7 +137,7 @@
   {
     "id": "gate-io",
     "name": "Gate.io",
-    "logo": "https://assets.coingecko.com/markets/images/110/small/gate_io.jpg",
+    "logo": "/logos/gate-io.png",
     "category": "exchange-cex",
     "tags": [
       "Fast Listings",
@@ -162,7 +162,7 @@
   {
     "id": "bitget",
     "name": "Bitget",
-    "logo": "https://assets.coingecko.com/markets/images/678/small/bitget.jpg",
+    "logo": "/logos/bitget.png",
     "category": "exchange-cex",
     "tags": [
       "Copy Trading",
@@ -187,7 +187,7 @@
   {
     "id": "mexc",
     "name": "MEXC",
-    "logo": "https://assets.coingecko.com/markets/images/638/small/mexc.jpg",
+    "logo": "/logos/mexc.png",
     "category": "exchange-cex",
     "tags": [
       "Fastest Listings",
@@ -212,7 +212,7 @@
   {
     "id": "uniswap",
     "name": "Uniswap",
-    "logo": "https://assets.coingecko.com/coins/images/12504/small/uni.jpg",
+    "logo": "/logos/uniswap.png",
     "category": "exchange-dex",
     "tags": [
       "Largest DEX",
@@ -240,7 +240,7 @@
   {
     "id": "pancakeswap",
     "name": "PancakeSwap",
-    "logo": "https://assets.coingecko.com/coins/images/12632/small/pancakeswap-cake-logo.png",
+    "logo": "/logos/pancakeswap.png",
     "category": "exchange-dex",
     "tags": [
       "BSC",
@@ -266,7 +266,7 @@
   {
     "id": "curve",
     "name": "Curve Finance",
-    "logo": "https://assets.coingecko.com/coins/images/12124/small/Curve.png",
+    "logo": "/logos/curve.png",
     "category": "exchange-dex",
     "tags": [
       "Stablecoin Trading",
@@ -292,7 +292,7 @@
   {
     "id": "sushiswap",
     "name": "SushiSwap",
-    "logo": "https://assets.coingecko.com/coins/images/12270/small/512x512_Logo_no_circle.png",
+    "logo": "/logos/sushiswap.png",
     "category": "exchange-dex",
     "tags": [
       "Multi-chain",
@@ -318,7 +318,7 @@
   {
     "id": "1inch",
     "name": "1inch",
-    "logo": "https://assets.coingecko.com/coins/images/13469/small/1inch-token.png",
+    "logo": "/logos/1inch.png",
     "category": "exchange-dex",
     "tags": [
       "DEX Aggregator",
@@ -343,7 +343,7 @@
   {
     "id": "dydx",
     "name": "dYdX",
-    "logo": "https://assets.coingecko.com/coins/images/4648/small/dydx.png",
+    "logo": "/logos/dydx.png",
     "category": "exchange-derivatives",
     "tags": [
       "Decentralized Futures",
@@ -368,7 +368,7 @@
   {
     "id": "metamask",
     "name": "MetaMask",
-    "logo": "https://assets.coingecko.com/coins/images/279/small/metamask.png",
+    "logo": "/logos/metamask.png",
     "category": "wallet-hot",
     "tags": [
       "Most Popular",
@@ -394,7 +394,7 @@
   {
     "id": "phantom",
     "name": "Phantom",
-    "logo": "https://assets.coingecko.com/coins/images/25041/small/phantom.jpg",
+    "logo": "/logos/phantom.png",
     "category": "wallet-hot",
     "tags": [
       "Solana",
@@ -419,7 +419,7 @@
   {
     "id": "rabby",
     "name": "Rabby Wallet",
-    "logo": "https://www.google.com/s2/favicons?domain=rabby.io&sz=64",
+    "logo": "/logos/rabby.png",
     "category": "wallet-hot",
     "tags": [
       "Multi-chain",
@@ -440,7 +440,7 @@
   {
     "id": "trust-wallet",
     "name": "Trust Wallet",
-    "logo": "https://assets.coingecko.com/coins/images/279/small/metamask.png",
+    "logo": "/logos/trust-wallet.png",
     "category": "wallet-hot",
     "tags": [
       "Mobile",
@@ -464,7 +464,7 @@
   {
     "id": "ledger",
     "name": "Ledger",
-    "logo": "https://www.google.com/s2/favicons?domain=ledger.com&sz=64",
+    "logo": "/logos/ledger.png",
     "category": "wallet-cold",
     "tags": [
       "Hardware Wallet",
@@ -489,7 +489,7 @@
   {
     "id": "trezor",
     "name": "Trezor",
-    "logo": "https://www.google.com/s2/favicons?domain=trezor.io&sz=64",
+    "logo": "/logos/trezor.png",
     "category": "wallet-cold",
     "tags": [
       "Hardware Wallet",
@@ -515,7 +515,7 @@
   {
     "id": "safe",
     "name": "Safe (Gnosis Safe)",
-    "logo": "https://www.google.com/s2/favicons?domain=safe.global&sz=64",
+    "logo": "/logos/safe.png",
     "category": "wallet-multisig",
     "tags": [
       "Multisig",
@@ -542,7 +542,7 @@
   {
     "id": "coingecko",
     "name": "CoinGecko",
-    "logo": "https://assets.coingecko.com/coins/images/12504/small/uni.jpg",
+    "logo": "/logos/coingecko.png",
     "category": "market-aggregator",
     "tags": [
       "Prices",
@@ -567,7 +567,7 @@
   {
     "id": "coinmarketcap",
     "name": "CoinMarketCap",
-    "logo": "https://www.google.com/s2/favicons?domain=coinmarketcap.com&sz=64",
+    "logo": "/logos/coinmarketcap.png",
     "category": "market-aggregator",
     "tags": [
       "Prices",
@@ -591,7 +591,7 @@
   {
     "id": "dexscreener",
     "name": "DexScreener",
-    "logo": "https://www.google.com/s2/favicons?domain=dexscreener.com&sz=64",
+    "logo": "/logos/dexscreener.png",
     "category": "market-aggregator",
     "tags": [
       "DEX Prices",
@@ -612,7 +612,7 @@
   {
     "id": "dune",
     "name": "Dune Analytics",
-    "logo": "https://www.google.com/s2/favicons?domain=dune.com&sz=64",
+    "logo": "/logos/dune.png",
     "category": "market-analytics",
     "tags": [
       "On-chain Analytics",
@@ -636,7 +636,7 @@
   {
     "id": "defillama",
     "name": "DefiLlama",
-    "logo": "https://www.google.com/s2/favicons?domain=defillama.com&sz=64",
+    "logo": "/logos/defillama.png",
     "category": "market-analytics",
     "tags": [
       "TVL",
@@ -657,7 +657,7 @@
   {
     "id": "etherscan",
     "name": "Etherscan",
-    "logo": "https://www.google.com/s2/favicons?domain=etherscan.io&sz=64",
+    "logo": "/logos/etherscan.png",
     "category": "market-explorer",
     "tags": [
       "Ethereum",
@@ -678,7 +678,7 @@
   {
     "id": "solscan",
     "name": "Solscan",
-    "logo": "https://www.google.com/s2/favicons?domain=solscan.io&sz=64",
+    "logo": "/logos/solscan.png",
     "category": "market-explorer",
     "tags": [
       "Solana",
@@ -698,7 +698,7 @@
   {
     "id": "aave",
     "name": "Aave",
-    "logo": "https://assets.coingecko.com/coins/images/12645/small/aave.jpg",
+    "logo": "/logos/aave.png",
     "category": "defi-lending",
     "tags": [
       "Largest Lending",
@@ -725,7 +725,7 @@
   {
     "id": "compound",
     "name": "Compound",
-    "logo": "https://assets.coingecko.com/coins/images/10643/small/compound.png",
+    "logo": "/logos/compound.png",
     "category": "defi-lending",
     "tags": [
       "Lending",
@@ -751,7 +751,7 @@
   {
     "id": "makerdao",
     "name": "MakerDAO",
-    "logo": "https://www.google.com/s2/favicons?domain=makerdao.com&sz=64",
+    "logo": "/logos/makerdao.png",
     "category": "defi-stablecoin",
     "tags": [
       "DAI",
@@ -777,7 +777,7 @@
   {
     "id": "lido",
     "name": "Lido",
-    "logo": "https://www.google.com/s2/favicons?domain=lido.fi&sz=64",
+    "logo": "/logos/lido.png",
     "category": "defi-yield",
     "tags": [
       "Liquid Staking",
@@ -804,7 +804,7 @@
   {
     "id": "yearn",
     "name": "Yearn Finance",
-    "logo": "https://www.google.com/s2/favicons?domain=yearn.fi&sz=64",
+    "logo": "/logos/yearn.png",
     "category": "defi-yield",
     "tags": [
       "Yield Aggregator",
@@ -829,7 +829,7 @@
   {
     "id": "stargate",
     "name": "Stargate Finance",
-    "logo": "https://www.google.com/s2/favicons?domain=stargate.finance&sz=64",
+    "logo": "/logos/stargate.png",
     "category": "defi-bridge",
     "tags": [
       "Cross-chain Bridge",
@@ -851,7 +851,7 @@
   {
     "id": "across",
     "name": "Across Protocol",
-    "logo": "https://www.google.com/s2/favicons?domain=across.to&sz=64",
+    "logo": "/logos/across.png",
     "category": "defi-bridge",
     "tags": [
       "Cross-chain Bridge",
@@ -872,7 +872,7 @@
   {
     "id": "opensea",
     "name": "OpenSea",
-    "logo": "https://www.google.com/s2/favicons?domain=opensea.io&sz=64",
+    "logo": "/logos/opensea.png",
     "category": "nft-marketplace",
     "tags": [
       "Largest NFT Market",
@@ -897,7 +897,7 @@
   {
     "id": "blur",
     "name": "Blur",
-    "logo": "https://www.google.com/s2/favicons?domain=blur.io&sz=64",
+    "logo": "/logos/blur.png",
     "category": "nft-marketplace",
     "tags": [
       "Pro Trading",
@@ -921,7 +921,7 @@
   {
     "id": "magic-eden",
     "name": "Magic Eden",
-    "logo": "https://www.google.com/s2/favicons?domain=magiceden.io&sz=64",
+    "logo": "/logos/magic-eden.png",
     "category": "nft-marketplace",
     "tags": [
       "Solana",
@@ -945,7 +945,7 @@
   {
     "id": "ethereum",
     "name": "Ethereum",
-    "logo": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
+    "logo": "/logos/ethereum.png",
     "category": "infra-chain",
     "tags": [
       "Public Chain",
@@ -972,7 +972,7 @@
   {
     "id": "solana",
     "name": "Solana",
-    "logo": "https://www.google.com/s2/favicons?domain=solana.com&sz=64",
+    "logo": "/logos/solana.png",
     "category": "infra-chain",
     "tags": [
       "High Performance",
@@ -998,7 +998,7 @@
   {
     "id": "bsc",
     "name": "BNB Chain",
-    "logo": "https://www.google.com/s2/favicons?domain=bnbchain.org&sz=64",
+    "logo": "/logos/bsc.png",
     "category": "infra-chain",
     "tags": [
       "BSC",
@@ -1019,7 +1019,7 @@
   {
     "id": "arbitrum",
     "name": "Arbitrum",
-    "logo": "https://www.google.com/s2/favicons?domain=arbitrum.io&sz=64",
+    "logo": "/logos/arbitrum.png",
     "category": "infra-layer2",
     "tags": [
       "Layer2",
@@ -1041,7 +1041,7 @@
   {
     "id": "optimism",
     "name": "Optimism",
-    "logo": "https://www.google.com/s2/favicons?domain=optimism.io&sz=64",
+    "logo": "/logos/optimism.png",
     "category": "infra-layer2",
     "tags": [
       "Layer2",
@@ -1066,7 +1066,7 @@
   {
     "id": "base",
     "name": "Base",
-    "logo": "https://www.google.com/s2/favicons?domain=base.org&sz=64",
+    "logo": "/logos/base.png",
     "category": "infra-layer2",
     "tags": [
       "Layer2",
@@ -1087,7 +1087,7 @@
   {
     "id": "openzeppelin",
     "name": "OpenZeppelin",
-    "logo": "https://www.google.com/s2/favicons?domain=openzeppelin.com&sz=64",
+    "logo": "/logos/openzeppelin.png",
     "category": "security-audit",
     "tags": [
       "Audit",
@@ -1113,7 +1113,7 @@
   {
     "id": "certik",
     "name": "CertiK",
-    "logo": "https://www.google.com/s2/favicons?domain=certik.com&sz=64",
+    "logo": "/logos/certik.png",
     "category": "security-audit",
     "tags": [
       "Audit",
@@ -1134,7 +1134,7 @@
   {
     "id": "rekt",
     "name": "Rekt",
-    "logo": "https://www.google.com/s2/favicons?domain=rekt.news&sz=64",
+    "logo": "/logos/rekt.png",
     "category": "security-tools",
     "tags": [
       "Security Incidents",
@@ -1152,7 +1152,7 @@
   {
     "id": "cointelegraph",
     "name": "Cointelegraph",
-    "logo": "https://www.google.com/s2/favicons?domain=cointelegraph.com&sz=64",
+    "logo": "/logos/cointelegraph.png",
     "category": "media-news",
     "tags": [
       "News",
@@ -1176,7 +1176,7 @@
   {
     "id": "theblock",
     "name": "The Block",
-    "logo": "https://www.google.com/s2/favicons?domain=theblock.co&sz=64",
+    "logo": "/logos/theblock.png",
     "category": "media-news",
     "tags": [
       "News",
@@ -1197,7 +1197,7 @@
   {
     "id": "coindesk",
     "name": "CoinDesk",
-    "logo": "https://www.google.com/s2/favicons?domain=coindesk.com&sz=64",
+    "logo": "/logos/coindesk.png",
     "category": "media-news",
     "tags": [
       "News",
@@ -1221,7 +1221,7 @@
   {
     "id": "tokeninsight",
     "name": "TokenInsight",
-    "logo": "https://www.google.com/s2/favicons?domain=tokeninsight.com&sz=64",
+    "logo": "/logos/tokeninsight.png",
     "category": "media-news",
     "tags": [
       "Chinese",
@@ -1242,7 +1242,7 @@
   {
     "id": "coinmarketcal",
     "name": "CoinMarketCal",
-    "logo": "https://www.google.com/s2/favicons?domain=coinmarketcal.com&sz=64",
+    "logo": "/logos/coinmarketcal.png",
     "category": "tools-portfolio",
     "tags": [
       "Event Calendar",
@@ -1260,7 +1260,7 @@
   {
     "id": "koinly",
     "name": "Koinly",
-    "logo": "https://www.google.com/s2/favicons?domain=koinly.io&sz=64",
+    "logo": "/logos/koinly.png",
     "category": "tools-tax",
     "tags": [
       "Tax",
@@ -1281,7 +1281,7 @@
   {
     "id": "zerion",
     "name": "Zerion",
-    "logo": "https://www.google.com/s2/favicons?domain=zerion.io&sz=64",
+    "logo": "/logos/zerion.png",
     "category": "tools-portfolio",
     "tags": [
       "Portfolio Management",
@@ -1302,7 +1302,7 @@
   {
     "id": "debank",
     "name": "DeBank",
-    "logo": "https://www.google.com/s2/favicons?domain=debank.com&sz=64",
+    "logo": "/logos/debank.png",
     "category": "tools-portfolio",
     "tags": [
       "Portfolio Management",
@@ -1323,7 +1323,7 @@
   {
     "id": "airdropsio",
     "name": "Airdrops.io",
-    "logo": "https://www.google.com/s2/favicons?domain=airdrops.io&sz=64",
+    "logo": "/logos/airdropsio.png",
     "category": "tools-airdrop",
     "tags": [
       "Airdrops",
