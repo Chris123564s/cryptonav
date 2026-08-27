@@ -63,7 +63,9 @@ export interface AdConfig {
   id: string;
   slot: AdSlot;
   title: string;
+  subtitle?: string;
   image: string;
+  gradient?: string;
   link: string;
   startAt: string;
   endAt: string;
