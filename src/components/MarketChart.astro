@@ -71,10 +71,10 @@ const ranges = [
       <div class="flex-1 min-w-0">
         <div class="relative h-[260px] sm:h-[300px]">
           <canvas id="market-chart-canvas"></canvas>
-          <div id="chart-loading" class="absolute inset-0 flex items-center justify-center text-sm text-surface-400">
+          <div id="chart-loading" class="absolute inset-0 flex items-center justify-center text-sm text-surface-400 bg-white/70 dark:bg-surface-800/70 rounded-xl">
             Loading chart…
           </div>
-          <div id="chart-error" class="hidden absolute inset-0 flex items-center justify-center text-sm text-surface-400 text-center px-4">
+          <div id="chart-error" class="hidden absolute inset-0 flex items-center justify-center text-sm text-surface-400 text-center px-4 bg-white/70 dark:bg-surface-800/70 rounded-xl">
             Market data temporarily unavailable. Please try again later.
           </div>
         </div>
@@ -92,12 +92,12 @@ const ranges = [
   let chart: any = null;
   let currentCoin = 'bitcoin';
   let currentDays = 1;
-  let loadingEl: HTMLElement | null;
-  let errorEl: HTMLElement | null;
-  let canvasEl: HTMLCanvasElement | null;
+  let loadingEl: HTMLElement | null = null;
+  let errorEl: HTMLElement | null = null;
+  let canvasEl: HTMLCanvasElement | null = null;
   let ChartLib: any = null;
-  // 简单缓存：key = `${id}_${days}`
-  const cache = new Map<string, { prices: [number, number][]; ts: number }>();
+  let loadTimer: number | null = null;
+  const cache = new Map<string, [number, number][]>();
 
   function fmtPrice(v: number): string {
     return v >= 1
@@ -119,6 +119,17 @@ const ranges = [
     if (priceEl && price !== undefined) priceEl.textContent = fmtPrice(price);
   }
 
+  function isDark(): boolean {
+    return document.documentElement.classList.contains('dark');
+  }
+
+  function themeColors() {
+    return {
+      grid: isDark() ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)',
+      tick: isDark() ? '#94a3b8' : '#64748b',
+    };
+  }
+
   async function ensureChartLib() {
     if (ChartLib) return ChartLib;
     const mod = await import('chart.js/auto');
@@ -126,36 +137,42 @@ const ranges = [
     return ChartLib;
   }
 
-  function isDark(): boolean {
-    return document.documentElement.classList.contains('dark');
+  // 始终返回可读的时间标签（不再留空），让 X 轴始终有时间刻度
+  function formatLabels(prices: [number, number][], days: number): string[] {
+    return prices.map(p => {
+      const d = new Date(p[0]);
+      if (days <= 1) return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+      if (days <= 7) return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      if (days <= 30) return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      return d.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+    });
   }
 
-  function renderChart(labels: string[], values: number[]) {
+  function renderChart(prices: [number, number][]) {
     if (!ChartLib || !canvasEl) return;
+    const values = prices.map(p => p[1]);
     const up = values.length > 1 && values[values.length - 1] >= values[0];
     const line = up ? '#16a34a' : '#dc2626'; // 涨绿跌红（国际惯例）
     const fillTop = up ? 'rgba(22,163,74,0.25)' : 'rgba(220,38,38,0.25)';
-
-    const gridColor = isDark() ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)';
-    const tickColor = isDark() ? '#94a3b8' : '#64748b';
+    const { grid, tick } = themeColors();
+    const labels = formatLabels(prices, currentDays);
 
     if (chart) {
       chart.data.labels = labels;
       chart.data.datasets[0].data = values;
       chart.data.datasets[0].borderColor = line;
       chart.data.datasets[0].backgroundColor = (ctx: any) => {
-        const { chart: ch } = ctx;
-        const { ctx: c, chartArea } = ch;
+        const { chartArea } = ctx.chart;
         if (!chartArea) return fillTop;
-        const g = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+        const g = ctx.chart.ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
         g.addColorStop(0, fillTop);
         g.addColorStop(1, 'rgba(0,0,0,0)');
         return g;
       };
-      chart.options.scales.x.grid.color = gridColor;
-      chart.options.scales.y.grid.color = gridColor;
-      chart.options.scales.x.ticks.color = tickColor;
-      chart.options.scales.y.ticks.color = tickColor;
+      chart.options.scales.x.grid.color = grid;
+      chart.options.scales.y.grid.color = grid;
+      chart.options.scales.x.ticks.color = tick;
+      chart.options.scales.y.ticks.color = tick;
       chart.update();
       return;
     }
@@ -170,10 +187,9 @@ const ranges = [
           borderWidth: 2,
           fill: true,
           backgroundColor: (ctx: any) => {
-            const { chart: ch } = ctx;
-            const { ctx: c, chartArea } = ch;
+            const { chartArea } = ctx.chart;
             if (!chartArea) return fillTop;
-            const g = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+            const g = ctx.chart.ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
             g.addColorStop(0, fillTop);
             g.addColorStop(1, 'rgba(0,0,0,0)');
             return g;
@@ -189,36 +205,18 @@ const ranges = [
         interaction: { intersect: false, mode: 'index' },
         plugins: {
           legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (ctx: any) => fmtPrice(ctx.parsed.y),
-            },
-          },
+          tooltip: { callbacks: { label: (ctx: any) => fmtPrice(ctx.parsed.y) } },
         },
         scales: {
-          x: { grid: { color: gridColor }, ticks: { color: tickColor, maxTicksLimit: 6, maxRotation: 0 } },
-          y: {
-            grid: { color: gridColor },
-            ticks: { color: tickColor, callback: (v: any) => fmtPrice(v) },
-          },
+          x: { grid: { color: grid }, ticks: { color: tick, maxRotation: 0, autoSkip: true, maxTicksLimit: 6 } },
+          y: { grid: { color: grid }, ticks: { color: tick, callback: (v: any) => fmtPrice(v) } },
         },
       },
     });
   }
 
-  function formatLabels(prices: [number, number][], days: number): string[] {
-    const max = days <= 1 ? 6 : days <= 7 ? 7 : days <= 30 ? 8 : 6;
-    const step = Math.max(1, Math.floor(prices.length / max));
-    return prices.map((p, i) => {
-      const d = new Date(p[0]);
-      if (i % step !== 0 && i !== prices.length - 1) return '';
-      if (days <= 1) return d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-      if (days <= 30) return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      return d.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
-    });
-  }
-
-  async function loadChart(coinId: string, days: number, force = false) {
+  async function loadChart(coinId: string, days: number) {
+    await ensureChartLib();
     currentCoin = coinId;
     currentDays = days;
     if (loadingEl) loadingEl.classList.remove('hidden');
@@ -227,8 +225,9 @@ const ranges = [
 
     const key = `${coinId}_${days}`;
     const cached = cache.get(key);
-    if (cached && !force) {
-      renderChart(formatLabels(cached.prices, days), cached.prices.map(p => p[1]));
+    if (cached) {
+      renderChart(cached);
+      updateCurrentBadge(cached[cached.length - 1][1]);
       if (loadingEl) loadingEl.classList.add('hidden');
       return;
     }
@@ -236,25 +235,26 @@ const ranges = [
     try {
       const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`;
       const res = await fetch(url);
-      if (!res.ok) throw new Error('bad');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
       const prices: [number, number][] = json.prices || [];
-      if (prices.length === 0) throw new Error('empty');
-      cache.set(key, { prices, ts: Date.now() });
-      renderChart(formatLabels(prices, days), prices.map(p => p[1]));
-      // 更新 badge 价格为最新点
+      if (!prices.length) throw new Error('empty');
+      cache.set(key, prices);
+      renderChart(prices);
       updateCurrentBadge(prices[prices.length - 1][1]);
     } catch (e) {
-      if (chart) {
-        // 已有图则保留，仅提示
-        if (loadingEl) loadingEl.classList.add('hidden');
-      } else if (errorEl) {
-        errorEl.classList.remove('hidden');
-        if (loadingEl) loadingEl.classList.add('hidden');
-      }
+      if (!chart && errorEl) errorEl.classList.remove('hidden');
+      // 已有一张图则保留旧图，仅在 console 提示，不遮罩
+      console.warn('[MarketChart] failed to load', coinId, e);
     } finally {
-      if (loadingEl && !errorEl?.classList.contains('hidden') === false) loadingEl.classList.add('hidden');
+      if (loadingEl) loadingEl.classList.add('hidden');
     }
+  }
+
+  // 防抖切换，避免快速连点触发 CoinGecko 限速导致静默失败
+  function requestChart(coinId: string, days: number) {
+    if (loadTimer) clearTimeout(loadTimer);
+    loadTimer = window.setTimeout(() => loadChart(coinId, days), 200);
   }
 
   function setActiveRange(days: number) {
@@ -275,30 +275,29 @@ const ranges = [
     });
   }
 
+  function switchCoin(id: string) {
+    if (!id) return;
+    setActiveQuick(id);
+    requestChart(id, currentDays);
+  }
+
   function wireUp() {
     loadingEl = document.getElementById('chart-loading');
     errorEl = document.getElementById('chart-error');
     canvasEl = document.getElementById('market-chart-canvas') as HTMLCanvasElement | null;
 
-    // 区间按钮
     document.querySelectorAll('.chart-range-btn').forEach(b => {
       b.addEventListener('click', () => {
         const days = Number((b as HTMLElement).dataset.days);
         setActiveRange(days);
-        loadChart(currentCoin, days);
+        requestChart(currentCoin, days);
       });
     });
 
-    // 快捷币种
     document.querySelectorAll('.chart-quick-btn').forEach(b => {
-      b.addEventListener('click', () => {
-        const id = (b as HTMLElement).dataset.coinId!;
-        setActiveQuick(id);
-        loadChart(id, currentDays);
-      });
+      b.addEventListener('click', () => switchCoin((b as HTMLElement).dataset.coinId!));
     });
 
-    // 搜索下拉
     const search = document.getElementById('chart-coin-search') as HTMLInputElement | null;
     const list = document.getElementById('chart-coin-list');
     if (search && list) {
@@ -321,8 +320,7 @@ const ranges = [
             const id = (item as HTMLElement).dataset.coinId!;
             search.value = '';
             list.classList.add('hidden');
-            setActiveQuick(id);
-            loadChart(id, currentDays);
+            switchCoin(id);
           });
         });
       });
@@ -335,15 +333,12 @@ const ranges = [
     // 与 Live Prices ticker 联动：点击 ticker 币 -> 切图
     document.addEventListener('coin-selected', (e: Event) => {
       const id = (e as CustomEvent).detail?.id;
-      if (!id) return;
-      setActiveQuick(id);
-      loadChart(id, currentDays);
-      // 滚动到图表位置
+      switchCoin(id);
       document.getElementById('market-chart-canvas')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
     // 初始化
-    ensureChartLib().then(() => loadChart('bitcoin', 1));
+    ensureChartLib().then(() => switchCoin('bitcoin'));
     setActiveQuick('bitcoin');
   }
 
