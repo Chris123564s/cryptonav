@@ -1,0 +1,100 @@
+---
+import type { ProjectData } from '../types';
+import { formatNumber } from '../utils/data';
+
+interface Props {
+  project: ProjectData;
+  compact?: boolean;
+}
+
+const { project, compact = false } = Astro.props;
+
+// 获取分类 slug
+function getCategorySlug(categoryId: string): string {
+  const parts = categoryId.split('-');
+  return parts[0] || categoryId;
+}
+---
+
+<a
+  href={project.referral || project.website}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="project-card group block"
+>
+  <div class="flex items-start gap-3">
+    <!-- Logo -->
+    <div class="shrink-0">
+      {project.logo ? (
+        <img src={project.logo} alt={project.name} class="w-10 h-10 rounded-lg object-cover" loading="lazy" />
+      ) : (
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-100 to-brand-200 dark:from-brand-900 dark:to-brand-800 flex items-center justify-center text-sm font-bold text-brand-600 dark:text-brand-400">
+          {project.name.charAt(0)}
+        </div>
+      )}
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center gap-2 flex-wrap">
+        <h3 class="font-semibold text-sm text-surface-800 dark:text-surface-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors truncate">
+          {project.name}
+        </h3>
+        {project.symbol && (
+          <span class="text-xs font-mono text-surface-400">{project.symbol}</span>
+        )}
+        {project.sponsored && (
+          <span class="sponsored-badge">
+            <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 1l2.5 5.5L18 7l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L10 1z"/></svg>
+            赞助
+          </span>
+        )}
+        {project.featured && !project.sponsored && (
+          <span class="featured-badge">精选</span>
+        )}
+        {project.audited && (
+          <span class="inline-flex items-center gap-0.5 text-[10px] text-green-600 dark:text-green-400">
+            <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 9.83 0 0 0 0 9.999 11.954 9.83 0 0 0 2.166 15c.532-1.623 2.052-2.834 3.834-2.834h10c1.782 0 3.302 1.211 3.834 2.834A11.954 9.83 0 0 0 20 10 11.954 9.83 0 0 0 17.834 5c-.532 1.623-2.052 2.834-3.834 2.834h-10c-1.782 0-3.302-1.211-3.834-2.835z" clip-rule="evenodd"/></svg>
+            已审计
+          </span>
+        )}
+      </div>
+
+      {!compact && (
+        <p class="text-xs text-surface-500 dark:text-surface-400 mt-1 line-clamp-2">{project.description}</p>
+      )}
+
+      <!-- Tags -->
+      {project.tags && project.tags.length > 0 && (
+        <div class="flex flex-wrap gap-1 mt-2">
+          {project.tags.slice(0, 3).map(tag => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+
+      <!-- Metrics -->
+      {project.metrics && !compact && (
+        <div class="flex items-center gap-3 mt-2 text-xs text-surface-400">
+          {project.metrics.marketCapRank && (
+            <span>市值 #{project.metrics.marketCapRank}</span>
+          )}
+          {project.metrics.tvl && (
+            <span>TVL {formatNumber(project.metrics.tvl)}</span>
+          )}
+          {project.metrics.volume24h && (
+            <span>24h {formatNumber(project.metrics.volume24h)}</span>
+          )}
+          {project.metrics.twitterFollowers && project.metrics.twitterFollowers > 10000 && (
+            <span>{(project.metrics.twitterFollowers / 1000).toFixed(0)}K 粉丝</span>
+          )}
+        </div>
+      )}
+    </div>
+
+    <!-- Arrow -->
+    <div class="shrink-0 self-center opacity-0 group-hover:opacity-100 transition-opacity">
+      <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+    </div>
+  </div>
+</a>

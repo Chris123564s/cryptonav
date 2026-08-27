@@ -1,0 +1,177 @@
+---
+import { categories } from '../utils/data';
+
+const navCategories = categories;
+---
+
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-surface-900/80 backdrop-blur-lg border-b border-surface-200 dark:border-surface-700">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 shrink-0">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-accent-500 flex items-center justify-center">
+          <span class="text-white font-bold text-sm">C</span>
+        </div>
+        <span class="font-bold text-lg text-surface-800 dark:text-white">CryptoNav</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-1">
+        <a href="/" class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400 transition-colors">首页</a>
+        {navCategories.map(cat => (
+          <a href={`/category/${cat.slug}`} class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400 transition-colors">{cat.name}</a>
+        ))}
+        <a href="/submit" class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400 transition-colors">提交收录</a>
+        <a href="/advertise" class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400 transition-colors">广告合作</a>
+      </nav>
+
+      <!-- Search + Dark mode -->
+      <div class="flex items-center gap-3">
+        <div class="relative hidden md:block">
+          <input
+            type="text"
+            id="header-search"
+            placeholder="搜索项目..."
+            class="search-input !w-48 lg:!w-64"
+          />
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <!-- Search results dropdown -->
+          <div id="search-results" class="hidden absolute top-full mt-2 left-0 right-0 bg-white dark:bg-surface-800 rounded-lg shadow-xl border border-surface-200 dark:border-surface-700 max-h-96 overflow-y-auto z-50"></div>
+        </div>
+
+        <button id="theme-toggle" class="p-2 rounded-lg text-surface-500 hover:bg-surface-100 dark:text-surface-400 dark:hover:bg-surface-800 transition-colors">
+          <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+          <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </button>
+
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg text-surface-500 hover:bg-surface-100 dark:text-surface-400 dark:hover:bg-surface-800">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden lg:hidden pb-4">
+      <div class="relative mb-3">
+        <input type="text" id="mobile-search" placeholder="搜索项目..." class="search-input" />
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <nav class="flex flex-col gap-1">
+        <a href="/" class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400">首页</a>
+        {navCategories.map(cat => (
+          <a href={`/category/${cat.slug}`} class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400">{cat.name}</a>
+        ))}
+        <a href="/submit" class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400">提交收录</a>
+        <a href="/advertise" class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400">广告合作</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  // Theme toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle?.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
+  // Mobile menu
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  mobileMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+</script>
+
+<script>
+  import Fuse from 'fuse.js';
+  
+  // Load projects data for search
+  let fuse: Fuse<any> | null = null;
+  let searchData: any[] = [];
+  
+  async function initSearch() {
+    try {
+      const res = await fetch('/data/projects.json');
+      searchData = await res.json();
+      fuse = new Fuse(searchData, {
+        keys: ['name', 'symbol', 'tags', 'description'],
+        threshold: 0.3,
+        includeScore: true,
+      });
+    } catch (e) {
+      // Data file not available in dev with certain configs
+    }
+  }
+  
+  function performSearch(query: string): any[] {
+    if (!fuse || !query.trim()) return [];
+    return fuse.search(query).slice(0, 6).map(r => r.item);
+  }
+  
+  function renderResults(results: any[], container: HTMLElement) {
+    if (results.length === 0) {
+      container.innerHTML = '<div class="p-4 text-sm text-surface-400">未找到相关项目</div>';
+      container.classList.remove('hidden');
+      return;
+    }
+    container.innerHTML = results.map(p => {
+      const catLink = `/category/${p.category.split('-')[0]}`;
+      return `
+        <a href="${catLink}" class="flex items-center gap-3 p-3 hover:bg-surface-50 dark:hover:bg-surface-700 transition-colors">
+          ${p.logo ? `<img src="${p.logo}" alt="${p.name}" class="w-8 h-8 rounded-lg object-cover" loading="lazy" />` : `<div class="w-8 h-8 rounded-lg bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-sm font-bold text-brand-600 dark:text-brand-400">${p.name.charAt(0)}</div>`}
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-medium text-surface-700 dark:text-surface-200 truncate">${p.name}</div>
+            <div class="text-xs text-surface-400 truncate">${p.description || ''}</div>
+          </div>
+        </a>
+      `;
+    }).join('');
+    container.classList.remove('hidden');
+  }
+  
+  function setupSearch(inputId: string, resultsId: string) {
+    const input = document.getElementById(inputId) as HTMLInputElement;
+    const results = document.getElementById(resultsId) as HTMLElement;
+    if (!input || !results) return;
+    
+    input.addEventListener('input', (e) => {
+      const query = (e.target as HTMLInputElement).value;
+      if (query.trim().length < 1) {
+        results.classList.add('hidden');
+        return;
+      }
+      const searchResults = performSearch(query);
+      renderResults(searchResults, results);
+    });
+    
+    input.addEventListener('focus', () => {
+      if (input.value.trim().length >= 1) {
+        results.classList.remove('hidden');
+      }
+    });
+    
+    document.addEventListener('click', (e) => {
+      if (!input.contains(e.target as Node) && !results.contains(e.target as Node)) {
+        results.classList.add('hidden');
+      }
+    });
+  }
+  
+  initSearch().then(() => {
+    setupSearch('header-search', 'search-results');
+    setupSearch('mobile-search', 'search-results');
+  });
+</script>

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "exchange",
+    "name": "交易所",
+    "slug": "exchange",
+    "icon": "exchange",
+    "description": "中心化和去中心化加密货币交易平台",
+    "subcategories": [
+      { "id": "exchange-cex", "name": "中心化交易所", "slug": "cex", "description": "传统撮合制交易所" },
+      { "id": "exchange-dex", "name": "去中心化交易所", "slug": "dex", "description": "链上自动做市交易所" },
+      { "id": "exchange-derivatives", "name": "衍生品交易所", "slug": "derivatives", "description": "合约、期权等衍生品" },
+      { "id": "exchange-p2p", "name": "P2P 交易", "slug": "p2p", "description": "点对点交易" }
+    ]
+  },
+  {
+    "id": "wallet",
+    "name": "钱包",
+    "slug": "wallet",
+    "icon": "wallet",
+    "description": "加密货币存储和管理工具",
+    "subcategories": [
+      { "id": "wallet-hot", "name": "热钱包", "slug": "hot", "description": "在线钱包，方便快捷" },
+      { "id": "wallet-cold", "name": "硬件钱包", "slug": "cold", "description": "离线存储，安全可靠" },
+      { "id": "wallet-multisig", "name": "多签钱包", "slug": "multisig", "description": "多签名安全钱包" }
+    ]
+  },
+  {
+    "id": "market",
+    "name": "行情与数据",
+    "slug": "market",
+    "icon": "chart",
+    "description": "行情聚合、链上分析和区块浏览器",
+    "subcategories": [
+      { "id": "market-aggregator", "name": "行情聚合", "slug": "aggregator", "description": "多平台行情聚合" },
+      { "id": "market-analytics", "name": "链上分析", "slug": "analytics", "description": "链上数据分析工具" },
+      { "id": "market-explorer", "name": "区块浏览器", "slug": "explorer", "description": "交易和区块查询" }
+    ]
+  },
+  {
+    "id": "defi",
+    "name": "DeFi",
+    "slug": "defi",
+    "icon": "defi",
+    "description": "去中心化金融协议和应用",
+    "subcategories": [
+      { "id": "defi-lending", "name": "借贷", "slug": "lending", "description": "去中心化借贷协议" },
+      { "id": "defi-yield", "name": "收益聚合", "slug": "yield", "description": "收益优化和聚合器" },
+      { "id": "defi-bridge", "name": "跨链桥", "slug": "bridge", "description": "跨链资产转移" },
+      { "id": "defi-stablecoin", "name": "稳定币", "slug": "stablecoin", "description": "去中心化稳定币协议" }
+    ]
+  },
+  {
+    "id": "nft",
+    "name": "NFT",
+    "slug": "nft",
+    "icon": "nft",
+    "description": "NFT 交易市场和工具",
+    "subcategories": [
+      { "id": "nft-marketplace", "name": "NFT 交易市场", "slug": "marketplace", "description": "NFT 买卖平台" },
+      { "id": "nft-tools", "name": "NFT 工具", "slug": "tools", "description": "铸造、分析工具" }
+    ]
+  },
+  {
+    "id": "infra",
+    "name": "基础设施",
+    "slug": "infra",
+    "icon": "infra",
+    "description": "公链、Layer2 和开发工具",
+    "subcategories": [
+      { "id": "infra-chain", "name": "公链", "slug": "chain", "description": "区块链底层网络" },
+      { "id": "infra-layer2", "name": "Layer2", "slug": "layer2", "description": "二层扩容方案" },
+      { "id": "infra-dev-tools", "name": "开发工具", "slug": "dev-tools", "description": "开发SDK和工具" }
+    ]
+  },
+  {
+    "id": "security",
+    "name": "安全与审计",
+    "slug": "security",
+    "icon": "shield",
+    "description": "智能合约审计和安全工具",
+    "subcategories": [
+      { "id": "security-audit", "name": "审计公司", "slug": "audit", "description": "智能合约审计服务" },
+      { "id": "security-tools", "name": "安全工具", "slug": "tools", "description": "安全检测和风控" }
+    ]
+  },
+  {
+    "id": "media",
+    "name": "社区与媒体",
+    "slug": "media",
+    "icon": "media",
+    "description": "资讯媒体和学习社区",
+    "subcategories": [
+      { "id": "media-news", "name": "媒体资讯", "slug": "news", "description": "加密币新闻媒体" },
+      { "id": "media-community", "name": "社区论坛", "slug": "community", "description": "讨论社区" },
+      { "id": "media-education", "name": "教育学习", "slug": "education", "description": "教程和学习资源" }
+    ]
+  },
+  {
+    "id": "tools",
+    "name": "实用工具",
+    "slug": "tools",
+    "icon": "tool",
+    "description": "税务、投资组合和交易工具",
+    "subcategories": [
+      { "id": "tools-portfolio", "name": "投资组合", "slug": "portfolio", "description": "资产管理工具" },
+      { "id": "tools-tax", "name": "税务工具", "slug": "tax", "description": "加密货币税务计算" },
+      { "id": "tools-airdrop", "name": "空投工具", "slug": "airdrop", "description": "空投查询和领取" }
+    ]
+  }
+]

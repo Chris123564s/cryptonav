@@ -1,0 +1,78 @@
+---
+import { categories } from '../utils/data';
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-surface-800 dark:bg-surface-950 text-surface-400 mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+      <!-- Brand -->
+      <div class="col-span-2 lg:col-span-1">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">C</span>
+          </div>
+          <span class="font-bold text-lg text-white">CryptoNav</span>
+        </div>
+        <p class="text-sm text-surface-400 leading-relaxed">
+          面向中文用户的加密货币综合导航站，聚合优质资源，助你发现好项目。
+        </p>
+      </div>
+
+      <!-- Categories -->
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-3">分类</h3>
+        <ul class="space-y-2">
+          {categories.slice(0, 5).map(cat => (
+            <li>
+              <a href={`/category/${cat.slug}`} class="text-sm hover:text-brand-400 transition-colors">{cat.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-3">更多分类</h3>
+        <ul class="space-y-2">
+          {categories.slice(5).map(cat => (
+            <li>
+              <a href={`/category/${cat.slug}`} class="text-sm hover:text-brand-400 transition-colors">{cat.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-3">关于</h3>
+        <ul class="space-y-2">
+          <li><a href="/submit" class="text-sm hover:text-brand-400 transition-colors">提交收录</a></li>
+          <li><a href="/advertise" class="text-sm hover:text-brand-400 transition-colors">广告合作</a></li>
+          <li><a href="/about" class="text-sm hover:text-brand-400 transition-colors">关于我们</a></li>
+        </ul>
+      </div>
+
+      <!-- Disclaimer -->
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-3">免责声明</h3>
+        <p class="text-xs text-surface-500 leading-relaxed">
+          本站仅提供信息导航服务，不构成任何投资建议。加密货币投资有风险，请自行研究并承担责任。
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-surface-700 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-surface-500">
+        &copy; {year} CryptoNav. 保留所有权利。
+      </p>
+      <div class="flex items-center gap-4">
+        <a href="https://twitter.com" target="_blank" rel="noopener" class="text-surface-400 hover:text-brand-400 transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://t.me" target="_blank" rel="noopener" class="text-surface-400 hover:text-brand-400 transition-colors">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

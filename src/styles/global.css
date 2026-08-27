@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-surface-50 text-surface-700 font-sans antialiased;
+  }
+  .dark body {
+    @apply bg-surface-900 text-surface-300;
+  }
+}
+
+@layer components {
+  /* 项目卡片 */
+  .project-card {
+    @apply bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-5 
+           transition-all duration-200 hover:shadow-lg hover:-translate-y-1 hover:border-brand-300;
+  }
+  
+  /* 分类卡片 */
+  .category-card {
+    @apply bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-5
+           transition-all duration-200 hover:shadow-lg hover:-translate-y-1 hover:border-brand-300 cursor-pointer;
+  }
+  
+  /* 广告容器 */
+  .ad-container {
+    @apply relative overflow-hidden rounded-lg border border-dashed border-surface-300 dark:border-surface-600
+           bg-surface-100 dark:bg-surface-800 flex items-center justify-center;
+  }
+  .ad-label {
+    @apply absolute top-1 right-1 text-[10px] font-medium text-surface-400 bg-surface-200/80 dark:bg-surface-700/80 
+           px-1.5 py-0.5 rounded;
+  }
+  
+  /* 标签 */
+  .tag {
+    @apply inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-md
+           bg-brand-50 text-brand-600 dark:bg-brand-900/30 dark:text-brand-400;
+  }
+  
+  /* 按钮 */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg
+           bg-brand-600 text-white hover:bg-brand-700 transition-colors;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium rounded-lg
+           bg-surface-100 text-surface-700 hover:bg-surface-200 dark:bg-surface-800 dark:text-surface-300 dark:hover:bg-surface-700 transition-colors;
+  }
+  
+  /* 赞助标记 */
+  .sponsored-badge {
+    @apply inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-medium rounded
+           bg-accent-500/10 text-accent-600 dark:text-accent-400;
+  }
+  
+  /* 精选标记 */
+  .featured-badge {
+    @apply inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-medium rounded
+           bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400;
+  }
+  
+  /* 搜索框 */
+  .search-input {
+    @apply w-full px-4 py-2.5 pl-10 text-sm rounded-lg border border-surface-200 dark:border-surface-700
+           bg-white dark:bg-surface-800 text-surface-700 dark:text-surface-200
+           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent;
+  }
+}
+
+/* 行情滚动条 */
+.ticker-track {
+  display: flex;
+  animation: ticker 40s linear infinite;
+}
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-300 dark:bg-surface-600 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-surface-400 dark:bg-surface-500;
+}

@@ -1,0 +1,47 @@
+---
+import { getAd } from '../utils/data';
+import type { AdSlot } from '../types';
+
+interface Props {
+  slot: AdSlot;
+  format?: 'banner' | 'sidebar' | 'inline';
+  className?: string;
+}
+
+const { slot, format = 'banner', className = '' } = Astro.props;
+const ad = getAd(slot);
+
+const sizeClasses: Record<string, string> = {
+  banner: 'w-full h-[120px] md:h-[180px]',
+  sidebar: 'w-full h-[250px]',
+  inline: 'w-full h-[120px]',
+};
+---
+
+{ad ? (
+  <a
+    href={ad.link}
+    class={`ad-container ${sizeClasses[format]} ${className}`}
+    target={ad.link.startsWith('/') ? '' : '_blank'}
+    rel={ad.link.startsWith('/') ? '' : 'sponsored noopener'}
+    data-ad-id={ad.id}
+  >
+    {ad.image ? (
+      <img src={ad.image} alt={ad.title} class="w-full h-full object-cover" loading="lazy" />
+    ) : (
+      <div class="flex flex-col items-center justify-center text-center px-4">
+        <p class="text-sm font-medium text-surface-500 dark:text-surface-400">{ad.title}</p>
+        <p class="text-xs text-surface-400 mt-1">联系: advertise@cryptonav.com</p>
+      </div>
+    )}
+    <span class="ad-label">广告</span>
+  </a>
+) : (
+  <div class={`ad-container ${sizeClasses[format]} ${className}`}>
+    <div class="flex flex-col items-center justify-center text-center px-4">
+      <p class="text-sm font-medium text-surface-400 dark:text-surface-500">广告位招租</p>
+      <a href="/advertise" class="text-xs text-brand-500 hover:text-brand-600 mt-1">了解详情</a>
+    </div>
+    <span class="ad-label">Ad</span>
+  </div>
+)}

@@ -1,0 +1,133 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import AdBanner from '../../components/AdBanner.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { categories, getProjectsByParentCategory, getCategoryById } from '../../utils/data';
+
+export async function getStaticPaths() {
+  return categories.map(cat => ({
+    params: { slug: cat.slug },
+    props: { category: cat },
+  }));
+}
+
+interface Props {
+  category: typeof categories[0];
+}
+
+const { category } = Astro.props;
+const projects = getProjectsByParentCategory(category.id);
+---
+
+<Layout title={`${category.name} - CryptoNav`} description={category.description}>
+  <!-- Breadcrumb -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <nav class="flex items-center gap-2 text-xs text-surface-400">
+      <a href="/" class="hover:text-brand-500">首页</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-surface-600 dark:text-surface-300">{category.name}</span>
+    </nav>
+  </div>
+
+  <!-- Category Header -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <h1 class="text-2xl font-bold text-surface-800 dark:text-surface-100">{category.name}</h1>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-1">{category.description} · {projects.length} 个项目</p>
+
+    <!-- Subcategory Filter -->
+    <div class="flex flex-wrap gap-2 mt-4" id="subcategory-filters">
+      <button class="px-3 py-1.5 text-xs font-medium rounded-lg bg-brand-600 text-white filter-btn active" data-filter="all">
+        全部 ({projects.length})
+      </button>
+      {category.subcategories.map(sub => {
+        const count = projects.filter(p => p.category === sub.id).length;
+        return (
+          <button class={`px-3 py-1.5 text-xs font-medium rounded-lg bg-surface-100 dark:bg-surface-800 text-surface-600 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-700 filter-btn transition-colors`} data-filter={sub.id}>
+            {sub.name} ({count})
+          </button>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Projects + Sidebar -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-4 gap-6 pb-12">
+    <!-- Projects Grid -->
+    <div class="lg:col-span-3">
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {projects.map((project, index) => (
+          <>
+            {/* Insert inline ad every 8 projects */}
+            {index > 0 && index % 8 === 0 && (
+              <div class="md:col-span-2">
+                <AdBanner slot="inline-card" format="inline" />
+              </div>
+            )}
+            <div class="project-item" data-category={project.category}>
+              <ProjectCard project={project} />
+            </div>
+          </>
+        ))}
+      </div>
+
+      {projects.length === 0 && (
+        <div class="text-center py-20">
+          <p class="text-surface-400">暂无项目，欢迎<a href="/submit" class="text-brand-500 hover:underline">提交收录</a></p>
+        </div>
+      )}
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="lg:col-span-1 space-y-6">
+      <AdBanner slot="sidebar-top" format="sidebar" />
+
+      <!-- Related Categories -->
+      <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-5">
+        <h3 class="font-semibold text-sm text-surface-800 dark:text-surface-100 mb-3">相关分类</h3>
+        <ul class="space-y-2">
+          {categories.filter(c => c.id !== category.id).slice(0, 6).map(cat => (
+            <li>
+              <a href={`/category/${cat.slug}`} class="text-sm text-surface-500 hover:text-brand-500 transition-colors flex items-center justify-between">
+                <span>{cat.name}</span>
+                <svg class="w-3 h-3 text-surface-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <AdBanner slot="sidebar-bottom" format="sidebar" />
+    </aside>
+  </div>
+</Layout>
+
+<script>
+  // Subcategory filter
+  const buttons = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.project-item');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+
+      // Update active state
+      buttons.forEach(b => {
+        b.classList.remove('active', 'bg-brand-600', 'text-white');
+        b.classList.add('bg-surface-100', 'dark:bg-surface-800', 'text-surface-600', 'dark:text-surface-300');
+      });
+      btn.classList.add('active', 'bg-brand-600', 'text-white');
+      btn.classList.remove('bg-surface-100', 'dark:bg-surface-800', 'text-surface-600', 'dark:text-surface-300');
+
+      // Filter items
+      items.forEach(item => {
+        const category = item.getAttribute('data-category');
+        if (filter === 'all' || category === filter) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
