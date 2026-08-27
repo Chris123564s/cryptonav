@@ -1,17 +1,22 @@
 ---
 import recommended from '../data/recommended.json';
 
-function fmtPrice(v: number): string {
+function fmtPrice(v: number | null | undefined): string {
+  if (v === null || v === undefined || (typeof v === 'number' && isNaN(v))) return '—';
   if (v >= 1) return `$${v.toLocaleString('en-US', { maximumFractionDigits: 4 })}`;
   if (v >= 0.01) return `$${v.toFixed(4)}`;
   return `$${v.toPrecision(3)}`;
 }
 ---
-
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-  <div class="flex items-center gap-2 mb-3">
-    <span class="px-2 py-0.5 text-xs font-bold rounded bg-accent-500/10 text-accent-600 dark:text-accent-400">Editors' Pick</span>
-    <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Current Recommendations</h2>
+  <div class="flex items-center justify-between mb-3">
+    <div class="flex items-center gap-2">
+      <span class="px-2 py-0.5 text-xs font-bold rounded bg-accent-500/10 text-accent-600 dark:text-accent-400">Editors' Pick</span>
+      <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Current Recommendations</h2>
+    </div>
+    <span class="text-xs text-surface-400 flex items-center gap-1">
+      <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>Live · CoinGecko
+    </span>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -20,8 +25,13 @@ function fmtPrice(v: number): string {
         href={item.link}
         target="_blank"
         rel="noopener"
-        class="block p-5 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 text-white hover:shadow-lg transition-shadow"
+        class="relative block p-5 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 text-white hover:shadow-lg transition-shadow"
       >
+        {item.badge || (item.sponsored && (
+          <span class="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide rounded bg-white/20 text-white">
+            {item.badge || 'Sponsored'}
+          </span>
+        ))}
         <div class="flex items-center gap-3 mb-3">
           <img src={item.logo} alt={item.name} class="w-10 h-10 rounded-full bg-white/20 object-cover"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" loading="lazy" />
@@ -33,10 +43,62 @@ function fmtPrice(v: number): string {
         </div>
         <p class="text-sm text-brand-50 mb-3 line-clamp-3">{item.reason}</p>
         <div class="flex items-center justify-between text-xs">
-          <span class="text-brand-100">Entry</span>
-          <span class="font-mono font-semibold">{fmtPrice(item.entryPrice)}</span>
+          <div>
+            <div class="text-brand-100">Entry</div>
+            <div class="font-mono font-semibold">{fmtPrice(item.entryPrice)}</div>
+          </div>
+          <div class="text-right">
+            <div class="text-brand-100">Now</div>
+            <div class="font-mono font-semibold rec-now" data-id={item.id}>{fmtPrice(item.entryPrice)}</div>
+            <div class="rec-chg text-brand-100" data-id={item.id}></div>
+          </div>
         </div>
       </a>
     ))}
   </div>
+  <p class="text-xs text-surface-400 mt-3 text-center">Live prices from CoinGecko · Not investment advice — always DYOR.</p>
 </section>
+
+<script>
+  const REFRESH = 60000; // 60s auto-refresh
+
+  function fmtPrice(v: number): string {
+    if (v >= 1) return `$${v.toLocaleString('en-US', { maximumFractionDigits: 4 })}`;
+    if (v >= 0.01) return `$${v.toFixed(4)}`;
+    return `$${v.toPrecision(3)}`;
+  }
+
+  async function refreshRecs() {
+    const nowEls = Array.from(document.querySelectorAll<HTMLElement>('.rec-now'));
+    if (!nowEls.length) return;
+    const ids = [...new Set(nowEls.map(el => el.dataset.id).filter(Boolean))] as string[];
+    if (!ids.length) return;
+    try {
+      const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(',')}&vs_currencies=usd&include_24hr_change=true`);
+      if (!res.ok) return;
+      const data = await res.json();
+      for (const [id, pd] of Object.entries<any>(data)) {
+        const price = pd?.usd;
+        const chg = pd?.usd_24h_change;
+        if (price === undefined) continue;
+        document.querySelectorAll<HTMLElement>('.rec-now').forEach(el => {
+          if (el.dataset.id === id) el.textContent = fmtPrice(price);
+        });
+        const up = (chg ?? 0) >= 0;
+        const sign = up ? '+' : '';
+        document.querySelectorAll<HTMLElement>('.rec-chg').forEach(el => {
+          if (el.dataset.id !== id) return;
+          el.textContent = `${sign}${(chg ?? 0).toFixed(2)}%`;
+          el.className = `rec-chg text-xs ${up ? 'text-green-300' : 'text-red-300'}`;
+        });
+      }
+    } catch (e) {
+      // keep fallback (entryPrice) values if the API is unreachable
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    refreshRecs();
+    setInterval(refreshRecs, REFRESH);
+  });
+</script>

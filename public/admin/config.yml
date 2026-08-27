@@ -157,13 +157,15 @@ collections:
     fields:
       - { label: "推荐币列表", name: "", widget: "list", required: true, fields:
           [
-            { label: "ID", name: "id", widget: "string", hint: "如 pepe" },
+            { label: "ID", name: "id", widget: "string", hint: "如 pepe（CoinGecko id，用于拉取实时价格）" },
             { label: "名称", name: "name", widget: "string" },
             { label: "符号", name: "symbol", widget: "string", hint: "如 PEPE" },
             { label: "Logo", name: "logo", widget: "string", required: false, hint: "图片 URL" },
             { label: "推荐理由", name: "reason", widget: "text" },
-            { label: "推荐价", name: "entryPrice", widget: "number", default: 0, hint: "推荐时的价格" },
-            { label: "跳转链接", name: "link", widget: "string" }
+            { label: "推荐价", name: "entryPrice", widget: "number", default: 0, hint: "推荐时的价格（作为静态兜底，实时价由 CoinGecko 自动刷新）" },
+            { label: "跳转链接", name: "link", widget: "string", hint: "接广告后可填广告主落地页" },
+            { label: "赞助/广告位", name: "sponsored", widget: "boolean", default: false, hint: "接广告后开启，卡片显示 Sponsored 标识" },
+            { label: "角标文案", name: "badge", widget: "string", required: false, hint: "留空则显示 Sponsored；可自定义如 Partner / Ad" }
           ]
         }
 
