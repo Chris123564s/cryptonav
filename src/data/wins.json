@@ -5,18 +5,8 @@
     "logo": "https://cdn.dexscreener.com/cms/images/T8rbebg89N9udgay?width=900&height=300&fit=crop&quality=95&format=auto",
     "address": "24GWZn5HerwLTVoZuC3H7Kxg6jLFMvroA1hTU4uWpump",
     "chain": "solana",
-    "change24h": 708.0,
-    "price": 0.0003896,
-    "date": "2026-08-27"
-  },
-  {
-    "symbol": "CTREMP",
-    "name": "CRYPTO TREMP",
-    "logo": "https://cdn.dexscreener.com/cms/images/dsAFJ75R1x5VAzTg?width=900&height=300&fit=crop&quality=95&format=auto",
-    "address": "3Y1ptgZ541yQh7FdwGeMoGQ7tpgHeeFxWKEKCL3Epump",
-    "chain": "solana",
-    "change24h": 500.0,
-    "price": 0.0004679,
+    "change24h": 752.0,
+    "price": 0.0004109,
     "date": "2026-08-27"
   },
   {
@@ -25,8 +15,8 @@
     "logo": "https://cdn.dexscreener.com/cms/images/aFeHj0Rrb9Nv69F_?width=900&height=300&fit=crop&quality=95&format=auto",
     "address": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
     "chain": "solana",
-    "change24h": 397.0,
-    "price": 0.001431,
+    "change24h": 380.0,
+    "price": 0.001409,
     "date": "2026-08-27"
   },
   {
@@ -35,8 +25,8 @@
     "logo": "https://cdn.dexscreener.com/cms/images/gETr4zCpwHXg7HmQ?width=900&height=300&fit=crop&quality=95&format=auto",
     "address": "FR3fLGui4CNGWX6f544aFuDnAykAhi65K5GD11YMpump",
     "chain": "solana",
-    "change24h": 256.0,
-    "price": 0.0001417,
+    "change24h": 208.0,
+    "price": 0.0001225,
     "date": "2026-08-27"
   },
   {
@@ -45,8 +35,8 @@
     "logo": "https://cdn.dexscreener.com/cms/images/UZUp5M5FfJJHVc-T?width=900&height=300&fit=crop&quality=95&format=auto",
     "address": "H4deHd4WyXZ97a5HK9SQWvy4VwP1xbLptu58fG5dpump",
     "chain": "solana",
-    "change24h": 149.0,
-    "price": 0.0001349,
+    "change24h": 178.0,
+    "price": 0.0001504,
     "date": "2026-08-27"
   },
   {
@@ -55,8 +45,8 @@
     "logo": "https://cdn.dexscreener.com/cms/images/gvzD65_IT91KKmR0?width=900&height=300&fit=crop&quality=95&format=auto",
     "address": "HavpAp4PqYUfiwyFpd9qcCKWrEVi52Z7CYJuXfQqpump",
     "chain": "solana",
-    "change24h": 108.0,
-    "price": 0.0002486,
+    "change24h": 112.0,
+    "price": 0.0002531,
     "date": "2026-08-27"
   },
   {
@@ -65,8 +55,8 @@
     "logo": "https://cdn.dexscreener.com/cms/images/YGEAJT5isuID7dW4?width=900&height=300&fit=crop&quality=95&format=auto",
     "address": "0x5f62C57e5C537887117EeF828b7E3Ad41C009FEb",
     "chain": "robinhood",
-    "change24h": 93.6,
-    "price": 0.01028,
+    "change24h": 93.8,
+    "price": 0.01036,
     "date": "2026-08-27"
   },
   {
@@ -75,8 +65,18 @@
     "logo": "https://cdn.dexscreener.com/cms/images/yUB5ElP1fueloO1D?width=900&height=300&fit=crop&quality=95&format=auto",
     "address": "VJdpSDDLof7HuZiNmsRUSL4YCncsk1FGiVoHyAJpump",
     "chain": "solana",
-    "change24h": 87.0,
-    "price": 0.008115,
+    "change24h": 84.3,
+    "price": 0.008304,
+    "date": "2026-08-27"
+  },
+  {
+    "symbol": "Monā",
+    "name": "モナー",
+    "logo": "https://cdn.dexscreener.com/cms/images/ANJE1YZpHDbkzQc_?width=900&height=300&fit=crop&quality=95&format=auto",
+    "address": "BFroMM5uTBa5btkDvFcpg6AD7kXEk2oXUWeXaoowpump",
+    "chain": "solana",
+    "change24h": 50.6,
+    "price": 9.62e-05,
     "date": "2026-08-27"
   }
 ]
