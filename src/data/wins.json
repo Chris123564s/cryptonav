@@ -5,8 +5,8 @@
     "logo": "/logos/dex/24GWZn5Her.png",
     "address": "24GWZn5HerwLTVoZuC3H7Kxg6jLFMvroA1hTU4uWpump",
     "chain": "solana",
-    "change24h": 754.0,
-    "price": 0.0004121,
+    "change24h": 752.0,
+    "price": 0.0004109,
     "date": "2026-08-27"
   },
   {
@@ -15,8 +15,8 @@
     "logo": "/logos/dex/HsprHxBRgi.png",
     "address": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
     "chain": "solana",
-    "change24h": 379.0,
-    "price": 0.001404,
+    "change24h": 380.0,
+    "price": 0.001409,
     "date": "2026-08-27"
   },
   {
@@ -25,8 +25,8 @@
     "logo": "/logos/dex/FR3fLGui4C.png",
     "address": "FR3fLGui4CNGWX6f544aFuDnAykAhi65K5GD11YMpump",
     "chain": "solana",
-    "change24h": 216.0,
-    "price": 0.000126,
+    "change24h": 208.0,
+    "price": 0.0001225,
     "date": "2026-08-27"
   },
   {
@@ -35,8 +35,8 @@
     "logo": "/logos/dex/H4deHd4WyX.png",
     "address": "H4deHd4WyXZ97a5HK9SQWvy4VwP1xbLptu58fG5dpump",
     "chain": "solana",
-    "change24h": 189.0,
-    "price": 0.0001562,
+    "change24h": 178.0,
+    "price": 0.0001504,
     "date": "2026-08-27"
   },
   {
@@ -45,8 +45,8 @@
     "logo": "/logos/dex/HavpAp4PqY.png",
     "address": "HavpAp4PqYUfiwyFpd9qcCKWrEVi52Z7CYJuXfQqpump",
     "chain": "solana",
-    "change24h": 123.0,
-    "price": 0.0002662,
+    "change24h": 112.0,
+    "price": 0.0002531,
     "date": "2026-08-27"
   },
   {
@@ -55,8 +55,8 @@
     "logo": "/logos/dex/0x5f62C57e.png",
     "address": "0x5f62C57e5C537887117EeF828b7E3Ad41C009FEb",
     "chain": "robinhood",
-    "change24h": 95.7,
-    "price": 0.01039,
+    "change24h": 93.8,
+    "price": 0.01036,
     "date": "2026-08-27"
   },
   {
@@ -65,8 +65,8 @@
     "logo": "/logos/dex/VJdpSDDLof.png",
     "address": "VJdpSDDLof7HuZiNmsRUSL4YCncsk1FGiVoHyAJpump",
     "chain": "solana",
-    "change24h": 77.2,
-    "price": 0.008267,
+    "change24h": 84.3,
+    "price": 0.008304,
     "date": "2026-08-27"
   },
   {
@@ -75,8 +75,8 @@
     "logo": "/logos/dex/BFroMM5uTB.png",
     "address": "BFroMM5uTBa5btkDvFcpg6AD7kXEk2oXUWeXaoowpump",
     "chain": "solana",
-    "change24h": 52.9,
-    "price": 9.768e-05,
+    "change24h": 50.6,
+    "price": 9.62e-05,
     "date": "2026-08-27"
   }
 ]
