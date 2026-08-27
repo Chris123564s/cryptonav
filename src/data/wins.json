@@ -1,68 +1,68 @@
 [
   {
-    "id": "shib",
-    "name": "Shiba Inu",
-    "symbol": "SHIB",
-    "logo": "https://coin-images.coingecko.com/coins/images/11939/standard/shiba.png?1698234485",
-    "entryPrice": 0.0000072,
-    "peakPrice": 0.000088,
-    "multiple": 12,
-    "date": "2023-10",
-    "note": "Featured during the meme-season breakout; reached 12x within three weeks."
-  },
-  {
     "id": "pepe",
     "name": "Pepe",
     "symbol": "PEPE",
     "logo": "https://coin-images.coingecko.com/coins/images/29850/standard/pepe-token.jpeg?1698232045",
-    "entryPrice": 0.0000004,
-    "peakPrice": 0.0000041,
-    "multiple": 10,
-    "date": "2023-05",
-    "note": "Early call before mainstream listings; 10x run on launch hype."
-  },
-  {
-    "id": "wif",
-    "name": "dogwifhat",
-    "symbol": "WIF",
-    "logo": "https://coin-images.coingecko.com/coins/images/45909/standard/wif.png?1718581257",
-    "entryPrice": 0.18,
-    "peakPrice": 4.8,
-    "multiple": 26,
-    "date": "2024-03",
-    "note": "Solana meme leader; rode the ecosystem rally to 26x."
+    "entryPrice": 0.000000055142,
+    "peakPrice": 0.00002803,
+    "multiple": 508,
+    "date": "2024-12",
+    "note": "All-time low to all-time high, per CoinGecko market data."
   },
   {
     "id": "bonk",
     "name": "Bonk",
     "symbol": "BONK",
     "logo": "https://coin-images.coingecko.com/coins/images/27727/standard/bonk.jpg?1698223104",
-    "entryPrice": 0.000009,
-    "peakPrice": 0.000047,
-    "multiple": 5,
-    "date": "2023-12",
-    "note": "Solana recovery play; steady 5x into year-end."
-  },
-  {
-    "id": "floki",
-    "name": "Floki",
-    "symbol": "FLOKI",
-    "logo": "https://coin-images.coingecko.com/coins/images/15583/standard/floki.png?1698235283",
-    "entryPrice": 0.000012,
-    "peakPrice": 0.00034,
-    "multiple": 28,
-    "date": "2023-11",
-    "note": "Exchange listings + marketing push drove a 28x move."
+    "entryPrice": 0.000000086142,
+    "peakPrice": 0.00005825,
+    "multiple": 676,
+    "date": "2024-11",
+    "note": "All-time low to all-time high, per CoinGecko market data."
   },
   {
     "id": "brett",
     "name": "Brett",
     "symbol": "BRETT",
     "logo": "https://coin-images.coingecko.com/coins/images/34055/standard/brett.png?1710960988",
+    "entryPrice": 0.00008646,
+    "peakPrice": 0.0206275,
+    "multiple": 239,
+    "date": "2024-03",
+    "note": "All-time low to all-time high, per CoinGecko market data."
+  },
+  {
+    "id": "floki",
+    "name": "Floki",
+    "symbol": "FLOKI",
+    "logo": "https://coin-images.coingecko.com/coins/images/15583/standard/floki.png?1698235283",
+    "entryPrice": 0.00000008428,
+    "peakPrice": 0.00034495,
+    "multiple": 4093,
+    "date": "2024-06",
+    "note": "All-time low to all-time high, per CoinGecko market data."
+  },
+  {
+    "id": "doge",
+    "name": "Dogecoin",
+    "symbol": "DOGE",
+    "logo": "https://coin-images.coingecko.com/coins/images/1/standard/dogecoin.png?1698236800",
     "entryPrice": 0.00009,
-    "peakPrice": 0.0019,
-    "multiple": 21,
-    "date": "2024-05",
-    "note": "Base-chain meme momentum; 21x on ecosystem growth."
+    "peakPrice": 0.0808,
+    "multiple": 892,
+    "date": "2021-05",
+    "note": "All-time low to all-time high, per CoinGecko market data."
+  },
+  {
+    "id": "turbo",
+    "name": "Turbo",
+    "symbol": "TURBO",
+    "logo": "https://coin-images.coingecko.com/coins/images/32056/standard/turbo.jpg?1698237402",
+    "entryPrice": 0.000067,
+    "peakPrice": 0.0147,
+    "multiple": 220,
+    "date": "2024-12",
+    "note": "All-time low to all-time high, per CoinGecko market data."
   }
 ]

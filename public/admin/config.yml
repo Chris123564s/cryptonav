@@ -168,11 +168,11 @@ collections:
         }
 
   # -----------------------------------------------------------
-  # 6. 历史战绩（首页 Success Cases）
+  # 6. 市场案例（首页 Market Movers，客观行情数据）
   # -----------------------------------------------------------
   - name: "wins"
-    label: "历史战绩"
-    label_singular: "战绩"
+    label: "市场案例"
+    label_singular: "案例"
     file: "src/data/wins.json"
     extension: "json"
     format: "json"
