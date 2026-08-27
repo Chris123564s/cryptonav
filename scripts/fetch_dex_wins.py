@@ -88,6 +88,11 @@ if __name__ == '__main__':
     top = fetch_top()
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(top, f, ensure_ascii=False, indent=2)
-    print(f'Wrote {len(top)} tokens to {OUT}')
+    # 同步到 public/data/wins.json（供 CMS / 静态引用）
+    PUB = os.path.join(ROOT, 'public', 'data', 'wins.json')
+    os.makedirs(os.path.dirname(PUB), exist_ok=True)
+    with open(PUB, 'w', encoding='utf-8') as f:
+        json.dump(top, f, ensure_ascii=False, indent=2)
+    print(f'Wrote {len(top)} tokens to {OUT} and {PUB}')
     for r in top:
         print(f"  {r['symbol']:10} {r['change24h']:+.1f}%")
