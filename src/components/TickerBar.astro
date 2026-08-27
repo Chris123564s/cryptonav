@@ -1,5 +1,8 @@
 ---
 import { tickerCoins, formatPrice } from '../utils/data';
+
+// CoinGecko 的 coin id 列表（用于实时拉取）
+const coinIds = tickerCoins.map(c => c.id).join(',');
 ---
 
 {tickerCoins.length > 0 && (
@@ -10,16 +13,17 @@ import { tickerCoins, formatPrice } from '../utils/data';
         Live Prices
       </span>
       <div class="overflow-hidden flex-1">
-        <div class="ticker-track gap-6 py-2">
+        <div class="ticker-track gap-6 py-2" id="ticker-track">
           {[...tickerCoins, ...tickerCoins].map(coin => (
             <a
               href="#"
               class="shrink-0 flex items-center gap-2 text-xs hover:bg-surface-50 dark:hover:bg-surface-700 px-3 py-1 rounded-lg transition-colors"
+              data-coin-id={coin.id}
             >
               <img src={coin.image} alt={coin.name} class="w-4 h-4 rounded-full" loading="lazy" />
               <span class="font-medium text-surface-600 dark:text-surface-300">{coin.symbol}</span>
-              <span class="font-mono text-surface-500 dark:text-surface-400">{formatPrice(coin.currentPrice)}</span>
-              <span class={`font-mono ${coin.priceChangePercentage24h >= 0 ? 'text-red-500' : 'text-green-500'}`}>
+              <span class="font-mono text-surface-500 dark:text-surface-400 ticker-price">{formatPrice(coin.currentPrice)}</span>
+              <span class={`font-mono ticker-change ${coin.priceChangePercentage24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                 {coin.priceChangePercentage24h >= 0 ? '+' : ''}{coin.priceChangePercentage24h.toFixed(2)}%
               </span>
             </a>
@@ -29,3 +33,46 @@ import { tickerCoins, formatPrice } from '../utils/data';
     </div>
   </div>
 )}
+
+<script is:inline define:vars={{ coinIds }}>
+  const TICKER_IDS = coinIds;
+  const UPDATE_INTERVAL = 60000; // 60 秒
+
+  async function fetchPrices() {
+    if (!TICKER_IDS) return;
+    try {
+      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${TICKER_IDS}&vs_currencies=usd&include_24hr_change=true`;
+      const res = await fetch(url);
+      if (!res.ok) return;
+      const data = await res.json();
+
+      // 更新所有 ticker 元素（两份循环副本都要更新）
+      const items = document.querySelectorAll('#ticker-track [data-coin-id]');
+      items.forEach(el => {
+        const id = el.getAttribute('data-coin-id');
+        const priceEl = el.querySelector('.ticker-price');
+        const changeEl = el.querySelector('.ticker-change');
+        if (data[id] && priceEl) {
+          const price = data[id].usd;
+          const change = data[id].usd_24h_change;
+          priceEl.textContent = price >= 1
+            ? `$${price.toLocaleString('en-US', { maximumFractionDigits: 2 })}`
+            : `$${price.toFixed(4)}`;
+          if (changeEl && change !== undefined) {
+            const sign = change >= 0 ? '+' : '';
+            changeEl.textContent = `${sign}${change.toFixed(2)}%`;
+            changeEl.className = `font-mono ticker-change ${change >= 0 ? 'text-red-500' : 'text-green-500'}`;
+          }
+        }
+      });
+    } catch (e) {
+      // 网络错误或限流时保留静态兜底数据
+    }
+  }
+
+  // 页面加载后拉取一次，之后定时刷新
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchPrices();
+    setInterval(fetchPrices, UPDATE_INTERVAL);
+  });
+</script>
