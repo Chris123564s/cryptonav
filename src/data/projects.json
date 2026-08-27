@@ -592,22 +592,29 @@
     "id": "dexscreener",
     "name": "DexScreener",
     "logo": "/logos/dexscreener.png",
-    "category": "market-aggregator",
+    "category": "at-onchain",
     "tags": [
-      "DEX Prices",
-      "Real-time",
-      "Multi-chain"
+      "Charts",
+      "Multi-chain",
+      "DEX",
+      "Realtime"
     ],
-    "description": "The most popular real-time DEX market data and analytics platform.",
+    "description": "The most popular free multi-chain DEX charting and pair explorer, with real-time price, liquidity, and honeypot checks across 60+ chains.",
     "website": "https://dexscreener.com",
     "social": {
-      "twitter": "DexScreener"
+      "twitter": "dexscreener",
+      "telegram": "dexscreener"
     },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
     "source": "manual",
-    "addedAt": "2026-01-01"
+    "addedAt": "2026-01-01",
+    "metrics": {
+      "volume24h": 0,
+      "twitterFollowers": 600000
+    },
+    "audited": false
   },
   {
     "id": "dune",
@@ -1337,5 +1344,213 @@
     "status": "active",
     "source": "manual",
     "addedAt": "2026-01-01"
+  },
+  {
+    "id": "ave-ai",
+    "name": "AVE.AI",
+    "logo": "/logos/ave-ai.png",
+    "category": "at-onchain",
+    "tags": [
+      "On-chain",
+      "Smart Money",
+      "Copy Trade",
+      "Multi-chain"
+    ],
+    "description": "On-chain analytics and copy-trading platform covering ETH, Solana, and BSC, with smart-money tracking, bundling/Rug alerts, and wallet copy-trading.",
+    "website": "https://ave.ai",
+    "social": {
+      "twitter": "ave_ai",
+      "telegram": "ave_ai"
+    },
+    "metrics": {
+      "volume24h": 0,
+      "twitterFollowers": 200000
+    },
+    "verified": true,
+    "audited": false,
+    "riskLevel": "medium",
+    "featured": false,
+    "sponsored": false,
+    "status": "active",
+    "source": "manual",
+    "addedAt": "2026-08-27"
+  },
+  {
+    "id": "gmgn-ai",
+    "name": "GMGN.AI",
+    "logo": "/logos/gmgn-ai.png",
+    "category": "at-sniper",
+    "tags": [
+      "Meme",
+      "Solana",
+      "Smart Money",
+      "Sniper"
+    ],
+    "description": "Solana-first meme coin trading terminal with real-time new-token monitoring, Rug detection, smart-money flow, and one-click copy-trading.",
+    "website": "https://gmgn.ai",
+    "social": {
+      "twitter": "gmgn_ai",
+      "telegram": "gmgn_alert"
+    },
+    "metrics": {
+      "volume24h": 0,
+      "twitterFollowers": 350000
+    },
+    "verified": true,
+    "audited": false,
+    "riskLevel": "medium",
+    "featured": false,
+    "sponsored": false,
+    "status": "active",
+    "source": "manual",
+    "addedAt": "2026-08-27"
+  },
+  {
+    "id": "dextools",
+    "name": "Dextools",
+    "logo": "/logos/dextools.png",
+    "category": "at-onchain",
+    "tags": [
+      "Charts",
+      "DEX",
+      "Suite",
+      "Multichain"
+    ],
+    "description": "Established DEX analytics suite with real-time charts, pool explorer, and trending pairs across Ethereum, BNB, and Solana.",
+    "website": "https://www.dextools.io",
+    "social": {
+      "twitter": "dextoolstrading",
+      "telegram": "dextools_en"
+    },
+    "metrics": {
+      "volume24h": 0,
+      "twitterFollowers": 500000
+    },
+    "verified": true,
+    "audited": false,
+    "riskLevel": "low",
+    "featured": false,
+    "sponsored": false,
+    "status": "active",
+    "source": "manual",
+    "addedAt": "2026-08-27"
+  },
+  {
+    "id": "arkham",
+    "name": "Arkham",
+    "logo": "/logos/arkham.png",
+    "category": "at-onchain",
+    "tags": [
+      "Entity",
+      "Smart Money",
+      "Intel"
+    ],
+    "description": "On-chain intelligence platform that attributes addresses to real-world entities, with visual smart-money flow and alerts.",
+    "website": "https://www.arkhamintelligence.com",
+    "social": {
+      "twitter": "ArkhamIntel",
+      "telegram": "arkhamintel"
+    },
+    "metrics": {
+      "volume24h": 0,
+      "twitterFollowers": 400000
+    },
+    "verified": true,
+    "audited": false,
+    "riskLevel": "low",
+    "featured": false,
+    "sponsored": false,
+    "status": "active",
+    "source": "manual",
+    "addedAt": "2026-08-27"
+  },
+  {
+    "id": "nansen",
+    "name": "Nansen",
+    "logo": "/logos/nansen.png",
+    "category": "at-onchain",
+    "tags": [
+      "Smart Money",
+      "Labels",
+      "Research"
+    ],
+    "description": "Premium on-chain analytics with labeled smart-money wallets, helping traders track where top funds move across chains.",
+    "website": "https://www.nansen.ai",
+    "social": {
+      "twitter": "nansen_ai",
+      "telegram": "nansen_ai"
+    },
+    "metrics": {
+      "volume24h": 0,
+      "twitterFollowers": 350000
+    },
+    "verified": true,
+    "audited": false,
+    "riskLevel": "low",
+    "featured": false,
+    "sponsored": false,
+    "status": "active",
+    "source": "manual",
+    "addedAt": "2026-08-27"
+  },
+  {
+    "id": "bullx",
+    "name": "BullX",
+    "logo": "/logos/bullx.png",
+    "category": "at-sniper",
+    "tags": [
+      "Meme",
+      "Solana",
+      "Terminal",
+      "Sniper"
+    ],
+    "description": "Web-based Solana trading terminal for fast meme-coin entry, with charting, sniper, and copy-trade features.",
+    "website": "https://bullx.io",
+    "social": {
+      "twitter": "bullx_io",
+      "telegram": "bullx_io"
+    },
+    "metrics": {
+      "volume24h": 0,
+      "twitterFollowers": 150000
+    },
+    "verified": true,
+    "audited": false,
+    "riskLevel": "medium",
+    "featured": false,
+    "sponsored": false,
+    "status": "active",
+    "source": "manual",
+    "addedAt": "2026-08-27"
+  },
+  {
+    "id": "photon",
+    "name": "Photon",
+    "logo": "/logos/photon.png",
+    "category": "at-sniper",
+    "tags": [
+      "Meme",
+      "Solana",
+      "Sniper",
+      "Copy"
+    ],
+    "description": "Solana meme sniping and copy-trading terminal (Photon-Sol) with instant new-pair detection and wallet tracking.",
+    "website": "https://photon-sol.tinyastro.io",
+    "social": {
+      "twitter": "photon_sol",
+      "telegram": "photon_sol"
+    },
+    "metrics": {
+      "volume24h": 0,
+      "twitterFollowers": 200000
+    },
+    "verified": true,
+    "audited": false,
+    "riskLevel": "medium",
+    "featured": false,
+    "sponsored": false,
+    "status": "active",
+    "source": "manual",
+    "addedAt": "2026-08-27"
   }
 ]
