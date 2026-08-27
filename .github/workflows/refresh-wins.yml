@@ -2,8 +2,8 @@ name: Refresh Success Cases (DexScreener)
 
 on:
   schedule:
-    # 每周一 02:00 UTC
-    - cron: '0 2 * * 1'
+    # 每天 02:00 UTC
+    - cron: '0 2 * * *'
   workflow_dispatch:
 
 permissions:
@@ -37,6 +37,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "chore: weekly refresh Success Cases (DexScreener top gainers)"
+            git commit -m "chore: daily refresh Success Cases (DexScreener top gainers)"
             git push
           fi
