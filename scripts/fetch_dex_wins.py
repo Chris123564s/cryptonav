@@ -19,6 +19,8 @@ def get(url):
 
 
 def fetch_top(limit=8, min_liq=20000):
+    logo_dir = os.path.join(ROOT, 'public', 'logos', 'dex')
+    os.makedirs(logo_dir, exist_ok=True)
     boosts = get('https://api.dexscreener.com/token-boosts/top/v1')
     rows = []
     for b in boosts:
@@ -40,8 +42,20 @@ def fetch_top(limit=8, min_liq=20000):
             name = bt.get('name', sym)
             price = p.get('priceUsd')
             liq = p.get('liquidity', {}).get('usd') or 0
-            # logo: 优先用 boost 的 header 图，否则空（前端兜底首字母）
-            logo = b.get('header') or ''
+            # 下载 logo 到本地（避免 cdn.dexscreener.com 在部分地区被墙），失败则留空走首字母兜底
+            logo = ''
+            remote = b.get('header') or ''
+            if remote:
+                fname = f"{addr[:10]}.png"
+                try:
+                    req = urllib.request.Request(remote, headers={'User-Agent': 'Mozilla/5.0'})
+                    img = op.open(req, timeout=20).read()
+                    if len(img) > 200:
+                        with open(os.path.join(logo_dir, fname), 'wb') as f:
+                            f.write(img)
+                        logo = f'/logos/dex/{fname}'
+                except Exception:
+                    logo = ''
             rows.append({
                 'symbol': sym, 'name': name, 'logo': logo, 'address': addr,
                 'chain': chain, 'change24h': round(float(h24), 1),
