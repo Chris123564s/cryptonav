@@ -4,11 +4,21 @@
     "name": "Binance",
     "logo": "https://assets.coingecko.com/markets/images/52/small/binance.jpg",
     "category": "exchange-cex",
-    "tags": ["Largest", "Spot+Futures", "IEO"],
+    "tags": [
+      "Largest",
+      "Spot+Futures",
+      "IEO"
+    ],
     "description": "The world's largest crypto exchange by trading volume, offering spot, futures, options, and margin trading.",
     "website": "https://www.binance.com",
-    "social": { "twitter": "binance", "telegram": "binance" },
-    "metrics": { "volume24h": 50000, "twitterFollowers": 5000000 },
+    "social": {
+      "twitter": "binance",
+      "telegram": "binance"
+    },
+    "metrics": {
+      "volume24h": 50000,
+      "twitterFollowers": 5000000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -24,11 +34,20 @@
     "name": "OKX",
     "logo": "https://assets.coingecko.com/markets/images/534/small/okx.jpg",
     "category": "exchange-cex",
-    "tags": ["Spot+Futures", "Web3 Wallet", "DEX"],
+    "tags": [
+      "Spot+Futures",
+      "Web3 Wallet",
+      "DEX"
+    ],
     "description": "A leading global digital asset exchange offering spot and derivatives trading along with Web3 wallet services.",
     "website": "https://www.okx.com",
-    "social": { "twitter": "okx" },
-    "metrics": { "volume24h": 20000, "twitterFollowers": 1000000 },
+    "social": {
+      "twitter": "okx"
+    },
+    "metrics": {
+      "volume24h": 20000,
+      "twitterFollowers": 1000000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -42,11 +61,20 @@
     "name": "Bybit",
     "logo": "https://assets.coingecko.com/markets/images/504/small/bybit.jpg",
     "category": "exchange-cex",
-    "tags": ["Derivatives", "Spot", "Futures"],
+    "tags": [
+      "Derivatives",
+      "Spot",
+      "Futures"
+    ],
     "description": "A leading derivatives trading platform known for its perpetual contracts, with spot trading also available.",
     "website": "https://www.bybit.com",
-    "social": { "twitter": "bybit" },
-    "metrics": { "volume24h": 15000, "twitterFollowers": 2000000 },
+    "social": {
+      "twitter": "bybit"
+    },
+    "metrics": {
+      "volume24h": 15000,
+      "twitterFollowers": 2000000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -58,11 +86,20 @@
     "name": "Coinbase",
     "logo": "https://assets.coingecko.com/markets/images/23/small/Coinbase_Coin_Primary.png",
     "category": "exchange-cex",
-    "tags": ["US Compliant", "Public Company", "Spot"],
+    "tags": [
+      "US Compliant",
+      "Public Company",
+      "Spot"
+    ],
     "description": "The largest compliant crypto exchange in the US, listed on Nasdaq under ticker COIN.",
     "website": "https://www.coinbase.com",
-    "social": { "twitter": "coinbase" },
-    "metrics": { "volume24h": 8000, "twitterFollowers": 1500000 },
+    "social": {
+      "twitter": "coinbase"
+    },
+    "metrics": {
+      "volume24h": 8000,
+      "twitterFollowers": 1500000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -76,11 +113,20 @@
     "name": "Kraken",
     "logo": "https://assets.coingecko.com/markets/images/24/small/kraken.jpg",
     "category": "exchange-cex",
-    "tags": ["Established", "Compliant", "Spot+Futures"],
+    "tags": [
+      "Established",
+      "Compliant",
+      "Spot+Futures"
+    ],
     "description": "An established exchange founded in 2011, renowned for its security and regulatory compliance.",
     "website": "https://www.kraken.com",
-    "social": { "twitter": "krakenfx" },
-    "metrics": { "volume24h": 5000, "twitterFollowers": 900000 },
+    "social": {
+      "twitter": "krakenfx"
+    },
+    "metrics": {
+      "volume24h": 5000,
+      "twitterFollowers": 900000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -93,11 +139,20 @@
     "name": "Gate.io",
     "logo": "https://assets.coingecko.com/markets/images/110/small/gate_io.jpg",
     "category": "exchange-cex",
-    "tags": ["Fast Listings", "Spot+Futures", "Startup"],
+    "tags": [
+      "Fast Listings",
+      "Spot+Futures",
+      "Startup"
+    ],
     "description": "A leading global digital asset exchange known for its rapid new-token listings.",
     "website": "https://www.gate.io",
-    "social": { "twitter": "gate_io" },
-    "metrics": { "volume24h": 3000, "twitterFollowers": 800000 },
+    "social": {
+      "twitter": "gate_io"
+    },
+    "metrics": {
+      "volume24h": 3000,
+      "twitterFollowers": 800000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -109,11 +164,20 @@
     "name": "Bitget",
     "logo": "https://assets.coingecko.com/markets/images/678/small/bitget.jpg",
     "category": "exchange-cex",
-    "tags": ["Copy Trading", "Futures", "Spot"],
+    "tags": [
+      "Copy Trading",
+      "Futures",
+      "Spot"
+    ],
     "description": "A leading copy-trading platform offering futures and spot trading services.",
     "website": "https://www.bitget.com",
-    "social": { "twitter": "bitgetglobal" },
-    "metrics": { "volume24h": 4000, "twitterFollowers": 700000 },
+    "social": {
+      "twitter": "bitgetglobal"
+    },
+    "metrics": {
+      "volume24h": 4000,
+      "twitterFollowers": 700000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -125,11 +189,20 @@
     "name": "MEXC",
     "logo": "https://assets.coingecko.com/markets/images/638/small/mexc.jpg",
     "category": "exchange-cex",
-    "tags": ["Fastest Listings", "Spot", "Low Fees"],
+    "tags": [
+      "Fastest Listings",
+      "Spot",
+      "Low Fees"
+    ],
     "description": "A global crypto exchange known for its rapid new-token listings.",
     "website": "https://www.mexc.com",
-    "social": { "twitter": "MEXC_Global" },
-    "metrics": { "volume24h": 2000, "twitterFollowers": 600000 },
+    "social": {
+      "twitter": "MEXC_Global"
+    },
+    "metrics": {
+      "volume24h": 2000,
+      "twitterFollowers": 600000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -141,11 +214,21 @@
     "name": "Uniswap",
     "logo": "https://assets.coingecko.com/coins/images/12504/small/uni.jpg",
     "category": "exchange-dex",
-    "tags": ["Largest DEX", "AMM", "Ethereum"],
+    "tags": [
+      "Largest DEX",
+      "AMM",
+      "Ethereum"
+    ],
     "description": "The largest decentralized exchange on Ethereum, pioneering the AMM (automated market maker) model.",
     "website": "https://app.uniswap.org",
-    "social": { "twitter": "Uniswap", "github": "Uniswap" },
-    "metrics": { "tvl": 4000000000, "githubStars": 9000 },
+    "social": {
+      "twitter": "Uniswap",
+      "github": "Uniswap"
+    },
+    "metrics": {
+      "tvl": 4000000000,
+      "githubStars": 9000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -159,11 +242,20 @@
     "name": "PancakeSwap",
     "logo": "https://assets.coingecko.com/coins/images/12632/small/pancakeswap-cake-logo.png",
     "category": "exchange-dex",
-    "tags": ["BSC", "AMM", "Yield Farming"],
+    "tags": [
+      "BSC",
+      "AMM",
+      "Yield Farming"
+    ],
     "description": "The largest decentralized exchange on BSC, with multi-chain deployment support.",
     "website": "https://pancakeswap.finance",
-    "social": { "twitter": "PancakeSwap" },
-    "metrics": { "tvl": 1500000000, "twitterFollowers": 1200000 },
+    "social": {
+      "twitter": "PancakeSwap"
+    },
+    "metrics": {
+      "tvl": 1500000000,
+      "twitterFollowers": 1200000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -176,11 +268,20 @@
     "name": "Curve Finance",
     "logo": "https://assets.coingecko.com/coins/images/12124/small/Curve.png",
     "category": "exchange-dex",
-    "tags": ["Stablecoin Trading", "Low Slippage", "DeFi"],
+    "tags": [
+      "Stablecoin Trading",
+      "Low Slippage",
+      "DeFi"
+    ],
     "description": "A low-slippage DEX purpose-built for stablecoin trading.",
     "website": "https://curve.fi",
-    "social": { "twitter": "CurveFinance" },
-    "metrics": { "tvl": 2000000000, "twitterFollowers": 500000 },
+    "social": {
+      "twitter": "CurveFinance"
+    },
+    "metrics": {
+      "tvl": 2000000000,
+      "twitterFollowers": 500000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -193,11 +294,20 @@
     "name": "SushiSwap",
     "logo": "https://assets.coingecko.com/coins/images/12270/small/512x512_Logo_no_circle.png",
     "category": "exchange-dex",
-    "tags": ["Multi-chain", "AMM", "Liquidity"],
+    "tags": [
+      "Multi-chain",
+      "AMM",
+      "Liquidity"
+    ],
     "description": "A multi-chain decentralized exchange offering trading and liquidity mining.",
     "website": "https://www.sushi.com",
-    "social": { "twitter": "SushiSwap" },
-    "metrics": { "tvl": 300000000, "twitterFollowers": 400000 },
+    "social": {
+      "twitter": "SushiSwap"
+    },
+    "metrics": {
+      "tvl": 300000000,
+      "twitterFollowers": 400000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -210,11 +320,19 @@
     "name": "1inch",
     "logo": "https://assets.coingecko.com/coins/images/13469/small/1inch-token.png",
     "category": "exchange-dex",
-    "tags": ["DEX Aggregator", "Best Route", "Multi-chain"],
+    "tags": [
+      "DEX Aggregator",
+      "Best Route",
+      "Multi-chain"
+    ],
     "description": "A leading DEX aggregator that automatically finds the optimal trading route.",
     "website": "https://1inch.io",
-    "social": { "twitter": "1inch" },
-    "metrics": { "twitterFollowers": 600000 },
+    "social": {
+      "twitter": "1inch"
+    },
+    "metrics": {
+      "twitterFollowers": 600000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -227,11 +345,19 @@
     "name": "dYdX",
     "logo": "https://assets.coingecko.com/coins/images/4648/small/dydx.png",
     "category": "exchange-derivatives",
-    "tags": ["Decentralized Futures", "Order Book", "Perpetuals"],
+    "tags": [
+      "Decentralized Futures",
+      "Order Book",
+      "Perpetuals"
+    ],
     "description": "A decentralized perpetuals trading platform using an off-chain order book with on-chain settlement.",
     "website": "https://dydx.exchange",
-    "social": { "twitter": "dYdX" },
-    "metrics": { "twitterFollowers": 500000 },
+    "social": {
+      "twitter": "dYdX"
+    },
+    "metrics": {
+      "twitterFollowers": 500000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -244,11 +370,19 @@
     "name": "MetaMask",
     "logo": "https://assets.coingecko.com/coins/images/279/small/metamask.png",
     "category": "wallet-hot",
-    "tags": ["Most Popular", "Browser Extension", "Multi-chain"],
+    "tags": [
+      "Most Popular",
+      "Browser Extension",
+      "Multi-chain"
+    ],
     "description": "The world's most popular Ethereum browser wallet, supporting multi-chain and DApp interaction.",
     "website": "https://metamask.io",
-    "social": { "twitter": "MetaMask" },
-    "metrics": { "twitterFollowers": 800000 },
+    "social": {
+      "twitter": "MetaMask"
+    },
+    "metrics": {
+      "twitterFollowers": 800000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -262,11 +396,19 @@
     "name": "Phantom",
     "logo": "https://assets.coingecko.com/coins/images/25041/small/phantom.jpg",
     "category": "wallet-hot",
-    "tags": ["Solana", "Multi-chain", "Mobile"],
+    "tags": [
+      "Solana",
+      "Multi-chain",
+      "Mobile"
+    ],
     "description": "The most popular wallet in the Solana ecosystem, supporting multi-chain and NFT management.",
     "website": "https://phantom.app",
-    "social": { "twitter": "phantom" },
-    "metrics": { "twitterFollowers": 500000 },
+    "social": {
+      "twitter": "phantom"
+    },
+    "metrics": {
+      "twitterFollowers": 500000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -277,12 +419,18 @@
   {
     "id": "rabby",
     "name": "Rabby Wallet",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=rabby.io&sz=64",
     "category": "wallet-hot",
-    "tags": ["Multi-chain", "Secure", "Transaction Preview"],
+    "tags": [
+      "Multi-chain",
+      "Secure",
+      "Transaction Preview"
+    ],
     "description": "A multi-chain browser wallet known for its transaction preview and security features.",
     "website": "https://rabby.io",
-    "social": { "twitter": "RabbyWallet" },
+    "social": {
+      "twitter": "RabbyWallet"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -294,11 +442,19 @@
     "name": "Trust Wallet",
     "logo": "https://assets.coingecko.com/coins/images/279/small/metamask.png",
     "category": "wallet-hot",
-    "tags": ["Mobile", "Multi-chain", "DApp"],
+    "tags": [
+      "Mobile",
+      "Multi-chain",
+      "DApp"
+    ],
     "description": "Binance's mobile multi-chain wallet, supporting 70+ blockchains.",
     "website": "https://trustwallet.com",
-    "social": { "twitter": "TrustWallet" },
-    "metrics": { "twitterFollowers": 1000000 },
+    "social": {
+      "twitter": "TrustWallet"
+    },
+    "metrics": {
+      "twitterFollowers": 1000000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -308,13 +464,21 @@
   {
     "id": "ledger",
     "name": "Ledger",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=ledger.com&sz=64",
     "category": "wallet-cold",
-    "tags": ["Hardware Wallet", "Secure", "Multi-chain"],
+    "tags": [
+      "Hardware Wallet",
+      "Secure",
+      "Multi-chain"
+    ],
     "description": "The world's leading hardware wallet brand, supporting 5,500+ cryptocurrencies.",
     "website": "https://www.ledger.com",
-    "social": { "twitter": "Ledger" },
-    "metrics": { "twitterFollowers": 800000 },
+    "social": {
+      "twitter": "Ledger"
+    },
+    "metrics": {
+      "twitterFollowers": 800000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -325,13 +489,22 @@
   {
     "id": "trezor",
     "name": "Trezor",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=trezor.io&sz=64",
     "category": "wallet-cold",
-    "tags": ["Hardware Wallet", "Open Source", "Secure"],
+    "tags": [
+      "Hardware Wallet",
+      "Open Source",
+      "Secure"
+    ],
     "description": "An open-source hardware wallet brand known for its security and open-source philosophy.",
     "website": "https://trezor.io",
-    "social": { "twitter": "trezor", "github": "trezor" },
-    "metrics": { "twitterFollowers": 400000 },
+    "social": {
+      "twitter": "trezor",
+      "github": "trezor"
+    },
+    "metrics": {
+      "twitterFollowers": 400000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -342,13 +515,23 @@
   {
     "id": "safe",
     "name": "Safe (Gnosis Safe)",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=safe.global&sz=64",
     "category": "wallet-multisig",
-    "tags": ["Multisig", "Institutional-grade", "Secure"],
+    "tags": [
+      "Multisig",
+      "Institutional-grade",
+      "Secure"
+    ],
     "description": "The most popular multisig wallet on Ethereum, securing over $100 billion in assets.",
     "website": "https://safe.global",
-    "social": { "twitter": "safe", "github": "safe-global" },
-    "metrics": { "tvl": 100000000000, "githubStars": 2000 },
+    "social": {
+      "twitter": "safe",
+      "github": "safe-global"
+    },
+    "metrics": {
+      "tvl": 100000000000,
+      "githubStars": 2000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -361,11 +544,19 @@
     "name": "CoinGecko",
     "logo": "https://assets.coingecko.com/coins/images/12504/small/uni.jpg",
     "category": "market-aggregator",
-    "tags": ["Prices", "Data", "Free API"],
+    "tags": [
+      "Prices",
+      "Data",
+      "Free API"
+    ],
     "description": "The world's largest crypto data aggregation platform, providing price, market cap, and volume data.",
     "website": "https://www.coingecko.com",
-    "social": { "twitter": "coingecko" },
-    "metrics": { "twitterFollowers": 1000000 },
+    "social": {
+      "twitter": "coingecko"
+    },
+    "metrics": {
+      "twitterFollowers": 1000000
+    },
     "verified": true,
     "riskLevel": "low",
     "featured": true,
@@ -376,13 +567,21 @@
   {
     "id": "coinmarketcap",
     "name": "CoinMarketCap",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=coinmarketcap.com&sz=64",
     "category": "market-aggregator",
-    "tags": ["Prices", "Data", "Coin Rankings"],
+    "tags": [
+      "Prices",
+      "Data",
+      "Coin Rankings"
+    ],
     "description": "The most authoritative crypto market-cap ranking and data platform, owned by Binance.",
     "website": "https://coinmarketcap.com",
-    "social": { "twitter": "CoinMarketCap" },
-    "metrics": { "twitterFollowers": 1500000 },
+    "social": {
+      "twitter": "CoinMarketCap"
+    },
+    "metrics": {
+      "twitterFollowers": 1500000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -392,12 +591,18 @@
   {
     "id": "dexscreener",
     "name": "DexScreener",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=dexscreener.com&sz=64",
     "category": "market-aggregator",
-    "tags": ["DEX Prices", "Real-time", "Multi-chain"],
+    "tags": [
+      "DEX Prices",
+      "Real-time",
+      "Multi-chain"
+    ],
     "description": "The most popular real-time DEX market data and analytics platform.",
     "website": "https://dexscreener.com",
-    "social": { "twitter": "DexScreener" },
+    "social": {
+      "twitter": "DexScreener"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -407,13 +612,21 @@
   {
     "id": "dune",
     "name": "Dune Analytics",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=dune.com&sz=64",
     "category": "market-analytics",
-    "tags": ["On-chain Analytics", "SQL", "Visualization"],
+    "tags": [
+      "On-chain Analytics",
+      "SQL",
+      "Visualization"
+    ],
     "description": "A leading on-chain data analytics platform supporting SQL queries and visualization.",
     "website": "https://dune.com",
-    "social": { "twitter": "DuneAnalytics" },
-    "metrics": { "twitterFollowers": 300000 },
+    "social": {
+      "twitter": "DuneAnalytics"
+    },
+    "metrics": {
+      "twitterFollowers": 300000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -423,12 +636,18 @@
   {
     "id": "defillama",
     "name": "DefiLlama",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=defillama.com&sz=64",
     "category": "market-analytics",
-    "tags": ["TVL", "DeFi", "Free"],
+    "tags": [
+      "TVL",
+      "DeFi",
+      "Free"
+    ],
     "description": "The largest DeFi TVL data platform, covering all-chain DeFi protocol data.",
     "website": "https://defillama.com",
-    "social": { "twitter": "DefiLlama" },
+    "social": {
+      "twitter": "DefiLlama"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -438,12 +657,18 @@
   {
     "id": "etherscan",
     "name": "Etherscan",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=etherscan.io&sz=64",
     "category": "market-explorer",
-    "tags": ["Ethereum", "Block Explorer", "Contract Lookup"],
+    "tags": [
+      "Ethereum",
+      "Block Explorer",
+      "Contract Lookup"
+    ],
     "description": "The most popular Ethereum block explorer for querying transactions, addresses, and contracts.",
     "website": "https://etherscan.io",
-    "social": { "twitter": "etherscan" },
+    "social": {
+      "twitter": "etherscan"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -453,12 +678,17 @@
   {
     "id": "solscan",
     "name": "Solscan",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=solscan.io&sz=64",
     "category": "market-explorer",
-    "tags": ["Solana", "Block Explorer"],
+    "tags": [
+      "Solana",
+      "Block Explorer"
+    ],
     "description": "The most popular block explorer on the Solana chain.",
     "website": "https://solscan.io",
-    "social": { "twitter": "solscanio" },
+    "social": {
+      "twitter": "solscanio"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -470,11 +700,20 @@
     "name": "Aave",
     "logo": "https://assets.coingecko.com/coins/images/12645/small/aave.jpg",
     "category": "defi-lending",
-    "tags": ["Largest Lending", "Flash Loans", "Multi-chain"],
+    "tags": [
+      "Largest Lending",
+      "Flash Loans",
+      "Multi-chain"
+    ],
     "description": "The largest decentralized lending protocol on Ethereum, supporting deposits, borrowing, and flash loans.",
     "website": "https://aave.com",
-    "social": { "twitter": "AaveAave" },
-    "metrics": { "tvl": 12000000000, "twitterFollowers": 500000 },
+    "social": {
+      "twitter": "AaveAave"
+    },
+    "metrics": {
+      "tvl": 12000000000,
+      "twitterFollowers": 500000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -488,11 +727,20 @@
     "name": "Compound",
     "logo": "https://assets.coingecko.com/coins/images/10643/small/compound.png",
     "category": "defi-lending",
-    "tags": ["Lending", "cToken", "DeFi"],
+    "tags": [
+      "Lending",
+      "cToken",
+      "DeFi"
+    ],
     "description": "A decentralized money market protocol where users can earn interest on deposits or borrow assets.",
     "website": "https://compound.finance",
-    "social": { "twitter": "compoundfinance", "github": "compound-finance" },
-    "metrics": { "tvl": 3000000000 },
+    "social": {
+      "twitter": "compoundfinance",
+      "github": "compound-finance"
+    },
+    "metrics": {
+      "tvl": 3000000000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -503,13 +751,22 @@
   {
     "id": "makerdao",
     "name": "MakerDAO",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=makerdao.com&sz=64",
     "category": "defi-stablecoin",
-    "tags": ["DAI", "CDP", "Decentralized Stablecoin"],
+    "tags": [
+      "DAI",
+      "CDP",
+      "Decentralized Stablecoin"
+    ],
     "description": "The issuer of the decentralized stablecoin DAI, minted through over-collateralization.",
     "website": "https://makerdao.com",
-    "social": { "twitter": "MakerDAO" },
-    "metrics": { "tvl": 8000000000, "twitterFollowers": 300000 },
+    "social": {
+      "twitter": "MakerDAO"
+    },
+    "metrics": {
+      "tvl": 8000000000,
+      "twitterFollowers": 300000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -520,13 +777,22 @@
   {
     "id": "lido",
     "name": "Lido",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=lido.fi&sz=64",
     "category": "defi-yield",
-    "tags": ["Liquid Staking", "stETH", "Ethereum"],
+    "tags": [
+      "Liquid Staking",
+      "stETH",
+      "Ethereum"
+    ],
     "description": "The largest Ethereum liquid staking protocol, issuing the stETH liquid staking token.",
     "website": "https://lido.fi",
-    "social": { "twitter": "LidoFinance" },
-    "metrics": { "tvl": 30000000000, "twitterFollowers": 200000 },
+    "social": {
+      "twitter": "LidoFinance"
+    },
+    "metrics": {
+      "tvl": 30000000000,
+      "twitterFollowers": 200000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -538,13 +804,21 @@
   {
     "id": "yearn",
     "name": "Yearn Finance",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=yearn.fi&sz=64",
     "category": "defi-yield",
-    "tags": ["Yield Aggregator", "Auto Strategy", "DeFi"],
+    "tags": [
+      "Yield Aggregator",
+      "Auto Strategy",
+      "DeFi"
+    ],
     "description": "A decentralized yield aggregator that automatically optimizes DeFi yield strategies.",
     "website": "https://yearn.fi",
-    "social": { "twitter": "iearnfinance" },
-    "metrics": { "tvl": 500000000 },
+    "social": {
+      "twitter": "iearnfinance"
+    },
+    "metrics": {
+      "tvl": 500000000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -555,12 +829,18 @@
   {
     "id": "stargate",
     "name": "Stargate Finance",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=stargate.finance&sz=64",
     "category": "defi-bridge",
-    "tags": ["Cross-chain Bridge", "Multi-chain", "LayerZero"],
+    "tags": [
+      "Cross-chain Bridge",
+      "Multi-chain",
+      "LayerZero"
+    ],
     "description": "An omnichain cross-chain bridge protocol built on LayerZero, enabling cross-chain asset transfers.",
     "website": "https://stargate.finance",
-    "social": { "twitter": "StargateFinance" },
+    "social": {
+      "twitter": "StargateFinance"
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -571,12 +851,18 @@
   {
     "id": "across",
     "name": "Across Protocol",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=across.to&sz=64",
     "category": "defi-bridge",
-    "tags": ["Cross-chain Bridge", "Optimism", "Low Cost"],
+    "tags": [
+      "Cross-chain Bridge",
+      "Optimism",
+      "Low Cost"
+    ],
     "description": "A low-cost optimistic cross-chain bridge protocol built on UMA.",
     "website": "https://across.to",
-    "social": { "twitter": "AcrossProtocol" },
+    "social": {
+      "twitter": "AcrossProtocol"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -586,13 +872,21 @@
   {
     "id": "opensea",
     "name": "OpenSea",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=opensea.io&sz=64",
     "category": "nft-marketplace",
-    "tags": ["Largest NFT Market", "Multi-chain", "Aggregator"],
+    "tags": [
+      "Largest NFT Market",
+      "Multi-chain",
+      "Aggregator"
+    ],
     "description": "The world's largest NFT marketplace, supporting multiple chains including Ethereum, Polygon, and Solana.",
     "website": "https://opensea.io",
-    "social": { "twitter": "opensea" },
-    "metrics": { "twitterFollowers": 800000 },
+    "social": {
+      "twitter": "opensea"
+    },
+    "metrics": {
+      "twitterFollowers": 800000
+    },
     "verified": true,
     "riskLevel": "low",
     "featured": true,
@@ -603,13 +897,21 @@
   {
     "id": "blur",
     "name": "Blur",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=blur.io&sz=64",
     "category": "nft-marketplace",
-    "tags": ["Pro Trading", "Zero Fees", "Aggregator"],
+    "tags": [
+      "Pro Trading",
+      "Zero Fees",
+      "Aggregator"
+    ],
     "description": "A marketplace for professional NFT traders, featuring zero fees plus an aggregator model.",
     "website": "https://blur.io",
-    "social": { "twitter": "blur_io" },
-    "metrics": { "twitterFollowers": 300000 },
+    "social": {
+      "twitter": "blur_io"
+    },
+    "metrics": {
+      "twitterFollowers": 300000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -619,13 +921,21 @@
   {
     "id": "magic-eden",
     "name": "Magic Eden",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=magiceden.io&sz=64",
     "category": "nft-marketplace",
-    "tags": ["Solana", "Multi-chain", "Launchpad"],
+    "tags": [
+      "Solana",
+      "Multi-chain",
+      "Launchpad"
+    ],
     "description": "The largest NFT marketplace on Solana, since expanded to multiple chains.",
     "website": "https://magiceden.io",
-    "social": { "twitter": "MagicEden" },
-    "metrics": { "twitterFollowers": 500000 },
+    "social": {
+      "twitter": "MagicEden"
+    },
+    "metrics": {
+      "twitterFollowers": 500000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -637,11 +947,21 @@
     "name": "Ethereum",
     "logo": "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
     "category": "infra-chain",
-    "tags": ["Public Chain", "Smart Contracts", "L1"],
+    "tags": [
+      "Public Chain",
+      "Smart Contracts",
+      "L1"
+    ],
     "description": "The world's second-largest cryptocurrency and the blockchain platform that pioneered smart contracts and DeFi.",
     "website": "https://ethereum.org",
-    "social": { "twitter": "ethereum", "github": "ethereum" },
-    "metrics": { "marketCapRank": 2, "githubStars": 15000 },
+    "social": {
+      "twitter": "ethereum",
+      "github": "ethereum"
+    },
+    "metrics": {
+      "marketCapRank": 2,
+      "githubStars": 15000
+    },
     "verified": true,
     "riskLevel": "low",
     "featured": true,
@@ -652,13 +972,23 @@
   {
     "id": "solana",
     "name": "Solana",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=solana.com&sz=64",
     "category": "infra-chain",
-    "tags": ["High Performance", "Low Fees", "L1"],
+    "tags": [
+      "High Performance",
+      "Low Fees",
+      "L1"
+    ],
     "description": "A high-performance blockchain with high TPS and low fees, boasting a thriving DeFi and NFT ecosystem.",
     "website": "https://solana.com",
-    "social": { "twitter": "solana", "github": "solana-labs" },
-    "metrics": { "marketCapRank": 5, "githubStars": 12000 },
+    "social": {
+      "twitter": "solana",
+      "github": "solana-labs"
+    },
+    "metrics": {
+      "marketCapRank": 5,
+      "githubStars": 12000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -668,12 +998,18 @@
   {
     "id": "bsc",
     "name": "BNB Chain",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=bnbchain.org&sz=64",
     "category": "infra-chain",
-    "tags": ["BSC", "Low Fees", "EVM"],
+    "tags": [
+      "BSC",
+      "Low Fees",
+      "EVM"
+    ],
     "description": "Binance's EVM-compatible blockchain, offering low fees and fast confirmations.",
     "website": "https://www.bnbchain.org",
-    "social": { "twitter": "bnbchain" },
+    "social": {
+      "twitter": "bnbchain"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -683,12 +1019,18 @@
   {
     "id": "arbitrum",
     "name": "Arbitrum",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=arbitrum.io&sz=64",
     "category": "infra-layer2",
-    "tags": ["Layer2", "Rollup", "EVM"],
+    "tags": [
+      "Layer2",
+      "Rollup",
+      "EVM"
+    ],
     "description": "Ethereum's largest Layer 2 rollup, an EVM-compatible chain with high throughput and low fees.",
     "website": "https://arbitrum.io",
-    "social": { "twitter": "arbitrum" },
+    "social": {
+      "twitter": "arbitrum"
+    },
     "verified": true,
     "riskLevel": "low",
     "featured": true,
@@ -699,13 +1041,22 @@
   {
     "id": "optimism",
     "name": "Optimism",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=optimism.io&sz=64",
     "category": "infra-layer2",
-    "tags": ["Layer2", "OP Stack", "EVM"],
+    "tags": [
+      "Layer2",
+      "OP Stack",
+      "EVM"
+    ],
     "description": "An Ethereum Layer 2 Optimistic Rollup built on the open-source OP Stack tech stack.",
     "website": "https://optimism.io",
-    "social": { "twitter": "optimismFND", "github": "ethereum-optimism" },
-    "metrics": { "githubStars": 5000 },
+    "social": {
+      "twitter": "optimismFND",
+      "github": "ethereum-optimism"
+    },
+    "metrics": {
+      "githubStars": 5000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -715,12 +1066,18 @@
   {
     "id": "base",
     "name": "Base",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=base.org&sz=64",
     "category": "infra-layer2",
-    "tags": ["Layer2", "Coinbase", "OP Stack"],
+    "tags": [
+      "Layer2",
+      "Coinbase",
+      "OP Stack"
+    ],
     "description": "An Ethereum Layer 2 launched by Coinbase, built on OP Stack.",
     "website": "https://base.org",
-    "social": { "twitter": "base" },
+    "social": {
+      "twitter": "base"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -730,13 +1087,22 @@
   {
     "id": "openzeppelin",
     "name": "OpenZeppelin",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=openzeppelin.com&sz=64",
     "category": "security-audit",
-    "tags": ["Audit", "Security", "Contract Library"],
+    "tags": [
+      "Audit",
+      "Security",
+      "Contract Library"
+    ],
     "description": "The most renowned name in blockchain security, offering audit services and open-source contract libraries.",
     "website": "https://www.openzeppelin.com",
-    "social": { "twitter": "OpenZeppelin", "github": "OpenZeppelin" },
-    "metrics": { "githubStars": 24000 },
+    "social": {
+      "twitter": "OpenZeppelin",
+      "github": "OpenZeppelin"
+    },
+    "metrics": {
+      "githubStars": 24000
+    },
     "verified": true,
     "audited": true,
     "riskLevel": "low",
@@ -747,12 +1113,18 @@
   {
     "id": "certik",
     "name": "CertiK",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=certik.com&sz=64",
     "category": "security-audit",
-    "tags": ["Audit", "Security Score", "On-chain Monitoring"],
+    "tags": [
+      "Audit",
+      "Security Score",
+      "On-chain Monitoring"
+    ],
     "description": "A leading blockchain security audit firm providing smart contract audits and on-chain security monitoring.",
     "website": "https://www.certik.com",
-    "social": { "twitter": "certikorg" },
+    "social": {
+      "twitter": "certikorg"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -762,9 +1134,13 @@
   {
     "id": "rekt",
     "name": "Rekt",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=rekt.news&sz=64",
     "category": "security-tools",
-    "tags": ["Security Incidents", "DeFi", "Analysis"],
+    "tags": [
+      "Security Incidents",
+      "DeFi",
+      "Analysis"
+    ],
     "description": "A DeFi security incident analysis platform that records and scores various DeFi exploits.",
     "website": "https://rekt.news",
     "verified": true,
@@ -776,13 +1152,21 @@
   {
     "id": "cointelegraph",
     "name": "Cointelegraph",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=cointelegraph.com&sz=64",
     "category": "media-news",
-    "tags": ["News", "Information", "Industry Coverage"],
+    "tags": [
+      "News",
+      "Information",
+      "Industry Coverage"
+    ],
     "description": "A leading global crypto and blockchain news media outlet.",
     "website": "https://cointelegraph.com",
-    "social": { "twitter": "Cointelegraph" },
-    "metrics": { "twitterFollowers": 2000000 },
+    "social": {
+      "twitter": "Cointelegraph"
+    },
+    "metrics": {
+      "twitterFollowers": 2000000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -792,12 +1176,18 @@
   {
     "id": "theblock",
     "name": "The Block",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=theblock.co&sz=64",
     "category": "media-news",
-    "tags": ["News", "Research", "In-depth"],
+    "tags": [
+      "News",
+      "Research",
+      "In-depth"
+    ],
     "description": "An authoritative crypto industry news and research platform.",
     "website": "https://www.theblock.co",
-    "social": { "twitter": "TheBlock__" },
+    "social": {
+      "twitter": "TheBlock__"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -807,13 +1197,21 @@
   {
     "id": "coindesk",
     "name": "CoinDesk",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=coindesk.com&sz=64",
     "category": "media-news",
-    "tags": ["News", "Information", "Data"],
+    "tags": [
+      "News",
+      "Information",
+      "Data"
+    ],
     "description": "The world's most well-known crypto news and data media outlet.",
     "website": "https://www.coindesk.com",
-    "social": { "twitter": "CoinDesk" },
-    "metrics": { "twitterFollowers": 1000000 },
+    "social": {
+      "twitter": "CoinDesk"
+    },
+    "metrics": {
+      "twitterFollowers": 1000000
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -823,12 +1221,18 @@
   {
     "id": "tokeninsight",
     "name": "TokenInsight",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=tokeninsight.com&sz=64",
     "category": "media-news",
-    "tags": ["Chinese", "Ratings", "Research"],
+    "tags": [
+      "Chinese",
+      "Ratings",
+      "Research"
+    ],
     "description": "A professional crypto rating and research firm providing Chinese-language content.",
     "website": "https://tokeninsight.com",
-    "social": { "twitter": "TokenInsight" },
+    "social": {
+      "twitter": "TokenInsight"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -838,9 +1242,13 @@
   {
     "id": "coinmarketcal",
     "name": "CoinMarketCal",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=coinmarketcal.com&sz=64",
     "category": "tools-portfolio",
-    "tags": ["Event Calendar", "News", "Alerts"],
+    "tags": [
+      "Event Calendar",
+      "News",
+      "Alerts"
+    ],
     "description": "A crypto event calendar platform tracking project updates and important events.",
     "website": "https://coinmarketcal.com",
     "verified": true,
@@ -852,12 +1260,18 @@
   {
     "id": "koinly",
     "name": "Koinly",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=koinly.io&sz=64",
     "category": "tools-tax",
-    "tags": ["Tax", "Filing", "Multi-country"],
+    "tags": [
+      "Tax",
+      "Filing",
+      "Multi-country"
+    ],
     "description": "A crypto tax calculation tool supporting multiple tax jurisdictions and exchange imports.",
     "website": "https://koinly.io",
-    "social": { "twitter": "koinlyapp" },
+    "social": {
+      "twitter": "koinlyapp"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -867,12 +1281,18 @@
   {
     "id": "zerion",
     "name": "Zerion",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=zerion.io&sz=64",
     "category": "tools-portfolio",
-    "tags": ["Portfolio Management", "Multi-chain", "DeFi"],
+    "tags": [
+      "Portfolio Management",
+      "Multi-chain",
+      "DeFi"
+    ],
     "description": "A multi-chain DeFi portfolio management tool tracking assets and yields across all chains.",
     "website": "https://zerion.io",
-    "social": { "twitter": "zerion" },
+    "social": {
+      "twitter": "zerion"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -882,12 +1302,18 @@
   {
     "id": "debank",
     "name": "DeBank",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=debank.com&sz=64",
     "category": "tools-portfolio",
-    "tags": ["Portfolio Management", "DeFi", "Multi-chain"],
+    "tags": [
+      "Portfolio Management",
+      "DeFi",
+      "Multi-chain"
+    ],
     "description": "The most popular DeFi portfolio management tool, tracking multi-chain assets and protocols.",
     "website": "https://debank.com",
-    "social": { "twitter": "DeBankDeFi" },
+    "social": {
+      "twitter": "DeBankDeFi"
+    },
     "verified": true,
     "riskLevel": "low",
     "status": "active",
@@ -897,9 +1323,13 @@
   {
     "id": "airdropsio",
     "name": "Airdrops.io",
-    "logo": "",
+    "logo": "https://www.google.com/s2/favicons?domain=airdrops.io&sz=64",
     "category": "tools-airdrop",
-    "tags": ["Airdrops", "Free", "Tracker"],
+    "tags": [
+      "Airdrops",
+      "Free",
+      "Tracker"
+    ],
     "description": "A free airdrop info aggregator tracking the latest and upcoming airdrops.",
     "website": "https://airdrops.io",
     "verified": true,
