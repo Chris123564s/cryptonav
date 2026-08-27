@@ -4,6 +4,10 @@ import Header from '../components/Header.astro';
 import TickerBar from '../components/TickerBar.astro';
 import AdBanner from '../components/AdBanner.astro';
 import MarketChart from '../components/MarketChart.astro';
+import TokenTools from '../components/TokenTools.astro';
+import NewTokensRadar from '../components/NewTokensRadar.astro';
+import CurrentPicks from '../components/CurrentPicks.astro';
+import SuccessCases from '../components/SuccessCases.astro';
 import FeaturedCarousel from '../components/FeaturedCarousel.astro';
 import CategoryGrid from '../components/CategoryGrid.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -33,6 +37,18 @@ const totalProjects = getActiveProjects().length;
 
   <!-- Market Chart (live price走势图) -->
   <MarketChart />
+
+  <!-- Meme & New Token Tools (AVE/GMGN 入口) -->
+  <TokenTools />
+
+  <!-- Trending New Tokens (实时新土狗币雷达) -->
+  <NewTokensRadar />
+
+  <!-- Current Recommendations -->
+  <CurrentPicks />
+
+  <!-- Success Cases (历史战绩) -->
+  <SuccessCases />
 
   <!-- Featured -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

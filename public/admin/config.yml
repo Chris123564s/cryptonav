@@ -50,7 +50,8 @@ collections:
                "infra-chain", "infra-layer2", "infra-dev-tools",
                "security-audit", "security-tools",
                "media-news", "media-community", "media-education",
-               "tools-portfolio", "tools-tax", "tools-airdrop"]
+               "tools-portfolio", "tools-tax", "tools-airdrop",
+               "at-onchain", "at-copytrade", "at-sniper"]
             },
             { label: "标签", name: "tags", widget: "list", required: false },
             { label: "简介", name: "description", widget: "text" },
@@ -137,5 +138,59 @@ collections:
             { label: "Logo", name: "image", widget: "string", required: false },
             { label: "当前价格", name: "currentPrice", widget: "number", default: 0 },
             { label: "24h 涨跌幅", name: "priceChangePercentage24h", widget: "number", default: 0, hint: "正数涨，负数跌" }
+          ]
+        }
+
+  # -----------------------------------------------------------
+  # 5. 当前推荐位（首页 Current Recommendations）
+  # -----------------------------------------------------------
+  - name: "recommended"
+    label: "当前推荐"
+    label_singular: "推荐币"
+    file: "src/data/recommended.json"
+    extension: "json"
+    format: "json"
+    create: false
+    delete: false
+    editor:
+      preview: true
+    fields:
+      - { label: "推荐币列表", name: "", widget: "list", required: true, fields:
+          [
+            { label: "ID", name: "id", widget: "string", hint: "如 pepe" },
+            { label: "名称", name: "name", widget: "string" },
+            { label: "符号", name: "symbol", widget: "string", hint: "如 PEPE" },
+            { label: "Logo", name: "logo", widget: "string", required: false, hint: "图片 URL" },
+            { label: "推荐理由", name: "reason", widget: "text" },
+            { label: "推荐价", name: "entryPrice", widget: "number", default: 0, hint: "推荐时的价格" },
+            { label: "跳转链接", name: "link", widget: "string" }
+          ]
+        }
+
+  # -----------------------------------------------------------
+  # 6. 历史战绩（首页 Success Cases）
+  # -----------------------------------------------------------
+  - name: "wins"
+    label: "历史战绩"
+    label_singular: "战绩"
+    file: "src/data/wins.json"
+    extension: "json"
+    format: "json"
+    create: false
+    delete: false
+    editor:
+      preview: true
+    fields:
+      - { label: "战绩列表", name: "", widget: "list", required: true, fields:
+          [
+            { label: "ID", name: "id", widget: "string", hint: "如 shib" },
+            { label: "名称", name: "name", widget: "string" },
+            { label: "符号", name: "symbol", widget: "string", hint: "如 SHIB" },
+            { label: "Logo", name: "logo", widget: "string", required: false },
+            { label: "推荐价", name: "entryPrice", widget: "number", default: 0 },
+            { label: "最高价", name: "peakPrice", widget: "number", default: 0 },
+            { label: "倍数", name: "multiple", widget: "number", default: 1, hint: "如 12 表示 12x" },
+            { label: "日期", name: "date", widget: "string", hint: "如 2023-10" },
+            { label: "说明", name: "note", widget: "text", required: false }
           ]
         }

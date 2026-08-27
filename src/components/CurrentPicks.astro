@@ -1,0 +1,42 @@
+---
+import recommended from '../data/recommended.json';
+
+function fmtPrice(v: number): string {
+  if (v >= 1) return `$${v.toLocaleString('en-US', { maximumFractionDigits: 4 })}`;
+  if (v >= 0.01) return `$${v.toFixed(4)}`;
+  return `$${v.toPrecision(3)}`;
+}
+---
+
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+  <div class="flex items-center gap-2 mb-3">
+    <span class="px-2 py-0.5 text-xs font-bold rounded bg-accent-500/10 text-accent-600 dark:text-accent-400">Editors' Pick</span>
+    <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Current Recommendations</h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {recommended.map(item => (
+      <a
+        href={item.link}
+        target="_blank"
+        rel="noopener"
+        class="block p-5 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 text-white hover:shadow-lg transition-shadow"
+      >
+        <div class="flex items-center gap-3 mb-3">
+          <img src={item.logo} alt={item.name} class="w-10 h-10 rounded-full bg-white/20 object-cover"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" loading="lazy" />
+          <div class="w-10 h-10 rounded-full bg-white/20 items-center justify-center text-base font-bold" style="display:none">{(item.symbol || '?').charAt(0)}</div>
+          <div>
+            <div class="font-bold">{item.name}</div>
+            <div class="text-xs text-brand-100">{item.symbol}</div>
+          </div>
+        </div>
+        <p class="text-sm text-brand-50 mb-3 line-clamp-3">{item.reason}</p>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-brand-100">Entry</span>
+          <span class="font-mono font-semibold">{fmtPrice(item.entryPrice)}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

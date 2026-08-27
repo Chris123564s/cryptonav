@@ -1,0 +1,29 @@
+[
+  {
+    "id": "pepe",
+    "name": "Pepe",
+    "symbol": "PEPE",
+    "logo": "https://coin-images.coingecko.com/coins/images/29850/standard/pepe-token.jpeg?1698232045",
+    "reason": "Strong community momentum and rising on-chain volume; watch for a breakout above the recent range.",
+    "entryPrice": 0.0000012,
+    "link": "https://www.coingecko.com/en/coins/pepe"
+  },
+  {
+    "id": "wif",
+    "name": "dogwifhat",
+    "symbol": "WIF",
+    "logo": "https://coin-images.coingecko.com/coins/images/45909/standard/wif.png?1718581257",
+    "reason": "Top Solana meme with exchange listings expanding; momentum traders are rotating back in.",
+    "entryPrice": 2.35,
+    "link": "https://www.coingecko.com/en/coins/dogwifhat"
+  },
+  {
+    "id": "bonk",
+    "name": "Bonk",
+    "symbol": "BONK",
+    "logo": "https://coin-images.coingecko.com/coins/images/27727/standard/bonk.jpg?1698223104",
+    "reason": "Solana ecosystem bellwether; trending in smart-money wallets this week.",
+    "entryPrice": 0.000028,
+    "link": "https://www.coingecko.com/en/coins/bonk"
+  }
+]
