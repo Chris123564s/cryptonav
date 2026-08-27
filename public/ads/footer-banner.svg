@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="728" height="90" viewBox="0 0 728 90">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+  <rect width="728" height="90" fill="url(#bg)"/>
+  <circle cx="660" cy="15" r="50" fill="#ffffff" opacity="0.08"/>
+  <!-- Chart icon -->
+  <g transform="translate(30,25)">
+    <rect x="0" y="0" width="40" height="40" rx="8" fill="#ffffff" opacity="0.95"/>
+    <path d="M8 28 L18 18 L26 24 L34 10" stroke="#1D4ED8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M8 30 L34 30" stroke="#1D4ED8" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="90" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">Track Every Market on CoinGecko</text>
+  <text x="90" y="66" font-family="Arial, sans-serif" font-size="15" fill="#ffffff" opacity="0.85">Live prices &amp; portfolio tracking for 10,000+ cryptocurrencies</text>
+  <rect x="560" y="28" width="140" height="36" rx="18" fill="#ffffff" opacity="0.2"/>
+  <text x="630" y="51" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">Visit Site</text>
+</svg>

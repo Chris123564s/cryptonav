@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="250" viewBox="0 0 300 250">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#0D9488"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="250" fill="url(#bg)"/>
+  <circle cx="50" cy="210" r="55" fill="#ffffff" opacity="0.08"/>
+  <!-- Uniswap unicorn-ish circle -->
+  <g transform="translate(110,28)">
+    <circle cx="40" cy="40" r="40" fill="#ffffff" opacity="0.95"/>
+    <text x="40" y="56" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#059669" text-anchor="middle">🦄</text>
+  </g>
+  <text x="150" y="155" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">Swap on Uniswap</text>
+  <text x="150" y="183" font-family="Arial, sans-serif" font-size="13" fill="#ffffff" opacity="0.85" text-anchor="middle">Trade 1,000+ tokens from</text>
+  <text x="150" y="202" font-family="Arial, sans-serif" font-size="13" fill="#ffffff" opacity="0.85" text-anchor="middle">your wallet — no account</text>
+  <rect x="85" y="216" width="130" height="26" rx="13" fill="#ffffff" opacity="0.2"/>
+  <text x="150" y="234" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Start Swapping</text>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="120" viewBox="0 0 600 120">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DB2777"/>
+      <stop offset="100%" stop-color="#F43F5E"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="120" fill="url(#bg)"/>
+  <circle cx="520" cy="20" r="50" fill="#ffffff" opacity="0.08"/>
+  <!-- NFT diamond icon -->
+  <g transform="translate(40,35)">
+    <rect x="0" y="0" width="50" height="50" rx="10" fill="#ffffff" opacity="0.95"/>
+    <path d="M25 8 L42 25 L25 42 L8 25 Z" fill="#DB2777"/>
+  </g>
+  <text x="110" y="52" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff">Collect NFTs on OpenSea</text>
+  <text x="110" y="80" font-family="Arial, sans-serif" font-size="15" fill="#ffffff" opacity="0.88">The world's largest NFT marketplace — discover, buy &amp; sell</text>
+  <rect x="460" y="44" width="120" height="34" rx="17" fill="#ffffff" opacity="0.2"/>
+  <text x="520" y="66" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Explore</text>
+</svg>

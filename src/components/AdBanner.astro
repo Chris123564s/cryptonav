@@ -33,7 +33,7 @@ const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default
 {ad ? (
   <a
     href={ad.link}
-    class={`ad-container ${sizeClasses[format]} ${className}`}
+    class={`ad-container ${ad.image ? '' : 'border-dashed'} ${sizeClasses[format]} ${className}`}
     target={ad.link.startsWith('/') ? '' : '_blank'}
     rel={ad.link.startsWith('/') ? '' : 'sponsored noopener'}
     data-ad-id={ad.id}

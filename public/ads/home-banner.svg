@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F0B90B"/>
+      <stop offset="100%" stop-color="#F8D33A"/>
+    </linearGradient>
+    <linearGradient id="btn" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1E2329"/>
+      <stop offset="100%" stop-color="#2B3139"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  <!-- Decorative circles -->
+  <circle cx="1050" cy="60" r="100" fill="#ffffff" opacity="0.12"/>
+  <circle cx="1130" cy="220" r="70" fill="#ffffff" opacity="0.10"/>
+  <!-- Bitcoin icon -->
+  <g transform="translate(90,90)">
+    <circle cx="60" cy="60" r="60" fill="#1E2329"/>
+    <text x="60" y="88" font-family="Arial, sans-serif" font-size="68" font-weight="bold" fill="#F0B90B" text-anchor="middle">₿</text>
+  </g>
+  <!-- Text -->
+  <text x="240" y="120" font-family="Arial, sans-serif" font-size="46" font-weight="bold" fill="#1E2329">Trade Bitcoin &amp; Crypto on Binance</text>
+  <text x="240" y="165" font-family="Arial, sans-serif" font-size="24" fill="#1E2329" opacity="0.8">World's #1 exchange by volume — Get 20% fee rebate</text>
+  <!-- CTA Button -->
+  <rect x="240" y="200" width="220" height="56" rx="28" fill="url(#btn)"/>
+  <text x="350" y="235" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#F0B90B" text-anchor="middle">Sign Up Now</text>
+  <!-- Logo -->
+  <text x="1050" y="270" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#1E2329" text-anchor="middle" opacity="0.7">Binance</text>
+</svg>

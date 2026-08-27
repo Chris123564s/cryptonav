@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="250" viewBox="0 0 300 250">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#0891B2"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="250" fill="url(#bg)"/>
+  <circle cx="250" cy="40" r="60" fill="#ffffff" opacity="0.10"/>
+  <!-- Shield icon -->
+  <g transform="translate(110,30)">
+    <path d="M40 0 L80 15 V50 C80 80 60 95 40 105 C20 95 0 80 0 50 V15 Z" fill="#ffffff" opacity="0.95"/>
+    <path d="M28 50 L37 60 L54 38" stroke="#2563EB" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="150" y="160" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">Secure with Ledger</text>
+  <text x="150" y="188" font-family="Arial, sans-serif" font-size="14" fill="#ffffff" opacity="0.85" text-anchor="middle">#1 hardware wallet</text>
+  <text x="150" y="208" font-family="Arial, sans-serif" font-size="14" fill="#ffffff" opacity="0.85" text-anchor="middle">Store 5,500+ coins offline</text>
+  <rect x="85" y="218" width="130" height="26" rx="13" fill="#ffffff" opacity="0.2"/>
+  <text x="150" y="236" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Learn More</text>
+</svg>
