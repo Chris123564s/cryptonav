@@ -91,6 +91,7 @@ export async function onRequestPost(context) {
       tags: [],
       description: data.description || '',
       website: website,
+      chains: Array.isArray(data.chains) ? data.chains : [],
       social: {
         twitter: data.twitter || '',
         telegram: data.telegram || '',

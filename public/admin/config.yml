@@ -54,6 +54,7 @@ collections:
               - { label: "Verified", name: "verified", widget: "boolean", default: false }
               - { label: "Audited", name: "audited", widget: "boolean", default: false, required: false }
               - { label: "Risk Level", name: "riskLevel", widget: "select", options: ["low", "medium", "high"], default: "low", required: false }
+              - { label: "Chains", name: "chains", widget: "select", options: ["ethereum", "solana", "bsc", "arbitrum", "base", "polygon", "avalanche", "optimism", "sui", "ton"], multiple: true, required: false, hint: "Which chains does this project operate on?" }
               - { label: "Featured", name: "featured", widget: "boolean", default: false, required: false }
               - { label: "Sponsored", name: "sponsored", widget: "boolean", default: false, required: false }
               - { label: "Sponsored Until", name: "sponsoredUntil", widget: "string", required: false }

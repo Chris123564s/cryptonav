@@ -29,7 +29,14 @@
       "sponsoredUntil": "2026-12-31",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "solana",
+        "arbitrum",
+        "polygon"
+      ]
     },
     {
       "id": "okx",
@@ -57,7 +64,14 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "arbitrum",
+        "polygon"
+      ]
     },
     {
       "id": "bybit",
@@ -83,7 +97,14 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "arbitrum",
+        "polygon"
+      ]
     },
     {
       "id": "coinbase",
@@ -111,7 +132,12 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "base",
+        "solana"
+      ]
     },
     {
       "id": "kraken",
@@ -138,7 +164,12 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "polygon"
+      ]
     },
     {
       "id": "gate-io",
@@ -164,7 +195,14 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "arbitrum",
+        "polygon"
+      ]
     },
     {
       "id": "bitget",
@@ -190,7 +228,13 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "arbitrum"
+      ]
     },
     {
       "id": "mexc",
@@ -216,7 +260,14 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "arbitrum",
+        "polygon"
+      ]
     },
     {
       "id": "uniswap",
@@ -244,7 +295,14 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "optimism",
+        "polygon",
+        "base"
+      ]
     },
     {
       "id": "pancakeswap",
@@ -270,7 +328,12 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "bsc",
+        "ethereum",
+        "arbitrum"
+      ]
     },
     {
       "id": "curve",
@@ -296,7 +359,13 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "polygon",
+        "optimism"
+      ]
     },
     {
       "id": "sushiswap",
@@ -347,7 +416,14 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "arbitrum",
+        "polygon",
+        "optimism"
+      ]
     },
     {
       "id": "dydx",
@@ -398,7 +474,15 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "optimism",
+        "polygon",
+        "bsc",
+        "base"
+      ]
     },
     {
       "id": "phantom",
@@ -423,7 +507,12 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "solana",
+        "ethereum",
+        "bsc"
+      ]
     },
     {
       "id": "rabby",
@@ -468,7 +557,13 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "solana",
+        "polygon"
+      ]
     },
     {
       "id": "ledger",

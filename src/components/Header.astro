@@ -1,7 +1,8 @@
 ---
-import { categories } from '../utils/data';
+import { categories, chains } from '../utils/data';
 
 const navCategories = categories;
+const navChains = chains.slice(0, 8);
 ---
 
 <header class="sticky top-0 z-50 bg-white/80 dark:bg-surface-900/80 backdrop-blur-lg border-b border-surface-200 dark:border-surface-700">
@@ -40,6 +41,34 @@ const navCategories = categories;
                 class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-surface-700 hover:bg-surface-100 dark:text-surface-200 dark:hover:bg-surface-700 transition-colors"
               >
                 {cat.name}
+              </a>
+            ))}
+          </div>
+        </div>
+        <!-- Chains dropdown -->
+        <div class="relative" id="chains-dropdown">
+          <button
+            id="chains-btn"
+            class="flex items-center gap-1 px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400 transition-colors"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            Chains
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div
+            id="chains-panel"
+            class="hidden absolute top-full left-0 mt-2 w-[320px] bg-white dark:bg-surface-800 rounded-xl shadow-xl border border-surface-200 dark:border-surface-700 p-3 grid grid-cols-2 gap-1 z-50"
+          >
+            {navChains.map(chain => (
+              <a
+                href={`/chain/${chain.slug}`}
+                class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-surface-700 hover:bg-surface-100 dark:text-surface-200 dark:hover:bg-surface-700 transition-colors"
+              >
+                <span class="w-2.5 h-2.5 rounded-full shrink-0" style={`background: ${chain.color}`}></span>
+                {chain.name}
               </a>
             ))}
           </div>
@@ -95,6 +124,13 @@ const navCategories = categories;
         {navCategories.map(cat => (
           <a href={`/category/${cat.slug}`} class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400">{cat.name}</a>
         ))}
+        <div class="pt-2 pb-1 text-xs font-semibold text-surface-400 uppercase">Chains</div>
+        {navChains.map(chain => (
+          <a href={`/chain/${chain.slug}`} class="px-3 py-2 text-sm text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full" style={`background: ${chain.color}`}></span>
+            {chain.name}
+          </a>
+        ))}
         <a href="/submit" class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400">Submit</a>
         <a href="/advertise" class="px-3 py-2 text-sm font-medium text-surface-600 hover:text-brand-600 dark:text-surface-300 dark:hover:text-brand-400">Advertise</a>
       </nav>
@@ -144,6 +180,30 @@ const navCategories = categories;
   // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeCats();
+  });
+
+  // Chains dropdown (same pattern as categories)
+  const chainsBtn = document.getElementById('chains-btn');
+  const chainsPanel = document.getElementById('chains-panel');
+  const chainsDropdown = document.getElementById('chains-dropdown');
+  function closeChains() {
+    chainsPanel?.classList.add('hidden');
+    chainsBtn?.setAttribute('aria-expanded', 'false');
+  }
+  chainsBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeCats(); // close categories if open
+    const willOpen = chainsPanel?.classList.contains('hidden');
+    if (willOpen) {
+      chainsPanel?.classList.remove('hidden');
+      chainsBtn?.setAttribute('aria-expanded', 'true');
+    } else {
+      closeChains();
+    }
+  });
+  chainsPanel?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeChains));
+  document.addEventListener('click', (e) => {
+    if (chainsDropdown && !chainsDropdown.contains(e.target)) closeChains();
   });
 </script>
 

@@ -1,12 +1,14 @@
 import projectsData from '../data/projects.json';
 import categoriesData from '../data/categories.json';
+import chainsData from '../data/chains.json';
 import adsData from '../data/ads.json';
 import featuredData from '../data/featured.json';
 import tickerData from '../data/ticker.json';
-import type { ProjectData, Category, AdConfig, FeaturedItem, TickerCoin, AdSlot } from '../types';
+import type { ProjectData, Category, AdConfig, FeaturedItem, TickerCoin, AdSlot, Chain } from '../types';
 
 export const projects: ProjectData[] = (projectsData as any).projects ?? projectsData as ProjectData[];
 export const categories: Category[] = categoriesData as Category[];
+export const chains: Chain[] = chainsData as Chain[];
 export const ads: AdConfig[] = (adsData as any).ads ?? adsData as AdConfig[];
 export const featured: FeaturedItem[] = (featuredData as any).featured ?? featuredData as FeaturedItem[];
 export const tickerCoins: TickerCoin[] = (tickerData as any).ticker ?? tickerData as TickerCoin[];
@@ -107,4 +109,30 @@ export function formatNumber(n: number): string {
 export function formatPrice(n: number): string {
   if (n >= 1) return `$${n.toLocaleString('en-US', { maximumFractionDigits: 2 })}`;
   return `$${n.toFixed(4)}`;
+}
+
+/** 按 slug 获取链 */
+export function getChainBySlug(slug: string): Chain | undefined {
+  return chains.find(c => c.slug === slug);
+}
+
+/** 按 chain ID 获取项目（支持多链） */
+export function getProjectsByChain(chainId: string): ProjectData[] {
+  return getActiveProjects()
+    .filter(p => p.chains && p.chains.includes(chainId))
+    .sort((a, b) => {
+      const aSponsored = a.sponsored && (!a.sponsoredUntil || new Date(a.sponsoredUntil) >= new Date());
+      const bSponsored = b.sponsored && (!b.sponsoredUntil || new Date(b.sponsoredUntil) >= new Date());
+      if (aSponsored && !bSponsored) return -1;
+      if (!aSponsored && bSponsored) return 1;
+      return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
+    });
+}
+
+/** 获取项目所属链的信息列表 */
+export function getProjectChains(project: ProjectData): Chain[] {
+  if (!project.chains || project.chains.length === 0) return [];
+  return project.chains
+    .map(id => chains.find(c => c.id === id))
+    .filter((c): c is Chain => c !== undefined);
 }

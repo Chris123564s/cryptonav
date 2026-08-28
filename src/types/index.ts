@@ -34,6 +34,7 @@ export interface ProjectData {
   audited?: boolean;
   riskLevel?: 'low' | 'medium' | 'high';
   warnings?: string[];
+  chains?: string[];
   featured?: boolean;
   sponsored?: boolean;
   sponsoredUntil?: string;
@@ -88,4 +89,16 @@ export interface TickerCoin {
   image: string;
   currentPrice: number;
   priceChangePercentage24h: number;
+}
+
+export interface Chain {
+  id: string;
+  name: string;
+  slug: string;
+  symbol: string;
+  color: string;
+  logo: string;
+  description: string;
+  website: string;
+  tvlRank: number;
 }

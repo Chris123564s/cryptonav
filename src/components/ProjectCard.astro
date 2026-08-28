@@ -1,6 +1,6 @@
 ---
 import type { ProjectData } from '../types';
-import { formatNumber } from '../utils/data';
+import { formatNumber, getProjectChains } from '../utils/data';
 
 interface Props {
   project: ProjectData;
@@ -72,6 +72,21 @@ function getCategorySlug(categoryId: string): string {
           ))}
         </div>
       )}
+
+      <!-- Chains -->
+      {(() => {
+        const projectChains = getProjectChains(project);
+        return projectChains.length > 0 ? (
+          <div class="flex flex-wrap items-center gap-1 mt-2">
+            {projectChains.slice(0, 4).map(chain => (
+              <a href={`/chain/${chain.slug}`} class="inline-flex items-center gap-1 text-[10px] font-medium px-1.5 py-0.5 rounded bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full" style={`background: ${chain.color}`}></span>
+                {chain.name}
+              </a>
+            ))}
+          </div>
+        ) : null;
+      })()}
 
       <!-- Metrics -->
       {project.metrics && !compact && (

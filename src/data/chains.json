@@ -1,0 +1,112 @@
+[
+  {
+    "id": "ethereum",
+    "name": "Ethereum",
+    "slug": "ethereum",
+    "symbol": "ETH",
+    "color": "#627EEA",
+    "logo": "/logos/chains/ethereum.png",
+    "description": "The leading smart contract platform and home to DeFi, NFTs, and the largest ecosystem of decentralized applications.",
+    "website": "https://ethereum.org",
+    "tvlRank": 1
+  },
+  {
+    "id": "solana",
+    "name": "Solana",
+    "slug": "solana",
+    "symbol": "SOL",
+    "color": "#14F195",
+    "logo": "/logos/chains/solana.png",
+    "description": "High-performance L1 blockchain known for fast transactions and low fees, popular for DeFi, meme coins, and NFTs.",
+    "website": "https://solana.com",
+    "tvlRank": 2
+  },
+  {
+    "id": "bsc",
+    "name": "BNB Chain",
+    "slug": "bsc",
+    "symbol": "BNB",
+    "color": "#F0B90B",
+    "logo": "/logos/chains/bsc.png",
+    "description": "Binance's EVM-compatible chain with low gas fees, hosting a large DeFi and GameFi ecosystem.",
+    "website": "https://www.bnbchain.org",
+    "tvlRank": 3
+  },
+  {
+    "id": "arbitrum",
+    "name": "Arbitrum",
+    "slug": "arbitrum",
+    "symbol": "ARB",
+    "color": "#28A0F0",
+    "logo": "/logos/chains/arbitrum.png",
+    "description": "Leading Ethereum Layer 2 with the largest TVL, home to major DeFi protocols and perp DEXes.",
+    "website": "https://arbitrum.io",
+    "tvlRank": 4
+  },
+  {
+    "id": "base",
+    "name": "Base",
+    "slug": "base",
+    "symbol": "BASE",
+    "color": "#0052FF",
+    "logo": "/logos/chains/base.png",
+    "description": "Coinbase's Layer 2 network, rapidly growing with DeFi, social, and consumer dApps.",
+    "website": "https://base.org",
+    "tvlRank": 5
+  },
+  {
+    "id": "polygon",
+    "name": "Polygon",
+    "slug": "polygon",
+    "symbol": "POL",
+    "color": "#8247E5",
+    "logo": "/logos/chains/polygon.png",
+    "description": "Ethereum sidechain and ZK rollup ecosystem, widely adopted for gaming and DeFi.",
+    "website": "https://polygon.technology",
+    "tvlRank": 6
+  },
+  {
+    "id": "avalanche",
+    "name": "Avalanche",
+    "slug": "avalanche",
+    "symbol": "AVAX",
+    "color": "#E84142",
+    "logo": "/logos/chains/avalanche.png",
+    "description": "High-throughput L1 with subnets, popular for DeFi, gaming, and RWA tokenization.",
+    "website": "https://avax.network",
+    "tvlRank": 7
+  },
+  {
+    "id": "optimism",
+    "name": "Optimism",
+    "slug": "optimism",
+    "symbol": "OP",
+    "color": "#FF0420",
+    "logo": "/logos/chains/optimism.png",
+    "description": "Ethereum Layer 2 with the OP Stack, powering a wide DeFi and identity ecosystem.",
+    "website": "https://optimism.io",
+    "tvlRank": 8
+  },
+  {
+    "id": "sui",
+    "name": "Sui",
+    "slug": "sui",
+    "symbol": "SUI",
+    "color": "#4DA2FF",
+    "logo": "/logos/chains/sui.png",
+    "description": "Move-based L1 with parallel execution, optimized for gaming and DeFi.",
+    "website": "https://sui.io",
+    "tvlRank": 9
+  },
+  {
+    "id": "ton",
+    "name": "TON",
+    "slug": "ton",
+    "symbol": "TON",
+    "color": "#0098EA",
+    "logo": "/logos/chains/ton.png",
+    "description": "Telegram-linked Layer 1 with massive consumer reach via mini-apps.",
+    "website": "https://ton.org",
+    "tvlRank": 10
+  }
+]
