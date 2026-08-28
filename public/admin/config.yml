@@ -34,7 +34,7 @@ collections:
             fields:
               - { label: "ID", name: "id", widget: "string", hint: "e.g. binance" }
               - { label: "Name", name: "name", widget: "string" }
-              - { label: "Logo URL", name: "logo", widget: "string", required: false }
+              - { label: "Logo", name: "logo", widget: "image", required: false }
               - { label: "Category", name: "category", widget: "select", options: ["exchange-cex", "exchange-dex", "exchange-derivatives", "exchange-p2p", "wallet-hot", "wallet-cold", "wallet-multisig", "market-aggregator", "market-analytics", "market-explorer", "defi-lending", "defi-yield", "defi-bridge", "defi-stablecoin", "nft-marketplace", "nft-tools", "infra-chain", "infra-layer2", "infra-dev-tools", "security-audit", "security-tools", "media-news", "media-community", "media-education", "tools-portfolio", "tools-tax", "tools-airdrop", "at-onchain", "at-copytrade", "at-sniper"] }
               - { label: "Tags", name: "tags", widget: "list", required: false }
               - { label: "Description", name: "description", widget: "text" }
@@ -83,7 +83,7 @@ collections:
               - { label: "Slot", name: "slot", widget: "select", options: ["home-banner", "sidebar-top", "sidebar-bottom", "footer-banner", "inline-card"] }
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
-              - { label: "Image URL", name: "image", widget: "string", required: false }
+              - { label: "Image", name: "image", widget: "image", required: false }
               - { label: "Gradient", name: "gradient", widget: "string", required: false }
               - { label: "Link", name: "link", widget: "string" }
               - { label: "Weight", name: "weight", widget: "number", default: 1 }
@@ -136,7 +136,7 @@ collections:
               - { label: "ID", name: "id", widget: "string" }
               - { label: "Symbol", name: "symbol", widget: "string" }
               - { label: "Name", name: "name", widget: "string" }
-              - { label: "Logo", name: "image", widget: "string", required: false }
+              - { label: "Logo", name: "image", widget: "image", required: false }
               - { label: "Current Price", name: "currentPrice", widget: "number", default: 0 }
               - { label: "24h Change %", name: "priceChangePercentage24h", widget: "number", default: 0 }
 
@@ -162,7 +162,7 @@ collections:
               - { label: "ID", name: "id", widget: "string" }
               - { label: "Name", name: "name", widget: "string" }
               - { label: "Symbol", name: "symbol", widget: "string" }
-              - { label: "Logo", name: "logo", widget: "string", required: false }
+              - { label: "Logo", name: "logo", widget: "image", required: false }
               - { label: "Reason", name: "reason", widget: "text" }
               - { label: "Entry Price", name: "entryPrice", widget: "number", default: 0 }
               - { label: "Link", name: "link", widget: "string" }
@@ -190,7 +190,7 @@ collections:
             fields:
               - { label: "Symbol", name: "symbol", widget: "string" }
               - { label: "Name", name: "name", widget: "string" }
-              - { label: "Logo", name: "logo", widget: "string", required: false }
+              - { label: "Logo", name: "logo", widget: "image", required: false }
               - { label: "Address", name: "address", widget: "string" }
               - { label: "Chain", name: "chain", widget: "string", default: "solana" }
               - { label: "6h Change %", name: "change6h", widget: "number", default: 0 }
