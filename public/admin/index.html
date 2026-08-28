@@ -3,12 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CryptoNav 管理后台</title>
+  <title>CryptoNav Admin</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <!-- Decap CMS (local, no CDN dependency) -->
-  <script src="/admin/decap-cms.js"></script>
+  <style>
+    #loading {
+      position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      font-family: system-ui, sans-serif; color: #666; font-size: 14px;
+    }
+    #error-box {
+      display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+      max-width: 90%; padding: 16px 24px; background: #fee; border: 1px solid #c33;
+      border-radius: 8px; color: #c33; font-family: monospace; font-size: 13px;
+      white-space: pre-wrap; word-break: break-all; z-index: 9999;
+    }
+  </style>
 </head>
 <body>
-  <!-- CMS will render here -->
+  <div id="loading">Loading CMS...</div>
+  <div id="error-box"></div>
+
+  <!-- Error capture: show JS errors on page instead of blank screen -->
+  <script>
+    window.onerror = function(msg, url, line, col, err) {
+      var box = document.getElementById('error-box');
+      box.style.display = 'block';
+      box.textContent = 'Error: ' + msg + '\n' + (url || '') + ':' + line + ':' + col + '\n' + (err && err.stack ? err.stack : '');
+      document.getElementById('loading').style.display = 'none';
+      return false;
+    };
+  </script>
+
+  <!-- Decap CMS (local, no CDN dependency) -->
+  <script src="/admin/decap-cms.js"></script>
+
+  <!-- Hide loading indicator once CMS renders -->
+  <script>
+    setTimeout(function() {
+      var root = document.getElementById('nc-root');
+      if (root && root.children.length > 0) {
+        document.getElementById('loading').style.display = 'none';
+      }
+    }, 3000);
+  </script>
 </body>
 </html>

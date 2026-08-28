@@ -1,198 +1,189 @@
 # Decap CMS 配置
-# 当你部署好网站后，把下面的 GitHub 仓库地址改成你自己的
-# 同时需要设置 OAuth 代理（参考 CMS-GUIDE.md）
+# 管理后台地址: https://cryptonav.site/admin
 
 backend:
   name: github
-  repo: Chris123564s/cryptonav       # 你的 GitHub 仓库地址
+  repo: Chris123564s/cryptonav
   branch: main
-  auth_type: implicit                  # implicit 模式，通过 Worker 代理完成 OAuth
-  app_id: "Ov23liNURTgjR3zrC76V"       # GitHub OAuth App Client ID
+  auth_type: implicit
+  app_id: "Ov23liNURTgjR3zrC76V"
   proxy: https://cms-oauth.chriscaochunsheng.workers.dev/.netlify/functions/auth
 
 # 本地开发时可以用这个后端调试（不需要 OAuth）
 # local_backend: true
 
-# 发布到 src/data/ 目录（静态站 build 时会读取这些文件）
-media_folder: "public/images/uploads"   # 图片上传保存位置
+media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 # ============================================================
-# 内容模型 - 每个集合对应一个 JSON 数据文件
+# 使用 file-based collections（单文件模式）
+# 每个 JSON 文件是一个纯数组 [...]，用 list widget 的 name: "" 包裹整个文件
 # ============================================================
 collections:
-  # -----------------------------------------------------------
-  # 1. 项目管理 - 最核心的内容
-  # -----------------------------------------------------------
   - name: "projects"
-    label: "项目管理"
-    label_singular: "项目"
-    folder: "src/data"
-    create: false
-    delete: false
-    extension: "json"
-    format: "json"
-    slug: "projects"
-    file: "src/data/projects.json"
-    editor:
-      preview: true
-    fields:
-      - { label: "项目列表", name: "", widget: "list", required: true, fields:
-          [
-            { label: "ID", name: "id", widget: "string", hint: "英文唯一标识，如 binance" },
-            { label: "项目名称", name: "name", widget: "string" },
-            { label: "Logo 地址", name: "logo", widget: "string", required: false, hint: "图片 URL" },
-            { label: "分类", name: "category", widget: "select", options:
-              ["exchange-cex", "exchange-dex", "exchange-derivatives", "exchange-p2p",
-               "wallet-hot", "wallet-cold", "wallet-multisig",
-               "market-aggregator", "market-analytics", "market-explorer",
-               "defi-lending", "defi-yield", "defi-bridge", "defi-stablecoin",
-               "nft-marketplace", "nft-tools",
-               "infra-chain", "infra-layer2", "infra-dev-tools",
-               "security-audit", "security-tools",
-               "media-news", "media-community", "media-education",
-               "tools-portfolio", "tools-tax", "tools-airdrop",
-               "at-onchain", "at-copytrade", "at-sniper"]
-            },
-            { label: "标签", name: "tags", widget: "list", required: false },
-            { label: "简介", name: "description", widget: "text" },
-            { label: "官网地址", name: "website", widget: "string" },
-            { label: "已认证", name: "verified", widget: "boolean", default: false },
-            { label: "已审计", name: "audited", widget: "boolean", default: false, required: false },
-            { label: "风险等级", name: "riskLevel", widget: "select", options: ["low", "medium", "high"], default: "low", required: false },
-            { label: "推荐展示", name: "featured", widget: "boolean", default: false, required: false },
-            { label: "赞助商", name: "sponsored", widget: "boolean", default: false, required: false },
-            { label: "赞助到期日", name: "sponsoredUntil", widget: "string", required: false, hint: "如 2026-12-31" },
-            { label: "状态", name: "status", widget: "select", options: ["active", "pending", "inactive"], default: "active" },
-            { label: "添加日期", name: "addedAt", widget: "string", hint: "如 2026-01-01" }
-          ]
-        }
+    label: "Projects"
+    label_singular: "Project"
+    files:
+      - file: "src/data/projects.json"
+        name: "projects"
+        label: "All Projects"
+        extension: "json"
+        format: "json"
+        create: false
+        delete: false
+        editor:
+          preview: false
+        fields:
+          - label: "Project List"
+            name: "projects"
+            widget: "list"
+            required: true
+            fields:
+              - { label: "ID", name: "id", widget: "string", hint: "e.g. binance" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Logo URL", name: "logo", widget: "string", required: false }
+              - { label: "Category", name: "category", widget: "select", options: ["exchange-cex", "exchange-dex", "exchange-derivatives", "exchange-p2p", "wallet-hot", "wallet-cold", "wallet-multisig", "market-aggregator", "market-analytics", "market-explorer", "defi-lending", "defi-yield", "defi-bridge", "defi-stablecoin", "nft-marketplace", "nft-tools", "infra-chain", "infra-layer2", "infra-dev-tools", "security-audit", "security-tools", "media-news", "media-community", "media-education", "tools-portfolio", "tools-tax", "tools-airdrop", "at-onchain", "at-copytrade", "at-sniper"] }
+              - { label: "Tags", name: "tags", widget: "list", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Website", name: "website", widget: "string" }
+              - { label: "Verified", name: "verified", widget: "boolean", default: false }
+              - { label: "Audited", name: "audited", widget: "boolean", default: false, required: false }
+              - { label: "Risk Level", name: "riskLevel", widget: "select", options: ["low", "medium", "high"], default: "low", required: false }
+              - { label: "Featured", name: "featured", widget: "boolean", default: false, required: false }
+              - { label: "Sponsored", name: "sponsored", widget: "boolean", default: false, required: false }
+              - { label: "Sponsored Until", name: "sponsoredUntil", widget: "string", required: false }
+              - { label: "Status", name: "status", widget: "select", options: ["active", "pending", "inactive"], default: "active" }
+              - { label: "Added At", name: "addedAt", widget: "string" }
 
-  # -----------------------------------------------------------
-  # 2. 广告管理
-  # -----------------------------------------------------------
   - name: "ads"
-    label: "广告管理"
-    label_singular: "广告"
-    file: "src/data/ads.json"
-    extension: "json"
-    format: "json"
-    create: false
-    delete: false
-    editor:
-      preview: true
-    fields:
-      - { label: "广告列表", name: "", widget: "list", required: true, fields:
-          [
-            { label: "广告 ID", name: "id", widget: "string", hint: "如 ad-001" },
-            { label: "广告位", name: "slot", widget: "select", options:
-              ["home-banner", "sidebar-top", "sidebar-bottom", "footer-banner", "inline-card"] },
-            { label: "广告标题", name: "title", widget: "string" },
-            { label: "图片地址", name: "image", widget: "string", required: false, hint: "留空显示文字广告" },
-            { label: "跳转链接", name: "link", widget: "string" },
-            { label: "权重", name: "weight", widget: "number", default: 1, hint: "数字越大出现概率越高" },
-            { label: "启用", name: "active", widget: "boolean", default: true }
-          ]
-        }
+    label: "Ads"
+    label_singular: "Ad"
+    files:
+      - file: "src/data/ads.json"
+        name: "ads"
+        label: "All Ads"
+        extension: "json"
+        format: "json"
+        create: false
+        delete: false
+        editor:
+          preview: false
+        fields:
+          - label: "Ad List"
+            name: "ads"
+            widget: "list"
+            required: true
+            fields:
+              - { label: "Ad ID", name: "id", widget: "string" }
+              - { label: "Slot", name: "slot", widget: "select", options: ["home-banner", "sidebar-top", "sidebar-bottom", "footer-banner", "inline-card"] }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Image URL", name: "image", widget: "string", required: false }
+              - { label: "Link", name: "link", widget: "string" }
+              - { label: "Weight", name: "weight", widget: "number", default: 1 }
+              - { label: "Active", name: "active", widget: "boolean", default: true }
 
-  # -----------------------------------------------------------
-  # 3. 首页推荐位
-  # -----------------------------------------------------------
   - name: "featured"
-    label: "首页推荐"
-    label_singular: "推荐位"
-    file: "src/data/featured.json"
-    extension: "json"
-    format: "json"
-    create: false
-    delete: false
-    editor:
-      preview: true
-    fields:
-      - { label: "推荐列表", name: "", widget: "list", required: true, fields:
-          [
-            { label: "项目 ID", name: "projectId", widget: "string", hint: "对应项目列表中的 id，如 binance" },
-            { label: "推荐理由", name: "reason", widget: "string" },
-            { label: "排序", name: "order", widget: "number", default: 1, hint: "数字越小越靠前" }
-          ]
-        }
+    label: "Featured"
+    label_singular: "Feature"
+    files:
+      - file: "src/data/featured.json"
+        name: "featured"
+        label: "All Featured"
+        extension: "json"
+        format: "json"
+        create: false
+        delete: false
+        editor:
+          preview: false
+        fields:
+          - label: "Featured List"
+            name: "featured"
+            widget: "list"
+            required: true
+            fields:
+              - { label: "Project ID", name: "projectId", widget: "string" }
+              - { label: "Reason", name: "reason", widget: "string" }
+              - { label: "Order", name: "order", widget: "number", default: 1 }
 
-  # -----------------------------------------------------------
-  # 4. 价格 Ticker
-  # -----------------------------------------------------------
   - name: "ticker"
-    label: "价格 Ticker"
-    label_singular: "币种"
-    file: "src/data/ticker.json"
-    extension: "json"
-    format: "json"
-    create: false
-    delete: false
-    editor:
-      preview: true
-    fields:
-      - { label: "币种列表", name: "", widget: "list", required: true, fields:
-          [
-            { label: "ID", name: "id", widget: "string", hint: "如 bitcoin" },
-            { label: "代币符号", name: "symbol", widget: "string", hint: "如 BTC" },
-            { label: "名称", name: "name", widget: "string" },
-            { label: "Logo", name: "image", widget: "string", required: false },
-            { label: "当前价格", name: "currentPrice", widget: "number", default: 0 },
-            { label: "24h 涨跌幅", name: "priceChangePercentage24h", widget: "number", default: 0, hint: "正数涨，负数跌" }
-          ]
-        }
+    label: "Ticker"
+    label_singular: "Coin"
+    files:
+      - file: "src/data/ticker.json"
+        name: "ticker"
+        label: "All Ticker"
+        extension: "json"
+        format: "json"
+        create: false
+        delete: false
+        editor:
+          preview: false
+        fields:
+          - label: "Coin List"
+            name: "ticker"
+            widget: "list"
+            required: true
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Symbol", name: "symbol", widget: "string" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Logo", name: "image", widget: "string", required: false }
+              - { label: "Current Price", name: "currentPrice", widget: "number", default: 0 }
+              - { label: "24h Change %", name: "priceChangePercentage24h", widget: "number", default: 0 }
 
-  # -----------------------------------------------------------
-  # 5. 当前推荐位（首页 Current Recommendations）
-  # -----------------------------------------------------------
   - name: "recommended"
-    label: "当前推荐"
-    label_singular: "推荐币"
-    file: "src/data/recommended.json"
-    extension: "json"
-    format: "json"
-    create: false
-    delete: false
-    editor:
-      preview: true
-    fields:
-      - { label: "推荐币列表", name: "", widget: "list", required: true, fields:
-          [
-            { label: "ID", name: "id", widget: "string", hint: "如 pepe（CoinGecko id，用于拉取实时价格）" },
-            { label: "名称", name: "name", widget: "string" },
-            { label: "符号", name: "symbol", widget: "string", hint: "如 PEPE" },
-            { label: "Logo", name: "logo", widget: "string", required: false, hint: "图片 URL" },
-            { label: "推荐理由", name: "reason", widget: "text" },
-            { label: "推荐价", name: "entryPrice", widget: "number", default: 0, hint: "推荐时的价格（作为静态兜底，实时价由 CoinGecko 自动刷新）" },
-            { label: "跳转链接", name: "link", widget: "string", hint: "接广告后可填广告主落地页" },
-            { label: "赞助/广告位", name: "sponsored", widget: "boolean", default: false, hint: "接广告后开启，卡片显示 Sponsored 标识" },
-            { label: "角标文案", name: "badge", widget: "string", required: false, hint: "留空则显示 Sponsored；可自定义如 Partner / Ad" }
-          ]
-        }
+    label: "Recommended"
+    label_singular: "Token"
+    files:
+      - file: "src/data/recommended.json"
+        name: "recommended"
+        label: "All Recommended"
+        extension: "json"
+        format: "json"
+        create: false
+        delete: false
+        editor:
+          preview: false
+        fields:
+          - label: "Recommended List"
+            name: "recommended"
+            widget: "list"
+            required: true
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Symbol", name: "symbol", widget: "string" }
+              - { label: "Logo", name: "logo", widget: "string", required: false }
+              - { label: "Reason", name: "reason", widget: "text" }
+              - { label: "Entry Price", name: "entryPrice", widget: "number", default: 0 }
+              - { label: "Link", name: "link", widget: "string" }
+              - { label: "Sponsored", name: "sponsored", widget: "boolean", default: false }
+              - { label: "Badge Text", name: "badge", widget: "string", required: false }
 
-  # -----------------------------------------------------------
-  # 6. Success Cases（首页，GitHub Action 每周自动从 DexScreener 刷新）
-  # -----------------------------------------------------------
   - name: "wins"
     label: "Success Cases"
-    label_singular: "案例"
-    file: "src/data/wins.json"
-    extension: "json"
-    format: "json"
-    create: false
-    delete: false
-    editor:
-      preview: true
-    fields:
-      - { label: "案例列表", name: "", widget: "list", required: true, fields:
-          [
-            { label: "符号", name: "symbol", widget: "string", hint: "如 CTREMP" },
-            { label: "名称", name: "name", widget: "string" },
-            { label: "Logo", name: "logo", widget: "string", required: false, hint: "图片 URL，留空显示首字母" },
-            { label: "合约地址", name: "address", widget: "string", hint: "代币合约地址" },
-            { label: "链", name: "chain", widget: "string", default: "solana", hint: "如 solana" },
-            { label: "24h 涨幅(%)", name: "change24h", widget: "number", default: 0, hint: "如 886 表示 +886%" },
-            { label: "价格(USD)", name: "price", widget: "number", default: 0 },
-            { label: "日期", name: "date", widget: "string", hint: "如 2026-08-27" }
-          ]
-        }
+    label_singular: "Case"
+    files:
+      - file: "src/data/wins.json"
+        name: "wins"
+        label: "All Cases"
+        extension: "json"
+        format: "json"
+        create: false
+        delete: false
+        editor:
+          preview: false
+        fields:
+          - label: "Case List"
+            name: "wins"
+            widget: "list"
+            required: true
+            fields:
+              - { label: "Symbol", name: "symbol", widget: "string" }
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Logo", name: "logo", widget: "string", required: false }
+              - { label: "Address", name: "address", widget: "string" }
+              - { label: "Chain", name: "chain", widget: "string", default: "solana" }
+              - { label: "6h Change %", name: "change6h", widget: "number", default: 0 }
+              - { label: "Price USD", name: "price", widget: "number", default: 0 }
+              - { label: "Date", name: "date", widget: "string" }
