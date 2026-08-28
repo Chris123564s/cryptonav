@@ -14,7 +14,7 @@ function fmtChange(v: number): string {
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
   <div class="flex items-center gap-2 mb-3">
     <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Success Cases</h2>
-    <span class="text-xs text-surface-400">Top Solana gainers · 24h · updates daily</span>
+    <span class="text-xs text-surface-400">Top Solana gainers · 6h · updates daily</span>
   </div>
 
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -34,12 +34,12 @@ function fmtChange(v: number): string {
             <div class="text-[10px] text-surface-400 truncate">{item.name}</div>
           </div>
         </div>
-        <div class="text-xl font-extrabold text-green-500">{fmtChange(item.change24h)}</div>
+        <div class="text-xl font-extrabold text-green-500">{fmtChange(item.change6h)}</div>
         <div class="text-[10px] text-surface-400 mt-0.5">Price {fmtPrice(Number(item.price) || 0)} · {item.date}</div>
       </a>
     ))}
   </div>
   <p class="text-xs text-surface-400 mt-3 text-center">
-    Auto-refreshed daily from DexScreener top boosts. Market data only — not investment advice. DYOR.
+    Auto-refreshed daily from DexScreener top boosts (6h change). Market data only — not investment advice. DYOR.
   </p>
 </section>

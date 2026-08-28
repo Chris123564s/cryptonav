@@ -37,6 +37,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "chore: daily refresh Success Cases (DexScreener top gainers)"
+            git commit -m "chore: daily refresh Success Cases (DexScreener top gainers, 6h)"
             git push
           fi

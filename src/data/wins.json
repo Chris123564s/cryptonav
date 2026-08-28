@@ -1,13 +1,53 @@
 [
   {
-    "symbol": "cat",
-    "name": "just a cat",
-    "logo": "/logos/dex/24GWZn5Her.png",
-    "address": "24GWZn5HerwLTVoZuC3H7Kxg6jLFMvroA1hTU4uWpump",
+    "symbol": "BANDOS",
+    "name": "BANDOS",
+    "logo": "/logos/dex/HG3sZ52NRm.png",
+    "address": "HG3sZ52NRmNpm2BueL1MSBM3krr5M6YJtQohjNyhpump",
     "chain": "solana",
-    "change24h": 752.0,
-    "price": 0.0004109,
-    "date": "2026-08-27"
+    "change6h": 710.0,
+    "price": 0.0003965,
+    "date": "2026-08-28"
+  },
+  {
+    "symbol": "POKEMON",
+    "name": "Pokemon",
+    "logo": "/logos/dex/EhCzWhMyUA.png",
+    "address": "EhCzWhMyUAo87bQ663fV2A6reLhXgdhdcf9ynJV8pump",
+    "chain": "solana",
+    "change6h": 138.0,
+    "price": 0.0001246,
+    "date": "2026-08-28"
+  },
+  {
+    "symbol": "GIRLCOIN",
+    "name": "Girl Coin",
+    "logo": "/logos/dex/3U4QeTDaj4.png",
+    "address": "3U4QeTDaj4DWDmKc3yzsdgxnd8QtHjXSyMeJgwgVpump",
+    "chain": "solana",
+    "change6h": 23.2,
+    "price": 5.821e-05,
+    "date": "2026-08-28"
+  },
+  {
+    "symbol": "CALL",
+    "name": "CallFi",
+    "logo": "/logos/dex/4mDB7UQFLD.png",
+    "address": "4mDB7UQFLDrjGN9JuvaahB765Biujx6Jfu1fUe7jpump",
+    "chain": "solana",
+    "change6h": 12.7,
+    "price": 0.0003368,
+    "date": "2026-08-28"
+  },
+  {
+    "symbol": "CHUMP",
+    "name": "Chump Coin",
+    "logo": "/logos/dex/0x0E0d2C89.png",
+    "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
+    "chain": "robinhood",
+    "change6h": 7.8,
+    "price": 0.01881,
+    "date": "2026-08-28"
   },
   {
     "symbol": "GATO",
@@ -15,68 +55,28 @@
     "logo": "/logos/dex/HsprHxBRgi.png",
     "address": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
     "chain": "solana",
-    "change24h": 380.0,
-    "price": 0.001409,
-    "date": "2026-08-27"
+    "change6h": 1.4,
+    "price": 0.00156,
+    "date": "2026-08-28"
   },
   {
-    "symbol": "Quake",
-    "name": "Quake",
-    "logo": "/logos/dex/FR3fLGui4C.png",
-    "address": "FR3fLGui4CNGWX6f544aFuDnAykAhi65K5GD11YMpump",
-    "chain": "solana",
-    "change24h": 208.0,
-    "price": 0.0001225,
-    "date": "2026-08-27"
-  },
-  {
-    "symbol": "CYBERLEAK",
-    "name": "CyberLeak",
-    "logo": "/logos/dex/H4deHd4WyX.png",
-    "address": "H4deHd4WyXZ97a5HK9SQWvy4VwP1xbLptu58fG5dpump",
-    "chain": "solana",
-    "change24h": 178.0,
-    "price": 0.0001504,
-    "date": "2026-08-27"
-  },
-  {
-    "symbol": "Beagle",
-    "name": "Beaglecoin",
-    "logo": "/logos/dex/HavpAp4PqY.png",
-    "address": "HavpAp4PqYUfiwyFpd9qcCKWrEVi52Z7CYJuXfQqpump",
-    "chain": "solana",
-    "change24h": 112.0,
-    "price": 0.0002531,
-    "date": "2026-08-27"
-  },
-  {
-    "symbol": "GOOD",
-    "name": "Good In The Hood",
-    "logo": "/logos/dex/0x5f62C57e.png",
-    "address": "0x5f62C57e5C537887117EeF828b7E3Ad41C009FEb",
+    "symbol": "BOXED",
+    "name": "Boxed Cat",
+    "logo": "/logos/dex/0x76af8d3B.png",
+    "address": "0x76af8d3B40A0d7b5197935D0e84C14f7A3782e87",
     "chain": "robinhood",
-    "change24h": 93.8,
-    "price": 0.01036,
-    "date": "2026-08-27"
+    "change6h": -9.1,
+    "price": 0.0002822,
+    "date": "2026-08-28"
   },
   {
-    "symbol": "BREAKING",
-    "name": "Breaking",
-    "logo": "/logos/dex/VJdpSDDLof.png",
-    "address": "VJdpSDDLof7HuZiNmsRUSL4YCncsk1FGiVoHyAJpump",
+    "symbol": "catwifaura",
+    "name": "Catwifaura",
+    "logo": "/logos/dex/4axaQC4Xes.png",
+    "address": "4axaQC4Xesojc3ZmrApiUbvdJeS4RntkjMSDhn61pump",
     "chain": "solana",
-    "change24h": 84.3,
-    "price": 0.008304,
-    "date": "2026-08-27"
-  },
-  {
-    "symbol": "Monā",
-    "name": "モナー",
-    "logo": "/logos/dex/BFroMM5uTB.png",
-    "address": "BFroMM5uTBa5btkDvFcpg6AD7kXEk2oXUWeXaoowpump",
-    "chain": "solana",
-    "change24h": 50.6,
-    "price": 9.62e-05,
-    "date": "2026-08-27"
+    "change6h": -11.0,
+    "price": 8.521e-05,
+    "date": "2026-08-28"
   }
 ]

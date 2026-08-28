@@ -34,8 +34,11 @@ def fetch_top(limit=8, min_liq=20000):
             if not p:
                 continue
             pc = p.get('priceChange', {})
-            h24 = pc.get('h24')
-            if h24 is None:
+            h6 = pc.get('h6')
+            if h6 is None:
+                # 兜底：个别 pair 无 h6 时退回 h24，保证不丢数据
+                h6 = pc.get('h24')
+            if h6 is None:
                 continue
             bt = p.get('baseToken', {})
             sym = bt.get('symbol', '?')
@@ -58,7 +61,7 @@ def fetch_top(limit=8, min_liq=20000):
                     logo = ''
             rows.append({
                 'symbol': sym, 'name': name, 'logo': logo, 'address': addr,
-                'chain': chain, 'change24h': round(float(h24), 1),
+                'chain': chain, 'change6h': round(float(h6), 1),
                 'price': price, 'liquidity': liq,
             })
             time.sleep(0.6)
@@ -66,7 +69,7 @@ def fetch_top(limit=8, min_liq=20000):
             continue
 
     rows = [r for r in rows if r['liquidity'] > min_liq]
-    rows.sort(key=lambda r: r['change24h'], reverse=True)
+    rows.sort(key=lambda r: r['change6h'], reverse=True)
     top = rows[:limit]
     today = datetime.date.today().isoformat()
     out = []
@@ -77,7 +80,7 @@ def fetch_top(limit=8, min_liq=20000):
             'logo': r['logo'],
             'address': r['address'],
             'chain': r['chain'],
-            'change24h': r['change24h'],
+            'change6h': r['change6h'],
             'price': float(r['price']) if r['price'] else 0,
             'date': today,
         })
@@ -95,4 +98,4 @@ if __name__ == '__main__':
         json.dump(top, f, ensure_ascii=False, indent=2)
     print(f'Wrote {len(top)} tokens to {OUT} and {PUB}')
     for r in top:
-        print(f"  {r['symbol']:10} {r['change24h']:+.1f}%")
+        print(f"  {r['symbol']:10} {r['change6h']:+.1f}%")
