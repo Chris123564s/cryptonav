@@ -1,10 +1,10 @@
 // Cloudflare Pages Function: /api/submit
-// Receives project submission form, creates a GitHub issue for review tracking
-// Env var needed: GITHUB_ISSUE_TOKEN (GitHub fine-grained PAT with issues:write on the repo)
+// Receives project submission form, appends to src/data/projects.json with status=pending
+// Env var needed: GITHUB_ISSUE_TOKEN (GitHub fine-grained PAT with contents:write on the repo)
 
 const REPO_OWNER = 'Chris123564s';
 const REPO_NAME = 'cryptonav';
-const ISSUE_LABEL = 'project-submission';
+const FILE_PATH = 'src/data/projects.json';
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -36,7 +36,7 @@ export async function onRequestPost(context) {
     );
   }
 
-  // Basic spam check — reject if name/website look like spam
+  // Basic spam check
   const spamPatterns = /\b(viagra|casino|porn|loan|crypto-airdrop-giveaway|free-money)\b/i;
   if (spamPatterns.test(name) || spamPatterns.test(website)) {
     return new Response(
@@ -45,90 +45,126 @@ export async function onRequestPost(context) {
     );
   }
 
-  // Build issue body
-  const fields = [
-    { label: 'Project Name', value: name },
-    { label: 'Website', value: website },
-    { label: 'Category', value: category },
-    { label: 'Description', value: data.description || '_N/A_' },
-    { label: 'Logo URL', value: data.logo || '_N/A_' },
-    { label: 'Twitter', value: data.twitter || '_N/A_' },
-    { label: 'Telegram', value: data.telegram || '_N/A_' },
-    { label: 'GitHub', value: data.github || '_N/A_' },
-    { label: 'Discord', value: data.discord || '_N/A_' },
-    { label: 'Submitter Email', value: data.email || '_N/A_' },
-    { label: 'Submitted At', value: new Date().toISOString() },
-    { label: 'Source', value: 'cryptonav.site/submit' },
-  ];
-
-  const issueBody = fields.map(f => `**${f.label}:** ${f.value}`).join('\n');
-  const issueTitle = `[Submission] ${name}`;
-
   // Check for GitHub token
   const token = env.GITHUB_ISSUE_TOKEN;
   if (!token) {
-    // No token — still accept the submission, store as in-memory log (will be lost on cold start)
-    // In production, you should set GITHUB_ISSUE_TOKEN env var
-    console.error('GITHUB_ISSUE_TOKEN not set — submission will not create a GitHub issue');
+    console.error('GITHUB_ISSUE_TOKEN not set');
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: 'Submission received. We will review it soon.' 
-      }),
-      { status: 200, headers }
+      JSON.stringify({ error: 'Server not configured. Please contact admin.' }),
+      { status: 500, headers }
     );
   }
 
-  // Create GitHub issue
+  const ghHeaders = {
+    'Authorization': `Bearer ${token}`,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'User-Agent': 'cryptonav-submit',
+  };
+
   try {
-    const issueRes = await fetch(
-      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/issues`,
+    // 1. Get current file content + sha
+    const fileRes = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=main`,
+      { headers: ghHeaders }
+    );
+
+    if (!fileRes.ok) {
+      console.error('Failed to fetch projects.json:', fileRes.status);
+      return new Response(
+        JSON.stringify({ error: 'Server error. Please try again later.' }),
+        { status: 500, headers }
+      );
+    }
+
+    const fileData = await fileRes.json();
+    const sha = fileData.sha;
+    const content = JSON.parse(atob(fileData.content));
+
+    // 2. Build new project entry
+    const now = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    const slugName = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');    const newProject = {
+      id: slugName,
+      name: name,
+      logo: data.logo || '',
+      category: category,
+      tags: [],
+      description: data.description || '',
+      website: website,
+      social: {
+        twitter: data.twitter || '',
+        telegram: data.telegram || '',
+        discord: data.discord || '',
+        github: data.github || '',
+      },
+      metrics: {},
+      verified: false,
+      audited: false,
+      riskLevel: 'medium',
+      featured: false,
+      sponsored: false,
+      status: 'pending',
+      source: 'community-submit',
+      addedAt: now,
+    };
+
+    // 3. Append to projects array
+    if (!content.projects || !Array.isArray(content.projects)) {
+      content.projects = [];
+    }
+
+    // Check for duplicate (by website or name)
+    const exists = content.projects.some(
+      p => p.website === website || p.id === slugName
+    );
+    if (exists) {
+      return new Response(
+        JSON.stringify({ error: 'This project has already been submitted.' }),
+        { status: 409, headers }
+      );
+    }
+
+    content.projects.push(newProject);
+
+    // 4. Write back to GitHub
+    const jsonStr = JSON.stringify(content, null, 2);
+    const encoded = btoa(jsonStr);
+    const updateRes = await fetch(
+      `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
       {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/vnd.github+json',
-          'X-GitHub-Api-Version': '2022-11-28',
-          'User-Agent': 'cryptonav-submit',
-        },
+        method: 'PUT',
+        headers: ghHeaders,
         body: JSON.stringify({
-          title: issueTitle,
-          body: issueBody,
-          labels: [ISSUE_LABEL],
+          message: `feat: add pending project "${name}" via community submit`,
+          content: encoded,
+          sha: sha,
+          branch: 'main',
         }),
       }
     );
 
-    if (!issueRes.ok) {
-      const errData = await issueRes.text();
-      console.error('GitHub API error:', issueRes.status, errData);
-      // Still return success to user — we don't want to expose backend errors
+    if (!updateRes.ok) {
+      const errText = await updateRes.text();
+      console.error('GitHub update error:', updateRes.status, errText);
       return new Response(
-        JSON.stringify({ 
-          success: true, 
-          message: 'Submission received. We will review it soon.' 
-        }),
-        { status: 200, headers }
+        JSON.stringify({ error: 'Server error. Please try again later.' }),
+        { status: 500, headers }
       );
     }
 
-    const issue = await issueRes.json();
+    // 5. Return success
     return new Response(
-      JSON.stringify({ 
-        success: true, 
+      JSON.stringify({
+        success: true,
         message: 'Submission received. We will review it soon.',
-        issueUrl: issue.html_url 
       }),
       { status: 200, headers }
     );
   } catch (error) {
-    console.error('Failed to create issue:', error);
+    console.error('Submit error:', error);
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        message: 'Submission received. We will review it soon.' 
-      }),
-      { status: 200, headers }
+      JSON.stringify({ error: 'Server error. Please try again later.' }),
+      { status: 500, headers }
     );
   }
 }
