@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CryptoNav 联盟营销注册指南 — 14+ 平台佣金对比 & 注册教程</title>
+<style>
+:root {
+  --bg: #0a0e17;
+  --surface: #131826;
+  --surface2: #1a2138;
+  --border: #2a3450;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --brand: #6366f1;
+  --brand-light: #818cf8;
+  --green: #10b981;
+  --red: #ef4444;
+  --yellow: #f59e0b;
+  --orange: #f97316;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  padding: 0 0 4rem;
+}
+.container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+header {
+  background: linear-gradient(135deg, #131826 0%, #1a2138 50%, #0d1320 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+header h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #818cf8, #6366f1, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+header .subtitle { color: var(--text-dim); font-size: 1rem; }
+header .meta { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+header .meta span { font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.35rem; }
+.badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+.badge-high { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+.badge-mid { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+.badge-low { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+.badge-network { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+
+section { padding: 2rem 0; }
+section > h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+section > p.intro { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+/* Summary Cards */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; text-align: center; }
+.summary-card .num { font-size: 1.8rem; font-weight: 800; color: var(--brand-light); }
+.summary-card .label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+/* Main Table */
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+table th { background: var(--surface2); padding: 0.75rem 1rem; text-align: left; font-weight: 600; color: var(--text-dim); white-space: nowrap; }
+table td { padding: 0.75rem 1rem; border-top: 1px solid var(--border); vertical-align: top; }
+table tr:hover td { background: rgba(99,102,241,0.05); }
+.platform-name { font-weight: 600; color: var(--text); }
+.commission { font-weight: 700; color: #34d399; }
+.cookie-dur { color: var(--text-dim); white-space: nowrap; }
+.reg-link { color: var(--brand-light); text-decoration: none; font-size: 0.82rem; word-break: break-all; }
+.reg-link:hover { text-decoration: underline; }
+.network-tag { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+/* Step-by-step */
+.steps { display: flex; flex-direction: column; gap: 1.25rem; }
+.step-item { display: flex; gap: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; }
+.step-num { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 50%; background: var(--brand); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+.step-content h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.35rem; }
+.step-content p { font-size: 0.88rem; color: var(--text-dim); }
+.step-content .tip { display: inline-block; margin-top: 0.5rem; padding: 0.25rem 0.75rem; background: rgba(99,102,241,0.1); border-radius: 6px; font-size: 0.8rem; color: var(--brand-light); }
+
+/* Platform detail cards */
+.platform-detail { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.platform-detail h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.platform-detail .info-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 0.75rem 0 1rem; }
+.platform-detail .info-item { font-size: 0.82rem; color: var(--text-dim); }
+.platform-detail .info-item strong { color: var(--text); }
+.platform-detail ol { padding-left: 1.5rem; }
+.platform-detail ol li { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 0.4rem; }
+.platform-detail .reg-btn { display: inline-block; margin-top: 1rem; padding: 0.5rem 1.25rem; background: var(--brand); color: #fff; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+.platform-detail .reg-btn:hover { background: var(--brand-light); }
+
+/* Priority box */
+.priority-box { background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.05)); border: 1px solid rgba(99,102,241,0.25); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.priority-box h3 { font-size: 1.1rem; font-weight: 700; color: var(--brand-light); margin-bottom: 0.75rem; }
+.priority-box ul { padding-left: 1.25rem; }
+.priority-box ul li { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 0.4rem; }
+.priority-box ul li strong { color: var(--text); }
+
+/* Config replacement section */
+.code-block { background: #0d1017; border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.25rem; overflow-x: auto; font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace; font-size: 0.82rem; line-height: 1.5; color: #c9d1d9; }
+.code-block .k { color: #ff7b72; }
+.code-block .s { color: #a5d6ff; }
+.code-block .c { color: #8b949e; }
+
+footer { text-align: center; padding: 2rem 0; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+.note { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 0.75rem 1rem; font-size: 0.82rem; color: #fbbf24; margin: 1rem 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h1>CryptoNav 联盟营销注册指南</h1>
+    <p class="subtitle">14+ 加密货币交易所 & 钱包联盟计划对比 — 佣金费率、Cookie 有效期、注册步骤全覆盖</p>
+    <div class="meta">
+      <span>📊 14 个联盟计划</span>
+      <span>💰 最高 70% 佣金分成</span>
+      <span>🔗 3 个联盟网络覆盖</span>
+      <span>📅 更新于 2026-08-27</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- Summary Cards -->
+<div class="cards-grid">
+  <div class="summary-card">
+    <div class="num">14+</div>
+    <div class="label">联盟计划</div>
+  </div>
+  <div class="summary-card">
+    <div class="num">70%</div>
+    <div class="label">最高佣金 (MEXC)</div>
+  </div>
+  <div class="summary-card">
+    <div class="num">3</div>
+    <div class="label">联盟网络</div>
+  </div>
+  <div class="summary-card">
+    <div class="num">90天</div>
+    <div class="label">最长 Cookie</div>
+  </div>
+</div>
+
+<!-- Section 1: Overview Table -->
+<section>
+  <h2>一、联盟计划总览表</h2>
+  <p class="intro">按佣金比例从高到低排列。CryptoNav 当前 projects.json 中的 referral 字段使用占位符 "Cryptonav"，注册真实账号后替换为你的专属推广链接即可。</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>平台</th>
+          <th>佣金比例</th>
+          <th>Cookie 有效期</th>
+          <th>联盟网络</th>
+          <th>结算方式</th>
+          <th>注册链接</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="platform-name">MEXC <span class="badge badge-high">推荐</span></td>
+          <td class="commission">70%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">直营</span></td>
+          <td>USDT 每月结算</td>
+          <td><a href="https://www.mexc.com/affiliate" target="_blank" class="reg-link">mexc.com/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">KuCoin</td>
+          <td class="commission">60%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">直营</span></td>
+          <td>USDT 每月结算</td>
+          <td><a href="https://www.kucoin.com/affiliate-program" target="_blank" class="reg-link">kucoin.com/affiliate-program</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Binance <span class="badge badge-high">必注册</span></td>
+          <td class="commission">50%</td>
+          <td class="cookie-dur">90天</td>
+          <td><span class="badge badge-network">直营</span></td>
+          <td>USDT/BNB 每月</td>
+          <td><a href="https://www.binance.com/en/affiliate" target="_blank" class="reg-link">binance.com/en/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Coinbase <span class="badge badge-high">必注册</span></td>
+          <td class="commission">50%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">Impact.com</span></td>
+          <td>USD 银行转账</td>
+          <td><a href="https://www.coinbase.com/affiliates" target="_blank" class="reg-link">coinbase.com/affiliates</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Bitget</td>
+          <td class="commission">50%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">直营</span></td>
+          <td>USDT 每月结算</td>
+          <td><a href="https://www.bitget.com/affiliate" target="_blank" class="reg-link">bitget.com/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Bybit</td>
+          <td class="commission">30-50%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">直营</span></td>
+          <td>USDT 每月结算</td>
+          <td><a href="https://www.bybit.com/affiliate" target="_blank" class="reg-link">bybit.com/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Gate.io</td>
+          <td class="commission">40%</td>
+          <td class="cookie-dur">90天</td>
+          <td><span class="badge badge-network">直营</span></td>
+          <td>USDT 每月结算</td>
+          <td><a href="https://www.gate.io/affiliate" target="_blank" class="reg-link">gate.io/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Crypto.com</td>
+          <td class="commission">20%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">CJ Affiliate</span></td>
+          <td>USD 银行转账</td>
+          <td><a href="https://www.crypto.com/affiliate" target="_blank" class="reg-link">crypto.com/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Kraken</td>
+          <td class="commission">20%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">ShareASale</span></td>
+          <td>USD/EUR 银行转账</td>
+          <td><a href="https://www.shareasale.com/shareasale.cfm?merchantID=108053" target="_blank" class="reg-link">ShareASale 申请</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Ledger <span class="badge badge-mid">钱包类</span></td>
+          <td class="commission">8-12%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">Impact.com</span></td>
+          <td>EUR/USD 银行转账</td>
+          <td><a href="https://www.ledger.com/affiliate" target="_blank" class="reg-link">ledger.com/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Trezor</td>
+          <td class="commission">8-12%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">直营</span></td>
+          <td>EUR 银行转账</td>
+          <td><a href="https://trezor.io/affiliate" target="_blank" class="reg-link">trezor.io/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">OKX</td>
+          <td class="commission">30%</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">直营</span></td>
+          <td>USDT 每月结算</td>
+          <td><a href="https://www.okx.com/affiliate" target="_blank" class="reg-link">okx.com/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Trust Wallet</td>
+          <td class="commission">按量议价</td>
+          <td class="cookie-dur">30天</td>
+          <td><span class="badge badge-network">直营</span></td>
+          <td>BUSD/USDT</td>
+          <td><a href="https://trustwallet.com/affiliate" target="_blank" class="reg-link">trustwallet.com/affiliate</a></td>
+        </tr>
+        <tr>
+          <td class="platform-name">Coinzilla <span class="badge badge-low">广告网络</span></td>
+          <td class="commission">推广收益分成</td>
+          <td class="cookie-dur">—</td>
+          <td><span class="badge badge-network">广告网络</span></td>
+          <td>BTC/ETH/USDT</td>
+          <td><a href="https://www.coinzilla.com/publishers/" target="_blank" class="reg-link">coinzilla.com/publishers</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">⚠️ 佣金比例为撰写时数据，各平台可能不定期调整，以注册时官网显示为准。部分平台对新合作伙伴有阶梯式佣金（从 20% 起步，随交易量增长逐步提升至 50-70%）。</div>
+</section>
+
+<!-- Section 2: Registration Priority -->
+<section>
+  <h2>二、注册优先级建议</h2>
+  <p class="intro">建议按以下顺序注册，优先覆盖 CryptoNav 已收录的 8 个 CEX 项目。</p>
+
+  <div class="priority-box">
+    <h3>🎯 第一批（必注册，覆盖 CryptoNav 主要变现渠道）</h3>
+    <ul>
+      <li><strong>Binance 联盟计划</strong> — 50% 佣金，CryptoNav 收录的最大交易所，流量入口最大</li>
+      <li><strong>Coinbase 联盟计划</strong> — 50% 佣金，通过 Impact.com 注册，覆盖北美用户</li>
+      <li><strong>MEXC 联盟计划</strong> — 70% 最高佣金，适合推广新币/小币种</li>
+      <li><strong>Impact.com 账号</strong> — 一次注册同时覆盖 Coinbase (50%) + Ledger (8-12%)</li>
+    </ul>
+  </div>
+
+  <div class="priority-box">
+    <h3>📋 第二批（高佣金交易所）</h3>
+    <ul>
+      <li><strong>Bybit</strong> — 30-50% 佣金，CryptoNav 已收录</li>
+      <li><strong>Bitget</strong> — 50% 佣金，CryptoNav 已收录</li>
+      <li><strong>Gate.io</strong> — 40% 佣金，90天超长 Cookie，CryptoNav 已收录</li>
+      <li><strong>KuCoin</strong> — 60% 佣金，CryptoNav 暂未收录但可补充</li>
+    </ul>
+  </div>
+
+  <div class="priority-box">
+    <h3>💼 第三批（钱包 & 工具类）</h3>
+    <ul>
+      <li><strong>Ledger</strong> — 硬件钱包龙头，通过 Impact.com 已覆盖</li>
+      <li><strong>Trezor</strong> — 硬件钱包 #2，直营联盟</li>
+      <li><strong>Trust Wallet</strong> — 移动端钱包，Binance 系</li>
+      <li><strong>Coinzilla / Bitmedia</strong> — 加密广告网络，用于 CryptoNav 自身广告位填充</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Section 3: Platform-specific guides -->
+<section>
+  <h2>三、Top 5 平台详细注册步骤</h2>
+
+  <!-- Binance -->
+  <div class="platform-detail">
+    <h3>Binance 联盟计划 <span class="badge badge-high">优先级 #1</span></h3>
+    <div class="info-row">
+      <span class="info-item"><strong>佣金：</strong>50% 交易手续费分成</span>
+      <span class="info-item"><strong>Cookie：</strong>90天</span>
+      <span class="info-item"><strong>最低提现：</strong>100 USDT</span>
+      <span class="info-item"><strong>结算：</strong>每月10号</span>
+    </div>
+    <ol>
+      <li>访问 <a href="https://www.binance.com/en/affiliate" target="_blank">binance.com/en/affiliate</a>，点击 "Apply Now"</li>
+      <li>使用你的 Binance 账号登录（如没有先注册一个）</li>
+      <li>填写申请表：网站 URL 填 <code>cryptonav.site</code>，月流量填预估数字</li>
+      <li>等待审核（通常 1-3 个工作日），审核通过后进入联盟后台</li>
+      <li>在后台获取你的专属推广链接（格式如 <code>binance.com/en/register?ref=XXXXXXX</code>）</li>
+      <li>将链接中的 XXXXXXX 复制，替换 projects.json 中 Binance 的 referral 字段</li>
+    </ol>
+    <div class="note">💡 Binance 联盟计划要求你的网站有一定流量基础（建议 1000+ 月访问量）。如果审核不通过，先运营网站获取流量后重新申请。</div>
+    <a href="https://www.binance.com/en/affiliate" target="_blank" class="reg-btn">前往 Binance 联盟注册 →</a>
+  </div>
+
+  <!-- Coinbase -->
+  <div class="platform-detail">
+    <h3>Coinbase 联盟计划 <span class="badge badge-high">优先级 #2</span></h3>
+    <div class="info-row">
+      <span class="info-item"><strong>佣金：</strong>50% 交易手续费（2年期）</span>
+      <span class="info-item"><strong>Cookie：</strong>30天</span>
+      <span class="info-item"><strong>网络：</strong>Impact.com</span>
+      <span class="info-item"><strong>最低提现：</strong>$50</span>
+    </div>
+    <ol>
+      <li>首先注册 <a href="https://app.impact.com/secure/login.ihtml" target="_blank">Impact.com</a> 账号（联盟营销中介平台）</li>
+      <li>在 Impact.com 中搜索 "Coinbase" 并申请推广</li>
+      <li>填写推广信息：网站 cryptonav.site，推广策略说明</li>
+      <li>Coinbase 审核（1-5天），通过后可在 Impact 后台获取推广链接</li>
+      <li>推广链接格式如 <code>coinbase.com/join/XXXXX</code>，获取其中的 XXXXX 编号</li>
+      <li>替换 projects.json 中 Coinbase 的 referral 字段</li>
+    </ol>
+    <div class="note">💡 Impact.com 是一个联盟营销聚合平台，一个账号可以同时申请 Coinbase、Ledger 等多个加密货币相关的联盟计划，非常高效。</div>
+    <a href="https://www.coinbase.com/affiliates" target="_blank" class="reg-btn">前往 Coinbase 联盟注册 →</a>
+  </div>
+
+  <!-- MEXC -->
+  <div class="platform-detail">
+    <h3>MEXC 联盟计划 <span class="badge badge-high">优先级 #3</span></h3>
+    <div class="info-row">
+      <span class="info-item"><strong>佣金：</strong>70%（最高阶梯）</span>
+      <span class="info-item"><strong>Cookie：</strong>30天</span>
+      <span class="info-item"><strong>最低提现：</strong>10 USDT</span>
+      <span class="info-item"><strong>结算：</strong>每月</span>
+    </div>
+    <ol>
+      <li>访问 <a href="https://www.mexc.com/affiliate" target="_blank">mexc.com/affiliate</a></li>
+      <li>登录 MEXC 账号（如没有先注册）</li>
+      <li>填写联盟申请表，提交网站信息</li>
+      <li>审核通过后获取推广链接，格式如 <code>mexc.com/register?refCode=XXXXXX</code></li>
+      <li>替换 projects.json 中 MEXC 的 referral 字段</li>
+    </ol>
+    <div class="note">💡 MEXC 对新联盟合作伙伴审核较宽松，通常 24 小时内通过。70% 是最高阶梯，初期可能是 50%，随推广量增长会自动提升。</div>
+    <a href="https://www.mexc.com/affiliate" target="_blank" class="reg-btn">前往 MEXC 联盟注册 →</a>
+  </div>
+
+  <!-- Kraken -->
+  <div class="platform-detail">
+    <h3>Kraken 联盟计划 <span class="badge badge-mid">优先级 #4</span></h3>
+    <div class="info-row">
+      <span class="info-item"><strong>佣金：</strong>20% 交易手续费</span>
+      <span class="info-item"><strong>Cookie：</strong>30天</span>
+      <span class="info-item"><strong>网络：</strong>ShareASale</span>
+      <span class="info-item"><strong>最低提现：</strong>$50</span>
+    </div>
+    <ol>
+      <li>注册 <a href="https://www.shareasale.com/shareasale.cfm" target="_blank">ShareASale</a> 账号（需要已有网站）</li>
+      <li>在 ShareASale Merchant 目录中搜索 "Kraken"</li>
+      <li>点击 "Apply to Program" 申请推广</li>
+      <li>Kraken 审核（3-7天），通过后获取推广链接</li>
+      <li>替换 projects.json 中 Kraken 的 referral 字段</li>
+    </ol>
+    <a href="https://www.shareasale.com/shareasale.cfm?merchantID=108053" target="_blank" class="reg-btn">前往 ShareASale 申请 Kraken →</a>
+  </div>
+
+  <!-- Gate.io -->
+  <div class="platform-detail">
+    <h3>Gate.io 联盟计划 <span class="badge badge-mid">优先级 #5</span></h3>
+    <div class="info-row">
+      <span class="info-item"><strong>佣金：</strong>40%</span>
+      <span class="info-item"><strong>Cookie：</strong>90天（最长）</span>
+      <span class="info-item"><strong>最低提现：</strong>20 USDT</span>
+      <span class="info-item"><strong>结算：</strong>每月</span>
+    </div>
+    <ol>
+      <li>访问 <a href="https://www.gate.io/affiliate" target="_blank">gate.io/affiliate</a></li>
+      <li>登录 Gate.io 账号，点击 "Apply for Affiliate"</li>
+      <li>填写申请表，提交网站信息</li>
+      <li>审核通过后获取推广链接，格式如 <code>gate.io/signup/XXXXXXX</code></li>
+      <li>替换 projects.json 中 Gate.io 的 referral 字段</li>
+    </ol>
+    <div class="note">💡 Gate.io 拥有最长的 90 天 Cookie 有效期，这意味着用户点击你的链接后 3 个月内注册都能算你的佣金，转化率优势明显。</div>
+    <a href="https://www.gate.io/affiliate" target="_blank" class="reg-btn">前往 Gate.io 联盟注册 →</a>
+  </div>
+</section>
+
+<!-- Section 4: Network overview -->
+<section>
+  <h2>四、三大联盟营销网络对比</h2>
+  <p class="intro">除了交易所直营联盟计划外，你还需要在以下聚合平台注册账号来覆盖部分项目。</p>
+
+  <div class="cards-grid">
+    <div class="platform-detail" style="margin:0;">
+      <h3>Impact.com</h3>
+      <div class="info-row">
+        <span class="info-item"><strong>覆盖项目：</strong>Coinbase, Ledger</span>
+      </div>
+      <p style="font-size:0.88rem;color:var(--text-dim);">全球最大的联盟营销平台之一。注册一个 Impact 账号即可同时申请多个品牌的联盟计划。适合覆盖 Coinbase 和 Ledger 这类通过第三方网络运营联盟的品牌。</p>
+      <a href="https://app.impact.com/secure/login.ihtml" target="_blank" class="reg-btn">注册 Impact.com →</a>
+    </div>
+    <div class="platform-detail" style="margin:0;">
+      <h3>ShareASale</h3>
+      <div class="info-row">
+        <span class="info-item"><strong>覆盖项目：</strong>Kraken</span>
+      </div>
+      <p style="font-size:0.88rem;color:var(--text-dim);">老牌联盟营销网络，注册流程稍长但覆盖面广。Kraken 的联盟计划在此运营。需要先有可访问的网站才能通过审核。</p>
+      <a href="https://www.shareasale.com/shareasale.cfm" target="_blank" class="reg-btn">注册 ShareASale →</a>
+    </div>
+    <div class="platform-detail" style="margin:0;">
+      <h3>CJ Affiliate</h3>
+      <div class="info-row">
+        <span class="info-item"><strong>覆盖项目：</strong>Crypto.com</span>
+      </div>
+      <p style="font-size:0.88rem;color:var(--text-dim);">CJ Affiliate (原 Commission Junction) 是另一大联盟网络。Crypto.com 的联盟计划在此运营。注册后搜索品牌申请即可。</p>
+      <a href="https://www.cj.com/" target="_blank" class="reg-btn">注册 CJ Affiliate →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: Code replacement -->
+<section>
+  <h2>五、替换 projects.json 中的占位符</h2>
+  <p class="intro">注册完成并获得真实推广链接后，按以下方式替换 projects.json 中的占位符。</p>
+
+  <p style="font-size:0.9rem;color:var(--text-dim);margin-bottom:1rem;">当前占位符状态（8 个 CEX 使用 "Cryptonav" 占位符）：</p>
+
+  <div class="code-block">
+<span class="c">// 当前（占位符）：</span>
+"binance": { "referral": "https://www.binance.com/en/register?ref=<span class="k">Cryptonav</span>" }
+"okx":     { "referral": "https://www.okx.com/join/<span class="k">Cryptonav</span>" }
+"bybit":   { "referral": "https://www.bybit.com/register?ref=<span class="k">Cryptonav</span>" }
+"coinbase":{ "referral": "https://www.coinbase.com/join/<span class="k">Cryptonav</span>" }
+"kraken":  { "referral": "https://www.kraken.com/signup?ref=<span class="k">Cryptonav</span>" }
+"gate-io": { "referral": "https://www.gate.io/signup/<span class="k">Cryptonav</span>" }
+"bitget":  { "referral": "https://www.bitget.com/referral/<span class="k">Cryptonav</span>" }
+"mexc":    { "referral": "https://www.mexc.com/register?refCode=<span class="k">Cryptonav</span>" }
+
+<span class="c">// 注册后替换为真实推广码（示例）：</span>
+"binance": { "referral": "https://www.binance.com/en/register?ref=<span class="s">38294716</span>" }
+"coinbase":{ "referral": "https://www.coinbase.com/join/<span class="s">7kx3 9m</span>" }
+"mexc":    { "referral": "https://www.mexc.com/register?refCode=<span class="s">1qR9Px</span>" }
+  </div>
+
+  <div class="note">⚠️ 每个平台的推广码格式不同：Binance 是纯数字 ID，Coinbase 是字母+空格码，MEXC 是短字母数字混合。直接使用从联盟后台复制的完整推广链接即可，不需要手动拼接。</div>
+</section>
+
+<!-- Section 6: Ad networks -->
+<section>
+  <h2>六、广告网络注册（CryptoNav 广告位填充）</h2>
+  <p class="intro">CryptoNav 有 5 种广告位（banner、sidebar、native、interstitial、sponsored listing）。注册以下加密货币广告网络后，可以填充这些广告位获得 CPM/CPC 收入。</p>
+
+  <div class="platform-detail">
+    <h3>Coinzilla</h3>
+    <div class="info-row">
+      <span class="info-item"><strong>类型：</strong>加密货币专属广告网络</span>
+      <span class="info-item"><strong>结算：</strong>BTC/ETH/USDT</span>
+      <span class="info-item"><strong>最低起付：</strong>0.001 BTC</span>
+    </div>
+    <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:0.75rem;">Coinzilla 是加密货币行业最大的广告网络之一，支持 Banner、Native、Pop 等多种广告格式。Publisher 注册后提交网站审核，通过后获取广告代码嵌入 CryptoNav 的 AdBanner 组件即可。</p>
+    <a href="https://www.coinzilla.com/publishers/" target="_blank" class="reg-btn">注册 Coinzilla Publisher →</a>
+  </div>
+
+  <div class="platform-detail">
+    <h3>Bitmedia</h3>
+    <div class="info-row">
+      <span class="info-item"><strong>类型：</strong>加密货币广告网络</span>
+      <span class="info-item"><strong>结算：</strong>BTC</span>
+      <span class="info-item"><strong>最低起付：</strong>0.01 BTC</span>
+    </div>
+    <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:0.75rem;">Bitmedia 专注于区块链和加密货币广告，适合 CryptoNav 的受众定位。支持 Banner 和 Native 广告格式，审核较快（1-2天）。</p>
+    <a href="https://bitmedia.io/publishers" target="_blank" class="reg-btn">注册 Bitmedia Publisher →</a>
+  </div>
+
+  <div class="platform-detail">
+    <h3>Google AdSense（备选）</h3>
+    <div class="info-row">
+      <span class="info-item"><strong>类型：</strong>通用广告网络</span>
+      <span class="info-item"><strong>结算：</strong>USD 银行转账</span>
+      <span class="info-item"><strong>最低起付：</strong>$100</span>
+    </div>
+    <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:0.75rem;">如果 Coinzilla 和 Bitmedia 审核不通过，Google AdSense 是备选方案。注意 Google 对加密货币相关网站审核较严格，需确保网站内容合规。</p>
+    <a href="https://www.google.com/adsense/start/" target="_blank" class="reg-btn">注册 Google AdSense →</a>
+  </div>
+</section>
+
+<!-- Section 7: Workflow summary -->
+<section>
+  <h2>七、完整操作流程</h2>
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>注册 Impact.com 账号</h4>
+        <p>一个 Impact 账号覆盖 Coinbase (50%) + Ledger (8-12%) 两个联盟计划。注册后搜索品牌并申请推广。</p>
+        <span class="tip">耗时约 30 分钟</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>注册 Binance + MEXC 直营联盟</h4>
+        <p>这两个是直营联盟，佣金高（50%/70%），注册流程简单。已有 Binance/MEXC 账号的话直接在后台申请。</p>
+        <span class="tip">耗时约 20 分钟</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>注册 Bybit + Bitget + Gate.io + OKX 直营联盟</h4>
+        <p>覆盖 CryptoNav 已收录的其他 CEX。Gate.io 的 90 天 Cookie 最值得关注。</p>
+        <span class="tip">耗时约 40 分钟</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>注册 ShareASale 申请 Kraken</h4>
+        <p>ShareASale 注册需要网站已上线，审核可能需要几天。先注册好 Impact 和直营联盟后再处理。</p>
+        <span class="tip">耗时约 20 分钟 + 审核 3-7 天</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>注册 Coinzilla / Bitmedia 广告网络</h4>
+        <p>用于填充 CryptoNav 网站自身的 5 种广告位。Publisher 注册后获取广告代码，嵌入 AdBanner 组件。</p>
+        <span class="tip">耗时约 30 分钟 + 审核 1-2 天</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>替换 projects.json 中的占位符</h4>
+        <p>将 8 个 CEX 的 "Cryptonav" 占位符替换为真实推广链接。同时移除 TestSwap 测试数据。</p>
+        <span class="tip">可批量替换，耗时 10 分钟</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">7</div>
+      <div class="step-content">
+        <h4>提交 Google Search Console 更新</h4>
+        <p>现在有 45 个页面，重新提交 sitemap.xml。注册 AdSense 后也可在此步关联。</p>
+        <span class="tip">耗时 5 分钟</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  CryptoNav 联盟营销注册指南 · 2026-08-27 · cryptonav.site<br>
+  本指南基于各平台官网公开信息整理，佣金比例和 Cookie 有效期可能随时调整<br>
+  注册前请阅读各平台的联盟计划条款（Terms &amp; Conditions）
+</footer>
+
+</div>
+</body>
+</html>
