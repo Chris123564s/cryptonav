@@ -1,13 +1,43 @@
 {
   "wins": [
     {
-      "symbol": "BANDOS",
-      "name": "BANDOS",
-      "logo": "/logos/dex/HG3sZ52NRm.png",
-      "address": "HG3sZ52NRmNpm2BueL1MSBM3krr5M6YJtQohjNyhpump",
+      "symbol": "$Chomp",
+      "name": "Hungry Chomp",
+      "logo": "/logos/dex/BXRtLzupLS.png",
+      "address": "BXRtLzupLSdS4KNLLEwondWiprU7KS7wVqLNAVqppump",
       "chain": "solana",
-      "change6h": 710.0,
-      "price": 0.0003965,
+      "change6h": 2475.0,
+      "price": 0.00124,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "kash",
+      "name": "apewifkash",
+      "logo": "/logos/dex/A4FJQGuSmy.png",
+      "address": "A4FJQGuSmykD6erkywPrSkzCrGsxQPRFh3SAXN63pump",
+      "chain": "solana",
+      "change6h": 350.0,
+      "price": 0.0001958,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "BULLFART",
+      "name": "Bullfart Coin",
+      "logo": "/logos/dex/Av2KSwkP4R.png",
+      "address": "Av2KSwkP4RH5zkUzDL51NyWmsLsEpGZ2GEW8CU8Vpump",
+      "chain": "solana",
+      "change6h": 234.0,
+      "price": 0.000256,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "invest",
+      "name": "ape in invest",
+      "logo": "/logos/dex/GNGhPhcLt5.png",
+      "address": "GNGhPhcLt5HJ6WjUHQSYoY3KhBFsksxu6FpvLpCFpump",
+      "chain": "solana",
+      "change6h": 167.0,
+      "price": 0.0002521,
       "date": "2026-08-28"
     },
     {
@@ -16,68 +46,38 @@
       "logo": "/logos/dex/EhCzWhMyUA.png",
       "address": "EhCzWhMyUAo87bQ663fV2A6reLhXgdhdcf9ynJV8pump",
       "chain": "solana",
-      "change6h": 138.0,
-      "price": 0.0001246,
+      "change6h": 151.0,
+      "price": 0.0006005,
       "date": "2026-08-28"
     },
     {
-      "symbol": "GIRLCOIN",
-      "name": "Girl Coin",
-      "logo": "/logos/dex/3U4QeTDaj4.png",
-      "address": "3U4QeTDaj4DWDmKc3yzsdgxnd8QtHjXSyMeJgwgVpump",
+      "symbol": "VAULT",
+      "name": "The Vault",
+      "logo": "/logos/dex/2hM4xUC3g3.png",
+      "address": "2hM4xUC3g3u1qcjf6GANPvQTZDa9kvjNkpFH2h6spump",
       "chain": "solana",
-      "change6h": 23.2,
-      "price": 5.821e-05,
+      "change6h": 72.6,
+      "price": 0.0003187,
       "date": "2026-08-28"
     },
     {
-      "symbol": "CALL",
-      "name": "CallFi",
-      "logo": "/logos/dex/4mDB7UQFLD.png",
-      "address": "4mDB7UQFLDrjGN9JuvaahB765Biujx6Jfu1fUe7jpump",
+      "symbol": "ANTSEM",
+      "name": "The Black Ant",
+      "logo": "/logos/dex/DuVgdHeEk7.png",
+      "address": "DuVgdHeEk7ejWPxWY5G3PQA99oEGGLmnbWuWWxpEpump",
       "chain": "solana",
-      "change6h": 12.7,
-      "price": 0.0003368,
+      "change6h": 67.5,
+      "price": 0.0007038,
       "date": "2026-08-28"
     },
     {
-      "symbol": "CHUMP",
-      "name": "Chump Coin",
-      "logo": "/logos/dex/0x0E0d2C89.png",
-      "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
-      "chain": "robinhood",
-      "change6h": 7.8,
-      "price": 0.01881,
-      "date": "2026-08-28"
-    },
-    {
-      "symbol": "GATO",
-      "name": "GTA6CAT",
-      "logo": "/logos/dex/HsprHxBRgi.png",
-      "address": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
+      "symbol": "AFD",
+      "name": "Ansem Fart Dust ",
+      "logo": "/logos/dex/9uEeSZSdxM.png",
+      "address": "9uEeSZSdxMm1PaoqQ1VNDwcuDMM9RHqkp2p89Je5pump",
       "chain": "solana",
-      "change6h": 1.4,
-      "price": 0.00156,
-      "date": "2026-08-28"
-    },
-    {
-      "symbol": "BOXED",
-      "name": "Boxed Cat",
-      "logo": "/logos/dex/0x76af8d3B.png",
-      "address": "0x76af8d3B40A0d7b5197935D0e84C14f7A3782e87",
-      "chain": "robinhood",
-      "change6h": -9.1,
-      "price": 0.0002822,
-      "date": "2026-08-28"
-    },
-    {
-      "symbol": "catwifaura",
-      "name": "Catwifaura",
-      "logo": "/logos/dex/4axaQC4Xes.png",
-      "address": "4axaQC4Xesojc3ZmrApiUbvdJeS4RntkjMSDhn61pump",
-      "chain": "solana",
-      "change6h": -11.0,
-      "price": 8.521e-05,
+      "change6h": 12.6,
+      "price": 8.605e-05,
       "date": "2026-08-28"
     }
   ]
