@@ -152,8 +152,8 @@ const ranges = [
     if (!ChartLib || !canvasEl) return;
     const values = prices.map(p => p[1]);
     const up = values.length > 1 && values[values.length - 1] >= values[0];
-    const line = up ? '#16a34a' : '#dc2626'; // 涨绿跌红（国际惯例）
-    const fillTop = up ? 'rgba(22,163,74,0.25)' : 'rgba(220,38,38,0.25)';
+    const line = up ? '#dc2626' : '#16a34a'; // 涨红跌绿（中国惯例）
+    const fillTop = up ? 'rgba(220,38,38,0.25)' : 'rgba(22,163,74,0.25)';
     const { grid, tick } = themeColors();
     const labels = formatLabels(prices, currentDays);
 

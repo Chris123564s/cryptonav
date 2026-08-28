@@ -8,6 +8,7 @@ interface Props {
   description?: string;
   showHeader?: boolean;
   showFooter?: boolean;
+  canonical?: string;
 }
 
 const {
@@ -15,7 +16,12 @@ const {
   description = 'CryptoNav is a comprehensive crypto navigation site for global users, aggregating top resources including exchanges, wallets, market tools, DeFi, and NFTs',
   showHeader = true,
   showFooter = true,
+  canonical = '',
 } = Astro.props;
+
+const siteUrl = 'https://cryptonav.site';
+const canonicalUrl = canonical || siteUrl + Astro.url.pathname;
+const ogImage = `${siteUrl}/og-image.png`;
 ---
 
 <!DOCTYPE html>
@@ -33,6 +39,19 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="CryptoNav" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

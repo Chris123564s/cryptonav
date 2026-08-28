@@ -90,7 +90,7 @@ function fmtPrice(v: number | null | undefined): string {
         document.querySelectorAll<HTMLElement>('.rec-chg').forEach(el => {
           if (el.dataset.id !== id) return;
           el.textContent = `${sign}${(chg ?? 0).toFixed(2)}%`;
-          el.className = `rec-chg text-xs ${up ? 'text-green-300' : 'text-red-300'}`;
+          el.className = `rec-chg text-xs ${up ? 'text-red-300' : 'text-green-300'}`;
         });
       }
     } catch (e) {

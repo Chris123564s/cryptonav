@@ -83,8 +83,24 @@ const totalProjects = getActiveProjects().length;
       <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-5">
         <h3 class="font-semibold text-sm text-surface-800 dark:text-surface-100 mb-3">Popular Tags</h3>
         <div class="flex flex-wrap gap-2">
-          {['Exchange', 'Wallet', 'DeFi', 'NFT', 'Layer2', 'Ethereum', 'Solana', 'BSC', 'Lending', 'Bridge', 'Stablecoin', 'Audited', 'Market', 'Airdrop', 'Hardware Wallet'].map(tag => (
-            <a href="#" class="tag hover:bg-brand-100 dark:hover:bg-brand-900/50 transition-colors">{tag}</a>
+          {[
+            { label: 'Exchange', href: '/category/exchange' },
+            { label: 'Wallet', href: '/category/wallet' },
+            { label: 'DeFi', href: '/category/defi' },
+            { label: 'NFT', href: '/category/nft' },
+            { label: 'Layer2', href: '/category/infra' },
+            { label: 'Ethereum', href: '/category/defi' },
+            { label: 'Solana', href: '/category/defi' },
+            { label: 'BSC', href: '/category/defi' },
+            { label: 'Lending', href: '/category/defi' },
+            { label: 'Bridge', href: '/category/defi' },
+            { label: 'Stablecoin', href: '/category/defi' },
+            { label: 'Audited', href: '/category/security' },
+            { label: 'Market', href: '/category/market' },
+            { label: 'Airdrop', href: '/category/tools' },
+            { label: 'Hardware Wallet', href: '/category/wallet' },
+          ].map(tag => (
+            <a href={tag.href} class="tag hover:bg-brand-100 dark:hover:bg-brand-900/50 transition-colors">{tag.label}</a>
           ))}
         </div>
       </div>
