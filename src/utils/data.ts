@@ -26,12 +26,22 @@ export function getProjectsByCategory(categoryId: string): ProjectData[] {
   return getActiveProjects().filter(p => p.category === categoryId);
 }
 
-/** 按父分类获取项目 */
+/** 按父分类获取项目（赞助项目置顶） */
 export function getProjectsByParentCategory(parentId: string): ProjectData[] {
   const cat = categories.find(c => c.id === parentId);
   if (!cat) return [];
   const subCatIds = cat.subcategories.map(s => s.id);
-  return getActiveProjects().filter(p => subCatIds.includes(p.category));
+  return getActiveProjects()
+    .filter(p => subCatIds.includes(p.category))
+    .sort((a, b) => {
+      // Sponsored projects first
+      const aSponsored = a.sponsored && (!a.sponsoredUntil || new Date(a.sponsoredUntil) >= new Date());
+      const bSponsored = b.sponsored && (!b.sponsoredUntil || new Date(b.sponsoredUntil) >= new Date());
+      if (aSponsored && !bSponsored) return -1;
+      if (!aSponsored && bSponsored) return 1;
+      // Then by addedAt (newest first)
+      return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
+    });
 }
 
 /** 获取精选项目 */

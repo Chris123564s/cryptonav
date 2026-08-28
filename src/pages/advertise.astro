@@ -1,46 +1,164 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+const adSlots = [
+  {
+    name: 'Home Banner',
+    position: 'Homepage top, above the fold',
+    size: '728 x 90 / 970 x 250',
+    format: 'Banner',
+    price: '$300/mo',
+    featured: true,
+    desc: 'Maximum visibility. Every visitor sees your brand first. Best for exchange launches and token announcements.',
+  },
+  {
+    name: 'Sidebar Top',
+    position: 'Category pages, sidebar',
+    size: '300 x 250',
+    format: 'Rectangle',
+    price: '$150/mo',
+    featured: false,
+    desc: 'High-traffic placement on every category page. Captures users browsing specific project types.',
+  },
+  {
+    name: 'Inline Card',
+    position: 'Project listing feed, every 8 items',
+    size: 'Responsive',
+    format: 'Native',
+    price: '$200/mo',
+    featured: false,
+    desc: 'Appears naturally within project listings. Highest click-through rate due to native format.',
+  },
+  {
+    name: 'Footer Banner',
+    position: 'Homepage bottom',
+    size: '728 x 90',
+    format: 'Banner',
+    price: '$100/mo',
+    featured: false,
+    desc: 'Cost-effective brand exposure. Catches users who scroll through the entire page.',
+  },
+  {
+    name: 'Sponsored Listing',
+    position: 'Top of category page',
+    size: 'Project card',
+    format: 'Listing',
+    price: '$50-200/mo',
+    featured: false,
+    desc: 'Your project appears at the top of its category with a "Sponsored" badge. Direct traffic to your site.',
+  },
+  {
+    name: 'Newsletter Sponsor',
+    position: 'Weekly digest email',
+    size: 'Header banner',
+    format: 'Email',
+    price: '$100-300/issue',
+    featured: false,
+    desc: 'Reach our subscriber base with a dedicated sponsor slot in the weekly CryptoNav digest.',
+  },
+];
+
+const stats = [
+  { label: 'Monthly Impressions', value: 'Growing' },
+  { label: 'Target Audience', value: 'Crypto Users' },
+  { label:'Geography', value: 'Global' },
+  { label: 'Payment', value: 'USDT / USDC' },
+];
 ---
 
-<Layout title="Partnerships - CryptoNav">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-2xl font-bold text-surface-800 dark:text-surface-100 mb-2">Partner with CryptoNav</h1>
-    <p class="text-sm text-surface-500 dark:text-surface-400 mb-8">Reach a global, crypto-savvy audience through tasteful, native placements across our navigation pages.</p>
+<Layout title="Advertise - CryptoNav" description="Promote your crypto project to a targeted audience of crypto enthusiasts, traders, and DeFi users.">
+  <!-- Hero -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 text-center">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-surface-800 dark:text-white tracking-tight">
+      Advertise on CryptoNav
+    </h1>
+    <p class="mt-4 text-sm md:text-base text-surface-500 dark:text-surface-400 max-w-2xl mx-auto">
+      Reach a highly targeted audience of crypto traders, DeFi users, and Web3 enthusiasts. Choose from flexible ad formats designed to fit your marketing goals.
+    </p>
+    <div class="mt-6 flex flex-wrap justify-center gap-3">
+      <a href="mailto:advertise@cryptonav.site" class="px-6 py-2.5 text-sm font-semibold bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors">
+        Get Started
+      </a>
+      <a href="#ad-slots" class="px-6 py-2.5 text-sm font-semibold border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-200 rounded-lg hover:bg-surface-50 dark:hover:bg-surface-800 transition-colors">
+        View Ad Slots
+      </a>
+    </div>
+  </section>
 
-    <!-- Placement options (no public pricing) -->
-    <div class="space-y-6 mb-12">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
-          <h3 class="font-bold text-surface-800 dark:text-surface-100 mb-2">Homepage Placement</h3>
-          <p class="text-xs text-surface-400">Prime homepage position, supports image or HTML5 creative.</p>
+  <!-- Stats -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {stats.map(stat => (
+        <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-5 text-center">
+          <p class="text-lg font-bold text-surface-800 dark:text-surface-100">{stat.value}</p>
+          <p class="text-xs text-surface-500 dark:text-surface-400 mt-1">{stat.label}</p>
         </div>
+      ))}
+    </div>
+  </section>
 
-        <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
-          <h3 class="font-bold text-surface-800 dark:text-surface-100 mb-2">Sidebar Placement</h3>
-          <p class="text-xs text-surface-400">Category page sidebars, sticky on scroll for lasting visibility.</p>
+  <!-- Ad Slots -->
+  <section id="ad-slots" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <h2 class="text-xl font-bold text-surface-800 dark:text-surface-100 mb-6">Available Ad Slots</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {adSlots.map(slot => (
+        <div class={`bg-white dark:bg-surface-800 rounded-xl border ${slot.featured ? 'border-brand-500 dark:border-brand-500 ring-1 ring-brand-500/20' : 'border-surface-200 dark:border-surface-700'} p-6 flex flex-col`}>
+          {slot.featured && (
+            <span class="text-[10px] font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wide mb-2">Most Popular</span>
+          )}
+          <h3 class="text-lg font-bold text-surface-800 dark:text-surface-100">{slot.name}</h3>
+          <p class="text-xs text-surface-500 dark:text-surface-400 mt-1">{slot.position}</p>
+          <div class="mt-3 flex items-baseline gap-2">
+            <span class="text-2xl font-extrabold text-surface-800 dark:text-surface-100">{slot.price}</span>
+          </div>
+          <p class="text-sm text-surface-500 dark:text-surface-400 mt-3 flex-1">{slot.desc}</p>
+          <div class="mt-4 pt-4 border-t border-surface-100 dark:border-surface-700">
+            <div class="flex items-center justify-between text-xs text-surface-400">
+              <span>Size: {slot.size}</span>
+              <span>Format: {slot.format}</span>
+            </div>
+          </div>
         </div>
+      ))}
+    </div>
+  </section>
 
-        <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
-          <h3 class="font-bold text-surface-800 dark:text-surface-100 mb-2">Inline Listing</h3>
-          <p class="text-xs text-surface-400">Native card inserted in project listings, matching our card style.</p>
-        </div>
-
-        <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-6">
-          <h3 class="font-bold text-surface-800 dark:text-surface-100 mb-2">Featured / Sponsored</h3>
-          <p class="text-xs text-surface-400">Homepage featured pick with badge, pinned ranking and priority search.</p>
-        </div>
+  <!-- How It Works -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <h2 class="text-xl font-bold text-surface-800 dark:text-surface-100 mb-6">How It Works</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="text-center">
+        <div class="w-12 h-12 mx-auto rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center text-brand-600 dark:text-brand-400 font-bold text-lg">1</div>
+        <h3 class="font-semibold text-sm text-surface-800 dark:text-surface-100 mt-3">Contact Us</h3>
+        <p class="text-xs text-surface-500 dark:text-surface-400 mt-1">Email advertise@cryptonav.site with your campaign goals.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 mx-auto rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center text-brand-600 dark:text-brand-400 font-bold text-lg">2</div>
+        <h3 class="font-semibold text-sm text-surface-800 dark:text-surface-100 mt-3">Choose Slot</h3>
+        <p class="text-xs text-surface-500 dark:text-surface-400 mt-1">Select ad format, duration, and target category.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 mx-auto rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center text-brand-600 dark:text-brand-400 font-bold text-lg">3</div>
+        <h3 class="font-semibold text-sm text-surface-800 dark:text-surface-100 mt-3">Pay in Crypto</h3>
+        <p class="text-xs text-surface-500 dark:text-surface-400 mt-1">USDT or USDC. Confirm and upload your creative.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-12 h-12 mx-auto rounded-full bg-brand-100 dark:bg-brand-900/30 flex items-center justify-center text-brand-600 dark:text-brand-400 font-bold text-lg">4</div>
+        <h3 class="font-semibold text-sm text-surface-800 dark:text-surface-100 mt-3">Go Live</h3>
+        <p class="text-xs text-surface-500 dark:text-surface-400 mt-1">Your ad appears within 24 hours. Track performance.</p>
       </div>
     </div>
+  </section>
 
-    <!-- Contact -->
-    <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-6 text-center">
-      <h2 class="font-bold text-surface-800 dark:text-surface-100 mb-2">Let's Talk</h2>
-      <p class="text-sm text-surface-500 dark:text-surface-400 mb-4">Tell us about your project and goals — we'll put together a tailored plan that fits your budget.</p>
-      <div class="flex items-center justify-center gap-4 text-sm">
-        <a href="mailto:advertise@cryptonav.site" class="text-brand-600 dark:text-brand-400 hover:underline">advertise@cryptonav.site</a>
-        <span class="text-surface-300">|</span>
-        <a href="https://t.me/cryptonav" class="text-brand-600 dark:text-brand-400 hover:underline">@cryptonav</a>
-      </div>
+  <!-- CTA -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <div class="bg-gradient-to-br from-brand-600 to-brand-700 rounded-2xl p-8 md:p-12 text-center text-white">
+      <h2 class="text-2xl font-bold">Ready to promote your project?</h2>
+      <p class="text-sm text-brand-100 mt-2 max-w-xl mx-auto">Get in touch and we'll help you choose the right ad format for your goals and budget.</p>
+      <a href="mailto:advertise@cryptonav.site" class="inline-block mt-6 px-8 py-3 text-sm font-semibold bg-white text-brand-700 rounded-lg hover:bg-brand-50 transition-colors">
+        advertise@cryptonav.site
+      </a>
     </div>
-  </div>
+  </section>
 </Layout>

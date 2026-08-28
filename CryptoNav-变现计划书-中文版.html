@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', 'Segoe UI', sans-serif;
+    color: #1a1a2e;
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .cover {
+    page-break-after: always;
+    width: 210mm;
+    height: 297mm;
+    background: linear-gradient(135deg, #0f0e17 0%, #1a1a2e 50%, #16213e 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 50px;
+    position: relative;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='210' height='297' viewBox='0 0 210 297' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='grid' width='20' height='20' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 20 0 L 0 0 0 20' fill='none' stroke='rgba(255,255,255,0.03)' width='0.5'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='210' height='297' fill='url(%23grid)'/%3E%3C/svg%3E");
+  }
+  .cover-content { position: relative; z-index: 1; text-align: center; }
+  .cover-logo { font-size: 42px; font-weight: 700; letter-spacing: -1px; margin-bottom: 8px; }
+  .cover-logo span { color: #00e8a0; }
+  .cover-tagline { font-size: 16px; color: #8888aa; margin-bottom: 60px; letter-spacing: 2px; }
+  .cover-title { font-size: 34px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+  .cover-subtitle { font-size: 15px; color: #aaaabb; margin-bottom: 80px; max-width: 420px; line-height: 1.8; }
+  .cover-meta { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 24px; font-size: 13px; color: #666688; line-height: 2.2; }
+  .cover-meta strong { color: #aaaabb; }
+  .cover-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(0, 232, 160, 0.1);
+    border: 1px solid rgba(0, 232, 160, 0.3);
+    border-radius: 20px;
+    font-size: 12px;
+    color: #00e8a0;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+  }
+
+  .page {
+    page-break-after: always;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 50px 55px 40px 55px;
+    position: relative;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e8e8f0;
+  }
+  .page-header-brand { font-size: 13px; font-weight: 600; color: #00b87a; }
+  .page-header-section { font-size: 12px; color: #888899; }
+
+  h1.page-title { font-size: 26px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+  .page-subtitle { font-size: 13px; color: #666677; margin-bottom: 25px; }
+
+  h2.section-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: #16213e;
+    margin-top: 22px;
+    margin-bottom: 10px;
+    padding-left: 12px;
+    border-left: 3px solid #00b87a;
+  }
+
+  p { margin-bottom: 10px; }
+  ul, ol { margin-left: 20px; margin-bottom: 10px; }
+  li { margin-bottom: 5px; line-height: 1.8; }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 16px 0; font-size: 13px; }
+  th { background: #16213e; color: #fff; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.3px; }
+  th:first-child { border-radius: 6px 0 0 0; }
+  th:last-child { border-radius: 0 6px 0 0; }
+  td { padding: 9px 14px; border-bottom: 1px solid #e0e0e8; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8f8fc; }
+
+  .callout { background: #f0fdf8; border: 1px solid #c6f7e6; border-left: 4px solid #00b87a; border-radius: 8px; padding: 16px 20px; margin: 14px 0; }
+  .callout-title { font-weight: 700; font-size: 14px; color: #006b4a; margin-bottom: 6px; }
+  .callout p { margin-bottom: 4px; font-size: 13px; color: #333344; }
+  .callout-warning { background: #fef9f0; border: 1px solid #fde4b0; border-left: 4px solid #e8a300; }
+  .callout-warning .callout-title { color: #8a6500; }
+
+  .phase-card { border-radius: 10px; padding: 20px 24px; margin: 14px 0; border: 1px solid #e0e0e8; }
+  .phase-1 { background: linear-gradient(135deg, #f0fdf8 0%, #e0fbf4 100%); border-color: #c6f7e6; }
+  .phase-2 { background: linear-gradient(135deg, #f0f6ff 0%, #e0eefb 100%); border-color: #c0d8f5; }
+  .phase-3 { background: linear-gradient(135deg, #fff9f0 0%, #fdf0e0 100%); border-color: #f5d6a0; }
+
+  .phase-header { display: flex; align-items: center; margin-bottom: 10px; }
+  .phase-badge { display: inline-block; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-right: 10px; color: #fff; }
+  .phase-badge-1 { background: #00b87a; }
+  .phase-badge-2 { background: #2473c0; }
+  .phase-badge-3 { background: #d88800; }
+  .phase-title { font-size: 16px; font-weight: 700; }
+  .phase-timeline { font-size: 12px; color: #666677; margin-left: auto; }
+
+  .revenue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .revenue-item { background: #f8f8fc; border-radius: 8px; padding: 14px 16px; border: 1px solid #e0e0e8; }
+  .revenue-item-label { font-size: 11px; color: #666677; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .revenue-item-value { font-size: 18px; font-weight: 700; color: #16213e; }
+  .revenue-item-note { font-size: 11px; color: #666677; margin-top: 2px; }
+
+  .flow-box { display: inline-block; padding: 10px 18px; border-radius: 8px; font-size: 12px; font-weight: 600; text-align: center; min-width: 80px; }
+  .flow-arrow { display: inline-block; color: #aaaabb; font-size: 18px; margin: 0 6px; }
+  .flow-row { margin: 14px 0; text-align: center; }
+  .flow-green { background: #c6f7e6; color: #006b4a; border: 1px solid #00b87a; }
+  .flow-blue { background: #c0d8f5; color: #0c447c; border: 1px solid #2473c0; }
+  .flow-orange { background: #fdf0e0; color: #8a6500; border: 1px solid #d88800; }
+  .flow-red { background: #fde0e0; color: #8a1a1a; border: 1px solid #dc3545; }
+
+  .page-footer { position: absolute; bottom: 20px; left: 55px; right: 55px; display: flex; justify-content: space-between; font-size: 10px; color: #aaaabb; border-top: 1px solid #e8e8f0; padding-top: 8px; }
+
+  .toc-item { display: flex; align-items: baseline; padding: 6px 0; border-bottom: 1px dotted #d0d0e0; }
+  .toc-number { font-weight: 700; color: #00b87a; width: 30px; }
+  .toc-title { flex: 1; font-size: 14px; }
+  .toc-page { font-size: 12px; color: #666677; }
+
+  .highlight { background: #fff3cd; padding: 1px 4px; border-radius: 3px; }
+  .green-text { color: #00b87a; font-weight: 600; }
+  .red-text { color: #dc3545; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- 封面 -->
+<div class="cover">
+  <div class="cover-content">
+    <div class="cover-logo">Crypto<span>Nav</span></div>
+    <div class="cover-tagline">加密货币导航与发现平台</div>
+    <div class="cover-badge">商业计划书 2026-2027</div>
+    <div class="cover-title">长期变现策略<br>与路线图</div>
+    <div class="cover-subtitle">
+      分阶段建设加密导航平台可持续广告收入体系，从零流量到自助广告市场。
+    </div>
+    <div class="cover-meta">
+      <strong>域名：</strong>cryptonav.site<br>
+      <strong>编制日期：</strong>2026年8月28日<br>
+      <strong>状态：</strong>已批准执行<br>
+      <strong>目标用户：</strong>国际用户（英文）
+    </div>
+  </div>
+</div>
+
+<!-- 目录 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">CryptoNav</div>
+    <div class="page-header-section">目录</div>
+  </div>
+
+  <h1 class="page-title">目录</h1>
+  <p class="page-subtitle">共五个章节，涵盖现状分析、市场基准、分阶段策略与风险评估。</p>
+
+  <div style="margin-top: 20px;">
+    <div class="toc-item"><span class="toc-number">01</span><span class="toc-title">执行摘要</span><span class="toc-page">3</span></div>
+    <div class="toc-item"><span class="toc-number">02</span><span class="toc-title">现状分析与平台概览</span><span class="toc-page">4</span></div>
+    <div class="toc-item"><span class="toc-number">03</span><span class="toc-title">市场基准与收入模式</span><span class="toc-page">5</span></div>
+    <div class="toc-item"><span class="toc-number">04</span><span class="toc-title">分阶段变现路线图</span><span class="toc-page">7</span></div>
+    <div class="toc-item"><span class="toc-number">05</span><span class="toc-title">收入预测与风险评估</span><span class="toc-page">10</span></div>
+  </div>
+
+  <div style="margin-top: 40px;">
+    <h2 class="section-title">文件目的</h2>
+    <p>本文件阐述 CryptoNav 的完整变现策略。CryptoNav 是一个部署在 <strong>cryptonav.site</strong> 的加密货币导航与发现平台。文件定义了建设广告收入的三阶段方案，从当前零流量状态出发，逐步发展到带加密支付的自助广告市场。</p>
+    <p>策略基于对 DappRadar、DefiLlama、CoinGecko 的竞争分析，以及来自 Coinzilla、Bitmedia、Blockchain-Ads 的行业数据。优先实施快速变现的收入来源，再投入更高成本的功能开发。</p>
+  </div>
+
+  <div class="page-footer">
+    <span>CryptoNav 变现计划书</span>
+    <span>第 2 页</span>
+  </div>
+</div>
+
+<!-- 01. 执行摘要 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">CryptoNav</div>
+    <div class="page-header-section">01 / 执行摘要</div>
+  </div>
+
+  <h1 class="page-title">01. 执行摘要</h1>
+  <p class="page-subtitle">核心论点：先用零成本的广告网络和联盟链接启动收入，链页面等有流量后再建。</p>
+
+  <h2 class="section-title">核心论点</h2>
+  <p>CryptoNav 是一个面向国际用户的加密货币导航平台，聚合交易所、钱包、DeFi、NFT 工具和行情数据。主要收入模式是<strong>广告</strong>——向加密项目、交易所和协议出售广告位。</p>
+  <p>然而，行业分析揭示了一个关键教训：<span class="highlight">没有流量的广告位价值为零</span>。一个域名权重为 0 的新站不可能直接出售高级广告位。因此策略必须优先：</p>
+
+  <div class="flow-row">
+    <span class="flow-box flow-red">建广告位</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-box flow-orange">获取流量</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-box flow-blue">吸引广告主</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-box flow-green">收取收入</span>
+  </div>
+  <p style="text-align: center; font-size: 12px; color: #666677;">变现管道——每个环节都依赖前一个环节。</p>
+
+  <h2 class="section-title">三阶段方案</h2>
+
+  <div class="phase-card phase-1">
+    <div class="phase-header">
+      <span class="phase-badge phase-badge-1">阶段一</span>
+      <span class="phase-title">立即上线——零成本收入</span>
+      <span class="phase-timeline">现在 — 第1周</span>
+    </div>
+    <p style="font-size: 13px;">接入加密广告网络（Coinzilla/Bitmedia），CPM 展示广告。给现有交易所/钱包列表添加联盟推荐链接。给项目数据加 sponsored 字段。<strong>零开发成本，第一天即有收入。</strong></p>
+  </div>
+
+  <div class="phase-card phase-2">
+    <div class="phase-header">
+      <span class="phase-badge phase-badge-2">阶段二</span>
+      <span class="phase-title">链页面与直接销售</span>
+      <span class="phase-timeline">第1-3个月</span>
+    </div>
+    <p style="font-size: 13px;">建设 <code>/chain/[slug]</code> 页面，集成 DefiLlama API 的 TVL 数据。在高流量链页面设置高级广告位。主动 BD 联系 Solana、BSC、Ethereum 上的项目。推出每周 Newsletter 赞助。</p>
+  </div>
+
+  <div class="phase-card phase-3">
+    <div class="phase-header">
+      <span class="phase-badge phase-badge-3">阶段三</span>
+      <span class="phase-title">自助广告市场</span>
+      <span class="phase-timeline">第6-12个月</span>
+    </div>
+    <p style="font-size: 13px;">在 <code>/advertise</code> 建设广告主自助投放门户。接入加密支付（USDT/USDC，通过 Coinbase Commerce 或 NOWPayments）。给广告主提供数据 dashboard（曝光、点击、转化）。链页独家 Premium banner。</p>
+  </div>
+
+  <div class="callout">
+    <div class="callout-title">关键洞察</div>
+    <p>加密广告网络（Coinzilla、Bitmedia）可以零销售成本、从第一天起填充广告库存。直接广告销售需要流量+商务拓展——留到阶段二、三，等平台有谈判筹码时再做。联盟链接（Binance、OKX）是最快的收入来源：CPA $50-300/合格推荐用户。</p>
+  </div>
+
+  <div class="page-footer">
+    <span>CryptoNav 变现计划书</span>
+    <span>第 3 页</span>
+  </div>
+</div>
+
+<!-- 02. 现状分析 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">CryptoNav</div>
+    <div class="page-header-section">02 / 现状分析</div>
+  </div>
+
+  <h1 class="page-title">02. 现状分析与平台概览</h1>
+  <p class="page-subtitle">当前已有什么、还需要建设什么来实现变现。</p>
+
+  <h2 class="section-title">线上基础设施</h2>
+  <table>
+    <thead>
+      <tr><th style="width: 25%;">组件</th><th style="width: 50%;">详情</th><th style="width: 25%;">状态</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>域名</strong></td><td>cryptonav.site（Cloudflare Pages 托管）</td><td><span class="green-text">已上线</span></td></tr>
+      <tr><td><strong>框架</strong></td><td>Astro 4.16 + Tailwind CSS</td><td><span class="green-text">已上线</span></td></tr>
+      <tr><td><strong>CMS 后台</strong></td><td>Decap CMS /admin，GitHub OAuth 登录</td><td><span class="green-text">已上线</span></td></tr>
+      <tr><td><strong>项目数据库</strong></td><td>src/data/projects.json（Decap CMS 管理）</td><td><span class="green-text">已上线</span></td></tr>
+      <tr><td><strong>提交表单</strong></td><td>/submit → POST /api/submit → GitHub Contents API</td><td><span class="green-text">已上线</span></td></tr>
+      <tr><td><strong>SEO</strong></td><td>og:image、canonical、sitemap-index.xml（16个URL）、twitter:card</td><td><span class="green-text">已上线</span></td></tr>
+      <tr><td><strong>网站分析</strong></td><td>Cloudflare Web Analytics</td><td><span class="green-text">已上线</span></td></tr>
+      <tr><td><strong>分类体系</strong></td><td>10个父分类（交易所、钱包、DeFi 等）</td><td><span class="green-text">已上线</span></td></tr>
+      <tr><td><strong>行情数据</strong></td><td>CoinGecko API（滚动条、图表、新币雷达、精选推荐）</td><td><span class="green-text">已上线</span></td></tr>
+      <tr><td><strong>Chains 维度</strong></td><td>/chain/[slug] 页面 + projects 加 chains 字段</td><td><span class="red-text">未建设</span></td></tr>
+      <tr><td><strong>广告网络</strong></td><td>Coinzilla / Bitmedia 接入</td><td><span class="red-text">未建设</span></td></tr>
+      <tr><td><strong>联盟链接</strong></td><td>Binance/OKX 推荐链接替换</td><td><span class="red-text">未建设</span></td></tr>
+      <tr><td><strong>赞助标记</strong></td><td>sponsored 字段 + 置顶 + "Sponsored" 标签</td><td><span class="red-text">未建设</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">流量基线</h2>
+  <div class="revenue-grid">
+    <div class="revenue-item">
+      <div class="revenue-item-label">域名权重 (DA)</div>
+      <div class="revenue-item-value">0</div>
+      <div class="revenue-item-note">新域名，无 SEO 历史</div>
+    </div>
+    <div class="revenue-item">
+      <div class="revenue-item-label">月访问量</div>
+      <div class="revenue-item-value">~0</div>
+      <div class="revenue-item-note">尚无自然流量</div>
+    </div>
+    <div class="revenue-item">
+      <div class="revenue-item-label">已收录页面</div>
+      <div class="revenue-item-value">16</div>
+      <div class="revenue-item-note">Sitemap 已提交 GSC</div>
+    </div>
+    <div class="revenue-item">
+      <div class="revenue-item-label">SEO 排名</div>
+      <div class="revenue-item-value">无</div>
+      <div class="revenue-item-note">需 6-12 个月见效</div>
+    </div>
+  </div>
+
+  <div class="callout callout-warning">
+    <div class="callout-title">现实约束</div>
+    <p>CryptoNav 是一个功能完整但零流量的平台。变现策略必须考虑这一点——没有受众就无法直接卖广告。阶段一聚焦于在零流量下也能工作的收入来源（广告网络填充库存、联盟链接在任何点击上都有效）。</p>
+  </div>
+
+  <div class="page-footer">
+    <span>CryptoNav 变现计划书</span>
+    <span>第 4 页</span>
+  </div>
+</div>
+
+<!-- 03. 市场基准 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">CryptoNav</div>
+    <div class="page-header-section">03 / 市场基准</div>
+  </div>
+
+  <h1 class="page-title">03. 市场基准与收入模式</h1>
+  <p class="page-subtitle">行业 CPM 费率、广告网络选项与竞品变现方式。</p>
+
+  <h2 class="section-title">加密广告 CPM 基准（2026年）</h2>
+  <table>
+    <thead>
+      <tr><th>垂直领域</th><th>标准 CPM</th><th>高级/定向 CPM</th><th>说明</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>中心化交易所</td><td>$8 - 15</td><td>$18 - 35</td><td>商业意图最强</td></tr>
+      <tr><td>DeFi 协议</td><td>$6 - 12</td><td>$15 - 30</td><td>链页面表现最佳</td></tr>
+      <tr><td>加密钱包</td><td>$5 - 10</td><td>$12 - 25</td><td>移动端用户为主</td></tr>
+      <tr><td>NFT 与 GameFi</td><td>$3 - 8</td><td>$10 - 20</td><td>CPM 较低，量较大</td></tr>
+      <tr><td>基础设施 / Layer2</td><td>$4 - 10</td><td>$12 - 22</td><td>小众但增长中</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size: 11px; color: #666677;">数据来源：Coinzilla 发布商指南 + Flexe 加密广告网络报告（2026）</p>
+
+  <h2 class="section-title">可用收入模式</h2>
+  <table>
+    <thead>
+      <tr><th>模式</th><th>运作方式</th><th>收入范围</th><th>实施难度</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>CPM 展示广告</strong></td><td>广告网络填充横幅位，按千次展示付费</td><td>$5-15 CPM</td><td>低（嵌入标签）</td></tr>
+      <tr><td><strong>CPC 广告</strong></td><td>按点击付费，用户意图更高</td><td>$1.50-3.50/次</td><td>低</td></tr>
+      <tr><td><strong>CPA 联盟营销</strong></td><td>推荐佣金，按合格行为（注册、入金）结算</td><td>$50-300/推荐</td><td>低（替换链接）</td></tr>
+      <tr><td><strong>直接横幅销售</strong></td><td>直接向项目出售广告位，月度合同</td><td>$200-500/位/月</td><td>高（需 BD）</td></tr>
+      <tr><td><strong>赞助置顶</strong></td><td>项目付费在分类页置顶展示</td><td>$50-200/项目/月</td><td>低（加字段）</td></tr>
+      <tr><td><strong>Newsletter 赞助</strong></td><td>每期周报邮件一个赞助商</td><td>$100-300/期</td><td>中</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">推荐广告网络</h2>
+  <table>
+    <thead>
+      <tr><th>网络</th><th>最低存款</th><th>模式</th><th>适用场景</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Coinzilla</strong></td><td>100欧元</td><td>CPM、CPC 原生</td><td>品牌认知，接入简单，Bybit/KuCoin 等客户</td></tr>
+      <tr><td><strong>Bitmedia</strong></td><td>$100</td><td>CPM、CPC</td><td>灵活定向，低门槛，OKX/Bybit 等客户</td></tr>
+      <tr><td><strong>Cointraffic</strong></td><td>500欧元</td><td>CPM、CPC</td><td>欧洲高端展示库存</td></tr>
+      <tr><td><strong>Blockchain-Ads</strong></td><td>$1,000/月</td><td>CPM、CPC、CPA</td><td>钱包级定向，精度最高</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">竞品变现方式</h2>
+  <table>
+    <thead>
+      <tr><th>平台</th><th>主要收入</th><th>次要收入</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>CoinGecko</strong></td><td>付费 API 分层 + 展示广告</td><td>赞助置顶、联盟</td></tr>
+      <tr><td><strong>DappRadar</strong></td><td>数据订阅 + 赞助</td><td>展示广告、高级报告</td></tr>
+      <tr><td><strong>DefiLlama</strong></td><td>捐赠 + API</td><td>极少广告</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size: 12px; color: #666677;">共同模式：先建数据/工具 → 吸引流量 → 再变现。CryptoNav 必须遵循此顺序，不能反过来。</p>
+
+  <div class="page-footer">
+    <span>CryptoNav 变现计划书</span>
+    <span>第 5-6 页</span>
+  </div>
+</div>
+
+<!-- 04. 分阶段路线图 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">CryptoNav</div>
+    <div class="page-header-section">04 / 路线图</div>
+  </div>
+
+  <h1 class="page-title">04. 分阶段变现路线图</h1>
+  <p class="page-subtitle">每个阶段的详细行动计划——建设什么、如何变现、预期收入。</p>
+
+  <div class="phase-card phase-1">
+    <div class="phase-header">
+      <span class="phase-badge phase-badge-1">阶段一</span>
+      <span class="phase-title">立即上线——零成本收入</span>
+      <span class="phase-timeline">第1周</span>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 12px;">行动项</h2>
+    <ol>
+      <li><strong>注册 Coinzilla 或 Bitmedia</strong> 成为发布商。两者均接受加密站点，最低存款 $100（100欧元）。在首页、分类页和项目详情页嵌入广告标签。广告从第一天起自动填充。</li>
+      <li><strong>添加联盟推荐链接</strong> 到所有交易所和钱包列表。将直接官网链接替换为 Binance、OKX、Bybit 推荐链接。这些项目按 CPA $50-300 结算每个合格注册或首次入金。</li>
+      <li><strong>添加 <code>sponsored</code> 字段</strong> 到 projects.json 和 Decap CMS 配置。赞助项目在其分类页置顶展示，带可见的 "Sponsored" 标签。收费 $50-200/月/项目。</li>
+      <li><strong>添加广告位组件</strong> 到 Layout.astro——每页首屏一个 728x90 横幅，分类页一个 300x250 侧栏位。这些位由广告网络填充。</li>
+    </ol>
+
+    <div class="revenue-grid">
+      <div class="revenue-item">
+        <div class="revenue-item-label">广告网络 CPM</div>
+        <div class="revenue-item-value">$5-15</div>
+        <div class="revenue-item-note">每千次展示</div>
+      </div>
+      <div class="revenue-item">
+        <div class="revenue-item-label">联盟 CPA</div>
+        <div class="revenue-item-value">$50-300</div>
+        <div class="revenue-item-note">每个合格推荐</div>
+      </div>
+      <div class="revenue-item">
+        <div class="revenue-item-label">赞助置顶</div>
+        <div class="revenue-item-value">$50-200</div>
+        <div class="revenue-item-note">每项目/月</div>
+      </div>
+      <div class="revenue-item">
+        <div class="revenue-item-label">预计月收入</div>
+        <div class="revenue-item-value">$50-300</div>
+        <div class="revenue-item-note">低流量基线</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-card phase-2">
+    <div class="phase-header">
+      <span class="phase-badge phase-badge-2">阶段二</span>
+      <span class="phase-title">链页面与直接销售</span>
+      <span class="phase-timeline">第1-3个月</span>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 12px;">行动项</h2>
+    <ol>
+      <li><strong>建设 Chains 维度</strong>：给 projects.json 加 <code>chains</code> 数组字段（如 ["solana", "ethereum"]）。创建 <code>/chain/[slug].astro</code> 动态路由页面。每个链页列出该链所有项目 + DefiLlama API 的 TVL 数据（免费，无需认证）。</li>
+      <li><strong>链页高级广告位</strong>：每个链页顶部 970x250 横幅。这是最高价值的库存，因为流量高度定向（如 /chain/solana 的用户明确关注 Solana 生态项目）。</li>
+      <li><strong>直接 BD 拓展</strong>：联系每条链上的头部项目（Solana 上的 Jupiter、BSC 上的 PancakeSwap、Ethereum 上的 Uniswap），提供横幅投放。定价：$200-500/月/位。先从 5-10 条链开始。</li>
+      <li><strong>推出每周 Newsletter</strong>："CryptoNav 周报"——热门新项目、市场涨幅、值得关注的提交。每期一个赞助商，$100-300。从 /submit 表单的选择加入收集邮箱列表。</li>
+      <li><strong>SEO 内容推送</strong>：撰写对比文章（"2026 最佳 Solana DEX"、"BSC 钱包排行"），瞄准长尾关键词。这些文章为链页引流量，提升广告价值。</li>
+    </ol>
+
+    <div class="revenue-grid">
+      <div class="revenue-item">
+        <div class="revenue-item-label">链页 CPM</div>
+        <div class="revenue-item-value">$10-20</div>
+        <div class="revenue-item-note">高级定向库存</div>
+      </div>
+      <div class="revenue-item">
+        <div class="revenue-item-label">直接横幅</div>
+        <div class="revenue-item-value">$200-500</div>
+        <div class="revenue-item-note">每位/月</div>
+      </div>
+      <div class="revenue-item">
+        <div class="revenue-item-label">Newsletter</div>
+        <div class="revenue-item-value">$100-300</div>
+        <div class="revenue-item-note">每期</div>
+      </div>
+      <div class="revenue-item">
+        <div class="revenue-item-label">预计月收入</div>
+        <div class="revenue-item-value">$500-2K</div>
+        <div class="revenue-item-note">月访问 1-3K 时</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>CryptoNav 变现计划书</span>
+    <span>第 7-8 页</span>
+  </div>
+</div>
+
+<!-- 阶段三 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">CryptoNav</div>
+    <div class="page-header-section">04 / 路线图（续）</div>
+  </div>
+
+  <div class="phase-card phase-3">
+    <div class="phase-header">
+      <span class="phase-badge phase-badge-3">阶段三</span>
+      <span class="phase-title">自助广告市场</span>
+      <span class="phase-timeline">第6-12个月</span>
+    </div>
+
+    <h2 class="section-title" style="margin-top: 12px;">行动项</h2>
+    <ol>
+      <li><strong>建设广告主自助投放门户</strong> <code>/advertise</code>：浏览可用广告位、选择投放位置、上传素材、设置投放周期。降低 BD 成本——广告主主动来找你。</li>
+      <li><strong>接入加密支付</strong>：使用 Coinbase Commerce 或 NOWPayments 接收 USDT/USDC。加密广告主更倾向于用稳定币付费，无传统支付处理商的摩擦。</li>
+      <li><strong>广告主数据 Dashboard</strong>：实时曝光数、点击率、地域分布、设备统计。广告主需要数据来证明续费的价值。用 Cloudflare D1 + Workers 建设。</li>
+      <li><strong>链页独家 Premium 横幅</strong>：每个链页顶部横幅独家出售（不轮播）。更高价格点：$500-2,000/月/链。有限库存制造稀缺性。</li>
+      <li><strong>程序化直接交易</strong>：加入 Blockchain-Ads 或 AdEx 程序化填充未售出库存。这些网络提供钱包级定向和链上验证，能获得更高 CPM。</li>
+    </ol>
+
+    <div class="revenue-grid">
+      <div class="revenue-item">
+        <div class="revenue-item-label">独家横幅</div>
+        <div class="revenue-item-value">$500-2K</div>
+        <div class="revenue-item-note">每链/月</div>
+      </div>
+      <div class="revenue-item">
+        <div class="revenue-item-label">自助投放</div>
+        <div class="revenue-item-value">$100-1K</div>
+        <div class="revenue-item-note">每活动</div>
+      </div>
+      <div class="revenue-item">
+        <div class="revenue-item-label">程序化</div>
+        <div class="revenue-item-value">$12-30</div>
+        <div class="revenue-item-note">高级定向 CPM</div>
+      </div>
+      <div class="revenue-item">
+        <div class="revenue-item-label">预计月收入</div>
+        <div class="revenue-item-value">$2K-10K</div>
+        <div class="revenue-item-note">月访问 10-50K 时</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">收入优先级排序</h2>
+  <p>变现优先级，从最快到最慢：</p>
+  <div class="flow-row" style="text-align: left; margin: 10px 0;">
+    <span class="flow-box flow-green">1. 联盟链接</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-box flow-green">2. 广告网络 CPM</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-box flow-blue">3. 赞助标记</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-box flow-blue">4. 链页面</span>
+    <span class="flow-arrow">&rarr;</span>
+    <span class="flow-box flow-orange">5. 自助广告</span>
+  </div>
+  <p style="font-size: 12px; color: #666677;">从左到右，随流量增长逐步叠加。每一层在前一层基础上构建。</p>
+
+  <div class="callout">
+    <div class="callout-title">设计原则</div>
+    <p>每个新功能都应以此标准评估："这是否直接提升广告收入？"链页面有价值，因为它创造了定向的、高 CPM 的广告库存。但它只有在平台有流量后才有效——这就是为什么阶段一（广告网络+联盟）排在前面。</p>
+  </div>
+
+  <div class="page-footer">
+    <span>CryptoNav 变现计划书</span>
+    <span>第 9 页</span>
+  </div>
+</div>
+
+<!-- 05. 收入预测与风险 -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-brand">CryptoNav</div>
+    <div class="page-header-section">05 / 预测与风险</div>
+  </div>
+
+  <h1 class="page-title">05. 收入预测与风险评估</h1>
+  <p class="page-subtitle">12个月收入预测与关键风险管理。</p>
+
+  <h2 class="section-title">12个月收入预测</h2>
+  <table>
+    <thead>
+      <tr><th>阶段</th><th>月访问量（估）</th><th>收入来源</th><th>月收入</th><th>累计收入</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>第1-2月</strong></td><td>0 - 500</td><td>联盟 + 广告网络 CPM</td><td>$50 - 200</td><td>$100 - 400</td></tr>
+      <tr><td><strong>第3-4月</strong></td><td>500 - 3K</td><td>+ 赞助置顶</td><td>$200 - 800</td><td>$500 - 2K</td></tr>
+      <tr><td><strong>第5-6月</strong></td><td>3K - 10K</td><td>+ 链页横幅 + Newsletter</td><td>$800 - 2.5K</td><td>$2K - 6K</td></tr>
+      <tr><td><strong>第7-9月</strong></td><td>10K - 30K</td><td>+ 直接横幅销售</td><td>$2K - 5K</td><td>$8K - 20K</td></tr>
+      <tr><td><strong>第10-12月</strong></td><td>30K - 50K+</td><td>+ 自助投放 + Premium</td><td>$5K - 10K+</td><td>$25K - 60K+</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size: 11px; color: #666677;">预测基于行业 CPM 基准估算，假设持续投入 SEO 和内容。实际结果取决于流量增长速度和广告主需求。</p>
+
+  <h2 class="section-title">关键风险与应对</h2>
+  <table>
+    <thead>
+      <tr><th style="width: 18%;">风险</th><th style="width: 41%;">描述</th><th style="width: 41%;">应对措施</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>流量不增长</strong></td>
+        <td>SEO 需 6-12 个月。如果内容投入不足，流量持续为零，所有广告收入停滞。</td>
+        <td>从第一天起投入 SEO 内容：对比文章、链指南、每周市场回顾。提交到聚合平台。通过社区参与建设外链。</td>
+      </tr>
+      <tr>
+        <td><strong>广告网络拒审</strong></td>
+        <td>Coinzilla/Bitmedia 可能拒绝没有流量历史的新站。</td>
+        <td>同时申请多个网络（Coinzilla、Bitmedia、Cointraffic、AADS）。AADS 无最低门槛。全部失败则先用 Google AdSense（CPM 较低但接受大部分站点）。</td>
+      </tr>
+      <tr>
+        <td><strong>机器人流量</strong></td>
+        <td>加密广告网络平均 15-25% 为机器人流量。可能导致账号暂停或收入追回。</td>
+        <td>使用 Cloudflare 的机器人防护（Pages 免费自带）。在 Cloudflare Analytics 中监控流量质量。避免弹窗和低质量广告格式。</td>
+      </tr>
+      <tr>
+        <td><strong>监管变化</strong></td>
+        <td>加密广告法规因国家而异，可能限制某些广告类型或要求免责声明。</td>
+        <td>所有赞助内容标注"广告"标签。如需可通过 Cloudflare 按地区限制广告。对主要市场（美、欧、英）咨询法律意见。</td>
+      </tr>
+      <tr>
+        <td><strong>广告主流失</strong></td>
+        <td>直接广告主如果第一个月看不到 ROI，可能不续约。</td>
+        <td>从直接销售第一天起（阶段二）就提供分析数据。提供首月折扣试用。聚焦有活跃生态的链（Solana、BSC），这些项目有营销预算。</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">成功指标追踪</h2>
+  <table>
+    <thead>
+      <tr><th>指标</th><th>目标（第6个月）</th><th>目标（第12个月）</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>月访问量</td><td>10,000</td><td>50,000</td></tr>
+      <tr><td>广告网络 CPM</td><td>$8</td><td>$12</td></tr>
+      <tr><td>联盟转化/月</td><td>5</td><td>30</td></tr>
+      <tr><td>赞助项目数</td><td>3</td><td>15</td></tr>
+      <tr><td>已建链页面</td><td>10</td><td>25</td></tr>
+      <tr><td>直接横幅客户</td><td>2</td><td>10</td></tr>
+      <tr><td>月收入</td><td>$2,000</td><td>$10,000</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-title">总结</div>
+    <p>本计划是一份动态文件。收入预测应每季度对照实际表现复盘。分阶段方案确保不依赖单一收入来源——广告网络、联盟、直接销售、赞助置顶的多元化组合创造韧性。</p>
+  </div>
+
+  <div class="page-footer">
+    <span>CryptoNav 变现计划书 — 2026年8月</span>
+    <span>第 10 页</span>
+  </div>
+</div>
+
+</body>
+</html>
