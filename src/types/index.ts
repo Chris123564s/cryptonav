@@ -102,3 +102,25 @@ export interface Chain {
   website: string;
   tvlRank: number;
 }
+
+export interface Token {
+  id: string;
+  name: string;
+  symbol: string;
+  logo: string;
+  chainId: string;
+  price: number;
+  marketCap: number;
+  marketCapRank?: number;
+  volume24h: number;
+  priceChange24h: number;
+  priceChange7d?: number;
+  tvl?: number;
+  category: string;
+  contractAddress?: string;
+  website: string;
+  verified?: boolean;
+  sponsored?: boolean;
+  sponsoredUntil?: string;
+  addedAt: string;
+}

@@ -4,7 +4,8 @@ import chainsData from '../data/chains.json';
 import adsData from '../data/ads.json';
 import featuredData from '../data/featured.json';
 import tickerData from '../data/ticker.json';
-import type { ProjectData, Category, AdConfig, FeaturedItem, TickerCoin, AdSlot, Chain } from '../types';
+import chainTokensData from '../data/chain-tokens.json';
+import type { ProjectData, Category, AdConfig, FeaturedItem, TickerCoin, AdSlot, Chain, Token } from '../types';
 
 export const projects: ProjectData[] = (projectsData as any).projects ?? projectsData as ProjectData[];
 export const categories: Category[] = categoriesData as Category[];
@@ -12,6 +13,7 @@ export const chains: Chain[] = chainsData as Chain[];
 export const ads: AdConfig[] = (adsData as any).ads ?? adsData as AdConfig[];
 export const featured: FeaturedItem[] = (featuredData as any).featured ?? featuredData as FeaturedItem[];
 export const tickerCoins: TickerCoin[] = (tickerData as any).ticker ?? tickerData as TickerCoin[];
+export const chainTokens: Token[] = chainTokensData as Token[];
 
 /** 获取所有活跃项目 */
 export function getActiveProjects(): ProjectData[] {
@@ -135,4 +137,36 @@ export function getProjectChains(project: ProjectData): Chain[] {
   return project.chains
     .map(id => chains.find(c => c.id === id))
     .filter((c): c is Chain => c !== undefined);
+}
+
+/** 获取指定链上的所有代币（赞助代币置顶） */
+export function getTokensByChain(chainId: string): Token[] {
+  return chainTokens
+    .filter(t => t.chainId === chainId)
+    .sort((a, b) => {
+      // Sponsored tokens first
+      const aSponsored = a.sponsored && (!a.sponsoredUntil || new Date(a.sponsoredUntil) >= new Date());
+      const bSponsored = b.sponsored && (!b.sponsoredUntil || new Date(b.sponsoredUntil) >= new Date());
+      if (aSponsored && !bSponsored) return -1;
+      if (!aSponsored && bSponsored) return 1;
+      // Then by market cap (descending)
+      return (b.marketCap || 0) - (a.marketCap || 0);
+    });
+}
+
+/** 格式化代币价格 */
+export function formatTokenPrice(n: number): string {
+  if (n >= 1) return `$${n.toLocaleString('en-US', { maximumFractionDigits: 2 })}`;
+  if (n >= 0.01) return `$${n.toFixed(4)}`;
+  if (n >= 0.0001) return `$${n.toFixed(6)}`;
+  if (n > 0) return `$${n.toFixed(9)}`;
+  return '—';
+}
+
+/** 格式化市值 */
+export function formatMarketCap(n: number): string {
+  if (n >= 1e9) return `$${(n / 1e9).toFixed(1)}B`;
+  if (n >= 1e6) return `$${(n / 1e6).toFixed(1)}M`;
+  if (n >= 1e3) return `$${(n / 1e3).toFixed(1)}K`;
+  return n > 0 ? `$${n.toLocaleString('en-US')}` : '—';
 }
