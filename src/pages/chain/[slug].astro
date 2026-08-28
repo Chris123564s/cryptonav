@@ -126,7 +126,10 @@ const totalTvl = tokens.reduce((sum, t) => sum + (t.tvl || 0), 0);
               <!-- Token (logo + symbol + name) -->
               <div class="flex items-center gap-2.5 min-w-0">
                 {t.logo ? (
-                  <img src={t.logo} alt={t.name} class="w-7 h-7 rounded-full object-cover shrink-0" loading="lazy" />
+                  <div class="w-7 h-7 rounded-full shrink-0 overflow-hidden bg-surface-100 dark:bg-surface-700 flex items-center justify-center">
+                    <img src={t.logo} alt={t.name} class="w-7 h-7 rounded-full object-cover" loading="lazy"
+                         onerror="this.style.display='none';this.parentElement.classList.add('flex','items-center','justify-center');const s=document.createElement('span');s.className='text-xs font-bold text-white';s.style.background='{chain.color}';s.style.width='28px';s.style.height='28px';s.style.borderRadius='50%';s.style.display='flex';s.style.alignItems='center';s.style.justifyContent='center';s.textContent='{t.symbol.charAt(0)}';this.parentElement.appendChild(s)" />
+                  </div>
                 ) : (
                   <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 text-white" style={`background: ${chain.color}`}>
                     {t.symbol.charAt(0)}
@@ -135,7 +138,7 @@ const totalTvl = tokens.reduce((sum, t) => sum + (t.tvl || 0), 0);
                 <div class="min-w-0">
                   <div class="flex items-center gap-1.5">
                     <span class="text-sm font-semibold text-surface-800 dark:text-surface-100">{t.symbol}</span>
-                    {t.verified && <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 1.126a.75.75 0 01.723 0l1.7.947 1.7-.947a.75.75 0 01.723 0l1.5.838a.75.75 0 01.387.658v2.94l1.5.838a.75.75 0 01.387.658v3.263a.75.75 0 01-.387.658l-1.5.838v2.94a.75.75 0 01-.387.658l-1.5.838a.75.75 0 01-.723 0l-1.7-.947-1.7.947a.75.75 0 01-.723 0l-1.5-.838a.75.75 0 01-.387-.658v-2.94l-1.5-.838a.75.75 0 01-.387-.658V5.9a.75.75 0 01.387-.658l1.5-.838V1.466a.75.75 0 01.387-.658l1.5-.838zM8 8.5l1.5 1.5L12 7"/></svg>}
+                    {t.verified && <svg class="w-3.5 h-3.5 text-brand-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>}
                   </div>
                   <p class="text-xs text-surface-400 truncate">{t.name}</p>
                 </div>
