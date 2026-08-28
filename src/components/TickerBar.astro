@@ -25,7 +25,7 @@ const coinIds = tickerCoins.map(c => c.id).join(',');
               <img src={coin.image} alt={coin.name} class="w-4 h-4 rounded-full" loading="lazy" />
               <span class="font-medium text-surface-600 dark:text-surface-300">{coin.symbol}</span>
               <span class="font-mono text-surface-500 dark:text-surface-400 ticker-price">{formatPrice(coin.currentPrice)}</span>
-              <span class={`font-mono ticker-change ${coin.priceChangePercentage24h >= 0 ? 'text-red-500' : 'text-green-500'}`}>
+              <span class={`font-mono ticker-change ${coin.priceChangePercentage24h >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                 {coin.priceChangePercentage24h >= 0 ? '+' : ''}{coin.priceChangePercentage24h.toFixed(2)}%
               </span>
             </a>
@@ -63,7 +63,7 @@ const coinIds = tickerCoins.map(c => c.id).join(',');
           if (changeEl && change !== undefined) {
             const sign = change >= 0 ? '+' : '';
             changeEl.textContent = `${sign}${change.toFixed(2)}%`;
-            changeEl.className = `font-mono ticker-change ${change >= 0 ? 'text-red-500' : 'text-green-500'}`;
+            changeEl.className = `font-mono ticker-change ${change >= 0 ? 'text-green-500' : 'text-red-500'}`;
           }
         }
       });

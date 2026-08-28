@@ -32,7 +32,7 @@
 
   function tokenCard(c: any): string {
     const up = c.change24h >= 0;
-    const color = up ? 'text-red-500' : 'text-green-500';
+    const color = up ? 'text-green-500' : 'text-red-500';
     const sign = up ? '+' : '';
     const sym = (c.symbol || '?').toUpperCase();
     const initial = (c.name || sym || '?').charAt(0).toUpperCase();
