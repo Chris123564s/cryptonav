@@ -1,7 +1,7 @@
 # CryptoNav 项目记忆
 
 ## 项目概述
-CryptoNav 是一个面向中文用户的加密币综合导航站，聚合交易所、钱包、行情工具、DeFi、NFT 等全品类资源。
+CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站，聚合交易所、钱包、行情工具、DeFi、NFT 等全品类资源。网站语言为英文。
 
 ## 关键决策
 - 技术栈：Astro + Tailwind CSS + JSON 数据 + Cloudflare Pages 部署
@@ -9,6 +9,7 @@ CryptoNav 是一个面向中文用户的加密币综合导航站，聚合交易�
 - 数据采集：CoinGecko API + DefiLlama API + GitHub Trending + 社区提交
 - 采集策略：自动采集 + 质量评分 + 人工审核（评分≥60自动收录）
 - 调度：GitHub Actions 每6小时增量采集，每天全量刷新，每周死链检测
+- **涨跌颜色惯例：国际惯例（绿=涨，红=跌）**，不用中国惯例
 
 ## 文档产出
 - `CryptoNav-产品方案.md` — 完整产品方案（定位/功能/架构/技术/路线图）
