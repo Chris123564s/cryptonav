@@ -101,7 +101,7 @@ export default {
     if (url.pathname === '/api/auth') {
       const redirectUrl = new URL('https://github.com/login/oauth/authorize');
       redirectUrl.searchParams.set('client_id', CLIENT_ID);
-      redirectUrl.searchParams.set('redirect_uri', url.origin + '/api/callback');
+      redirectUrl.searchParams.set('redirect_uri', 'https://cryptonav.site/api/callback');
       redirectUrl.searchParams.set('scope', 'repo user');
       redirectUrl.searchParams.set('state', crypto.randomUUID());
       return Response.redirect(redirectUrl.href, 302);

@@ -1,0 +1,3 @@
+# Cloudflare Pages Rewrite Rules
+# /api/* 代理到 Worker（status 200 = 不改变浏览器 URL）
+/api/*  https://cms-oauth.chriscaochunsheng.workers.dev/api/:splat  200

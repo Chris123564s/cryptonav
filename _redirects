@@ -1,0 +1,15 @@
+# Cloudflare Pages Rewrite Rules
+# 把 /api/auth 和 /api/callback 代理到 Worker
+# 这样 Decap CMS 可以用相对路径 /api/auth，避免跨域问题
+
+[[redirects]]
+  from = "/api/auth"
+  to = "https://cms-oauth.chriscaochunsheng.workers.dev/api/auth"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/callback"
+  to = "https://cms-oauth.chriscaochunsheng.workers.dev/api/callback"
+  status = 200
+  force = true

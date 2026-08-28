@@ -7,7 +7,7 @@ backend:
   branch: main
   site_domain: https://cryptonav.site
   base_url: https://cryptonav.site
-  auth_endpoint: https://cms-oauth.chriscaochunsheng.workers.dev/api/auth
+  auth_endpoint: /api/auth
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
