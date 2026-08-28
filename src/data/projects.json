@@ -1553,6 +1553,30 @@
       "status": "active",
       "source": "manual",
       "addedAt": "2026-08-27"
+    },
+    {
+      "id": "testswap",
+      "name": "TestSwap",
+      "logo": "",
+      "category": "exchange-dex",
+      "tags": [],
+      "description": "A test DEX for testing the submit flow",
+      "website": "https://testswap.example.com",
+      "social": {
+        "twitter": "",
+        "telegram": "",
+        "discord": "",
+        "github": ""
+      },
+      "metrics": {},
+      "verified": false,
+      "audited": false,
+      "riskLevel": "medium",
+      "featured": false,
+      "sponsored": false,
+      "status": "pending",
+      "source": "community-submit",
+      "addedAt": "2026-08-28"
     }
   ]
 }
