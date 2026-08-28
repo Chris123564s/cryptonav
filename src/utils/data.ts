@@ -5,11 +5,11 @@ import featuredData from '../data/featured.json';
 import tickerData from '../data/ticker.json';
 import type { ProjectData, Category, AdConfig, FeaturedItem, TickerCoin, AdSlot } from '../types';
 
-export const projects: ProjectData[] = projectsData as ProjectData[];
+export const projects: ProjectData[] = (projectsData as any).projects ?? projectsData as ProjectData[];
 export const categories: Category[] = categoriesData as Category[];
-export const ads: AdConfig[] = adsData as AdConfig[];
-export const featured: FeaturedItem[] = featuredData as FeaturedItem[];
-export const tickerCoins: TickerCoin[] = tickerData as TickerCoin[];
+export const ads: AdConfig[] = (adsData as any).ads ?? adsData as AdConfig[];
+export const featured: FeaturedItem[] = (featuredData as any).featured ?? featuredData as FeaturedItem[];
+export const tickerCoins: TickerCoin[] = (tickerData as any).ticker ?? tickerData as TickerCoin[];
 
 /** 获取所有活跃项目 */
 export function getActiveProjects(): ProjectData[] {

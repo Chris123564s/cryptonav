@@ -157,7 +157,8 @@ const navCategories = categories;
   async function initSearch() {
     try {
       const res = await fetch('/data/projects.json');
-      searchData = await res.json();
+      const jsonData = await res.json();
+      searchData = Array.isArray(jsonData) ? jsonData : (jsonData.projects || []);
       fuse = new Fuse(searchData, {
         keys: ['name', 'symbol', 'tags', 'description'],
         threshold: 0.3,

@@ -1,82 +1,84 @@
-[
-  {
-    "symbol": "BANDOS",
-    "name": "BANDOS",
-    "logo": "/logos/dex/HG3sZ52NRm.png",
-    "address": "HG3sZ52NRmNpm2BueL1MSBM3krr5M6YJtQohjNyhpump",
-    "chain": "solana",
-    "change6h": 710.0,
-    "price": 0.0003965,
-    "date": "2026-08-28"
-  },
-  {
-    "symbol": "POKEMON",
-    "name": "Pokemon",
-    "logo": "/logos/dex/EhCzWhMyUA.png",
-    "address": "EhCzWhMyUAo87bQ663fV2A6reLhXgdhdcf9ynJV8pump",
-    "chain": "solana",
-    "change6h": 138.0,
-    "price": 0.0001246,
-    "date": "2026-08-28"
-  },
-  {
-    "symbol": "GIRLCOIN",
-    "name": "Girl Coin",
-    "logo": "/logos/dex/3U4QeTDaj4.png",
-    "address": "3U4QeTDaj4DWDmKc3yzsdgxnd8QtHjXSyMeJgwgVpump",
-    "chain": "solana",
-    "change6h": 23.2,
-    "price": 5.821e-05,
-    "date": "2026-08-28"
-  },
-  {
-    "symbol": "CALL",
-    "name": "CallFi",
-    "logo": "/logos/dex/4mDB7UQFLD.png",
-    "address": "4mDB7UQFLDrjGN9JuvaahB765Biujx6Jfu1fUe7jpump",
-    "chain": "solana",
-    "change6h": 12.7,
-    "price": 0.0003368,
-    "date": "2026-08-28"
-  },
-  {
-    "symbol": "CHUMP",
-    "name": "Chump Coin",
-    "logo": "/logos/dex/0x0E0d2C89.png",
-    "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
-    "chain": "robinhood",
-    "change6h": 7.8,
-    "price": 0.01881,
-    "date": "2026-08-28"
-  },
-  {
-    "symbol": "GATO",
-    "name": "GTA6CAT",
-    "logo": "/logos/dex/HsprHxBRgi.png",
-    "address": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
-    "chain": "solana",
-    "change6h": 1.4,
-    "price": 0.00156,
-    "date": "2026-08-28"
-  },
-  {
-    "symbol": "BOXED",
-    "name": "Boxed Cat",
-    "logo": "/logos/dex/0x76af8d3B.png",
-    "address": "0x76af8d3B40A0d7b5197935D0e84C14f7A3782e87",
-    "chain": "robinhood",
-    "change6h": -9.1,
-    "price": 0.0002822,
-    "date": "2026-08-28"
-  },
-  {
-    "symbol": "catwifaura",
-    "name": "Catwifaura",
-    "logo": "/logos/dex/4axaQC4Xes.png",
-    "address": "4axaQC4Xesojc3ZmrApiUbvdJeS4RntkjMSDhn61pump",
-    "chain": "solana",
-    "change6h": -11.0,
-    "price": 8.521e-05,
-    "date": "2026-08-28"
-  }
-]
+{
+  "wins": [
+    {
+      "symbol": "BANDOS",
+      "name": "BANDOS",
+      "logo": "/logos/dex/HG3sZ52NRm.png",
+      "address": "HG3sZ52NRmNpm2BueL1MSBM3krr5M6YJtQohjNyhpump",
+      "chain": "solana",
+      "change6h": 710.0,
+      "price": 0.0003965,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "POKEMON",
+      "name": "Pokemon",
+      "logo": "/logos/dex/EhCzWhMyUA.png",
+      "address": "EhCzWhMyUAo87bQ663fV2A6reLhXgdhdcf9ynJV8pump",
+      "chain": "solana",
+      "change6h": 138.0,
+      "price": 0.0001246,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "GIRLCOIN",
+      "name": "Girl Coin",
+      "logo": "/logos/dex/3U4QeTDaj4.png",
+      "address": "3U4QeTDaj4DWDmKc3yzsdgxnd8QtHjXSyMeJgwgVpump",
+      "chain": "solana",
+      "change6h": 23.2,
+      "price": 5.821e-05,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "CALL",
+      "name": "CallFi",
+      "logo": "/logos/dex/4mDB7UQFLD.png",
+      "address": "4mDB7UQFLDrjGN9JuvaahB765Biujx6Jfu1fUe7jpump",
+      "chain": "solana",
+      "change6h": 12.7,
+      "price": 0.0003368,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "CHUMP",
+      "name": "Chump Coin",
+      "logo": "/logos/dex/0x0E0d2C89.png",
+      "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
+      "chain": "robinhood",
+      "change6h": 7.8,
+      "price": 0.01881,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "GATO",
+      "name": "GTA6CAT",
+      "logo": "/logos/dex/HsprHxBRgi.png",
+      "address": "HsprHxBRgiVaQdRf3TnKNuZZtaX9JUSPgMFdAkk6pump",
+      "chain": "solana",
+      "change6h": 1.4,
+      "price": 0.00156,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "BOXED",
+      "name": "Boxed Cat",
+      "logo": "/logos/dex/0x76af8d3B.png",
+      "address": "0x76af8d3B40A0d7b5197935D0e84C14f7A3782e87",
+      "chain": "robinhood",
+      "change6h": -9.1,
+      "price": 0.0002822,
+      "date": "2026-08-28"
+    },
+    {
+      "symbol": "catwifaura",
+      "name": "Catwifaura",
+      "logo": "/logos/dex/4axaQC4Xes.png",
+      "address": "4axaQC4Xesojc3ZmrApiUbvdJeS4RntkjMSDhn61pump",
+      "chain": "solana",
+      "change6h": -11.0,
+      "price": 8.521e-05,
+      "date": "2026-08-28"
+    }
+  ]
+}

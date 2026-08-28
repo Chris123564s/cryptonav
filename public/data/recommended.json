@@ -1,32 +1,34 @@
-[
-  {
-    "id": "pepe",
-    "name": "Pepe",
-    "symbol": "PEPE",
-    "logo": "/logos/rec/pepe.jpg",
-    "reason": "Strong community momentum and rising on-chain volume; watch for a breakout above the recent range.",
-    "entryPrice": 1.2e-06,
-    "sponsored": false,
-    "link": "https://www.coingecko.com/en/coins/pepe"
-  },
-  {
-    "id": "wif",
-    "name": "dogwifhat",
-    "symbol": "WIF",
-    "logo": "/logos/rec/wif.png",
-    "reason": "Top Solana meme with exchange listings expanding; momentum traders are rotating back in.",
-    "entryPrice": 2.35,
-    "sponsored": false,
-    "link": "https://www.coingecko.com/en/coins/dogwifhat"
-  },
-  {
-    "id": "bonk",
-    "name": "Bonk",
-    "symbol": "BONK",
-    "logo": "/logos/rec/bonk.jpg",
-    "reason": "Solana ecosystem bellwether; trending in smart-money wallets this week.",
-    "entryPrice": 2.8e-05,
-    "sponsored": false,
-    "link": "https://www.coingecko.com/en/coins/bonk"
-  }
-]
+{
+  "recommended": [
+    {
+      "id": "pepe",
+      "name": "Pepe",
+      "symbol": "PEPE",
+      "logo": "/logos/rec/pepe.jpg",
+      "reason": "Strong community momentum and rising on-chain volume; watch for a breakout above the recent range.",
+      "entryPrice": 1.2e-06,
+      "sponsored": false,
+      "link": "https://www.coingecko.com/en/coins/pepe"
+    },
+    {
+      "id": "wif",
+      "name": "dogwifhat",
+      "symbol": "WIF",
+      "logo": "/logos/rec/wif.png",
+      "reason": "Top Solana meme with exchange listings expanding; momentum traders are rotating back in.",
+      "entryPrice": 2.35,
+      "sponsored": false,
+      "link": "https://www.coingecko.com/en/coins/dogwifhat"
+    },
+    {
+      "id": "bonk",
+      "name": "Bonk",
+      "symbol": "BONK",
+      "logo": "/logos/rec/bonk.jpg",
+      "reason": "Solana ecosystem bellwether; trending in smart-money wallets this week.",
+      "entryPrice": 2.8e-05,
+      "sponsored": false,
+      "link": "https://www.coingecko.com/en/coins/bonk"
+    }
+  ]
+}

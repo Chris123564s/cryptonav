@@ -1,5 +1,6 @@
 ---
-import recommended from '../data/recommended.json';
+import recommendedData from '../data/recommended.json';
+const recommended = (recommendedData as any).recommended ?? recommendedData;
 
 function fmtPrice(v: number | null | undefined): string {
   if (v === null || v === undefined || (typeof v === 'number' && isNaN(v))) return '—';

@@ -1,8 +1,34 @@
-[
-  { "projectId": "binance", "reason": "World's largest exchange, top recommendation", "order": 1 },
-  { "projectId": "uniswap", "reason": "DeFi leader and largest decentralized exchange", "order": 2 },
-  { "projectId": "metamask", "reason": "Essential wallet, best choice for beginners", "order": 3 },
-  { "projectId": "coingecko", "reason": "Most comprehensive market data platform", "order": 4 },
-  { "projectId": "aave", "reason": "DeFi lending leader", "order": 5 },
-  { "projectId": "lido", "reason": "The top choice for liquid staking", "order": 6 }
-]
+{
+  "featured": [
+    {
+      "projectId": "binance",
+      "reason": "World's largest exchange, top recommendation",
+      "order": 1
+    },
+    {
+      "projectId": "uniswap",
+      "reason": "DeFi leader and largest decentralized exchange",
+      "order": 2
+    },
+    {
+      "projectId": "metamask",
+      "reason": "Essential wallet, best choice for beginners",
+      "order": 3
+    },
+    {
+      "projectId": "coingecko",
+      "reason": "Most comprehensive market data platform",
+      "order": 4
+    },
+    {
+      "projectId": "aave",
+      "reason": "DeFi lending leader",
+      "order": 5
+    },
+    {
+      "projectId": "lido",
+      "reason": "The top choice for liquid staking",
+      "order": 6
+    }
+  ]
+}

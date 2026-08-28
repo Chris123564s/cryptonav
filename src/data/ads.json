@@ -1,67 +1,69 @@
-[
-  {
-    "id": "ad-001",
-    "slot": "home-banner",
-    "title": "Trade Bitcoin & Crypto on Binance",
-    "subtitle": "World's #1 exchange by volume — sign up and get 20% fee rebate",
-    "image": "/ads/home-banner.svg",
-    "gradient": "exchange",
-    "link": "https://www.binance.com",
-    "startAt": "2026-01-01T00:00:00Z",
-    "endAt": "2026-12-31T23:59:59Z",
-    "weight": 10,
-    "active": true
-  },
-  {
-    "id": "ad-002",
-    "slot": "sidebar-top",
-    "title": "Secure Your Crypto with Ledger",
-    "subtitle": "The #1 hardware wallet — store 5,500+ coins offline",
-    "image": "/ads/sidebar-top.svg",
-    "gradient": "wallet",
-    "link": "https://www.ledger.com",
-    "startAt": "2026-01-01T00:00:00Z",
-    "endAt": "2026-12-31T23:59:59Z",
-    "weight": 1,
-    "active": true
-  },
-  {
-    "id": "ad-003",
-    "slot": "sidebar-bottom",
-    "title": "Swap on Uniswap",
-    "subtitle": "Trade 1,000+ tokens directly from your wallet — no account needed",
-    "image": "/ads/sidebar-bottom.svg",
-    "gradient": "defi",
-    "link": "https://app.uniswap.org",
-    "startAt": "2026-01-01T00:00:00Z",
-    "endAt": "2026-12-31T23:59:59Z",
-    "weight": 1,
-    "active": true
-  },
-  {
-    "id": "ad-004",
-    "slot": "footer-banner",
-    "title": "Track Every Market on CoinGecko",
-    "subtitle": "Live prices, charts & portfolio tracking for 10,000+ cryptocurrencies",
-    "image": "/ads/footer-banner.svg",
-    "gradient": "default",
-    "link": "https://www.coingecko.com",
-    "startAt": "2026-01-01T00:00:00Z",
-    "endAt": "2026-12-31T23:59:59Z",
-    "weight": 1,
-    "active": true
-  },
-  {
-    "id": "ad-005",
-    "slot": "inline-card",
-    "title": "Collect NFTs on OpenSea",
-    "subtitle": "The world's largest NFT marketplace — discover, buy & sell",
-    "image": "/ads/inline-card.svg",
-    "gradient": "nft",
-    "link": "https://opensea.io",
-    "startAt": "2026-01-01T00:00:00Z",
-    "endAt": "2026-12-31T23:59:59Z",
-    "weight": 1,
-    "active": true
-  }
-]
+{
+  "ads": [
+    {
+      "id": "ad-001",
+      "slot": "home-banner",
+      "title": "Trade Bitcoin & Crypto on Binance",
+      "subtitle": "World's #1 exchange by volume — sign up and get 20% fee rebate",
+      "image": "/ads/home-banner.svg",
+      "gradient": "exchange",
+      "link": "https://www.binance.com",
+      "startAt": "2026-01-01T00:00:00Z",
+      "endAt": "2026-12-31T23:59:59Z",
+      "weight": 10,
+      "active": true
+    },
+    {
+      "id": "ad-002",
+      "slot": "sidebar-top",
+      "title": "Secure Your Crypto with Ledger",
+      "subtitle": "The #1 hardware wallet — store 5,500+ coins offline",
+      "image": "/ads/sidebar-top.svg",
+      "gradient": "wallet",
+      "link": "https://www.ledger.com",
+      "startAt": "2026-01-01T00:00:00Z",
+      "endAt": "2026-12-31T23:59:59Z",
+      "weight": 1,
+      "active": true
+    },
+    {
+      "id": "ad-003",
+      "slot": "sidebar-bottom",
+      "title": "Swap on Uniswap",
+      "subtitle": "Trade 1,000+ tokens directly from your wallet — no account needed",
+      "image": "/ads/sidebar-bottom.svg",
+      "gradient": "defi",
+      "link": "https://app.uniswap.org",
+      "startAt": "2026-01-01T00:00:00Z",
+      "endAt": "2026-12-31T23:59:59Z",
+      "weight": 1,
+      "active": true
+    },
+    {
+      "id": "ad-004",
+      "slot": "footer-banner",
+      "title": "Track Every Market on CoinGecko",
+      "subtitle": "Live prices, charts & portfolio tracking for 10,000+ cryptocurrencies",
+      "image": "/ads/footer-banner.svg",
+      "gradient": "default",
+      "link": "https://www.coingecko.com",
+      "startAt": "2026-01-01T00:00:00Z",
+      "endAt": "2026-12-31T23:59:59Z",
+      "weight": 1,
+      "active": true
+    },
+    {
+      "id": "ad-005",
+      "slot": "inline-card",
+      "title": "Collect NFTs on OpenSea",
+      "subtitle": "The world's largest NFT marketplace — discover, buy & sell",
+      "image": "/ads/inline-card.svg",
+      "gradient": "nft",
+      "link": "https://opensea.io",
+      "startAt": "2026-01-01T00:00:00Z",
+      "endAt": "2026-12-31T23:59:59Z",
+      "weight": 1,
+      "active": true
+    }
+  ]
+}

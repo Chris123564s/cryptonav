@@ -1,5 +1,6 @@
 ---
-import wins from '../data/wins.json';
+import winsData from '../data/wins.json';
+const wins = (winsData as any).wins ?? winsData;
 
 function fmtPrice(v: number): string {
   if (v >= 1) return `$${v.toLocaleString('en-US', { maximumFractionDigits: 4 })}`;

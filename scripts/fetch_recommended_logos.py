@@ -19,7 +19,14 @@ def slugify(s):
 def main():
     os.makedirs(LOGO_DIR, exist_ok=True)
     with open(SRC, encoding='utf-8') as f:
-        items = json.load(f)
+        raw = json.load(f)
+    # 兼容对象格式 {"recommended": [...]} 和纯数组格式 [...]
+    if isinstance(raw, dict) and 'recommended' in raw:
+        items = raw['recommended']
+        wrapper_key = 'recommended'
+    else:
+        items = raw
+        wrapper_key = None
     changed = False
     for it in items:
         remote = it.get('logo', '')
@@ -58,11 +65,13 @@ def main():
                 print(f"Failed all sources: {it.get('symbol')}")
         else:
             print(f"Keep local: {it.get('symbol')} -> {it.get('logo')}")
+    # 保存时保持对象格式
+    out_data = {wrapper_key: items} if wrapper_key else items
     with open(SRC, 'w', encoding='utf-8') as f:
-        json.dump(items, f, ensure_ascii=False, indent=2)
+        json.dump(out_data, f, ensure_ascii=False, indent=2)
     os.makedirs(os.path.dirname(PUB), exist_ok=True)
     with open(PUB, 'w', encoding='utf-8') as f:
-        json.dump(items, f, ensure_ascii=False, indent=2)
+        json.dump(out_data, f, ensure_ascii=False, indent=2)
     print('Done' if changed else 'No changes')
 
 
