@@ -23,6 +23,16 @@ export async function onRequest(context) {
   const client_id = env.GITHUB_CLIENT_ID || "Ov23liNURTgjR3zrC76V";
   const client_secret = env.GITHUB_CLIENT_SECRET;
 
+  // 调试：如果环境变量没设置，直接返回错误提示
+  if (!client_secret) {
+    return new Response(renderBody('error', { 
+      error: 'GITHUB_CLIENT_SECRET environment variable is not set. Please add it in Cloudflare Pages Settings > Environment variables (Production).'
+    }), {
+      headers: { 'Content-Type': 'text/html;charset=UTF-8' },
+      status: 500,
+    });
+  }
+
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
 
