@@ -4,10 +4,11 @@
 
 backend:
   name: github
-  repo: your-username/cryptonav       # 改成你的 GitHub 仓库地址
+  repo: Chris123564s/cryptonav       # 你的 GitHub 仓库地址
   branch: main
-  auth_type: oauth_request
-  app_id: ""                            # 部署 OAuth 代理后填入，参考 CMS-GUIDE.md
+  auth_type: implicit                  # implicit 模式，通过 Worker 代理完成 OAuth
+  app_id: "Ov23liNURTgjR3zrC76V"       # GitHub OAuth App Client ID
+  proxy: https://cms-oauth.chriscaochunsheng.workers.dev/.netlify/functions/auth
 
 # 本地开发时可以用这个后端调试（不需要 OAuth）
 # local_backend: true

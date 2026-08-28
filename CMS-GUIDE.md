@@ -57,17 +57,23 @@ CMS 需要一个 OAuth 代理来处理授权流程。我们用 Cloudflare Worker
 2. 左侧菜单点 **Workers & Pages** → **Create** → **Create Worker**
 3. 名字随便填（如 `cms-oauth`），点 **Deploy**
 4. 部署后点 **Edit code**
-5. 把以下代码粘贴进去（替换全部内容）：
+5. 把以下代码粘贴进去（**全部替换**）：
 
 ```javascript
+// CryptoNav CMS OAuth 代理
+// Client ID 已写死在代码中，Client Secret 通过环境变量 OAUTH_CLIENT_SECRET 传入
+
+const CLIENT_ID = "Ov23liNURTgjR3zrC76V";  // GitHub OAuth App Client ID
+
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
     };
 
+    // 处理 CORS 预检请求
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
     }
@@ -78,8 +84,16 @@ export default {
 
     try {
       const body = await request.json();
-      const { client_id, client_secret, code, redirect_uri } = body;
+      const { code } = body;
 
+      if (!code) {
+        return new Response(JSON.stringify({ error: 'missing code parameter' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json', ...corsHeaders },
+        });
+      }
+
+      // 用写死的 CLIENT_ID + 环境变量中的 SECRET 换取 access_token
       const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
         method: 'POST',
         headers: {
@@ -87,10 +101,9 @@ export default {
           'Accept': 'application/json',
         },
         body: JSON.stringify({
-          client_id,
-          client_secret,
+          client_id: CLIENT_ID,
+          client_secret: env.OAUTH_CLIENT_SECRET,  // 从 Worker 环境变量读取
           code,
-          redirect_uri,
         }),
       });
 
@@ -109,37 +122,35 @@ export default {
 ```
 
 6. 点 **Save and deploy**
-7. 记下你的 Worker 地址，格式为：`https://cms-oauth.你的用户名.workers.dev`
+7. **添加环境变量**（关键步骤）：
+   - 在 Worker 页面点击 **Settings** → **Variables**
+   - 添加一个变量：
+     - Variable name: `OAUTH_CLIENT_SECRET`
+     - Value: `c5b7ff66533541a7f310bbb517730ba45f8094e4`（你的 GitHub OAuth Client Secret）
+     - **勾选 Encrypt**（加密），然后点 **Save**
+   - 这样 Client Secret 就安全地存在 Cloudflare 里，不会暴露在代码中
+
+8. 记下你的 Worker 地址，格式为：`https://cms-oauth.你的用户名.workers.dev`
 
 ---
 
 ## 第 4 步：配置 CMS
 
-回到你的代码仓库，编辑 `public/admin/config.yml`：
+回到你的代码仓库，编辑 `public/admin/config.yml`。
 
-把第 6-9 行改成你自己的信息：
+Client ID 和 repo 已经填好了，你只需要在部署好 Worker 后，取消注释 `proxy` 那一行，把 Worker 地址填进去：
 
 ```yaml
 backend:
   name: github
-  repo: 你的GitHub用户名/cryptonav       # 改成你的仓库
+  repo: Chris123564s/cryptonav
   branch: main
-  auth_type: oauth_request
-  app_id: "你的Client_ID"                # 第 2 步拿到的 Client ID
+  auth_type: implicit
+  app_id: "Ov23liNURTgjR3zrC76V"
+  proxy: https://cms-oauth.你的用户名.workers.dev/.netlify/functions/auth  # ← 改成你的 Worker 地址
 ```
 
-同时在文件顶部添加 OAuth 代理地址：
-
-```yaml
-site_url: https://你的网站地址
-backend:
-  name: github
-  repo: 你的GitHub用户名/cryptonav
-  branch: main
-  auth_type: oauth_request
-  app_id: "你的Client_ID"
-  proxy: https://cms-oauth.你的用户名.workers.dev/.netlify/functions/auth
-```
+> **注意**：`proxy` 地址末尾的 `/.netlify/functions/auth` 是 Decap CMS 固定路径格式，不要删掉。
 
 改完后 push 到 GitHub：
 
