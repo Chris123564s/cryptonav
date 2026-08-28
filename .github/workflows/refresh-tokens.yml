@@ -1,8 +1,8 @@
-name: Refresh Chain Tokens (CoinGecko)
+name: Refresh Chain Tokens (Multi-API)
 
 on:
   schedule:
-    # 每 6 小时刷新: 00:00, 06:00, 12:00, 18:00 UTC
+    # Every 6 hours: 00:00, 06:00, 12:00, 18:00 UTC
     - cron: '0 0,6,12,18 * * *'
   workflow_dispatch:
 
@@ -12,6 +12,7 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +24,7 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Fetch tokens from CoinGecko
+      - name: Fetch tokens from CoinGecko + CoinCap + DefiLlama
         env:
           USE_PROXY: '0'
           CI: 'true'
@@ -35,8 +36,8 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/data/chain-tokens.json public/logos/tokens/
           if git diff --cached --quiet; then
-            echo "No changes"
+            echo "No changes — data is up to date"
           else
-            git commit -m "chore: refresh chain tokens from CoinGecko (prices, logos, market data)"
+            git commit -m "chore: refresh chain tokens (prices, logos, market data, TVL)"
             git push
           fi

@@ -93,3 +93,30 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 - 现有：MarketChart（K线）、TickerBar（行情条）、NewTokensRadar（新币雷达）
 - 可加：Gas 费追踪器、空投日历、代币解锁日历
 - 工具类页面用户停留时间长、回访频率高
+
+## 5大突破方向实现状态（2026-08-28 全部完成）
+
+### ✅ 方向1：对比评测页 (compare/)
+- 5 篇对比页 + 索引页，共 6 个页面
+- Binance vs Coinbase / Ledger vs Trezor / Uniswap vs PancakeSwap / MetaMask vs Trust Wallet / Best Crypto Exchanges 2026
+- 每页含优缺点、评分、费用表、联盟链接
+
+### ✅ 方向2：每日市场仪表盘 (dashboard.astro)
+- Fear & Greed Index + BTC Dominance + ETH Gas Tracker + Top Gainers/Losers + Trending Searches
+- 客户端实时 API 调用，1-5 分钟自动刷新
+
+### ✅ 方向3：链页 SEO（已实现于前阶段）
+- /chain/[slug] 页面展示真实代币（CoinGecko API 自动采集）
+- GitHub Actions 每 6 小时刷新
+
+### ✅ 方向4：空投 + 解锁日历
+- /airdrops: 15 个确认/传闻空投
+- /unlocks: 15 个代币解锁事件 + 倒计时
+
+### ✅ 方向5：SEO 教育指南 (learn/)
+- 8 篇教育文章 + 索引页，共 9 个页面
+- 关键词合计月搜索量 30,000+
+- What is staking / stablecoin / DeFi / Web3 / How to read charts / L2 / BTC vs ETH / Market cap
+
+### 当前页面总数：45 页（原 27 + 新增 18）
+### Header 导航：Categories / Chains / Dashboard / Compare / Airdrops / Unlocks / Learn / Submit / Advertise

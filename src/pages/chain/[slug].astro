@@ -125,16 +125,13 @@ const totalTvl = tokens.reduce((sum, t) => sum + (t.tvl || 0), 0);
 
               <!-- Token (logo + symbol + name) -->
               <div class="flex items-center gap-2.5 min-w-0">
-                {t.logo ? (
-                  <div class="w-7 h-7 rounded-full shrink-0 overflow-hidden bg-surface-100 dark:bg-surface-700 flex items-center justify-center">
+                <div class="w-7 h-7 rounded-full shrink-0 overflow-hidden flex items-center justify-center" style={`background: ${chain.color}20`}>
+                  {t.logo ? (
                     <img src={t.logo} alt={t.name} class="w-7 h-7 rounded-full object-cover" loading="lazy"
-                         onerror="this.style.display='none';this.parentElement.classList.add('flex','items-center','justify-center');const s=document.createElement('span');s.className='text-xs font-bold text-white';s.style.background='{chain.color}';s.style.width='28px';s.style.height='28px';s.style.borderRadius='50%';s.style.display='flex';s.style.alignItems='center';s.style.justifyContent='center';s.textContent='{t.symbol.charAt(0)}';this.parentElement.appendChild(s)" />
-                  </div>
-                ) : (
-                  <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 text-white" style={`background: ${chain.color}`}>
-                    {t.symbol.charAt(0)}
-                  </div>
-                )}
+                         onerror={`this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex'`} />
+                  ) : null}
+                  <span class={`text-xs font-bold ${t.logo ? 'hidden' : 'flex'}`} style={`color: ${chain.color}`}>{t.symbol.charAt(0)}</span>
+                </div>
                 <div class="min-w-0">
                   <div class="flex items-center gap-1.5">
                     <span class="text-sm font-semibold text-surface-800 dark:text-surface-100">{t.symbol}</span>
