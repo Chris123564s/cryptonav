@@ -12,9 +12,6 @@ backend:
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
-# ============================================================
-# 使用 file-based collections（单文件模式）
-# ============================================================
 collections:
   - name: "projects"
     label: "Projects"
@@ -25,8 +22,8 @@ collections:
         label: "All Projects"
         extension: "json"
         format: "json"
-        create: false
-        delete: false
+        create: true
+        delete: true
         editor:
           preview: false
         fields:
@@ -42,6 +39,17 @@ collections:
               - { label: "Tags", name: "tags", widget: "list", required: false }
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Website", name: "website", widget: "string" }
+              - { label: "Social", name: "social", widget: "object", required: false, collapsed: true, fields: [
+                  { label: "Twitter", name: "twitter", widget: "string", required: false },
+                  { label: "Telegram", name: "telegram", widget: "string", required: false },
+                  { label: "Discord", name: "discord", widget: "string", required: false },
+                  { label: "GitHub", name: "github", widget: "string", required: false }
+                ] }
+              - { label: "Metrics", name: "metrics", widget: "object", required: false, collapsed: true, fields: [
+                  { label: "Users", name: "users", widget: "string", required: false },
+                  { label: "Volume", name: "volume", widget: "string", required: false },
+                  { label: "TVL", name: "tvl", widget: "string", required: false }
+                ] }
               - { label: "Verified", name: "verified", widget: "boolean", default: false }
               - { label: "Audited", name: "audited", widget: "boolean", default: false, required: false }
               - { label: "Risk Level", name: "riskLevel", widget: "select", options: ["low", "medium", "high"], default: "low", required: false }
@@ -49,6 +57,7 @@ collections:
               - { label: "Sponsored", name: "sponsored", widget: "boolean", default: false, required: false }
               - { label: "Sponsored Until", name: "sponsoredUntil", widget: "string", required: false }
               - { label: "Status", name: "status", widget: "select", options: ["active", "pending", "inactive"], default: "active" }
+              - { label: "Source", name: "source", widget: "string", required: false }
               - { label: "Added At", name: "addedAt", widget: "string" }
 
   - name: "ads"
@@ -60,8 +69,8 @@ collections:
         label: "All Ads"
         extension: "json"
         format: "json"
-        create: false
-        delete: false
+        create: true
+        delete: true
         editor:
           preview: false
         fields:
@@ -73,10 +82,14 @@ collections:
               - { label: "Ad ID", name: "id", widget: "string" }
               - { label: "Slot", name: "slot", widget: "select", options: ["home-banner", "sidebar-top", "sidebar-bottom", "footer-banner", "inline-card"] }
               - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
               - { label: "Image URL", name: "image", widget: "string", required: false }
+              - { label: "Gradient", name: "gradient", widget: "string", required: false }
               - { label: "Link", name: "link", widget: "string" }
               - { label: "Weight", name: "weight", widget: "number", default: 1 }
               - { label: "Active", name: "active", widget: "boolean", default: true }
+              - { label: "Start At", name: "startAt", widget: "string", required: false }
+              - { label: "End At", name: "endAt", widget: "string", required: false }
 
   - name: "featured"
     label: "Featured"
@@ -87,8 +100,8 @@ collections:
         label: "All Featured"
         extension: "json"
         format: "json"
-        create: false
-        delete: false
+        create: true
+        delete: true
         editor:
           preview: false
         fields:
@@ -110,8 +123,8 @@ collections:
         label: "All Ticker"
         extension: "json"
         format: "json"
-        create: false
-        delete: false
+        create: true
+        delete: true
         editor:
           preview: false
         fields:
@@ -136,8 +149,8 @@ collections:
         label: "All Recommended"
         extension: "json"
         format: "json"
-        create: false
-        delete: false
+        create: true
+        delete: true
         editor:
           preview: false
         fields:
@@ -165,8 +178,8 @@ collections:
         label: "All Cases"
         extension: "json"
         format: "json"
-        create: false
-        delete: false
+        create: true
+        delete: true
         editor:
           preview: false
         fields:
