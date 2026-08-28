@@ -5,19 +5,15 @@ backend:
   name: github
   repo: Chris123564s/cryptonav
   branch: main
-  auth_type: implicit
-  app_id: "Ov23liNURTgjR3zrC76V"
-  proxy: https://cms-oauth.chriscaochunsheng.workers.dev/.netlify/functions/auth
-
-# 本地开发时可以用这个后端调试（不需要 OAuth）
-# local_backend: true
+  site_domain: https://cryptonav.site
+  base_url: https://cryptonav.site
+  auth_endpoint: https://cms-oauth.chriscaochunsheng.workers.dev/api/auth
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 # ============================================================
 # 使用 file-based collections（单文件模式）
-# 每个 JSON 文件是一个纯数组 [...]，用 list widget 的 name: "" 包裹整个文件
 # ============================================================
 collections:
   - name: "projects"

@@ -51,7 +51,7 @@ CMS 需要通过 GitHub 授权才能修改你仓库里的数据，需要创建�
 
 ## 第 3 步：部署 OAuth 代理（免费，用 Cloudflare Workers）
 
-CMS 需要一个 OAuth 代理来处理授权流程。我们用 Cloudflare Workers 免费搭建：
+CMS 需要一个 OAuth 代理来处理 GitHub 授权流程。我们用 Cloudflare Workers 免费搭建：
 
 1. 打开 https://dash.cloudflare.com/
 2. 左侧菜单点 **Workers & Pages** → **Create** → **Create Worker**
@@ -60,63 +60,104 @@ CMS 需要一个 OAuth 代理来处理授权流程。我们用 Cloudflare Worker
 5. 把以下代码粘贴进去（**全部替换**）：
 
 ```javascript
-// CryptoNav CMS OAuth 代理
-// Client ID 已写死在代码中，Client Secret 通过环境变量 OAUTH_CLIENT_SECRET 传入
+// CryptoNav CMS OAuth 代理（Cloudflare Worker）
+// 处理 Decap CMS 的完整 GitHub OAuth 流程
+// /api/auth     → 重定向到 GitHub 授权页
+// /api/callback → 接收 code，换取 token，通过 postMessage 传回 CMS
 
-const CLIENT_ID = "Ov23liNURTgjR3zrC76V";  // GitHub OAuth App Client ID
+const CLIENT_ID = "Ov23liNURTgjR3zrC76V";
+
+function renderCallback(status, content) {
+  // 返回一个 HTML 页面，通过 window.opener.postMessage 把 token 传回 CMS 弹出窗口
+  return `<script>
+    const receiveMessage = (message) => {
+      window.opener.postMessage(
+        'authorization:github:${status}:${JSON.stringify(content).replace(/'/g, "\\'")}',
+        message.origin
+      );
+      window.removeEventListener("message", receiveMessage, false);
+    }
+    window.addEventListener("message", receiveMessage, false);
+    window.opener.postMessage("authorizing:github", "*");
+  </script>`;
+}
 
 export default {
   async fetch(request, env) {
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    };
+    const url = new URL(request.url);
 
-    // 处理 CORS 预检请求
+    // CORS
     if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
+      return new Response(null, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        },
+      });
     }
 
-    if (request.method !== 'POST') {
-      return new Response('Method not allowed', { status: 405, headers: corsHeaders });
+    // 路由 1: /api/auth — 重定向到 GitHub 授权页
+    if (url.pathname === '/api/auth') {
+      const redirectUrl = new URL('https://github.com/login/oauth/authorize');
+      redirectUrl.searchParams.set('client_id', CLIENT_ID);
+      redirectUrl.searchParams.set('redirect_uri', url.origin + '/api/callback');
+      redirectUrl.searchParams.set('scope', 'repo user');
+      redirectUrl.searchParams.set('state', crypto.randomUUID());
+      return Response.redirect(redirectUrl.href, 302);
     }
 
-    try {
-      const body = await request.json();
-      const { code } = body;
-
+    // 路由 2: /api/callback — 用 code 换取 token，返回 HTML 通过 postMessage 传回 CMS
+    if (url.pathname === '/api/callback') {
+      const code = url.searchParams.get('code');
       if (!code) {
-        return new Response(JSON.stringify({ error: 'missing code parameter' }), {
+        return new Response(renderCallback('error', { error: 'missing code' }), {
+          headers: { 'Content-Type': 'text/html;charset=UTF-8' },
           status: 400,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders },
         });
       }
 
-      // 用写死的 CLIENT_ID + 环境变量中的 SECRET 换取 access_token
-      const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          client_id: CLIENT_ID,
-          client_secret: env.OAUTH_CLIENT_SECRET,  // 从 Worker 环境变量读取
-          code,
-        }),
-      });
+      try {
+        const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'User-Agent': 'cryptonav-cms-oauth',
+          },
+          body: JSON.stringify({
+            client_id: CLIENT_ID,
+            client_secret: env.OAUTH_CLIENT_SECRET,
+            code,
+          }),
+        });
 
-      const tokenData = await tokenResponse.json();
-      return new Response(JSON.stringify(tokenData), {
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
-    } catch (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
+        const tokenData = await tokenResponse.json();
+
+        if (tokenData.error) {
+          return new Response(renderCallback('error', tokenData), {
+            headers: { 'Content-Type': 'text/html;charset=UTF-8' },
+            status: 401,
+          });
+        }
+
+        // 成功：把 token 通过 postMessage 传回 CMS
+        return new Response(
+          renderCallback('success', { token: tokenData.access_token, provider: 'github' }),
+          {
+            headers: { 'Content-Type': 'text/html;charset=UTF-8' },
+            status: 200,
+          }
+        );
+      } catch (error) {
+        return new Response(renderCallback('error', { error: error.message }), {
+          headers: { 'Content-Type': 'text/html;charset=UTF-8' },
+          status: 500,
+        });
+      }
     }
+
+    return new Response('Not found', { status: 404 });
   },
 };
 ```
@@ -128,9 +169,13 @@ export default {
      - Variable name: `OAUTH_CLIENT_SECRET`
      - Value: `c5b7ff66533541a7f310bbb517730ba45f8094e4`（你的 GitHub OAuth Client Secret）
      - **勾选 Encrypt**（加密），然后点 **Save**
-   - 这样 Client Secret 就安全地存在 Cloudflare 里，不会暴露在代码中
 
-8. 记下你的 Worker 地址，格式为：`https://cms-oauth.你的用户名.workers.dev`
+8. **更新 GitHub OAuth App 回调地址**：
+   - 回到 https://github.com/settings/developers → 你的 OAuth App
+   - 把 **Authorization callback URL** 改为：`https://cms-oauth.chriscaochunsheng.workers.dev/api/callback`
+   - 点 **Update application**
+
+9. 你的 Worker 地址为：`https://cms-oauth.chriscaochunsheng.workers.dev`
 
 ---
 
@@ -138,19 +183,19 @@ export default {
 
 回到你的代码仓库，编辑 `public/admin/config.yml`。
 
-Client ID 和 repo 已经填好了，你只需要在部署好 Worker 后，取消注释 `proxy` 那一行，把 Worker 地址填进去：
+config 已经填好了，核心配置如下：
 
 ```yaml
 backend:
   name: github
   repo: Chris123564s/cryptonav
   branch: main
-  auth_type: implicit
-  app_id: "Ov23liNURTgjR3zrC76V"
-  proxy: https://cms-oauth.你的用户名.workers.dev/.netlify/functions/auth  # ← 改成你的 Worker 地址
+  site_domain: https://cryptonav.site
+  base_url: https://cryptonav.site
+  auth_endpoint: https://cms-oauth.你的用户名.workers.dev/api/auth  # ← 改成你的 Worker 地址
 ```
 
-> **注意**：`proxy` 地址末尾的 `/.netlify/functions/auth` 是 Decap CMS 固定路径格式，不要删掉。
+> **注意**：`auth_endpoint` 指向 Worker 的 `/api/auth` 路由，点击 Login 时 CMS 会打开这个地址，Worker 会重定向到 GitHub 授权页。
 
 改完后 push 到 GitHub：
 
