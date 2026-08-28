@@ -52,3 +52,44 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 - 初始项目数据需录入 50-80 个核心项目
 - Chains 维度推迟到 Phase 2 再建（用户已认可分阶段方案）
 - Phase 1 三件事待用户确认后开始执行
+
+## 流量突破点分析（2026-08-28）
+
+### 核心问题诊断
+- 网站目前 63 个项目，页面 27 个，DA=0，无自然流量
+- CoinGecko/CoinMarketCap/DefiLlama 已占据价格查询和 DeFi 数据赛道
+- 作为"导航站"纯目录价值有限，用户去 Google 搜 "best crypto exchange" 更方便
+
+### 5 大突破方向
+
+**1. SEO 长尾词矩阵（低KD高转化）**
+- "Binance vs Coinbase"（KD=1，月搜 3400）— 做交易所对比页
+- "Ledger vs Trezor"（KD=3，月搜 500）— 做钱包对比页
+- "best crypto exchange"（KD=82，月搜 7500）— 做 Top 10 列表页
+- "best crypto wallet for beginners"（月搜 500）
+- "crypto exchange with lowest fees"（月搜 700）
+- 每个对比/评测页都带联盟链接，直接变现
+
+**2. 每日必看内容（提高留存/日活）**
+- 现有 Success Cases（DexScreener 涨幅榜）已有雏形
+- 可加：Fear & Greed Index、BTC 主导率、Gas 费实时监控
+- 每日市场简报（自动化：价格变动 + 大事件 + 链上异常）
+- 加密日历（代币解锁、主网升级、IDO 等）
+
+**3. 链页 SEO（已建好基础）**
+- /chain/ethereum /chain/solana 等页面已上线
+- 目标关键词："ethereum tokens" "solana meme coins" "arbitrum defi projects"
+- 需要把 CoinGecko API 自动采集的真实代币数据做上去（已建脚本，等 Actions 运行）
+- 每链页可扩展为该链的"一站式信息中心"
+
+**4. 对比/评测内容（高转化低难度）**
+- "Binance vs Coinbase" KD=1 — 黄金机会
+- "Uniswap vs PancakeSwap" — DEX 对比
+- "MetaMask vs Trust Wallet" — 钱包对比
+- "Best DeFi platforms 2026" — 综合评测
+- 这类内容 SEO 难度低 + 联盟转化率高
+
+**5. 工具化（提高粘性）**
+- 现有：MarketChart（K线）、TickerBar（行情条）、NewTokensRadar（新币雷达）
+- 可加：Gas 费追踪器、空投日历、代币解锁日历
+- 工具类页面用户停留时间长、回访频率高

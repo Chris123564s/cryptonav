@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AdBanner from '../components/AdBanner.astro';
+import airdropsData from '../data/airdrops.json';
+
+const airdrops = (airdropsData as any).airdrops ?? airdropsData;
+const confirmed = airdrops.filter((a: any) => a.status === 'confirmed');
+const rumored = airdrops.filter((a: any) => a.status === 'rumored');
+
+const statusColors: Record<string, string> = {
+  confirmed: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
+  rumored: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400',
+};
+---
+
+<Layout title="Crypto Airdrop Calendar 2026 - Confirmed & Upcoming Airdrops | CryptoNav" description="Track confirmed and upcoming crypto airdrops. Snapshot dates, eligibility criteria, distribution details, and claiming guides for all major airdrops." canonical="https://cryptonav.site/airdrops">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <nav class="flex items-center gap-2 text-xs text-surface-400">
+      <a href="/" class="hover:text-brand-500">Home</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-surface-600 dark:text-surface-300">Airdrops</span>
+    </nav>
+  </div>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex items-center gap-2">
+      <h1 class="text-2xl font-bold text-surface-800 dark:text-surface-100">Airdrop Calendar</h1>
+      <span class="px-2 py-0.5 text-xs font-bold rounded bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400">{airdrops.length} tracked</span>
+    </div>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-1">Confirmed and rumored crypto airdrops with snapshot dates, eligibility, and distribution info. Not financial advice — always DYOR.</p>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <AdBanner slot="home-banner" format="banner" />
+  </div>
+
+  <!-- Confirmed Airdrops -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 mb-4 flex items-center gap-2">
+      <span class="w-2 h-5 rounded-full bg-green-500"></span>
+      Confirmed Airdrops
+    </h2>
+    <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 overflow-hidden">
+      <!-- Desktop header -->
+      <div class="hidden md:grid grid-cols-[1fr_100px_120px_100px_120px_80px] gap-2 px-4 py-2.5 text-xs font-semibold text-surface-400 uppercase border-b border-surface-100 dark:border-surface-700 bg-surface-50 dark:bg-surface-800/50">
+        <div>Project</div>
+        <div>Chain</div>
+        <div>Snapshot</div>
+        <div>Status</div>
+        <div>Distribution</div>
+        <div class="text-center">Link</div>
+      </div>
+      <!-- Rows -->
+      <div class="divide-y divide-surface-100 dark:divide-surface-700">
+        {confirmed.map((a: any) => (
+          <div class="grid grid-cols-[1fr_80px] md:grid-cols-[1fr_100px_120px_100px_120px_80px] gap-2 px-4 py-3 items-center hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors">
+            <!-- Project -->
+            <div class="flex items-center gap-2.5 min-w-0">
+              <div class="w-7 h-7 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-xs font-bold text-brand-600 dark:text-brand-400 shrink-0">
+                {a.symbol.charAt(0)}
+              </div>
+              <div class="min-w-0">
+                <span class="text-sm font-semibold text-surface-800 dark:text-surface-100">{a.project}</span>
+                <span class="text-xs text-surface-400 ml-1">{a.symbol}</span>
+                <p class="text-xs text-surface-400 truncate md:hidden">{a.chain} · {a.distribution}</p>
+              </div>
+            </div>
+            <!-- Chain -->
+            <div class="hidden md:block text-xs text-surface-500 dark:text-surface-400">{a.chain}</div>
+            <!-- Snapshot -->
+            <div class="hidden md:block text-xs text-surface-500 dark:text-surface-400">{a.snapshot}</div>
+            <!-- Status -->
+            <div class="hidden md:block">
+              <span class={`inline-block px-2 py-0.5 text-[10px] font-semibold rounded-full ${statusColors[a.status]}`}>{a.status}</span>
+            </div>
+            <!-- Distribution -->
+            <div class="hidden md:block text-xs text-surface-500 dark:text-surface-400">{a.distribution}</div>
+            <!-- Link -->
+            <div class="text-center">
+              <a href={a.website} target="_blank" rel="noopener" class="text-xs text-brand-500 hover:underline">Visit →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed cards -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {airdrops.map((a: any) => (
+        <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 p-5 hover:border-brand-300 dark:hover:border-brand-600 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-sm font-bold text-brand-600 dark:text-brand-400">
+                {a.symbol.charAt(0)}
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-surface-800 dark:text-surface-100">{a.project}</h3>
+                <span class="text-xs text-surface-400">{a.symbol} · {a.chain}</span>
+              </div>
+            </div>
+            <span class={`inline-block px-2 py-0.5 text-[10px] font-semibold rounded-full capitalize ${statusColors[a.status]}`}>{a.status}</span>
+          </div>
+          <div class="space-y-1.5 text-xs">
+            <div class="flex justify-between"><span class="text-surface-400">Snapshot</span><span class="text-surface-600 dark:text-surface-300">{a.snapshot}</span></div>
+            <div class="flex justify-between"><span class="text-surface-400">Distribution</span><span class="text-surface-600 dark:text-surface-300">{a.distribution}</span></div>
+            <div class="flex justify-between"><span class="text-surface-400">Amount</span><span class="text-surface-600 dark:text-surface-300 font-mono">{a.amount}</span></div>
+          </div>
+          <p class="text-xs text-surface-500 dark:text-surface-400 mt-3">{a.eligibility}</p>
+          <p class="text-xs text-surface-400 mt-2 italic">{a.note}</p>
+          <a href={a.website} target="_blank" rel="noopener" class="block text-center mt-3 py-1.5 rounded-lg bg-surface-100 dark:bg-surface-700 text-xs font-semibold text-surface-600 dark:text-surface-300 hover:bg-brand-100 dark:hover:bg-brand-900 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+            Visit Project →
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

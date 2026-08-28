@@ -1,0 +1,19 @@
+{
+  "unlocks": [
+    { "token": "ARB", "project": "Arbitrum", "date": "2026-03-16", "amount": "1.1B ARB", "percentSupply": "25%", "value": "$1.2B", "chain": "Arbitrum", "website": "https://arbitrum.io", "note": "Largest single unlock for ARB — team and investor tokens" },
+    { "token": "APE", "project": "ApeCoin", "date": "2026-02-17", "amount": "15.6M APE", "percentSupply": "2.2%", "value": "$23M", "chain": "Ethereum", "website": "https://apecoin.com", "note": "Monthly ecosystem fund release" },
+    { "token": "AVAX", "project": "Avalanche", "date": "2026-03-22", "amount": "9.5M AVAX", "percentSupply": "2.3%", "value": "$220M", "chain": "Avalanche", "website": "https://avax.network", "note": "Quarterly unlock — team, foundation, airdrop" },
+    { "token": "AXS", "project": "Axie Infinity", "date": "2026-02-17", "amount": "3.4M AXS", "percentSupply": "5.0%", "value": "$20M", "chain": "Ethereum", "website": "https://axieinfinity.com", "note": "Monthly staking rewards + team unlock" },
+    { "token": "OP", "project": "Optimism", "date": "2026-05-31", "amount": "348M OP", "percentSupply": "8.1%", "value": "$500M", "chain": "Optimism", "website": "https://optimism.io", "note": "Core team and investor unlock" },
+    { "token": "DYDX", "project": "dYdX", "date": "2026-03-14", "amount": "33M DYDX", "percentSupply": "11%", "value": "$40M", "chain": "Cosmos", "website": "https://dydx.exchange", "note": "Investor and team unlock" },
+    { "token": "SUI", "project": "Sui", "date": "2026-05-01", "amount": "440M SUI", "percentSupply": "4.4%", "value": "$530M", "chain": "Sui", "website": "https://sui.io", "note": "Early contributor + community unlock" },
+    { "token": "TIA", "project": "Celestia", "date": "2026-10-28", "amount": "175M TIA", "percentSupply": "12%", "value": "$1.5B", "chain": "Cosmos", "website": "https://celestia.org", "note": "Large unlock — investors + team" },
+    { "token": "STRK", "project": "Starknet", "date": "2026-04-15", "amount": "680M STRK", "percentSupply": "47%", "value": "$600M", "chain": "Ethereum L2", "website": "https://starknet.io", "note": "Massive unlock — nearly half supply" },
+    { "token": "BLUR", "project": "Blur", "date": "2026-06-14", "amount": "196M BLUR", "percentSupply": "6.5%", "value": "$30M", "chain": "Ethereum", "website": "https://blur.io", "note": "Community + investor unlock" },
+    { "token": "MANTA", "project": "Manta Network", "date": "2026-04-15", "amount": "105M MANTA", "percentSupply": "10.5%", "value": "$80M", "chain": "Ethereum L2", "website": "https://manta.network", "note": "Investor + team unlock" },
+    { "token": "JUP", "project": "Jupiter", "date": "2026-07-28", "amount": "100M JUP", "percentSupply": "1%", "value": "$70M", "chain": "Solana", "website": "https://jup.ag", "note": "Team + community unlock" },
+    { "token": "ENA", "project": "Ethena", "date": "2026-03-15", "amount": "285M ENA", "percentSupply": "5%", "value": "$150M", "chain": "Ethereum", "website": "https://ethena.fi", "note": "First major unlock since launch" },
+    { "token": "WLD", "project": "Worldcoin", "date": "2026-07-24", "amount": "1.1B WLD", "percentSupply": "11%", "value": "$1.7B", "chain": "Ethereum", "website": "https://worldcoin.org", "note": "Large unlock — team + investors" },
+    { "token": "ZK", "project": "zkSync", "date": "2026-06-17", "amount": "543M ZK", "percentSupply": "14%", "value": "$400M", "chain": "Ethereum L2", "website": "https://zksync.io", "note": "First major unlock — team + investors" }
+  ]
+}

@@ -1,0 +1,126 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AdBanner from '../components/AdBanner.astro';
+import unlocksData from '../data/unlocks.json';
+
+const unlocks = (unlocksData as any).unlocks ?? unlocksData;
+// Sort by date
+const sorted = [...unlocks].sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+// Filter upcoming (date > now)
+const now = new Date('2026-02-01');
+const upcoming = sorted.filter((u: any) => new Date(u.date) >= now);
+const past = sorted.filter((u: any) => new Date(u.date) < now);
+
+function daysUntil(dateStr: string): number {
+  const diff = new Date(dateStr).getTime() - Date.now();
+  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+}
+
+function urgencyClass(days: number): string {
+  if (days <= 30) return 'text-red-500';
+  if (days <= 90) return 'text-amber-500';
+  return 'text-surface-500 dark:text-surface-400';
+}
+
+// Pre-compute days and urgency for each unlock
+const upcomingWithDays = upcoming.map((u: any) => {
+  const d = daysUntil(u.date);
+  return { ...u, _days: d, _urgency: urgencyClass(d) };
+});
+const sortedWithDays = sorted.map((u: any) => {
+  const d = daysUntil(u.date);
+  return { ...u, _days: d, _isUpcoming: d > 0 };
+});
+---
+
+<Layout title="Token Unlock Calendar 2026 - Vesting & Release Schedule | CryptoNav" description="Track upcoming token unlocks and vesting schedules. Dates, amounts, percentages of supply, and estimated value for all major crypto token releases." canonical="https://cryptonav.site/unlocks">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <nav class="flex items-center gap-2 text-xs text-surface-400">
+      <a href="/" class="hover:text-brand-500">Home</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-surface-600 dark:text-surface-300">Token unlocks</span>
+    </nav>
+  </div>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <h1 class="text-2xl font-bold text-surface-800 dark:text-surface-100">Token Unlock Calendar</h1>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-1">Upcoming token vesting and unlock events. Large unlocks can cause sell pressure. Not financial advice.</p>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <AdBanner slot="home-banner" format="banner" />
+  </div>
+
+  <!-- Upcoming Unlocks Table -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 mb-4 flex items-center gap-2">
+      <span class="w-2 h-5 rounded-full bg-amber-500"></span>
+      Upcoming unlocks
+    </h2>
+    <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 overflow-hidden overflow-x-auto">
+      <div class="hidden md:grid grid-cols-[80px_1fr_100px_110px_90px_120px_80px] gap-2 px-4 py-2.5 text-xs font-semibold text-surface-400 uppercase border-b border-surface-100 dark:border-surface-700 bg-surface-50 dark:bg-surface-800/50 min-w-[700px]">
+        <div>Token</div>
+        <div>Project</div>
+        <div>Date</div>
+        <div>Amount</div>
+        <div>% Supply</div>
+        <div>Est. Value</div>
+        <div class="text-center">Countdown</div>
+      </div>
+      <div class="divide-y divide-surface-100 dark:divide-surface-700 min-w-[700px]">
+        {upcomingWithDays.map((u: any) => (
+            <div class="grid grid-cols-[60px_1fr_80px] md:grid-cols-[80px_1fr_100px_110px_90px_120px_80px] gap-2 px-4 py-3 items-center hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors">
+              <div class="text-sm font-bold text-surface-800 dark:text-surface-100">{u.token}</div>
+              <div class="min-w-0">
+                <span class="text-sm text-surface-700 dark:text-surface-200">{u.project}</span>
+                <span class="text-xs text-surface-400 ml-1">{u.chain}</span>
+              </div>
+              <div class="text-xs text-surface-500 dark:text-surface-400">{u.date}</div>
+              <div class="hidden md:block text-xs font-mono text-surface-600 dark:text-surface-300">{u.amount}</div>
+              <div class="hidden md:block text-xs font-mono text-amber-600 dark:text-amber-400">{u.percentSupply}</div>
+              <div class="hidden md:block text-xs font-mono text-surface-600 dark:text-surface-300">{u.value}</div>
+              <div class={`text-center text-xs font-semibold ${u._urgency}`}>
+                {u._days > 0 ? `${u._days}d` : 'Due'}
+              </div>
+            </div>
+        ))}
+      </div>
+    </div>
+    <p class="text-xs text-surface-400 mt-2">Data is approximate. Always verify with official sources. Token unlocks can cause price volatility.</p>
+  </section>
+
+  <!-- All Unlocks Detail Cards -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {sortedWithDays.map((u: any) => (
+          <div class={`rounded-2xl border p-5 ${u._isUpcoming ? 'border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800' : 'border-surface-100 dark:border-surface-700/50 bg-surface-50/50 dark:bg-surface-800/30'}`}>
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-surface-100 dark:bg-surface-700 flex items-center justify-center text-sm font-bold text-surface-600 dark:text-surface-300">
+                  {u.token.charAt(0)}
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-surface-800 dark:text-surface-100">{u.token}</h3>
+                  <span class="text-xs text-surface-400">{u.project}</span>
+                </div>
+              </div>
+              <span class={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${u._isUpcoming ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400' : 'bg-surface-100 dark:bg-surface-700 text-surface-400'}`}>
+                {u._isUpcoming ? `${u._days}d left` : 'Unlocked'}
+              </span>
+            </div>
+            <div class="space-y-1.5 text-xs">
+              <div class="flex justify-between"><span class="text-surface-400">Date</span><span class="text-surface-600 dark:text-surface-300">{u.date}</span></div>
+              <div class="flex justify-between"><span class="text-surface-400">Amount</span><span class="text-surface-600 dark:text-surface-300 font-mono">{u.amount}</span></div>
+              <div class="flex justify-between"><span class="text-surface-400">% of supply</span><span class="text-amber-600 dark:text-amber-400 font-mono">{u.percentSupply}</span></div>
+              <div class="flex justify-between"><span class="text-surface-400">Est. value</span><span class="text-surface-600 dark:text-surface-300 font-mono">{u.value}</span></div>
+            </div>
+            <p class="text-xs text-surface-500 dark:text-surface-400 mt-3">{u.note}</p>
+            <a href={u.website} target="_blank" rel="noopener" class="block text-center mt-3 py-1.5 rounded-lg bg-surface-100 dark:bg-surface-700 text-xs font-semibold text-surface-600 dark:text-surface-300 hover:bg-brand-100 dark:hover:bg-brand-900 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+              Project site →
+            </a>
+          </div>
+        ))}
+    </div>
+  </section>
+</Layout>

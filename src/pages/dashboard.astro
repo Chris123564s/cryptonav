@@ -1,0 +1,338 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AdBanner from '../components/AdBanner.astro';
+import { tickerCoins } from '../utils/data';
+
+const coins = tickerCoins.map(c => ({ id: c.id, symbol: c.symbol, name: c.name, image: c.image }));
+---
+
+<Layout title="Crypto Market Dashboard - Live Prices, Fear & Greed, Gas Tracker | CryptoNav" description="Live crypto market dashboard: Fear & Greed Index, BTC dominance, Ethereum gas prices, top gainers and losers, and trending tokens. Updated every minute." canonical="https://cryptonav.site/dashboard">
+  <!-- Breadcrumb -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <nav class="flex items-center gap-2 text-xs text-surface-400">
+      <a href="/" class="hover:text-brand-500">Home</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-surface-600 dark:text-surface-300">Dashboard</span>
+    </nav>
+  </div>
+
+  <!-- Header -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+      <h1 class="text-2xl font-bold text-surface-800 dark:text-surface-100">Market Dashboard</h1>
+    </div>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-1">Live crypto market overview — updated every minute. Not financial advice.</p>
+  </section>
+
+  <!-- Top Cards: Fear & Greed + BTC Dominance + Gas -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Fear & Greed Index -->
+      <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200">Fear &amp; Greed Index</h2>
+          <span class="text-xs text-surface-400" id="fg-updated">—</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="text-4xl font-bold" id="fg-value">—</div>
+          <div>
+            <div class="text-sm font-semibold" id="fg-label">Loading...</div>
+            <div class="text-xs text-surface-400" id="fg-desc">CNN / Alternative.me</div>
+          </div>
+        </div>
+        <div class="mt-3 h-2 rounded-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 relative">
+          <div id="fg-marker" class="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white border-2 border-surface-400 transition-all" style="left: 50%"></div>
+        </div>
+      </div>
+
+      <!-- BTC Dominance -->
+      <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200">BTC Dominance</h2>
+          <span class="text-xs text-surface-400" id="dom-updated">—</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="text-4xl font-bold" id="dom-value">—</div>
+          <div>
+            <div class="text-sm font-semibold" id="dom-change">Loading...</div>
+            <div class="text-xs text-surface-400">Market cap share</div>
+          </div>
+        </div>
+        <div class="mt-3 h-2 rounded-full bg-surface-100 dark:bg-surface-700 relative overflow-hidden">
+          <div id="dom-bar" class="absolute top-0 left-0 h-full bg-brand-500 transition-all" style="width: 50%"></div>
+        </div>
+      </div>
+
+      <!-- ETH Gas Tracker -->
+      <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200">ETH Gas Price</h2>
+          <span class="text-xs text-surface-400" id="gas-updated">—</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="text-4xl font-bold" id="gas-value">—</div>
+          <div>
+            <div class="text-sm font-semibold text-surface-500">gwei</div>
+            <div class="text-xs text-surface-400" id="gas-level">Loading...</div>
+          </div>
+        </div>
+        <div class="mt-3 flex gap-1">
+          <div class="flex-1 text-center">
+            <div class="text-xs text-surface-400">Slow</div>
+            <div class="text-sm font-mono text-surface-600 dark:text-surface-300" id="gas-slow">—</div>
+          </div>
+          <div class="flex-1 text-center">
+            <div class="text-xs text-surface-400">Standard</div>
+            <div class="text-sm font-mono text-surface-600 dark:text-surface-300" id="gas-standard">—</div>
+          </div>
+          <div class="flex-1 text-center">
+            <div class="text-xs text-surface-400">Fast</div>
+            <div class="text-sm font-mono text-surface-600 dark:text-surface-300" id="gas-fast">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ad -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <AdBanner slot="home-banner" format="banner" />
+  </div>
+
+  <!-- Top Gainers & Losers -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <!-- Gainers -->
+      <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-3 border-b border-surface-100 dark:border-surface-700">
+          <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200">Top Gainers (24h)</h2>
+          <span class="text-xs text-surface-400">CoinGecko</span>
+        </div>
+        <div id="gainers-list" class="divide-y divide-surface-100 dark:divide-surface-700">
+          <div class="px-4 py-8 text-center text-sm text-surface-400">Loading...</div>
+        </div>
+      </div>
+      <!-- Losers -->
+      <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-3 border-b border-surface-100 dark:border-surface-700">
+          <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200">Top Losers (24h)</h2>
+          <span class="text-xs text-surface-400">CoinGecko</span>
+        </div>
+        <div id="losers-list" class="divide-y divide-surface-100 dark:divide-surface-700">
+          <div class="px-4 py-8 text-center text-sm text-surface-400">Loading...</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-3 border-b border-surface-100 dark:border-surface-700">
+        <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200">Trending Searches</h2>
+        <span class="text-xs text-surface-400">CoinGecko</span>
+      </div>
+      <div id="trending-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 divide-y divide-surface-100 dark:divide-surface-700 sm:divide-y-0">
+        <div class="px-4 py-8 text-center text-sm text-surface-400 col-span-full">Loading...</div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const REFRESH = 60000;
+
+  function fmtPrice(v) {
+    if (v >= 1) return '$' + v.toLocaleString('en-US', { maximumFractionDigits: 2 });
+    if (v >= 0.01) return '$' + v.toFixed(4);
+    return '$' + v.toPrecision(3);
+  }
+
+  function fmtChange(v) {
+    return (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
+  }
+
+  // Fear & Greed Index
+  async function fetchFearGreed() {
+    try {
+      const res = await fetch('https://api.alternative.me/fng/?limit=2');
+      const data = await res.json();
+      const today = data.data[0];
+      const yesterday = data.data[1];
+      const value = parseInt(today.value);
+      const classifications = {
+        'Extreme Fear': { color: '#E24B4A', desc: 'Market is in extreme fear — potential buy zone' },
+        'Fear': { color: '#D85A30', desc: 'Investors are fearful — cautious sentiment' },
+        'Neutral': { color: '#BA7517', desc: 'Market sentiment is neutral' },
+        'Greed': { color: '#639922', desc: 'Investors are greedy — optimistic sentiment' },
+        'Extreme Greed': { color: '#1D9E75', desc: 'Market is in extreme greed — potential sell zone' }
+      };
+      const info = classifications[today.value_classification] || classifications['Neutral'];
+
+      document.getElementById('fg-value').textContent = value;
+      document.getElementById('fg-value').style.color = info.color;
+      document.getElementById('fg-label').textContent = today.value_classification;
+      document.getElementById('fg-desc').textContent = info.desc;
+      document.getElementById('fg-updated').textContent = new Date(today.timestamp * 1000).toLocaleTimeString();
+      document.getElementById('fg-marker').style.left = value + '%';
+
+      if (yesterday) {
+        const diff = value - parseInt(yesterday.value);
+        document.getElementById('fg-label').textContent += ` (${diff >= 0 ? '+' : ''}${diff})`;
+      }
+    } catch (e) {
+      document.getElementById('fg-value').textContent = 'N/A';
+      document.getElementById('fg-label').textContent = 'Failed to load';
+    }
+  }
+
+  // BTC Dominance + Global Market
+  async function fetchGlobal() {
+    try {
+      const res = await fetch('https://api.coingecko.com/api/v3/global');
+      const data = await res.json();
+      const g = data.data;
+      const dom = g.market_cap_percentage.btc;
+      const domChange = g.market_cap_change_percentage_24h_usd;
+
+      document.getElementById('dom-value').textContent = dom.toFixed(1) + '%';
+      document.getElementById('dom-bar').style.width = dom + '%';
+      document.getElementById('dom-change').textContent = (domChange >= 0 ? '+' : '') + domChange.toFixed(2) + '% (24h)';
+      document.getElementById('dom-change').className = 'text-sm font-semibold ' + (domChange >= 0 ? 'text-green-500' : 'text-red-500');
+      document.getElementById('dom-updated').textContent = new Date().toLocaleTimeString();
+    } catch (e) {
+      document.getElementById('dom-value').textContent = 'N/A';
+      document.getElementById('dom-change').textContent = 'Failed to load';
+    }
+  }
+
+  // ETH Gas Price
+  async function fetchGas() {
+    try {
+      const res = await fetch('https://gasolinestation.com/api/v3/ethereum');
+      const data = await res.json();
+      const fast = Math.round(data.fast);
+      const standard = Math.round(data.standard);
+      const slow = Math.round(data.slow);
+
+      document.getElementById('gas-value').textContent = standard;
+      document.getElementById('gas-slow').textContent = slow;
+      document.getElementById('gas-standard').textContent = standard;
+      document.getElementById('gas-fast').textContent = fast;
+      document.getElementById('gas-updated').textContent = new Date().toLocaleTimeString();
+
+      let level = 'Normal';
+      if (standard < 15) level = 'Very Low';
+      else if (standard < 30) level = 'Low';
+      else if (standard < 60) level = 'Normal';
+      else if (standard < 100) level = 'High';
+      else level = 'Very High';
+      document.getElementById('gas-level').textContent = level;
+    } catch (e) {
+      // Fallback to Etherscan API
+      try {
+        const res = await fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle');
+        const data = await res.json();
+        if (data.status === '1') {
+          const standard = parseInt(data.result.ProposeGasPrice);
+          const fast = parseInt(data.result.FastGasPrice);
+          const slow = parseInt(data.result.SafeGasPrice);
+          document.getElementById('gas-value').textContent = standard;
+          document.getElementById('gas-slow').textContent = slow;
+          document.getElementById('gas-standard').textContent = standard;
+          document.getElementById('gas-fast').textContent = fast;
+          document.getElementById('gas-updated').textContent = new Date().toLocaleTimeString();
+          document.getElementById('gas-level').textContent = standard < 30 ? 'Low' : standard < 60 ? 'Normal' : 'High';
+        }
+      } catch (e2) {
+        document.getElementById('gas-value').textContent = 'N/A';
+        document.getElementById('gas-level').textContent = 'Failed to load';
+      }
+    }
+  }
+
+  // Top Gainers & Losers
+  async function fetchMovers() {
+    try {
+      const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h');
+      const data = await res.json();
+      const sorted = [...data].sort((a, b) => (b.price_change_percentage_24h || 0) - (a.price_change_percentage_24h || 0));
+      const gainers = sorted.slice(0, 8);
+      const losers = sorted.slice(-8).reverse();
+
+      function renderList(coins, containerId, isGain) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = coins.map((c, i) => {
+          const change = c.price_change_percentage_24h || 0;
+          const color = change >= 0 ? 'text-green-500' : 'text-red-500';
+          const initial = (c.name || c.symbol || '?').charAt(0).toUpperCase();
+          return `
+            <div class="flex items-center gap-3 px-4 py-2.5 hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors">
+              <span class="text-xs text-surface-400 w-5">${i+1}</span>
+              <img src="${c.image}" alt="${c.name}" class="w-6 h-6 rounded-full" loading="lazy"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+              <div class="w-6 h-6 rounded-full bg-surface-100 dark:bg-surface-700 items-center justify-center text-xs font-bold text-surface-500" style="display:none">${initial}</div>
+              <div class="flex-1 min-w-0">
+                <span class="text-sm font-semibold text-surface-800 dark:text-surface-100 truncate">${c.symbol?.toUpperCase()}</span>
+                <span class="text-xs text-surface-400 ml-1 truncate">${c.name}</span>
+              </div>
+              <span class="text-sm font-mono text-surface-600 dark:text-surface-300">${fmtPrice(c.current_price)}</span>
+              <span class="text-sm font-mono font-medium ${color} w-20 text-right">${fmtChange(change)}</span>
+            </div>
+          `;
+        }).join('');
+      }
+      renderList(gainers, 'gainers-list', true);
+      renderList(losers, 'losers-list', false);
+    } catch (e) {
+      document.getElementById('gainers-list').innerHTML = '<div class="px-4 py-8 text-center text-sm text-surface-400">Failed to load data</div>';
+      document.getElementById('losers-list').innerHTML = '<div class="px-4 py-8 text-center text-sm text-surface-400">Failed to load data</div>';
+    }
+  }
+
+  // Trending
+  async function fetchTrending() {
+    try {
+      const res = await fetch('https://api.coingecko.com/api/v3/search/trending');
+      const data = await res.json();
+      const coins = (data.coins || []).slice(0, 9);
+      const container = document.getElementById('trending-list');
+      container.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 divide-y divide-surface-100 dark:divide-surface-700 sm:divide-y-0';
+      container.innerHTML = coins.map((item, i) => {
+        const c = item.item;
+        const initial = (c.name || c.symbol || '?').charAt(0).toUpperCase();
+        return `
+          <a href="https://www.coingecko.com/en/coins/${c.id}" target="_blank" rel="noopener"
+             class="flex items-center gap-3 px-4 py-3 hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors">
+            <span class="text-xs text-surface-400 w-5">#${i+1}</span>
+            <img src="${c.large || c.small}" alt="${c.name}" class="w-6 h-6 rounded-full" loading="lazy"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="w-6 h-6 rounded-full bg-surface-100 dark:bg-surface-700 items-center justify-center text-xs font-bold text-surface-500" style="display:none">${initial}</div>
+            <div class="flex-1 min-w-0">
+              <span class="text-sm font-semibold text-surface-800 dark:text-surface-100 truncate">${c.name}</span>
+              <span class="text-xs text-surface-400 ml-1">${c.symbol?.toUpperCase()}</span>
+            </div>
+            <span class="text-xs text-surface-400">Rank #${c.market_cap_rank || '?'}</span>
+          </a>
+        `;
+      }).join('');
+    } catch (e) {
+      document.getElementById('trending-list').innerHTML = '<div class="px-4 py-8 text-center text-sm text-surface-400 col-span-full">Failed to load trending data</div>';
+    }
+  }
+
+  // Initial load
+  fetchFearGreed();
+  fetchGlobal();
+  fetchGas();
+  fetchMovers();
+  fetchTrending();
+
+  // Auto refresh
+  setInterval(fetchFearGreed, 5 * 60 * 1000);  // 5 min
+  setInterval(fetchGlobal, 60 * 1000);          // 1 min
+  setInterval(fetchGas, 60 * 1000);             // 1 min
+  setInterval(fetchMovers, 60 * 1000);          // 1 min
+  setInterval(fetchTrending, 5 * 60 * 1000);    // 5 min
+</script>

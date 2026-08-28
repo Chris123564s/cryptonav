@@ -1,0 +1,165 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdBanner from '../../components/AdBanner.astro';
+import comparisonsData from '../../data/comparisons.json';
+
+export async function getStaticPaths() {
+  const comparisons = (comparisonsData as any).comparisons ?? comparisonsData;
+  return comparisons.map((comp: any) => ({
+    params: { slug: comp.slug },
+    props: { comp },
+  }));
+}
+
+interface Props {
+  comp: any;
+}
+
+const { comp } = Astro.props;
+const firstId = comp.contenders[0]?.name?.toLowerCase().replace(/\s/g, '') || 'a';
+const secondId = comp.contenders[1]?.name?.toLowerCase().replace(/\s/g, '') || 'b';
+---
+
+<Layout title={comp.title} description={comp.metaDescription} canonical={`https://cryptonav.site/compare/${comp.slug}`}>
+  <!-- Breadcrumb -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <nav class="flex items-center gap-2 text-xs text-surface-400">
+      <a href="/" class="hover:text-brand-500">Home</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <a href="/compare" class="hover:text-brand-500">Compare</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-surface-600 dark:text-surface-300 truncate">{comp.contenders[0].name} vs {comp.contenders[1]?.name || '...'}</span>
+    </nav>
+  </div>
+
+  <!-- Article Header -->
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400 uppercase tracking-wide">{comp.category}</span>
+    <h1 class="text-2xl md:text-3xl font-bold text-surface-800 dark:text-surface-100 mt-3">{comp.title}</h1>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-3 leading-relaxed">{comp.summary}</p>
+    <div class="flex items-center gap-3 mt-4 text-xs text-surface-400">
+      <span>Keyword: <span class="text-surface-600 dark:text-surface-300 font-mono">{comp.keyword}</span></span>
+      <span>·</span>
+      <span>Search volume: {comp.searchVolume}</span>
+      <span>·</span>
+      <span>KD: {comp.keywordDifficulty}</span>
+    </div>
+  </article>
+
+  <!-- Ad -->
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <AdBanner slot="home-banner" format="banner" />
+  </div>
+
+  <!-- Contender Cards -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {comp.contenders.map((c: any, i: number) => (
+        <div class={`rounded-2xl border-2 p-6 ${i === 0 ? 'border-brand-200 dark:border-brand-700 bg-brand-50/50 dark:bg-brand-900/10' : 'border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800'}`}>
+          <div class="flex items-center gap-3 mb-4">
+            {c.logo ? (
+              <img src={c.logo} alt={c.name} class="w-12 h-12 rounded-xl object-cover" loading="lazy"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            ) : null}
+            <div class="w-12 h-12 rounded-xl bg-surface-100 dark:bg-surface-700 flex items-center justify-center text-lg font-bold text-surface-600 dark:text-surface-300" style={c.logo ? 'display:none' : ''}>
+              {c.name.charAt(0)}
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">{c.name}</h2>
+              <div class="flex items-center gap-1">
+                <span class="text-amber-500">
+                  {[1,2,3,4,5].map(n => n <= Math.round(c.rating) ? '★' : '☆').join('')}
+                </span>
+                <span class="text-xs text-surface-400 ml-1">{c.rating}/5</span>
+              </div>
+            </div>
+          </div>
+          <p class="text-xs text-surface-500 dark:text-surface-400 mb-4 italic">{c.best}</p>
+
+          <div class="mb-4">
+            <h3 class="text-xs font-semibold text-green-600 dark:text-green-400 uppercase mb-2">Pros</h3>
+            <ul class="space-y-1">
+              {c.pros.map((pro: string) => (
+                <li class="flex items-start gap-2 text-sm text-surface-600 dark:text-surface-300">
+                  <svg class="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <span>{pro}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="mb-4">
+            <h3 class="text-xs font-semibold text-red-600 dark:text-red-400 uppercase mb-2">Cons</h3>
+            <ul class="space-y-1">
+              {c.cons.map((con: string) => (
+                <li class="flex items-start gap-2 text-sm text-surface-600 dark:text-surface-300">
+                  <svg class="w-3.5 h-3.5 text-red-500 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                  <span>{con}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <a href={c.website} target="_blank" rel="noopener noreferrer sponsored"
+             class="block w-full text-center py-2.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold transition-colors">
+            Visit {c.name}
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 mb-4">Feature Comparison</h2>
+    <div class="overflow-x-auto rounded-xl border border-surface-200 dark:border-surface-700">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="bg-surface-50 dark:bg-surface-800/50 border-b border-surface-200 dark:border-surface-700">
+            <th class="px-4 py-3 text-left font-semibold text-surface-600 dark:text-surface-300">Feature</th>
+            {comp.contenders.map((c: any) => (
+              <th class="px-4 py-3 text-center font-semibold text-surface-600 dark:text-surface-300 whitespace-nowrap">{c.name}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-surface-100 dark:divide-surface-700">
+          {comp.comparisonTable.map((row: any) => {
+            const keys = Object.keys(row).filter(k => k !== 'feature');
+            return (
+              <tr class="hover:bg-surface-50 dark:hover:bg-surface-700/30">
+                <td class="px-4 py-3 font-medium text-surface-700 dark:text-surface-200">{row.feature}</td>
+                {keys.map((k: string) => (
+                  <td class="px-4 py-3 text-center text-surface-600 dark:text-surface-300 text-xs md:text-sm">{row[k]}</td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs text-surface-400 mt-2">Data as of 2026. Fees and features may change. Always verify on the official website.</p>
+  </section>
+
+  <!-- Verdict -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 p-6 text-white">
+      <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        Our Verdict
+      </h2>
+      <p class="text-sm leading-relaxed opacity-95">{comp.verdict}</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div class="flex flex-col sm:flex-row gap-3">
+      {comp.contenders.map((c: any) => (
+        <a href={c.website} target="_blank" rel="noopener noreferrer sponsored"
+           class="flex-1 text-center py-3 rounded-xl border-2 border-surface-200 dark:border-surface-700 hover:border-brand-400 dark:hover:border-brand-600 text-sm font-semibold text-surface-700 dark:text-surface-200 transition-colors">
+          Try {c.name} →
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
