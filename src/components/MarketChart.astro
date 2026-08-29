@@ -97,6 +97,10 @@ const ranges = [
   let canvasEl: HTMLCanvasElement | null = null;
   let ChartLib: any = null;
   let loadTimer: number | null = null;
+  // Monotonic id for the most recent request. Because several loads can be in
+  // flight at once (slow / rate-limited CoinGecko responses), a late response
+  // for a PREVIOUS coin must never overwrite the UI for the SELECTED coin.
+  let requestSeq = 0;
   const cache = new Map<string, [number, number][]>();
 
   function fmtPrice(v: number): string {
@@ -244,7 +248,10 @@ const ranges = [
   }
 
   async function loadChart(coinId: string, days: number) {
+    const seq = ++requestSeq;
     await ensureChartLib();
+    if (seq !== requestSeq) return; // superseded by a newer request
+
     currentCoin = coinId;
     currentDays = days;
     if (loadingEl) loadingEl.classList.remove('hidden');
@@ -266,25 +273,27 @@ const ranges = [
       const json = await fetchMarketChart(coinId, days);
       const prices: [number, number][] = json.prices || [];
       if (!prices.length) throw new Error('empty');
-      cache.set(key, prices);
+      cache.set(key, prices);         // valid data, keep it even if superseded
+      if (seq !== requestSeq) return; // a newer coin/range was selected
       renderChart(prices);
       updateCurrentBadge(prices[prices.length - 1][1]);
     } catch (e) {
+      if (seq !== requestSeq) return; // superseded — leave the UI alone
       // We switched to a coin we don't have data for yet. NEVER fall back to
-      // the previously-rendered (BTC) chart — that's the bug. Best effort: use
-      // any cached range for this same coin; otherwise surface the error so
-      // the stale chart is covered instead of mislabeled as the new coin.
+      // the previously-rendered (BTC) chart — best effort: any cached range for
+      // this same coin; otherwise cover the stale chart with the error overlay
+      // instead of mislabeling BTC's data as the new coin.
       const fallback = findAnyCache(coinId);
       if (fallback) {
         renderChart(fallback);
         updateCurrentBadge(fallback[fallback.length - 1][1]);
-        console.warn('[MarketChart] live fetch failed, using cached range for', coinId, e);
       } else if (errorEl) {
         errorEl.classList.remove('hidden');
-        console.warn('[MarketChart] failed to load', coinId, e);
       }
+      console.warn('[MarketChart] failed to load', coinId, e);
     } finally {
-      if (loadingEl) loadingEl.classList.add('hidden');
+      // Only the newest request may clear the loading overlay.
+      if (seq === requestSeq && loadingEl) loadingEl.classList.add('hidden');
     }
   }
 
@@ -327,6 +336,9 @@ const ranges = [
       b.addEventListener('click', () => {
         const days = Number((b as HTMLElement).dataset.days);
         setActiveRange(days);
+        // Remember the range immediately, so switching coins right afterwards
+        // keeps the selected timeframe instead of using a stale value.
+        currentDays = days;
         requestChart(currentCoin, days);
       });
     });
