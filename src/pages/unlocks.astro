@@ -23,15 +23,28 @@ function urgencyClass(days: number): string {
   return 'text-surface-500 dark:text-surface-400';
 }
 
-// Pre-compute days and urgency for each unlock
+// Pre-compute days, urgency and badge for each unlock
 const upcomingWithDays = upcoming.map((u: any) => {
   const d = daysUntil(u.date);
   return { ...u, _days: d, _urgency: urgencyClass(d) };
 });
 const sortedWithDays = sorted.map((u: any) => {
   const d = daysUntil(u.date);
-  return { ...u, _days: d, _isUpcoming: d > 0 };
+  const isUp = d > 0;
+  let badge: string;
+  if (!isUp) badge = 'bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-400';
+  else if (d <= 30) badge = 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400';
+  else if (d <= 90) badge = 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400';
+  else badge = 'bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400';
+  return { ...u, _days: d, _isUpcoming: isUp, _badge: badge };
 });
+
+// Shared icon markup builder (mirrors airdrops.astro): real logo, brand monogram fallback
+function iconMarkup(u: any) {
+  const logo = u.logo || '';
+  const initial = (u.token || '?').charAt(0);
+  return { logo, initial };
+}
 ---
 
 <Layout title="Token Unlock Calendar 2026 - Vesting & Release Schedule | CryptoNav" description="Track upcoming token unlocks and vesting schedules. Dates, amounts, percentages of supply, and estimated value for all major crypto token releases." canonical="https://cryptonav.site/unlocks">
@@ -69,9 +82,17 @@ const sortedWithDays = sorted.map((u: any) => {
         <div class="text-center">Countdown</div>
       </div>
       <div class="divide-y divide-surface-100 dark:divide-surface-700 min-w-[700px]">
-        {upcomingWithDays.map((u: any) => (
+        {upcomingWithDays.map((u: any) => {
+          const { logo, initial } = iconMarkup(u);
+          return (
             <div class="grid grid-cols-[60px_1fr_80px] md:grid-cols-[80px_1fr_100px_110px_90px_120px_80px] gap-2 px-4 py-3 items-center hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors">
-              <div class="text-sm font-bold text-surface-800 dark:text-surface-100">{u.token}</div>
+              <div class="flex items-center gap-2">
+                {logo ? (
+                  <img src={logo} alt={u.token} class="hidden md:block w-6 h-6 rounded-full object-cover shrink-0" loading="lazy"
+                    onerror={`this.onerror=null;this.style.display='none'`} />
+                ) : null}
+                <span class="text-sm font-bold text-surface-800 dark:text-surface-100">{u.token}</span>
+              </div>
               <div class="min-w-0">
                 <span class="text-sm text-surface-700 dark:text-surface-200">{u.project}</span>
                 <span class="text-xs text-surface-400 ml-1">{u.chain}</span>
@@ -84,7 +105,8 @@ const sortedWithDays = sorted.map((u: any) => {
                 {u._days > 0 ? `${u._days}d` : 'Due'}
               </div>
             </div>
-        ))}
+          );
+        })}
       </div>
     </div>
     <p class="text-xs text-surface-400 mt-2">Data is approximate. Always verify with official sources. Token unlocks can cause price volatility.</p>
@@ -92,20 +114,30 @@ const sortedWithDays = sorted.map((u: any) => {
 
   <!-- All Unlocks Detail Cards -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 mb-4 flex items-center gap-2">
+      <span class="w-2 h-5 rounded-full bg-brand-500"></span>
+      All unlocks
+    </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {sortedWithDays.map((u: any) => (
-          <div class={`rounded-2xl border p-5 ${u._isUpcoming ? 'border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800' : 'border-surface-100 dark:border-surface-700/50 bg-surface-50/50 dark:bg-surface-800/30'}`}>
+      {sortedWithDays.map((u: any) => {
+        const { logo, initial } = iconMarkup(u);
+        return (
+          <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 p-5 hover:border-brand-300 dark:hover:border-brand-600 transition-colors">
             <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-full bg-surface-100 dark:bg-surface-700 flex items-center justify-center text-sm font-bold text-surface-600 dark:text-surface-300">
-                  {u.token.charAt(0)}
+              <div class="flex items-center gap-2.5">
+                {logo ? (
+                  <img src={logo} alt={u.token} class="w-9 h-9 rounded-full shrink-0 object-cover" loading="lazy"
+                    onerror={`this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex'`} />
+                ) : null}
+                <div class={`w-9 h-9 rounded-full shrink-0 flex items-center justify-center text-sm font-bold ${logo ? 'hidden' : 'flex'} bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400`}>
+                  {initial}
                 </div>
                 <div>
                   <h3 class="text-sm font-bold text-surface-800 dark:text-surface-100">{u.token}</h3>
-                  <span class="text-xs text-surface-400">{u.project}</span>
+                  <span class="text-xs text-surface-400">{u.project} · {u.chain}</span>
                 </div>
               </div>
-              <span class={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${u._isUpcoming ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400' : 'bg-surface-100 dark:bg-surface-700 text-surface-400'}`}>
+              <span class={`inline-block px-2 py-0.5 text-[10px] font-semibold rounded-full ${u._badge}`}>
                 {u._isUpcoming ? `${u._days}d left` : 'Unlocked'}
               </span>
             </div>
@@ -116,11 +148,22 @@ const sortedWithDays = sorted.map((u: any) => {
               <div class="flex justify-between"><span class="text-surface-400">Est. value</span><span class="text-surface-600 dark:text-surface-300 font-mono">{u.value}</span></div>
             </div>
             <p class="text-xs text-surface-500 dark:text-surface-400 mt-3">{u.note}</p>
-            <a href={u.website} target="_blank" rel="noopener" class="block text-center mt-3 py-1.5 rounded-lg bg-surface-100 dark:bg-surface-700 text-xs font-semibold text-surface-600 dark:text-surface-300 hover:bg-brand-100 dark:hover:bg-brand-900 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+            <a href={u.website} target="_blank" rel="noopener" class="block text-center mt-3 py-1.5 rounded-lg bg-brand-500 text-white text-xs font-semibold hover:bg-brand-600 transition-colors">
               Project site →
             </a>
           </div>
-        ))}
+        );
+      })}
+    </div>
+  </section>
+
+  {/* Info note */}
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <div class="bg-surface-50 dark:bg-surface-800/50 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+      <h3 class="text-sm font-bold text-surface-700 dark:text-surface-200 mb-2">About Token Unlocks</h3>
+      <p class="text-xs text-surface-500 dark:text-surface-400 leading-relaxed">
+        A token unlock releases previously locked tokens (team, investors, or community allocations) into circulation. Large unlocks increase circulating supply and can create sell pressure. This calendar tracks major vesting events across leading L1s, L2s, and protocols. Always verify dates and amounts on the official project website before making decisions — this is not financial advice.
+      </p>
     </div>
   </section>
 </Layout>
