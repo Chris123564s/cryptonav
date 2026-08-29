@@ -1,8 +1,8 @@
-name: Refresh Token Unlocks (Tokenomist)
+name: Refresh Token Unlocks (maintenance)
 
 on:
   schedule:
-    # 每天 03:00 UTC 刷新一次（避开其他采集任务的高峰）
+    # 每天 03:00 UTC 维护一次（排序 + 清理过期事件）
     - cron: '0 3 * * *'
   workflow_dispatch:
 
@@ -24,15 +24,11 @@ jobs:
         with:
           python-version: '3.13'
 
-      - name: Fetch latest token unlocks from Tokenomist
+      - name: Maintain token unlocks (sort + prune stale)
+        # Keyless: no API, no secrets. Lower PRUNE_PAST_DAYS to declutter
+        # sooner (e.g. 90 keeps only events from the last ~3 months).
         env:
-          USE_PROXY: '0'
-          CI: 'true'
-          # Optional: add a repo secret TOKENOMIST_API_KEY to enable automatic
-          # refresh. Tokenomist API needs a paid plan (Pro/API/Enterprise) or a
-          # free trial. Without the key the script safely preserves the curated
-          # unlocks.json (CI stays green).
-          TOKENOMIST_API_KEY: ${{ secrets.TOKENOMIST_API_KEY }}
+          PRUNE_PAST_DAYS: '365'
         run: python scripts/fetch_unlocks.py
 
       - name: Commit and push if changed
@@ -43,6 +39,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "chore: refresh token unlocks (Tokenomist API, daily)"
+            git commit -m "chore: maintain token unlocks (sort + prune stale, daily)"
             git push
           fi
