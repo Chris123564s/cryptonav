@@ -1,5 +1,5 @@
 ---
-import { getFeaturedProjects } from '../utils/data';
+import { getFeaturedProjects, getReferralUrl } from '../utils/data';
 import { featured } from '../utils/data';
 
 const featuredProjects = getFeaturedProjects();
@@ -20,7 +20,7 @@ const reasons = featured.reduce((acc, f) => {
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {featuredProjects.map(project => (
         <div class="project-card group">
-          <a href={project.referral || project.website} target="_blank" rel="noopener noreferrer" class="block">
+          <a href={getReferralUrl(project)} target="_blank" rel="noopener noreferrer" class="block">
             <div class="flex items-center gap-3 mb-3">
               {project.logo ? (
                 <img src={project.logo} alt={project.name} class="w-12 h-12 rounded-xl object-cover" loading="lazy" />

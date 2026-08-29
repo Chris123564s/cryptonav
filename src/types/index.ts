@@ -74,7 +74,7 @@ export interface AdConfig {
   active: boolean;
 }
 
-export type AdSlot = 'home-banner' | 'sidebar-top' | 'sidebar-bottom' | 'footer-banner' | 'inline-card';
+export type AdSlot = 'home-banner' | 'sidebar-top' | 'sidebar-bottom' | 'footer-banner' | 'inline-card' | 'article-top' | 'article-bottom' | 'learn-banner';
 
 export interface FeaturedItem {
   projectId: string;

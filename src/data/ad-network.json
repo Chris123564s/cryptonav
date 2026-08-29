@@ -1,0 +1,13 @@
+{
+  "note": "Crypto ad-network (Coinzilla / Bitmedia) fill. For each slot, paste the exact ad tag snippet the network gives you into 'html'. Leave 'html' empty to keep showing the 'Your Ad Here' placeholder. 'network' is for reference only. Direct sold (Sponsored) ads in ads.json take priority over network fill.",
+  "slots": {
+    "home-banner":    { "network": "coinzilla", "html": "" },
+    "sidebar-top":    { "network": "bitmedia",  "html": "" },
+    "sidebar-bottom": { "network": "coinzilla", "html": "" },
+    "footer-banner":  { "network": "bitmedia",  "html": "" },
+    "inline-card":    { "network": "coinzilla", "html": "" },
+    "article-top":    { "network": "coinzilla", "html": "" },
+    "article-bottom": { "network": "bitmedia",  "html": "" },
+    "learn-banner":   { "network": "coinzilla", "html": "" }
+  }
+}

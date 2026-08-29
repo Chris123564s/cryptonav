@@ -1,0 +1,16 @@
+---
+// Renders a crypto ad-network (Coinzilla / Bitmedia) tag snippet.
+// `html` is the exact snippet provided by the network (script + container).
+// It is injected as raw HTML from a trusted site-config file, not user input.
+interface Props {
+  html: string;
+  className?: string;
+}
+
+const { html, className = '' } = Astro.props;
+---
+
+<div class={`relative overflow-hidden rounded-lg ${className}`}>
+  <div class="w-full h-full" set:html={html}></div>
+  <span class="ad-label">Ad</span>
+</div>

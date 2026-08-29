@@ -1,0 +1,13 @@
+{
+  "note": "Central affiliate/referral config. Fill 'code' with your REAL referral code for each exchange. When 'code' is empty the site falls back to the placeholder link in projects.json. 'template' is the signup URL with {code} substituted by your code. This is the ONLY file you edit to activate affiliate links.",
+  "exchanges": {
+    "binance":  { "code": "", "template": "https://www.binance.com/en/register?ref={code}" },
+    "okx":      { "code": "", "template": "https://www.okx.com/join/{code}" },
+    "bybit":    { "code": "", "template": "https://www.bybit.com/register?ref={code}" },
+    "coinbase": { "code": "", "template": "https://www.coinbase.com/join/{code}" },
+    "kraken":   { "code": "", "template": "https://www.kraken.com/signup?referral={code}" },
+    "gate-io":  { "code": "", "template": "https://www.gate.io/signup/{code}" },
+    "bitget":   { "code": "", "template": "https://www.bitget.com/referral/{code}" },
+    "mexc":     { "code": "", "template": "https://www.mexc.com/register?refCode={code}" }
+  }
+}

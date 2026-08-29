@@ -5,6 +5,8 @@ import adsData from '../data/ads.json';
 import featuredData from '../data/featured.json';
 import tickerData from '../data/ticker.json';
 import chainTokensData from '../data/chain-tokens.json';
+import affiliatesData from '../data/affiliates.json';
+import adNetworkData from '../data/ad-network.json';
 import type { ProjectData, Category, AdConfig, FeaturedItem, TickerCoin, AdSlot, Chain, Token } from '../types';
 
 export const projects: ProjectData[] = (projectsData as any).projects ?? projectsData as ProjectData[];
@@ -97,6 +99,22 @@ export function getAd(slot: AdSlot): AdConfig | null {
     if (random <= 0) return ad;
   }
   return activeAds[0];
+}
+
+/** 获取项目联盟链接：优先用 affiliates.json 配置的 code 生成真实链接，否则回退到项目自带 referral/website */
+export function getReferralUrl(p: ProjectData): string {
+  const conf = (affiliatesData as any)?.exchanges?.[p.id];
+  if (conf && conf.code) {
+    return String(conf.template).replace(/\{code\}/g, conf.code);
+  }
+  return p.referral || p.website;
+}
+
+/** 获取广告网络（Coinzilla/Bitmedia）填充代码；html 为空时返回 null（显示 Your Ad Here 占位） */
+export function getNetworkAd(slot: AdSlot): { network: string; html: string } | null {
+  const entry = (adNetworkData as any)?.slots?.[slot];
+  if (!entry || !entry.html) return null;
+  return { network: entry.network || '', html: entry.html };
 }
 
 /** 格式化数字 */
