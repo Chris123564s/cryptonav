@@ -100,6 +100,54 @@ def slugify(name: str) -> str:
     return slug or hashlib.md5(name.encode()).hexdigest()[:8]
 
 
+# Tags whose entire inner content must be removed before parsing.
+# <script> holds JSON-LD (HowTo schema etc.) that otherwise leaks into
+# scraped text fields as raw code. See bug: eligibility field captured
+# `"step":[{"@type":"HowToStep",...`
+NOISE_TAGS = ("script", "style", "noscript", "svg", "iframe")
+
+# Leftover markers that indicate a field swallowed structured data.
+JSONLD_MARKERS = ('"@type"', '"@context"', '"@graph"', '"HowToStep"', "schema.org")
+
+
+def strip_noise(html: str) -> str:
+    """Remove script/style/JSON-LD blocks so regex extraction sees only content."""
+    for tag in NOISE_TAGS:
+        html = re.sub(
+            r"<" + tag + r"\b[^>]*>.*?</" + tag + r">",
+            " ",
+            html,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+    # Safety net: cut anything after a JSON-LD marker inside a text run.
+    return html
+
+
+def clean_text(raw: str, limit: int = 500) -> str:
+    """
+    Normalise a scraped text fragment: collapse tags/whitespace and
+    truncate at the first sign of embedded structured data (JSON-LD).
+    """
+    text = re.sub(r"<[^>]+>", " ", raw)
+    text = re.sub(r"&nbsp;?", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+
+    # Truncate at first JSON-LD marker — everything after it is code, not prose.
+    cut = len(text)
+    for marker in JSONLD_MARKERS:
+        idx = text.find(marker)
+        if idx != -1:
+            cut = min(cut, idx)
+    if cut < len(text):
+        text = text[:cut]
+
+    # Trim dangling fragments left by the cut (open quotes/braces/commas).
+    text = re.sub(r'[\s,>"{\[]+$', "", text).strip()
+    if len(text) > limit:
+        text = text[:limit].rstrip()
+    return text
+
+
 def extract_airdrops_from_html(html: str, source_type: str) -> list:
     """
     Parse airdrops.io HTML to extract airdrop entries.
@@ -116,6 +164,10 @@ def extract_airdrops_from_html(html: str, source_type: str) -> list:
       - class includes "ongoing"/"ended" and category like "categories-rwa"
     """
     airdrops = []
+
+    # Drop script/style/JSON-LD first — otherwise regexes can start a match
+    # inside a <script> block and swallow raw structured data.
+    html = strip_noise(html)
 
     # Find all <article> blocks that contain airdrop data
     # They have class like "airdrop-click" and data-temperature
@@ -266,6 +318,11 @@ def fetch_airdrop_detail(url: str) -> dict:
     if not html:
         return {}
 
+    # Drop <script>/<style>/JSON-LD first — otherwise the eligibility regex can
+    # start a match inside a <script type="application/ld+json"> HowTo block and
+    # swallow raw structured data (bug: eligibility showed `"step":[{"@type":...`).
+    html = strip_noise(html)
+
     detail = {}
 
     # Extract symbol/ticker — usually in format $TOKEN or (TOKEN)
@@ -325,8 +382,7 @@ def fetch_airdrop_detail(url: str) -> dict:
         html, re.DOTALL | re.IGNORECASE
     )
     if elig_match:
-        detail["eligibility"] = re.sub(r"<[^>]+>", " ", elig_match.group(1)).strip()
-        detail["eligibility"] = re.sub(r"\s+", " ", detail["eligibility"])[:500]
+        detail["eligibility"] = clean_text(elig_match.group(1), limit=500)
 
     # Extract amount
     amount_patterns = [
