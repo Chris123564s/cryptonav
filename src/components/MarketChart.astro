@@ -116,7 +116,35 @@ const ranges = [
     const priceEl = document.getElementById('chart-current-price');
     if (coin && img) img.src = coin.image;
     if (coin && name) name.textContent = `${coin.name} (${coin.symbol})`;
-    if (priceEl && price !== undefined) priceEl.textContent = fmtPrice(price);
+    // When no price is supplied (coin just switched / still loading) show a
+    // placeholder instead of leaving the PREVIOUS coin's price on screen.
+    if (priceEl) priceEl.textContent = price !== undefined ? fmtPrice(price) : '—';
+  }
+
+  // Find any cached range for a coin (used as a best-effort fallback when a
+  // live fetch fails after the user switched coins, so we never display the
+  // previously-selected coin's chart/price for the newly-selected coin).
+  function findAnyCache(coinId: string): [number, number][] | null {
+    for (const [k, v] of cache.entries()) {
+      if (k.startsWith(`${coinId}_`)) return v;
+    }
+    return null;
+  }
+
+  // CoinGecko's public API is heavily rate-limited (HTTP 429). Retry once on
+  // 429 with a short backoff before giving up.
+  async function fetchMarketChart(coinId: string, days: number): Promise<any> {
+    const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`;
+    for (let attempt = 0; attempt <= 1; attempt++) {
+      const res = await fetch(url);
+      if (res.ok) return await res.json();
+      if (res.status === 429 && attempt === 0) {
+        await new Promise(r => setTimeout(r, 1500));
+        continue;
+      }
+      throw new Error(`HTTP ${res.status}`);
+    }
+    throw new Error('unreachable');
   }
 
   function isDark(): boolean {
@@ -221,6 +249,8 @@ const ranges = [
     currentDays = days;
     if (loadingEl) loadingEl.classList.remove('hidden');
     if (errorEl) errorEl.classList.add('hidden');
+    // Switch the badge to the new coin immediately and blank its price, so we
+    // never keep showing the PREVIOUS coin's price while the new one loads.
     updateCurrentBadge();
 
     const key = `${coinId}_${days}`;
@@ -233,19 +263,26 @@ const ranges = [
     }
 
     try {
-      const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
+      const json = await fetchMarketChart(coinId, days);
       const prices: [number, number][] = json.prices || [];
       if (!prices.length) throw new Error('empty');
       cache.set(key, prices);
       renderChart(prices);
       updateCurrentBadge(prices[prices.length - 1][1]);
     } catch (e) {
-      if (!chart && errorEl) errorEl.classList.remove('hidden');
-      // 已有一张图则保留旧图，仅在 console 提示，不遮罩
-      console.warn('[MarketChart] failed to load', coinId, e);
+      // We switched to a coin we don't have data for yet. NEVER fall back to
+      // the previously-rendered (BTC) chart — that's the bug. Best effort: use
+      // any cached range for this same coin; otherwise surface the error so
+      // the stale chart is covered instead of mislabeled as the new coin.
+      const fallback = findAnyCache(coinId);
+      if (fallback) {
+        renderChart(fallback);
+        updateCurrentBadge(fallback[fallback.length - 1][1]);
+        console.warn('[MarketChart] live fetch failed, using cached range for', coinId, e);
+      } else if (errorEl) {
+        errorEl.classList.remove('hidden');
+        console.warn('[MarketChart] failed to load', coinId, e);
+      }
     } finally {
       if (loadingEl) loadingEl.classList.add('hidden');
     }
