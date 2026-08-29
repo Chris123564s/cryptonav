@@ -26,9 +26,11 @@ existing integrations and returns, per token:
     }
 
 IMPORTANT — auth:
-  The endpoint requires an `x-api-key` header. A free Tokenomist API key is
-  available (https://tokenomist.ai → API). Provide it via the TOKENOMIST_API_KEY
-  environment variable (GitHub Actions: a repo secret of the same name).
+  The endpoint requires an `x-api-key` header. Tokenomist API access needs a
+  paid plan (Pro / API / Enterprise) OR a free trial requested via their form
+  (https://tokenomist.ai/pricing → request free trial). There is NO always-free
+  tier. Provide the key via the TOKENOMIST_API_KEY environment variable
+  (GitHub Actions: a repo secret of the same name).
 
 SAFE FALLBACK:
   If no API key is set, or the request fails, or the API returns no data,

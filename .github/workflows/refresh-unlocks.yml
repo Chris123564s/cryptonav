@@ -28,9 +28,10 @@ jobs:
         env:
           USE_PROXY: '0'
           CI: 'true'
-          # Optional: add a repo secret TOKENOMIST_API_KEY (free tier at
-          # tokenomist.ai) to enable automatic refresh. Without it the script
-          # safely preserves the curated unlocks.json (CI stays green).
+          # Optional: add a repo secret TOKENOMIST_API_KEY to enable automatic
+          # refresh. Tokenomist API needs a paid plan (Pro/API/Enterprise) or a
+          # free trial. Without the key the script safely preserves the curated
+          # unlocks.json (CI stays green).
           TOKENOMIST_API_KEY: ${{ secrets.TOKENOMIST_API_KEY }}
         run: python scripts/fetch_unlocks.py
 
