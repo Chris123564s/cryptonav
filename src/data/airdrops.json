@@ -165,7 +165,7 @@
       "category": "Marketplace",
       "symbol": "",
       "chain": "Multi-chain",
-      "eligibility": "or identity signal for the airdrop.",
+      "eligibility": "criteria, allocation details, or distribution date have been disclosed. Key Parameters: Airdrop Allocation: Not disclosed Distribution Method: TBA — likely activity-based (trading volume, consistency, diversity) TGE Date: TBA — confirmed to follow the U.S. platform relaunch Community speculation points to trading volume, market diversity, reinvested winnings, and linked social accounts as potential eligibility signals. Polymarket has also encouraged users to link their X (Twitter) accounts, whic",
       "amount": "100%",
       "snapshot": "2026-07-23",
       "distribution": "2026-07-23",
@@ -173,7 +173,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-29"
+      "updatedAt": "2026-08-29T05:55:09Z"
     },
     {
       "id": "megapot",
@@ -1074,7 +1074,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-29"
+      "updatedAt": "2026-08-29T05:56:16Z"
     },
     {
       "id": "hyena",

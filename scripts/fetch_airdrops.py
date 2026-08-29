@@ -109,6 +109,19 @@ NOISE_TAGS = ("script", "style", "noscript", "svg", "iframe")
 # Leftover markers that indicate a field swallowed structured data.
 JSONLD_MARKERS = ('"@type"', '"@context"', '"@graph"', '"HowToStep"', "schema.org")
 
+# airdrops.io page boilerplate that leaks into scraped prose (promo banners,
+# unterminated tag fragments). Cut the field at the first occurrence.
+BOILERPLATE_MARKERS = (
+    "The $125,000 Airdrop",
+    "JOIN NOW",
+    "Is Almost Here",
+    '"><script',
+    '"><',
+    '"/>',
+    "/>",
+    '">',
+)
+
 
 def strip_noise(html: str) -> str:
     """Remove script/style/JSON-LD blocks so regex extraction sees only content."""
@@ -126,23 +139,24 @@ def strip_noise(html: str) -> str:
 def clean_text(raw: str, limit: int = 500) -> str:
     """
     Normalise a scraped text fragment: collapse tags/whitespace and
-    truncate at the first sign of embedded structured data (JSON-LD).
+    truncate at the first sign of embedded structured data (JSON-LD) or
+    airdrops.io boilerplate (promo banners, tag fragments).
     """
     text = re.sub(r"<[^>]+>", " ", raw)
     text = re.sub(r"&nbsp;?", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
 
-    # Truncate at first JSON-LD marker — everything after it is code, not prose.
+    # Truncate at first JSON-LD or boilerplate marker.
     cut = len(text)
-    for marker in JSONLD_MARKERS:
+    for marker in JSONLD_MARKERS + BOILERPLATE_MARKERS:
         idx = text.find(marker)
         if idx != -1:
             cut = min(cut, idx)
     if cut < len(text):
         text = text[:cut]
 
-    # Trim dangling fragments left by the cut (open quotes/braces/commas).
-    text = re.sub(r'[\s,>"{\[]+$', "", text).strip()
+    # Trim dangling fragments left by the cut (open quotes/braces/commas/tags).
+    text = re.sub(r'[\s,>"{\[/]+$', "", text).strip()
     if len(text) > limit:
         text = text[:limit].rstrip()
     return text
@@ -537,19 +551,29 @@ def main():
             has_good_website = existing_web and not existing_web.startswith("https://gmpg.org") and not existing_web.startswith("https://getminted.io")
             has_good_chain = existing.get("chain") and existing.get("chain") != "Multi-chain"
             if has_good_website and has_good_chain:
-                # Preserve existing manually curated data
+                # Preserve stable identifiers from existing curated data,
+                # but still refresh volatile content (eligibility/amount/dates)
+                # from the live detail page so text quality self-heals over time.
                 airdrop.update({
                     "symbol": existing.get("symbol", airdrop.get("symbol", "")),
                     "chain": existing.get("chain", ""),
-                    "eligibility": existing.get("eligibility", ""),
-                    "amount": existing.get("amount", ""),
-                    "snapshot": existing.get("snapshot", ""),
-                    "distribution": existing.get("distribution", ""),
                     "website": existing.get("website", ""),
-                    "funding": existing.get("funding", ""),
                     "category": existing.get("category", airdrop.get("category", "")),
                     "note": existing.get("note", ""),
                 })
+                slug = airdrop["id"]
+                detail_url = f"https://airdrops.io/{slug}/"
+                print(f"  [{detail_count+1}/{DETAIL_LIMIT}] Refresh content: {airdrop['project']}")
+                time.sleep(DELAY)
+                detail = fetch_airdrop_detail(detail_url)
+                airdrop.update({
+                    "eligibility": detail.get("eligibility", "") or existing.get("eligibility", ""),
+                    "amount": detail.get("amount", "") or existing.get("amount", "TBA"),
+                    "snapshot": detail.get("snapshot", "") or existing.get("snapshot", "TBA"),
+                    "distribution": detail.get("distribution", "") or existing.get("distribution", "TBA"),
+                    "funding": detail.get("funding", "") or existing.get("funding", ""),
+                })
+                detail_count += 1
                 continue
 
         # Fetch detail page
