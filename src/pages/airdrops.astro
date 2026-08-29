@@ -3,12 +3,32 @@ import Layout from '../layouts/Layout.astro';
 import AdBanner from '../components/AdBanner.astro';
 import airdropsData from '../data/airdrops.json';
 
-const airdrops = (airdropsData as any).airdrops ?? airdropsData;
+const data = airdropsData as any;
+const airdrops = data.airdrops ?? data;
+const lastFetched = data.lastFetched || '';
+const totalTracked = data.totalTracked || airdrops.length;
+
 const confirmed = airdrops.filter((a: any) => a.status === 'confirmed');
-const rumored = airdrops.filter((a: any) => a.status === 'rumored');
+const ongoing = airdrops.filter((a: any) => a.status === 'ongoing');
+const ended = airdrops.filter((a: any) => a.status === 'ended');
+
+// Sort by votes (hottest first)
+const sortedAll = [...airdrops].sort((a: any, b: any) => (b.votes || 0) - (a.votes || 0));
+
+// Format last fetched date
+const fetchedDate = lastFetched ? new Date(lastFetched).toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  timeZone: 'UTC'
+}) + ' UTC' : '';
 
 const statusColors: Record<string, string> = {
   confirmed: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
+  ongoing: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400',
+  ended: 'bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-400',
   rumored: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400',
 };
 ---
@@ -23,97 +43,205 @@ const statusColors: Record<string, string> = {
   </div>
 
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 flex-wrap">
       <h1 class="text-2xl font-bold text-surface-800 dark:text-surface-100">Airdrop Calendar</h1>
-      <span class="px-2 py-0.5 text-xs font-bold rounded bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400">{airdrops.length} tracked</span>
+      <span class="px-2 py-0.5 text-xs font-bold rounded bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400">{totalTracked} tracked</span>
     </div>
-    <p class="text-sm text-surface-500 dark:text-surface-400 mt-1">Confirmed and rumored crypto airdrops with snapshot dates, eligibility, and distribution info. Not financial advice — always DYOR.</p>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-1">Confirmed and upcoming crypto airdrops with actions, eligibility, and distribution info. Not financial advice — always DYOR.</p>
+    {fetchedDate && (
+      <div class="flex items-center gap-2 mt-2 text-xs text-surface-400">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Last updated: <span class="font-semibold text-surface-500 dark:text-surface-300">{fetchedDate}</span></span>
+        <span class="text-surface-300 dark:text-surface-600">·</span>
+        <span>Auto-refreshed every 12h from airdrops.io</span>
+      </div>
+    )}
+
+    <!-- Stats -->
+    <div class="flex flex-wrap gap-3 mt-4">
+      <div class="bg-surface-50 dark:bg-surface-800/50 rounded-lg px-4 py-2 border border-surface-100 dark:border-surface-700">
+        <span class="text-xs text-surface-400">Confirmed</span>
+        <p class="text-sm font-semibold text-green-600 dark:text-green-400">{confirmed.length}</p>
+      </div>
+      <div class="bg-surface-50 dark:bg-surface-800/50 rounded-lg px-4 py-2 border border-surface-100 dark:border-surface-700">
+        <span class="text-xs text-surface-400">Ongoing</span>
+        <p class="text-sm font-semibold text-blue-600 dark:text-blue-400">{ongoing.length}</p>
+      </div>
+      <div class="bg-surface-50 dark:bg-surface-800/50 rounded-lg px-4 py-2 border border-surface-100 dark:border-surface-700">
+        <span class="text-xs text-surface-400">Ended</span>
+        <p class="text-sm font-semibold text-surface-500">{ended.length}</p>
+      </div>
+    </div>
   </section>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
     <AdBanner slot="home-banner" format="banner" />
   </div>
 
-  <!-- Confirmed Airdrops -->
+  <!-- Hot Airdrops Table (sorted by votes) -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
     <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 mb-4 flex items-center gap-2">
-      <span class="w-2 h-5 rounded-full bg-green-500"></span>
-      Confirmed Airdrops
+      <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10a8 8 0 0115.657 8.657z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.293 6.707a1 1 0 011.414 0L9 9l-3.293 3.293a1 1 0 01-1.414-1.414L6.586 9 5.293 7.707a1 1 0 010-1.414z"/></svg>
+      Hottest Airdrops
     </h2>
     <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 overflow-hidden">
       <!-- Desktop header -->
-      <div class="hidden md:grid grid-cols-[1fr_100px_120px_100px_120px_80px] gap-2 px-4 py-2.5 text-xs font-semibold text-surface-400 uppercase border-b border-surface-100 dark:border-surface-700 bg-surface-50 dark:bg-surface-800/50">
+      <div class="hidden md:grid grid-cols-[50px_1fr_100px_80px_80px_120px_80px] gap-2 px-4 py-2.5 text-xs font-semibold text-surface-400 uppercase border-b border-surface-100 dark:border-surface-700 bg-surface-50 dark:bg-surface-800/50">
+        <div>Votes</div>
         <div>Project</div>
-        <div>Chain</div>
-        <div>Snapshot</div>
+        <div>Category</div>
         <div>Status</div>
-        <div>Distribution</div>
+        <div>Symbol</div>
+        <div>Actions</div>
         <div class="text-center">Link</div>
       </div>
       <!-- Rows -->
       <div class="divide-y divide-surface-100 dark:divide-surface-700">
-        {confirmed.map((a: any) => (
-          <div class="grid grid-cols-[1fr_80px] md:grid-cols-[1fr_100px_120px_100px_120px_80px] gap-2 px-4 py-3 items-center hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors">
-            <!-- Project -->
-            <div class="flex items-center gap-2.5 min-w-0">
-              <div class="w-7 h-7 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-xs font-bold text-brand-600 dark:text-brand-400 shrink-0">
-                {a.symbol.charAt(0)}
+        {sortedAll.map((a: any) => {
+          const status = a.status || 'ongoing';
+          const statusClass = statusColors[status] || statusColors.ongoing;
+          const votes = a.votes || 0;
+          const logo = a.logo || '';
+          const symbol = a.symbol || '';
+          const website = a.website || a.sourceUrl || '';
+          const actions = a.actions || '';
+          const category = a.category || '';
+          return (
+            <div class="grid grid-cols-[1fr_80px] md:grid-cols-[50px_1fr_100px_80px_80px_120px_80px] gap-2 px-4 py-3 items-center hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors">
+              <!-- Votes -->
+              <div class="hidden md:flex items-center gap-1 text-sm font-bold text-orange-500">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.83-1.67-3.83-3.73l.03-.36C5.44 8.29 4 11.01 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
+                {votes}
               </div>
-              <div class="min-w-0">
-                <span class="text-sm font-semibold text-surface-800 dark:text-surface-100">{a.project}</span>
-                <span class="text-xs text-surface-400 ml-1">{a.symbol}</span>
-                <p class="text-xs text-surface-400 truncate md:hidden">{a.chain} · {a.distribution}</p>
+              <!-- Project -->
+              <div class="flex items-center gap-2.5 min-w-0">
+                {logo ? (
+                  <img src={logo} alt={a.project} class="w-7 h-7 rounded-full shrink-0 object-cover" loading="lazy"
+                    onerror={`this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex'`} />
+                ) : null}
+                <div class={`w-7 h-7 rounded-full shrink-0 flex items-center justify-center text-xs font-bold ${logo ? 'hidden' : 'flex'} bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400`}>
+                  {a.project.charAt(0)}
+                </div>
+                <div class="min-w-0">
+                  <a href={a.sourceUrl || `https://airdrops.io/${a.id}/`} target="_blank" rel="noopener" class="text-sm font-semibold text-surface-800 dark:text-surface-100 hover:text-brand-500">
+                    {a.project}
+                  </a>
+                  <p class="text-xs text-surface-400 truncate md:hidden">{actions.slice(0, 40)}</p>
+                </div>
+              </div>
+              <!-- Category -->
+              <div class="hidden md:block text-xs text-surface-500 dark:text-surface-400">{category || '—'}</div>
+              <!-- Status -->
+              <div class="hidden md:block">
+                <span class={`inline-block px-2 py-0.5 text-[10px] font-semibold rounded-full capitalize ${statusClass}`}>{status}</span>
+              </div>
+              <!-- Symbol -->
+              <div class="hidden md:block text-xs font-mono text-surface-500 dark:text-surface-400">{symbol || '—'}</div>
+              <!-- Actions -->
+              <div class="hidden md:block text-xs text-surface-500 dark:text-surface-400 truncate" title={actions}>{actions ? actions.slice(0, 30) + (actions.length > 30 ? '…' : '') : '—'}</div>
+              <!-- Link -->
+              <div class="text-center">
+                {website ? (
+                  <a href={website} target="_blank" rel="noopener nofollow" class="text-xs text-brand-500 hover:underline whitespace-nowrap">Visit →</a>
+                ) : (
+                  <span class="text-xs text-surface-300">—</span>
+                )}
               </div>
             </div>
-            <!-- Chain -->
-            <div class="hidden md:block text-xs text-surface-500 dark:text-surface-400">{a.chain}</div>
-            <!-- Snapshot -->
-            <div class="hidden md:block text-xs text-surface-500 dark:text-surface-400">{a.snapshot}</div>
-            <!-- Status -->
-            <div class="hidden md:block">
-              <span class={`inline-block px-2 py-0.5 text-[10px] font-semibold rounded-full ${statusColors[a.status]}`}>{a.status}</span>
-            </div>
-            <!-- Distribution -->
-            <div class="hidden md:block text-xs text-surface-500 dark:text-surface-400">{a.distribution}</div>
-            <!-- Link -->
-            <div class="text-center">
-              <a href={a.website} target="_blank" rel="noopener" class="text-xs text-brand-500 hover:underline">Visit →</a>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </section>
 
   <!-- Detailed cards -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 mb-4 flex items-center gap-2">
+      <span class="w-2 h-5 rounded-full bg-brand-500"></span>
+      All Airdrops
+    </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {airdrops.map((a: any) => (
-        <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 p-5 hover:border-brand-300 dark:hover:border-brand-600 transition-colors">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-full bg-brand-100 dark:bg-brand-900 flex items-center justify-center text-sm font-bold text-brand-600 dark:text-brand-400">
-                {a.symbol.charAt(0)}
+      {sortedAll.map((a: any) => {
+        const status = a.status || 'ongoing';
+        const statusClass = statusColors[status] || statusColors.ongoing;
+        const logo = a.logo || '';
+        const website = a.website || a.sourceUrl || '';
+        const actions = a.actions || '';
+        return (
+          <div class="bg-white dark:bg-surface-800 rounded-2xl border border-surface-200 dark:border-surface-700 p-5 hover:border-brand-300 dark:hover:border-brand-600 transition-colors">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-2.5">
+                {logo ? (
+                  <img src={logo} alt={a.project} class="w-9 h-9 rounded-full shrink-0 object-cover" loading="lazy"
+                    onerror={`this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex'`} />
+                ) : null}
+                <div class={`w-9 h-9 rounded-full shrink-0 flex items-center justify-center text-sm font-bold ${logo ? 'hidden' : 'flex'} bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-400`}>
+                  {a.project.charAt(0)}
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-surface-800 dark:text-surface-100">{a.project}</h3>
+                  <span class="text-xs text-surface-400">{a.symbol ? `$${a.symbol}` : ''} {a.category ? `· ${a.category}` : ''}</span>
+                </div>
               </div>
-              <div>
-                <h3 class="text-sm font-bold text-surface-800 dark:text-surface-100">{a.project}</h3>
-                <span class="text-xs text-surface-400">{a.symbol} · {a.chain}</span>
-              </div>
+              <span class={`inline-block px-2 py-0.5 text-[10px] font-semibold rounded-full capitalize ${statusClass}`}>{status}</span>
             </div>
-            <span class={`inline-block px-2 py-0.5 text-[10px] font-semibold rounded-full capitalize ${statusColors[a.status]}`}>{a.status}</span>
+            {/* Votes badge */}
+            {a.votes > 0 && (
+              <div class="flex items-center gap-1.5 mb-2 text-xs text-orange-500 font-semibold">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.83-1.67-3.83-3.73l.03-.36C5.44 8.29 4 11.01 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
+                {a.votes}° hotness
+              </div>
+            )}
+            {/* Actions */}
+            {actions && (
+              <div class="text-xs text-surface-500 dark:text-surface-400 mb-2 line-clamp-2">
+                <span class="font-semibold text-surface-600 dark:text-surface-300">Actions:</span> {actions}
+              </div>
+            )}
+            {/* Detail info */}
+            <div class="space-y-1.5 text-xs">
+              {a.chain && a.chain !== 'Multi-chain' && (
+                <div class="flex justify-between"><span class="text-surface-400">Chain</span><span class="text-surface-600 dark:text-surface-300">{a.chain}</span></div>
+              )}
+              {a.snapshot && a.snapshot !== 'TBA' && (
+                <div class="flex justify-between"><span class="text-surface-400">Snapshot</span><span class="text-surface-600 dark:text-surface-300">{a.snapshot}</span></div>
+              )}
+              {a.distribution && a.distribution !== 'TBA' && (
+                <div class="flex justify-between"><span class="text-surface-400">Distribution</span><span class="text-surface-600 dark:text-surface-300">{a.distribution}</span></div>
+              )}
+              {a.amount && a.amount !== 'TBA' && (
+                <div class="flex justify-between"><span class="text-surface-400">Amount</span><span class="text-surface-600 dark:text-surface-300 font-mono">{a.amount}</span></div>
+              )}
+              {a.funding && (
+                <div class="flex justify-between"><span class="text-surface-400">Funding</span><span class="text-surface-600 dark:text-surface-300 font-mono">{a.funding}</span></div>
+              )}
+            </div>
+            {a.eligibility && (
+              <p class="text-xs text-surface-500 dark:text-surface-400 mt-3 line-clamp-3">{a.eligibility}</p>
+            )}
+            <div class="flex gap-2 mt-3">
+              {website && (
+                <a href={website} target="_blank" rel="noopener nofollow" class="flex-1 text-center py-1.5 rounded-lg bg-brand-500 text-white text-xs font-semibold hover:bg-brand-600 transition-colors">
+                  Visit Project →
+                </a>
+              )}
+              <a href={a.sourceUrl || `https://airdrops.io/${a.id}/`} target="_blank" rel="noopener" class="flex-1 text-center py-1.5 rounded-lg bg-surface-100 dark:bg-surface-700 text-xs font-semibold text-surface-600 dark:text-surface-300 hover:bg-surface-200 dark:hover:bg-surface-600 transition-colors">
+                Details →
+              </a>
+            </div>
           </div>
-          <div class="space-y-1.5 text-xs">
-            <div class="flex justify-between"><span class="text-surface-400">Snapshot</span><span class="text-surface-600 dark:text-surface-300">{a.snapshot}</span></div>
-            <div class="flex justify-between"><span class="text-surface-400">Distribution</span><span class="text-surface-600 dark:text-surface-300">{a.distribution}</span></div>
-            <div class="flex justify-between"><span class="text-surface-400">Amount</span><span class="text-surface-600 dark:text-surface-300 font-mono">{a.amount}</span></div>
-          </div>
-          <p class="text-xs text-surface-500 dark:text-surface-400 mt-3">{a.eligibility}</p>
-          <p class="text-xs text-surface-400 mt-2 italic">{a.note}</p>
-          <a href={a.website} target="_blank" rel="noopener" class="block text-center mt-3 py-1.5 rounded-lg bg-surface-100 dark:bg-surface-700 text-xs font-semibold text-surface-600 dark:text-surface-300 hover:bg-brand-100 dark:hover:bg-brand-900 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
-            Visit Project →
-          </a>
-        </div>
-      ))}
+        );
+      })}
+    </div>
+  </section>
+
+  {/* Info note */}
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <div class="bg-surface-50 dark:bg-surface-800/50 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+      <h3 class="text-sm font-bold text-surface-700 dark:text-surface-200 mb-2">About Airdrops</h3>
+      <p class="text-xs text-surface-500 dark:text-surface-400 leading-relaxed">
+        A crypto airdrop is a free token distribution by projects to early users and community members. This page tracks active airdrops across all major chains, sourced from <a href="https://airdrops.io" target="_blank" rel="noopener" class="text-brand-500 hover:underline">airdrops.io</a> and cross-referenced with CoinGecko trending data. Data is auto-refreshed every 12 hours. Always verify on the official project website before participating — no real airdrop ever asks for your seed phrase.
+      </p>
     </div>
   </section>
 </Layout>

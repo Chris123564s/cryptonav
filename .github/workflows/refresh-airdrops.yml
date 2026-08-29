@@ -1,0 +1,43 @@
+name: Refresh Airdrops (airdrops.io)
+
+on:
+  schedule:
+    # 每 12 小时刷新一次（06:00 和 18:00 UTC）
+    - cron: '0 6,18 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Fetch latest airdrops from airdrops.io
+        env:
+          USE_PROXY: '0'
+          CI: 'true'
+        run: python scripts/fetch_airdrops.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/airdrops.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: refresh airdrops data (airdrops.io + CoinGecko, 12h)"
+            git push
+          fi
