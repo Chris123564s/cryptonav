@@ -7,8 +7,9 @@ const unlocks = (unlocksData as any).unlocks ?? unlocksData;
 // Sort by date
 const sorted = [...unlocks].sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-// Filter upcoming (date > now)
-const now = new Date('2026-02-01');
+// Filter upcoming (date > now). Live date so the Upcoming/Unlocked
+// partition tracks real time instead of freezing at a hard-coded date.
+const now = new Date();
 const upcoming = sorted.filter((u: any) => new Date(u.date) >= now);
 const past = sorted.filter((u: any) => new Date(u.date) < now);
 
