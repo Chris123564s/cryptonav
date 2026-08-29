@@ -1,64 +1,44 @@
 {
   "wins": [
     {
-      "symbol": "$Chomp",
-      "name": "Hungry Chomp",
-      "logo": "/logos/dex/BXRtLzupLS.png",
-      "address": "BXRtLzupLSdS4KNLLEwondWiprU7KS7wVqLNAVqppump",
+      "symbol": "BAILEY",
+      "name": "BAILEY",
+      "logo": "/logos/dex/DTdDsWkaXi.png",
+      "address": "DTdDsWkaXimkyMQgr6mKTiTfsuFQBM6dHS478N6Apump",
       "chain": "solana",
-      "change6h": 2475.0,
-      "price": 0.00124,
-      "date": "2026-08-28"
+      "change6h": 723.0,
+      "price": 0.0005145,
+      "date": "2026-08-29"
     },
     {
-      "symbol": "kash",
-      "name": "apewifkash",
-      "logo": "/logos/dex/A4FJQGuSmy.png",
-      "address": "A4FJQGuSmykD6erkywPrSkzCrGsxQPRFh3SAXN63pump",
+      "symbol": "CHILLAPE",
+      "name": "Chill Ape",
+      "logo": "/logos/dex/5mFZZzyUaw.png",
+      "address": "5mFZZzyUawGknigAxf3zkQQtSpnYqSGUg5bRz3b3pump",
       "chain": "solana",
-      "change6h": 350.0,
-      "price": 0.0001958,
-      "date": "2026-08-28"
+      "change6h": 231.0,
+      "price": 0.0001755,
+      "date": "2026-08-29"
     },
     {
-      "symbol": "BULLFART",
-      "name": "Bullfart Coin",
-      "logo": "/logos/dex/Av2KSwkP4R.png",
-      "address": "Av2KSwkP4RH5zkUzDL51NyWmsLsEpGZ2GEW8CU8Vpump",
+      "symbol": "nothing",
+      "name": "nothing",
+      "logo": "/logos/dex/GE8q5h6eSx.png",
+      "address": "GE8q5h6eSx5qf67A3DDatSPCtoLsqQqR58zuQmohpump",
       "chain": "solana",
-      "change6h": 234.0,
-      "price": 0.000256,
-      "date": "2026-08-28"
+      "change6h": 221.0,
+      "price": 0.0001389,
+      "date": "2026-08-29"
     },
     {
-      "symbol": "invest",
-      "name": "ape in invest",
-      "logo": "/logos/dex/GNGhPhcLt5.png",
-      "address": "GNGhPhcLt5HJ6WjUHQSYoY3KhBFsksxu6FpvLpCFpump",
-      "chain": "solana",
-      "change6h": 167.0,
-      "price": 0.0002521,
-      "date": "2026-08-28"
-    },
-    {
-      "symbol": "POKEMON",
-      "name": "Pokemon",
-      "logo": "/logos/dex/EhCzWhMyUA.png",
-      "address": "EhCzWhMyUAo87bQ663fV2A6reLhXgdhdcf9ynJV8pump",
-      "chain": "solana",
-      "change6h": 151.0,
-      "price": 0.0006005,
-      "date": "2026-08-28"
-    },
-    {
-      "symbol": "VAULT",
-      "name": "The Vault",
-      "logo": "/logos/dex/2hM4xUC3g3.png",
-      "address": "2hM4xUC3g3u1qcjf6GANPvQTZDa9kvjNkpFH2h6spump",
-      "chain": "solana",
-      "change6h": 72.6,
-      "price": 0.0003187,
-      "date": "2026-08-28"
+      "symbol": "AST",
+      "name": "ast.fun",
+      "logo": "/logos/dex/0x265B3982.png",
+      "address": "0x265B3982Ea730748100947F52561A4EAb54afFFF",
+      "chain": "bsc",
+      "change6h": 32.2,
+      "price": 0.0002453,
+      "date": "2026-08-29"
     },
     {
       "symbol": "ANTSEM",
@@ -66,19 +46,39 @@
       "logo": "/logos/dex/DuVgdHeEk7.png",
       "address": "DuVgdHeEk7ejWPxWY5G3PQA99oEGGLmnbWuWWxpEpump",
       "chain": "solana",
-      "change6h": 67.5,
-      "price": 0.0007038,
-      "date": "2026-08-28"
+      "change6h": 19.8,
+      "price": 0.000475,
+      "date": "2026-08-29"
     },
     {
-      "symbol": "AFD",
-      "name": "Ansem Fart Dust ",
-      "logo": "/logos/dex/9uEeSZSdxM.png",
-      "address": "9uEeSZSdxMm1PaoqQ1VNDwcuDMM9RHqkp2p89Je5pump",
+      "symbol": "cat",
+      "name": "just a cat",
+      "logo": "/logos/dex/24GWZn5Her.png",
+      "address": "24GWZn5HerwLTVoZuC3H7Kxg6jLFMvroA1hTU4uWpump",
       "chain": "solana",
-      "change6h": 12.6,
-      "price": 8.605e-05,
-      "date": "2026-08-28"
+      "change6h": 1.4,
+      "price": 0.0005651,
+      "date": "2026-08-29"
+    },
+    {
+      "symbol": "ZSWAP",
+      "name": "ZygoSwap",
+      "logo": "/logos/dex/0x2e44aB95.png",
+      "address": "0x2e44aB95549b8a12AFDB970bde5A6a78365e4444",
+      "chain": "bsc",
+      "change6h": -0.2,
+      "price": 0.0008887,
+      "date": "2026-08-29"
+    },
+    {
+      "symbol": "CHUMP",
+      "name": "Chump Coin",
+      "logo": "/logos/dex/0x0E0d2C89.png",
+      "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
+      "chain": "robinhood",
+      "change6h": -4.2,
+      "price": 0.02136,
+      "date": "2026-08-29"
     }
   ]
 }
