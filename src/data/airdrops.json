@@ -43,7 +43,7 @@
       "eligibility": "for a potential Nado airdrop in 2026.",
       "amount": "$200,000",
       "snapshot": "TBA",
-      "distribution": "2026-08-28",
+      "distribution": "2026-08-30",
       "website": "https://app.nado.xyz",
       "funding": "",
       "note": "",
@@ -368,7 +368,7 @@
       "eligibility": "in the Push Chain Airdrop",
       "amount": "16%",
       "snapshot": "TBA",
-      "distribution": "2026-08-28",
+      "distribution": "2026-08-30",
       "website": "https://portal.push.org",
       "funding": "",
       "note": "",
@@ -492,8 +492,8 @@
       "chain": "Multi-chain",
       "eligibility": "in the Canopy Network Airdrop (Ended)",
       "amount": "$8.5 m",
-      "snapshot": "2026-08-28",
-      "distribution": "2026-08-28",
+      "snapshot": "2026-08-30",
+      "distribution": "2026-08-30",
       "website": "https://app.canopynetwork.org",
       "funding": "",
       "note": "",
@@ -740,13 +740,13 @@
       "category": "L",
       "symbol": "RTM",
       "chain": "on X",
+      "website": "https://discord.com",
+      "note": "",
       "eligibility": "in Retium’s Testnet Access Program",
       "amount": "TBA",
       "snapshot": "TBA",
       "distribution": "2026-08-20",
-      "website": "https://discord.com",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
       "updatedAt": "2026-08-30"
     },
@@ -1001,7 +1001,7 @@
       "updatedAt": "2026-08-30"
     }
   ],
-  "lastFetched": "2026-08-30T10:50:20.350813+00:00",
+  "lastFetched": "2026-08-30T20:11:35.401569+00:00",
   "source": "airdrops.io + CoinGecko",
   "totalTracked": 40
 }
