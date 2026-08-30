@@ -22,6 +22,8 @@
 </section>
 
 <script>
+  import { CG_BASE } from '../utils/coingecko';
+
   const REFRESH = 60000; // 60s
 
   function fmtPrice(v: number): string {
@@ -61,7 +63,7 @@
     const grid = document.getElementById('radar-grid');
     if (!grid) return;
     try {
-      const tRes = await fetch('https://api.coingecko.com/api/v3/search/trending');
+      const tRes = await fetch(`${CG_BASE}/search/trending`);
       if (!tRes.ok) throw new Error('trending fail');
       const tJson = await tRes.json();
       const coins = (tJson.coins || []).map((x: any) => x.item);
@@ -71,7 +73,7 @@
       let priceMap: Record<string, any> = {};
       if (ids) {
         try {
-          const pRes = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
+          const pRes = await fetch(`${CG_BASE}/simple/price?ids=${ids}&vs_currencies=usd&include_24hr_change=true`);
           if (pRes.ok) priceMap = await pRes.json();
         } catch (e) { /* 忽略，用 trending 自带数据 */ }
       }

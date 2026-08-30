@@ -61,6 +61,8 @@ function fmtPrice(v: number | null | undefined): string {
 </section>
 
 <script>
+  import { CG_BASE } from '../utils/coingecko';
+
   const REFRESH = 60000; // 60s auto-refresh
 
   function fmtPrice(v: number): string {
@@ -75,7 +77,7 @@ function fmtPrice(v: number | null | undefined): string {
     const ids = [...new Set(nowEls.map(el => el.dataset.id).filter(Boolean))] as string[];
     if (!ids.length) return;
     try {
-      const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(',')}&vs_currencies=usd&include_24hr_change=true`);
+      const res = await fetch(`${CG_BASE}/simple/price?ids=${ids.join(',')}&vs_currencies=usd&include_24hr_change=true`);
       if (!res.ok) return;
       const data = await res.json();
       for (const [id, pd] of Object.entries<any>(data)) {

@@ -85,6 +85,7 @@ const ranges = [
 
 <script>
   import { tickerCoins } from '../utils/data';
+  import { CG_BASE } from '../utils/coingecko';
 
   type CoinMeta = { id: string; symbol: string; name: string; image: string };
   const COINS: CoinMeta[] = tickerCoins.map(c => ({ id: c.id, symbol: c.symbol, name: c.name, image: c.image }));
@@ -135,10 +136,11 @@ const ranges = [
     return null;
   }
 
-  // CoinGecko's public API is heavily rate-limited (HTTP 429). Retry once on
-  // 429 with a short backoff before giving up.
+  // Requests go through our edge-cached /api/cg proxy, so a 429 here means
+  // CoinGecko is rate-limiting even the proxy. Retry once with a short backoff
+  // before giving up.
   async function fetchMarketChart(coinId: string, days: number): Promise<any> {
-    const url = `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`;
+    const url = `${CG_BASE}/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`;
     for (let attempt = 0; attempt <= 1; attempt++) {
       const res = await fetch(url);
       if (res.ok) return await res.json();

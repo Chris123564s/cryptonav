@@ -39,11 +39,17 @@ const coinIds = tickerCoins.map(c => c.id).join(',');
 <script is:inline define:vars={{ coinIds }}>
   const TICKER_IDS = coinIds;
   const UPDATE_INTERVAL = 60000; // 60 秒
+  // Production goes through our edge-cached /api/cg proxy (see
+  // functions/api/cg). `astro dev` has no Pages Functions, so fall back to the
+  // direct API on localhost.
+  const CG = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+    ? 'https://api.coingecko.com/api/v3'
+    : '/api/cg';
 
   async function fetchPrices() {
     if (!TICKER_IDS) return;
     try {
-      const url = `https://api.coingecko.com/api/v3/simple/price?ids=${TICKER_IDS}&vs_currencies=usd&include_24hr_change=true`;
+      const url = `${CG}/simple/price?ids=${TICKER_IDS}&vs_currencies=usd&include_24hr_change=true`;
       const res = await fetch(url);
       if (!res.ok) return;
       const data = await res.json();
