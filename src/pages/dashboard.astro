@@ -141,7 +141,7 @@ const coins = tickerCoins.map(c => ({ id: c.id, symbol: c.symbol, name: c.name, 
 </Layout>
 
 <script>
-  import { CG_BASE } from '../utils/coingecko';
+  import { cgFetch } from '../utils/coingecko';
 
   const REFRESH = 60000;
 
@@ -192,7 +192,7 @@ const coins = tickerCoins.map(c => ({ id: c.id, symbol: c.symbol, name: c.name, 
   // BTC Dominance + Global Market
   async function fetchGlobal() {
     try {
-      const res = await fetch(`${CG_BASE}/global`);
+      const res = await cgFetch('/global');
       const data = await res.json();
       const g = data.data;
       const dom = g.market_cap_percentage.btc;
@@ -257,7 +257,7 @@ const coins = tickerCoins.map(c => ({ id: c.id, symbol: c.symbol, name: c.name, 
   // Top Gainers & Losers
   async function fetchMovers() {
     try {
-      const res = await fetch(`${CG_BASE}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h`);
+      const res = await cgFetch('/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h');
       const data = await res.json();
       const sorted = [...data].sort((a, b) => (b.price_change_percentage_24h || 0) - (a.price_change_percentage_24h || 0));
       const gainers = sorted.slice(0, 8);
@@ -296,7 +296,7 @@ const coins = tickerCoins.map(c => ({ id: c.id, symbol: c.symbol, name: c.name, 
   // Trending
   async function fetchTrending() {
     try {
-      const res = await fetch(`${CG_BASE}/search/trending`);
+      const res = await cgFetch('/search/trending');
       const data = await res.json();
       const coins = (data.coins || []).slice(0, 9);
       const container = document.getElementById('trending-list');

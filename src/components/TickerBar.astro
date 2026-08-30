@@ -39,18 +39,34 @@ const coinIds = tickerCoins.map(c => c.id).join(',');
 <script is:inline define:vars={{ coinIds }}>
   const TICKER_IDS = coinIds;
   const UPDATE_INTERVAL = 60000; // 60 秒
-  // Production goes through our edge-cached /api/cg proxy (see
-  // functions/api/cg). `astro dev` has no Pages Functions, so fall back to the
-  // direct API on localhost.
+  // Production prefers the edge-cached /api/cg proxy (see functions/api/cg).
+  // `astro dev` has no Pages Functions, so use the direct API on localhost.
+  const CG_DIRECT = 'https://api.coingecko.com/api/v3';
   const CG = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
-    ? 'https://api.coingecko.com/api/v3'
+    ? CG_DIRECT
     : '/api/cg';
+  // CoinGecko rate-limits by IP and Cloudflare's shared egress IPs are often
+  // throttled, so once the edge fails we stop trying it for this page's life
+  // instead of wasting a round trip on every poll.
+  var cgEdgeDown = false;
+  function cgGet(path) {
+    if (cgEdgeDown || CG === CG_DIRECT) return fetch(CG_DIRECT + path);
+    return fetch(CG + path).then(function (res) {
+      if (res.status === 429 || res.status >= 500) {
+        cgEdgeDown = true;
+        return fetch(CG_DIRECT + path);
+      }
+      return res;
+    }, function () {
+      cgEdgeDown = true;
+      return fetch(CG_DIRECT + path);
+    });
+  }
 
   async function fetchPrices() {
     if (!TICKER_IDS) return;
     try {
-      const url = `${CG}/simple/price?ids=${TICKER_IDS}&vs_currencies=usd&include_24hr_change=true`;
-      const res = await fetch(url);
+      const res = await cgGet(`/simple/price?ids=${TICKER_IDS}&vs_currencies=usd&include_24hr_change=true`);
       if (!res.ok) return;
       const data = await res.json();
 

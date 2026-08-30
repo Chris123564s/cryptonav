@@ -121,5 +121,48 @@ const d365 = await call(`${BASE}/coins/y/market_chart?vs_currency=usd&days=365`,
 check('TTL days=1', ttlOf(d1), '300');
 check('TTL days=365', ttlOf(d365), '21600');
 
+// ---------------------------------------------------------------------------
+// Client-side fallback: src/utils/coingecko.ts -> cgFetch()
+// Separate URL-aware mock so we can fail the proxy independently of upstream.
+// ---------------------------------------------------------------------------
+let proxyStatus = 200;
+let proxyCalls = 0;
+let directCalls = 0;
+
+globalThis.fetch = async (url) => {
+  const u = String(url);
+  if (u.startsWith('/api/cg')) {
+    proxyCalls++;
+    return proxyStatus === 200
+      ? new Response(JSON.stringify({ via: 'edge' }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+      : new Response('nope', { status: proxyStatus });
+  }
+  directCalls++;
+  return new Response(JSON.stringify({ via: 'direct' }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+};
+
+const { cgFetch, CG_BASE } = await import('../src/utils/coingecko.ts');
+
+check('CG_BASE is the proxy in production', CG_BASE, '/api/cg');
+
+// proxy healthy -> only the proxy is used
+let cr = await cgFetch('/global');
+check('proxy ok -> via edge', (await cr.json()).via, 'edge');
+check('proxy ok -> proxy calls', proxyCalls, 1);
+check('proxy ok -> direct calls', directCalls, 0);
+
+// proxy rate-limited -> fall back to the visitor's own IP
+proxyStatus = 429;
+cr = await cgFetch('/simple/price?ids=bitcoin');
+check('proxy 429 -> via direct', (await cr.json()).via, 'direct');
+check('proxy 429 -> direct called', directCalls, 1);
+
+// once the edge proved unusable, stop knocking on it for this page's life
+const proxyBefore = proxyCalls;
+await cgFetch('/global');
+await cgFetch('/search/trending');
+check('edge marked down -> proxy not retried', proxyCalls, proxyBefore);
+
+// a real 4xx from the proxy is a real answer: do not silently go direct
 console.log(`\n${results.filter(Boolean).length}/${results.length} passed`);
 process.exit(results.every(Boolean) ? 0 : 1);
