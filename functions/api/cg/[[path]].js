@@ -69,8 +69,16 @@ function buildResponse(body, status, contentType, cacheControl, extra = {}) {
   });
 }
 
-function jsonError(message, status) {
-  return buildResponse(JSON.stringify({ error: message }), status, 'application/json', 'no-store');
+function jsonError(message, status, extra = {}) {
+  return buildResponse(JSON.stringify({ error: message }), status, 'application/json', 'no-store', extra);
+}
+
+// Reported as X-CG-Auth so you can confirm from a plain curl whether a key is
+// wired up, without ever exposing the key itself.
+function authMode(env) {
+  if (env.COINGECKO_PRO_API_KEY) return 'pro-key';
+  if (env.COINGECKO_API_KEY) return 'demo-key';
+  return 'none';
 }
 
 async function fetchUpstream(url, env) {
@@ -109,6 +117,7 @@ export async function onRequestGet(context) {
     return jsonError('endpoint not allowed', 403);
   }
 
+  const auth = authMode(env);
   const incoming = new URL(request.url);
   const upstreamUrl = `${UPSTREAM}/${path}${incoming.search}`;
   const ttl = ttlFor(path, incoming);
@@ -122,6 +131,7 @@ export async function onRequestGet(context) {
   if (fresh) {
     return buildResponse(fresh.body, 200, fresh.headers.get('Content-Type'), `public, max-age=${ttl}`, {
       'X-CG-Cache': 'HIT',
+      'X-CG-Auth': auth,
     });
   }
 
@@ -150,7 +160,10 @@ export async function onRequestGet(context) {
         cache.put(staleKey, buildResponse(body, 200, contentType, `public, max-age=${STALE_TTL}`)),
       ])
     );
-    return buildResponse(body, 200, contentType, `public, max-age=${ttl}`, { 'X-CG-Cache': 'MISS' });
+    return buildResponse(body, 200, contentType, `public, max-age=${ttl}`, {
+      'X-CG-Cache': 'MISS',
+      'X-CG-Auth': auth,
+    });
   }
 
   // 3) Upstream failed or rate-limited — serve the last known good response.
@@ -158,11 +171,14 @@ export async function onRequestGet(context) {
   if (stale) {
     return buildResponse(stale.body, 200, stale.headers.get('Content-Type'), 'no-store', {
       'X-CG-Cache': 'STALE',
+      'X-CG-Auth': auth,
     });
   }
 
   const status = err ? 504 : result.status === 429 ? 429 : 502;
-  return jsonError(err ? 'upstream timeout' : 'upstream unavailable', status);
+  return jsonError(err ? 'upstream timeout' : 'upstream unavailable', status, {
+    'X-CG-Auth': auth,
+  });
 }
 
 export async function onRequestOptions() {

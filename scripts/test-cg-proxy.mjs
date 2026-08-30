@@ -39,12 +39,12 @@ globalThis.fetch = async () => {
 
 const mod = await import('../functions/api/cg/[[path]].js');
 
-function makeCtx(url, path) {
+function makeCtx(url, path, env = {}) {
   const pending = [];
   return {
     ctx: {
       request: new Request(url),
-      env: {},
+      env,
       params: { path },
       waitUntil: (p) => pending.push(p),
     },
@@ -54,8 +54,8 @@ function makeCtx(url, path) {
   };
 }
 
-async function call(url, path) {
-  const { ctx, flush } = makeCtx(url, path);
+async function call(url, path, env) {
+  const { ctx, flush } = makeCtx(url, path, env);
   const res = await mod.onRequestGet(ctx);
   await flush();
   return res;
@@ -75,10 +75,20 @@ check('cold MISS -> X-CG-Cache', r.headers.get('X-CG-Cache'), 'MISS');
 check('cold MISS -> upstream calls', upstreamCalls, 1);
 check('cold MISS -> 200', r.status, 200);
 
+// 1b) X-CG-Auth reports whether a key is wired up, without exposing it
+check('no key -> X-CG-Auth', r.headers.get('X-CG-Auth'), 'none');
+const withKey = await call(
+  `${BASE}/coins/keyed/market_chart?vs_currency=usd&days=1`,
+  'coins/keyed/market_chart',
+  { COINGECKO_API_KEY: 'CG-not-a-real-key' }
+);
+check('demo key -> X-CG-Auth', withKey.headers.get('X-CG-Auth'), 'demo-key');
+
 // 2) warm hit -> no extra upstream call
+const beforeWarm = upstreamCalls;
 r = await call(`${BASE}/coins/bitcoin/market_chart?vs_currency=usd&days=1`, 'coins/bitcoin/market_chart');
 check('warm HIT -> X-CG-Cache', r.headers.get('X-CG-Cache'), 'HIT');
-check('warm HIT -> upstream still 1', upstreamCalls, 1);
+check('warm HIT -> no extra upstream call', upstreamCalls, beforeWarm);
 
 // 3) concurrent misses on the SAME url must collapse into one upstream call
 upstreamCalls = 0;
