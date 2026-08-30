@@ -11,6 +11,26 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 - 调度：GitHub Actions 每6小时增量采集，每天全量刷新，每周死链检测
 - **涨跌颜色惯例：国际惯例（绿=涨，红=跌）**，不用中国惯例
 
+## 实时行情数据架构（重要）
+
+浏览器端行情组件（MarketChart / TickerBar / CurrentPicks / NewTokensRadar / dashboard）
+统一走 `src/utils/coingecko.ts` 的 `cgFetch()`，双路取数：
+
+1. **优先** `/api/cg/*` —— Cloudflare Pages Function（`functions/api/cg/[[path]].js`），
+   边缘缓存 + 并发去重 + 24h 陈旧兜底。一次上游请求服务所有访客。
+2. **回退** 访客自己的 IP 直连 CoinGecko —— 当边缘返回 429/5xx 时触发；
+   一旦边缘失败，本页生命周期内不再重试边缘。
+
+**为什么需要回退（线上实测结论）**：CoinGecko 免费档按 IP 限流，而 Cloudflare 数据中心
+出口 IP 被海量 Worker 共用，长期被限流。实测同一时刻：边缘连续 5 次 429， residential IP
+直连连续 3 次 200。无 key 时边缘缓存永远填不满 → 代理 100% 无用。
+
+**彻底解法**：注册 CoinGecko 免费 Demo key，在 Cloudflare Pages 配环境变量
+`COINGECKO_API_KEY`（Pro 用 `COINGECKO_PRO_API_KEY`）。限流从「按 IP」变「按 key」，
+边缘缓存才真正生效。代码已支持，配好 key 无需改任何代码。
+
+回归测试：`npm run test:cg`（`scripts/test-cg-proxy.mjs`，21 条断言，mock Cache API + mock 上游）。
+
 ## 文档产出
 - `CryptoNav-产品方案.md` — 完整产品方案（定位/功能/架构/技术/路线图）
 - `CryptoNav-数据采集方案.md` — 数据自动采集与录入实现方案
