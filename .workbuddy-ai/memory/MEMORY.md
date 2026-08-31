@@ -31,6 +31,37 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 
 回归测试：`npm run test:cg`（`scripts/test-cg-proxy.mjs`，21 条断言，mock Cache API + mock 上游）。
 
+## 部署架构（2026-08-31 修复后，重要）
+
+### 根因与现状
+- `public/_routes.json` 缺 `"exclude": []` 导致**所有**部署在发布阶段被拒一整天。
+  云文档说 exclude 可选，Wrangler 源码（`isRoutesJSONSpec()`）要求 include 和 exclude
+  必须都是数组。Pages 自带构建器只报 `Failed to publish assets`，Wrangler 会直说
+  `Invalid _routes.json`。已修复并加 `scripts/check-routes-json.mjs` 常驻校验
+  （规则抄自 Wrangler 4.127.1 源码，**注释里写明了为什么不能照文档"简化"**）。
+- `_routes.json` 是 `5c5b60a`（8-31 12:31）引入的，**同一个 bug 同时打挂了 Pages 自带
+  Git 集成**。现已双双恢复并实证（见下）。
+
+### ⚠️ 待决策：当前每次 push 会被构建两次
+现在有两条**都能工作**的部署通道：Pages 自带 Git 集成 + Wrangler workflow
+（`.github/workflows/deploy-pages.yml`，13 步，纯 `workflow_dispatch` 手动触发）。
+二选一，方案已写在 workflow 文件顶部注释里：
+- **A（推荐）** 保留 Wrangler → 在 CF 后台断开 Pages Git 集成，并取消注释 `push: branches: [main]`
+- **B** 保留 Pages Git 集成 → 删掉这个 workflow，但故障又只剩 "an internal error occurred"
+
+### CI 警告纪律（约定）
+**健康的流水线必须是零警告。** 无法判断的检查只能输出普通日志行（`note()`），
+不能进 Annotations 面板；`::warning::` 只留给可行动的情况。
+典型反例：本站用的是 account 级 dashboard token，`/user/tokens/verify` 返回空的
+`permission_groups`，导致"有没有 Pages 权限"的提示每次都响 → 成功部署看起来像坏的。
+已用 `scripts/test-cloudflare-token.mjs`（12 用例，断言**精确警告数**）锁死。
+
+### 边缘代理实测（2026-08-31 21:00，单次观测，非趋势）
+`/api/cg/simple/price?ids=bitcoin&vs_currencies=usd` → `{"bitcoin":{"usd":77867}}`，
+边缘返回 200。与上方"无 key 时代理 100% 无用"的旧结论不一致，需要重新压测确认
+是限流放宽还是缓存命中，再决定是否仍需 CoinGecko key。
+`/api/cg/ping` 返回 403 是 CoinGecko 免费档自身限流，代码未使用该端点。
+
 ## 文档产出
 - `CryptoNav-产品方案.md` — 完整产品方案（定位/功能/架构/技术/路线图）
 - `CryptoNav-数据采集方案.md` — 数据自动采集与录入实现方案
