@@ -9,6 +9,9 @@ node_modules/
 .env
 .env.local
 .env.*.local
+# wrangler / Pages Functions local secrets (COINGECKO_API_KEY, GITHUB_OAUTH_*)
+.dev.vars
+.dev.vars.*
 
 # Astro
 .astro/
