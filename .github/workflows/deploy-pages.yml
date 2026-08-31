@@ -55,17 +55,38 @@ jobs:
           [ "$missing" -eq 0 ] || exit 1
           echo "secrets ok; project=$CLOUDFLARE_PAGES_PROJECT branch=$DEPLOY_BRANCH"
 
-      # Ask Cloudflare whether the token is live before spending three deploy
-      # attempts on it. A wrong scope, a read-only grant or a typo'd value all
-      # look identical downstream: wrangler just fails, three times, without
-      # saying why. This names the problem instead.
+      # Checkout MUST come before the two verification steps below: both run
+      # scripts out of the repository, so on a runner that has not checked out
+      # yet they fail with "can't open file" and no useful annotation. (This
+      # bit us once -- the only symptom was a bare
+      # "Process completed with exit code 1" with no error text.)
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      # Ask Cloudflare whether the token is live before spending an npm ci, a
+      # build and three deploy attempts on it. A wrong scope, a read-only grant
+      # or a typo'd value all look identical downstream: wrangler just fails,
+      # three times, without saying why. This names the problem instead.
       #
       # Keep the logic in scripts/verify-cloudflare-token.mjs rather than inline:
       # it needs real branching (read vs write grants, account scope, expiry),
       # and inline `node -e` inside YAML is impossible to test and easy to break
       # with shell expansion.
       - name: Verify the API token with Cloudflare
-        run: node scripts/verify-cloudflare-token.mjs
+        run: |
+          # Guard against the failure mode that cost a whole CI run once: if the
+          # script is not there, `node` dies with "can't open file" on stderr,
+          # which produces no annotation at all -- just a bare
+          # "Process completed with exit code 1". Say what is wrong instead.
+          if [ ! -f scripts/verify-cloudflare-token.mjs ]; then
+            echo "::error::scripts/verify-cloudflare-token.mjs not found -- checkout did not produce it"
+            exit 1
+          fi
+          node scripts/verify-cloudflare-token.mjs
 
       # `wrangler pages deploy` with an unknown --project-name does not error:
       # it silently creates a brand new Pages project. That project has no
@@ -109,14 +130,8 @@ jobs:
             });
           '
 
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
       - name: Build
         run: npm run build
