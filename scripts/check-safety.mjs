@@ -100,6 +100,8 @@ for (const [id, s] of all) {
       && (s.dimensions.longevity || s.dimensions.contract),
       `rated score rests on at least two dimensions: ${id}`);
     ok(s.grade !== 'unrated', `rated score has a letter grade: ${id}`);
+    // Partial verification must not be able to produce a perfect score.
+    if (s.coverage < 100) ok(s.score < 100, `score below 100 at partial coverage: ${id} (${s.score} at ${s.coverage}%)`);
   } else {
     ok(s.grade === 'unrated', `unrated score is labelled unrated: ${id}`);
     ok(s.unratedReason, `unrated score explains itself: ${id}`);
@@ -134,6 +136,24 @@ ok(report.counts.withDomainAge >= Math.floor(projects.length * 0.8),
   `domain age covers at least 80% of projects (got ${report.counts.withDomainAge}/${projects.length})`);
 ok(report.counts.rated >= Math.floor(projects.length * 0.8),
   `at least 80% of projects are rated (got ${report.counts.rated}/${projects.length})`);
+
+/*
+ * A score that cannot tell two projects apart is not measuring anything. When
+ * the coverage cap was a hard ceiling, 33 of 62 rated projects landed on
+ * exactly 75 and the /verify index became a wall of identical numbers. This
+ * guard fails if any single score ever covers more than a third of the
+ * directory again.
+ */
+{
+  const scores = all.filter(([, s]) => s.score !== null).map(([, s]) => s.score);
+  const counts = new Map();
+  for (const v of scores) counts.set(v, (counts.get(v) ?? 0) + 1);
+  const [modeScore, modeCount] = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
+  ok(modeCount <= Math.max(3, Math.floor(scores.length / 3)),
+    `no single score dominates the distribution (${modeCount} of ${scores.length} sit at ${modeScore})`);
+  ok(counts.size >= Math.floor(scores.length / 3),
+    `scores are spread across enough distinct values (${counts.size} distinct for ${scores.length} projects)`);
+}
 
 /* --- report --- */
 console.log(`curated incidents: ${curatedCount} across ${Object.keys(INCIDENTS).length} projects`);

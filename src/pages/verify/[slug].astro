@@ -290,9 +290,10 @@ const dims = [
         Checks that returned no data are dropped and their weight redistributed, so a project without a
         token is not penalised for not having one. At least two of three checks must succeed before any
         score is published at all — a single dimension is not a safety score.
-        {s.score !== null && s.score >= s.coverage && (
-          <strong> This score is capped at {s.coverage}, the share of the rubric we were able to check —
-          we would rather publish a lower number than imply we verified more than we did.</strong>
+        {s.score !== null && s.coverage < 100 && (
+          <strong> Only {s.coverage}% of the rubric could be checked here, so the score is pulled
+          toward 50 for the part we could not verify — however clean the checks that did run, a partial
+          result cannot reach a perfect score.</strong>
         )}
       </div>
     </div>

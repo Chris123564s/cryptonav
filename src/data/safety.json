@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T05:55:22.213Z",
+  "generatedAt": "2026-08-31T07:00:32.299Z",
   "method": "https://cryptonav.site/verify#method",
   "weights": {
     "longevity": 35,
@@ -430,7 +430,7 @@
       "theblock.co": {
         "domain": "theblock.co",
         "error": "no-rdap-service",
-        "fetchedAt": 1788155704148
+        "fetchedAt": 1788159613512
       },
       "coindesk.com": {
         "domain": "coindesk.com",
@@ -551,379 +551,379 @@
         "domain": "binance.com",
         "firstSeenAt": null,
         "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788155712160
+        "fetchedAt": 1788159621522
       },
       "okx.com": {
         "domain": "okx.com",
         "firstSeenAt": null,
         "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788155712163
+        "fetchedAt": 1788159621525
       },
       "bybit.com": {
         "domain": "bybit.com",
         "firstSeenAt": null,
         "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "coinbase.com": {
         "domain": "coinbase.com",
         "firstSeenAt": null,
         "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788155720176
+        "fetchedAt": 1788159629531
       },
       "kraken.com": {
         "domain": "kraken.com",
         "firstSeenAt": null,
         "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788155720177
+        "fetchedAt": 1788159629531
       },
       "gate.io": {
         "domain": "gate.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "bitget.com": {
         "domain": "bitget.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "mexc.com": {
         "domain": "mexc.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "uniswap.org": {
         "domain": "uniswap.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "pancakeswap.finance": {
         "domain": "pancakeswap.finance",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "curve.fi": {
         "domain": "curve.fi",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "sushi.com": {
         "domain": "sushi.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "1inch.io": {
         "domain": "1inch.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "dydx.exchange": {
         "domain": "dydx.exchange",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "metamask.io": {
         "domain": "metamask.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "phantom.app": {
         "domain": "phantom.app",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "rabby.io": {
         "domain": "rabby.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "trustwallet.com": {
         "domain": "trustwallet.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "ledger.com": {
         "domain": "ledger.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "trezor.io": {
         "domain": "trezor.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "safe.global": {
         "domain": "safe.global",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "coingecko.com": {
         "domain": "coingecko.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "coinmarketcap.com": {
         "domain": "coinmarketcap.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "dexscreener.com": {
         "domain": "dexscreener.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "dune.com": {
         "domain": "dune.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "defillama.com": {
         "domain": "defillama.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "etherscan.io": {
         "domain": "etherscan.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712166
+        "fetchedAt": 1788159621528
       },
       "solscan.io": {
         "domain": "solscan.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "aave.com": {
         "domain": "aave.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "compound.finance": {
         "domain": "compound.finance",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "makerdao.com": {
         "domain": "makerdao.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "lido.fi": {
         "domain": "lido.fi",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "yearn.fi": {
         "domain": "yearn.fi",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "stargate.finance": {
         "domain": "stargate.finance",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "across.to": {
         "domain": "across.to",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "opensea.io": {
         "domain": "opensea.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "blur.io": {
         "domain": "blur.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "magiceden.io": {
         "domain": "magiceden.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "ethereum.org": {
         "domain": "ethereum.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "solana.com": {
         "domain": "solana.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "bnbchain.org": {
         "domain": "bnbchain.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "arbitrum.io": {
         "domain": "arbitrum.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "optimism.io": {
         "domain": "optimism.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "base.org": {
         "domain": "base.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "openzeppelin.com": {
         "domain": "openzeppelin.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "certik.com": {
         "domain": "certik.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "rekt.news": {
         "domain": "rekt.news",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "cointelegraph.com": {
         "domain": "cointelegraph.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "theblock.co": {
         "domain": "theblock.co",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "coindesk.com": {
         "domain": "coindesk.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "tokeninsight.com": {
         "domain": "tokeninsight.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "coinmarketcal.com": {
         "domain": "coinmarketcal.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "koinly.io": {
         "domain": "koinly.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "zerion.io": {
         "domain": "zerion.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "debank.com": {
         "domain": "debank.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "airdrops.io": {
         "domain": "airdrops.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "ave.ai": {
         "domain": "ave.ai",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "gmgn.ai": {
         "domain": "gmgn.ai",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "dextools.io": {
         "domain": "dextools.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "arkhamintelligence.com": {
         "domain": "arkhamintelligence.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "nansen.ai": {
         "domain": "nansen.ai",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "bullx.io": {
         "domain": "bullx.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       },
       "tinyastro.io": {
         "domain": "tinyastro.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788155712167
+        "fetchedAt": 1788159621528
       }
     },
     "tokens": {
@@ -1167,7 +1167,7 @@
       },
       "arkham": {
         "error": "no-result",
-        "fetchedAt": 1788155722203
+        "fetchedAt": 1788159632288
       }
     },
     "hacks": [
@@ -11186,8 +11186,8 @@
         },
         "contract": null
       },
-      "score": 72,
-      "grade": "B",
+      "score": 67,
+      "grade": "C",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -11233,7 +11233,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -11282,7 +11282,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -11294,7 +11294,7 @@
         },
         "contract": null
       },
-      "score": 58,
+      "score": 60,
       "grade": "C",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -11353,7 +11353,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 84,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -11390,7 +11390,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -11402,7 +11402,7 @@
         },
         "contract": null
       },
-      "score": 63,
+      "score": 64,
       "grade": "C",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -11440,7 +11440,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 84,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -11477,7 +11477,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -11489,7 +11489,7 @@
         },
         "contract": null
       },
-      "score": 58,
+      "score": 60,
       "grade": "C",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -11515,7 +11515,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -11527,7 +11527,7 @@
         },
         "contract": null
       },
-      "score": 72,
+      "score": 70,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -11819,7 +11819,7 @@
       ],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -11835,8 +11835,8 @@
           "weight": 25
         }
       },
-      "score": 67,
-      "grade": "C",
+      "score": 71,
+      "grade": "B",
       "coverage": 100,
       "verifiedChecks": 3,
       "totalChecks": 3,
@@ -12023,8 +12023,8 @@
         },
         "contract": null
       },
-      "score": 75,
-      "grade": "B",
+      "score": 88,
+      "grade": "A",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -12061,7 +12061,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -12099,7 +12099,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -12136,7 +12136,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -12195,7 +12195,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -12245,8 +12245,8 @@
         },
         "contract": null
       },
-      "score": 75,
-      "grade": "B",
+      "score": 88,
+      "grade": "A",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -12335,8 +12335,8 @@
         },
         "contract": null
       },
-      "score": 75,
-      "grade": "B",
+      "score": 88,
+      "grade": "A",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -12373,8 +12373,8 @@
         },
         "contract": null
       },
-      "score": 75,
-      "grade": "B",
+      "score": 88,
+      "grade": "A",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -12411,7 +12411,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -12437,7 +12437,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -12449,7 +12449,7 @@
         },
         "contract": null
       },
-      "score": 72,
+      "score": 70,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -12487,7 +12487,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -12525,8 +12525,8 @@
         },
         "contract": null
       },
-      "score": 75,
-      "grade": "B",
+      "score": 88,
+      "grade": "A",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -12563,7 +12563,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -12622,7 +12622,7 @@
       ],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -12638,7 +12638,7 @@
           "weight": 25
         }
       },
-      "score": 71,
+      "score": 74,
       "grade": "B",
       "coverage": 100,
       "verifiedChecks": 3,
@@ -13092,7 +13092,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 76,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13184,7 +13184,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 73,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13222,8 +13222,8 @@
         },
         "contract": null
       },
-      "score": 75,
-      "grade": "B",
+      "score": 88,
+      "grade": "A",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -13248,7 +13248,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -13260,7 +13260,7 @@
         },
         "contract": null
       },
-      "score": 72,
+      "score": 70,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13298,7 +13298,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13432,7 +13432,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -13444,7 +13444,7 @@
         },
         "contract": null
       },
-      "score": 72,
+      "score": 70,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13482,8 +13482,8 @@
         },
         "contract": null
       },
-      "score": 75,
-      "grade": "B",
+      "score": 88,
+      "grade": "A",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -13508,7 +13508,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -13520,7 +13520,7 @@
         },
         "contract": null
       },
-      "score": 72,
+      "score": 70,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13558,7 +13558,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13596,8 +13596,8 @@
         },
         "contract": null
       },
-      "score": 75,
-      "grade": "B",
+      "score": 88,
+      "grade": "A",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -13656,7 +13656,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -13668,7 +13668,7 @@
         },
         "contract": null
       },
-      "score": 72,
+      "score": 70,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13706,7 +13706,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 84,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13744,7 +13744,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 84,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13782,7 +13782,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 84,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13831,7 +13831,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13857,7 +13857,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 12,
+          "score": 15,
           "max": 30,
           "weight": 35
         },
@@ -13869,7 +13869,7 @@
         },
         "contract": null
       },
-      "score": 72,
+      "score": 70,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13907,7 +13907,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 84,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13945,7 +13945,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 84,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13983,7 +13983,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 73,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -14021,7 +14021,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -14059,7 +14059,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -14097,7 +14097,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -14135,7 +14135,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 73,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -14173,7 +14173,7 @@
         },
         "contract": null
       },
-      "score": 75,
+      "score": 73,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,

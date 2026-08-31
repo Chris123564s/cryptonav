@@ -320,10 +320,23 @@ function scoreLongevity(rdap, wb, now) {
     age = regY;
     basis = 'domain-registration';
     if (reg && Date.parse(reg) / 1000 < CRYPTO_EPOCH) {
-      // The domain predates Bitcoin entirely: it cannot be measuring this
-      // project. Keep the weak "not a new domain" signal only.
+      /*
+       * The domain predates Bitcoin, so its registration date says nothing
+       * about when this project launched. solana.com (1993) is not evidence
+       * that Solana has operated for three decades.
+       *
+       * The tempting move is to score this harshly — a 0.4 multiplier looks
+       * like appropriate caution. It is not: it charges the project for a gap
+       * in *our* data, not for risk in the project. That put Solana, DeBank,
+       * Dune and CoinDesk — none of which has a recorded incident — on the
+       * same score as Binance, which has lost $610M across two.
+       *
+       * Absent evidence, assume average. 0.5 is the midpoint of the scale, so
+       * an uninformative date neither rewards nor punishes, and the project is
+       * still ranked below one whose age we can actually verify.
+       */
       confidence = 'low';
-      discount = 0.4;
+      discount = 0.5;
       note = 'domain predates Bitcoin and was almost certainly bought second-hand, so its registration date says nothing about how long the project has operated';
     } else {
       // A plausible registration date is real evidence that the domain is not
@@ -409,6 +422,27 @@ const MAX = { longevity: 30, incidents: 35, contract: 20 };
  */
 const MIN_COVERAGE = 50;
 
+/**
+ * What we assume about a dimension we could not verify.
+ *
+ * The previous model capped `total` at `coverage`, on the reasoning that a
+ * project should not outscore the share of the rubric we could check. The
+ * intent was right and the mechanism was wrong: with 45 of 63 projects sitting
+ * at 75% coverage, the cap pinned 33 of them at exactly 75. Half the directory
+ * carried an identical score, which is worse than any single inflated number —
+ * it tells a visitor the metric is decorative.
+ *
+ * Shrinking toward a prior keeps the intent and restores discrimination. A
+ * project we know less about is pulled toward "we don't know", so partial data
+ * still cannot produce a perfect score, but two projects with different
+ * records no longer collapse onto the same number.
+ *
+ * 50 is the midpoint: where we have no evidence we assume average, which
+ * neither rewards nor punishes. Calibration run: at 55, 26 of 62 projects came
+ * out grade A, which overstates what three automated checks can justify.
+ */
+const PRIOR = 50;
+
 function combine(dims) {
   const present = Object.entries(dims).filter(([, v]) => v && v.score !== null && v.score !== undefined);
   const w = present.reduce((a, [k]) => a + WEIGHTS[k], 0);
@@ -423,17 +457,15 @@ function combine(dims) {
       unratedReason: `only ${present.length} of ${Object.keys(WEIGHTS).length} checks produced data`,
     };
   }
-  // A project can never outscore the share of the rubric we were able to check.
-  // Without this cap, every project with a clean incident record scored a
-  // perfect 100 — on a page whose own disclaimer says it is not an audit. A
-  // number like that is indefensible, and one indefensible number costs more
-  // credibility than every honest number earned.
   const raw = Math.round(
     present.reduce((a, [k, v]) => a + (v.score / MAX[k]) * 100 * (WEIGHTS[k] / w), 0),
   );
-  const total = Math.min(raw, coverage);
+  const share = coverage / 100;
+  const total = Math.round(raw * share + PRIOR * (1 - share));
   return {
     total,
+    raw,
+    prior: PRIOR,
     grade: total >= 85 ? 'A' : total >= 70 ? 'B' : total >= 55 ? 'C' : total >= 40 ? 'D' : 'E',
     coverage,
     verifiedChecks: present.length,
