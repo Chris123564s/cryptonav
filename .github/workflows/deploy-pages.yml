@@ -55,14 +55,31 @@ name: Deploy to Cloudflare Pages (Wrangler)
 #      maintenance, but a failure goes back to being "an internal error
 #      occurred" with no diagnostics.
 #
-# Until that is settled the trigger stays manual, which at least keeps the two
-# paths from racing each other on the same commit.
+# DECISION 2026-08-31: option A. The `push:` trigger below is live, so this
+# workflow now deploys every push to main.
+#
+#   !! ONE REMAINING MANUAL STEP, NOT DONE FROM HERE !!
+#   The Pages Git integration is still connected, so until it is disconnected
+#   in the Cloudflare dashboard every push is built and published TWICE -- once
+#   by Pages and once here. Disconnect it:
+#       Cloudflare dashboard > Workers & Pages > cryptonav
+#       > Settings > Builds & deployments > Disconnect
+#   Publishing the same commit from two places is not harmful but it doubles
+#   the build minutes and, worse, gives two places to look when a deploy looks
+#   wrong. Disconnecting does not delete the project or the custom domain.
+#
+# No `paths-ignore` on purpose. Docs and .workbuddy-ai/** memory notes do not
+# affect the site, so filtering them would save build minutes -- but it also
+# creates a "I pushed and nothing deployed" class of confusion, which is
+# exactly the kind of silent failure this file has spent a day learning to
+# avoid. CI minutes are free for this public repo. Every push to main deploys;
+# boring and predictable beats clever.
 
 on:
-  # Option A (see above): enable this once the Pages Git integration is
-  # disconnected, so a push deploys exactly once.
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
+
+  # Manual deploy, and the only way to publish a non-main branch as a preview.
   workflow_dispatch:
     inputs:
       branch:
@@ -73,6 +90,14 @@ on:
 permissions:
   contents: read
 
+# Serialise deploys. Five scheduled data-refresh workflows push to main
+# throughout the day, so with a push trigger several can queue up.
+#
+# cancel-in-progress stays FALSE deliberately: cancelling a run mid-upload
+# could orphan a partially published deployment, and each of these runs is
+# short. Queueing also means the newest commit is the one that ends up live,
+# which is what you want -- cancelling an older in-flight run in favour of a
+# newer one would achieve the same thing with more risk.
 concurrency:
   group: wrangler-pages-deploy
   cancel-in-progress: false
