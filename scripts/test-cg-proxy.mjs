@@ -131,6 +131,22 @@ const d365 = await call(`${BASE}/coins/y/market_chart?vs_currency=usd&days=365`,
 check('TTL days=1', ttlOf(d1), '300');
 check('TTL days=365', ttlOf(d365), '21600');
 
+// 8) path handling — Cloudflare Pages passes multi-segment catch-all params as
+// an ARRAY of segments. Regression: every endpoint except /global returned 403
+// live because String(['simple','price']) === 'simple,price'.
+const up = `${BASE}/simple/price?ids=bitcoin`;
+store.clear();
+check('path as array', (await call(up, ['simple', 'price'])).status, 200);
+store.clear();
+check('path as comma string', (await call(up, 'simple,price')).status, 200);
+store.clear();
+check('path as slash string', (await call(up, 'simple/price')).status, 200);
+store.clear();
+const deep = `${BASE}/coins/bitcoin/market_chart?vs_currency=usd&days=7`;
+check('3-segment path as array', (await call(deep, ['coins', 'bitcoin', 'market_chart'])).status, 200);
+store.clear();
+check('unknown path still blocked', (await call(`${BASE}/ping`, ['ping'])).status, 403);
+
 // ---------------------------------------------------------------------------
 // Client-side fallback: src/utils/coingecko.ts -> cgFetch()
 // Separate URL-aware mock so we can fail the proxy independently of upstream.

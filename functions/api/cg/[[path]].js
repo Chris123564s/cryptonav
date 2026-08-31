@@ -109,9 +109,20 @@ async function fetchUpstream(url, env) {
   }
 }
 
+// Cloudflare Pages hands a multi-segment catch-all param over as an ARRAY of
+// segments (['simple','price']), not a slash-joined string. String() would
+// flatten that to "simple,price", which silently fails the allowlist — every
+// endpoint except single-segment /global returned 403 on the live site.
+function normalisePath(raw) {
+  if (Array.isArray(raw)) return raw.join('/');
+  const s = String(raw ?? '');
+  // Defensive: some runtimes hand over "a,b" instead of "a/b".
+  return s.includes('/') ? s : s.split(',').join('/');
+}
+
 export async function onRequestGet(context) {
   const { request, env, params } = context;
-  const path = String(params.path || '').replace(/^\/+|\/+$/g, '');
+  const path = normalisePath(params.path).replace(/^\/+|\/+$/g, '');
 
   if (!ALLOWED.some((re) => re.test(path))) {
     return jsonError('endpoint not allowed', 403);
