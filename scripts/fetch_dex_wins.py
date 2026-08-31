@@ -2,6 +2,13 @@ import urllib.request, json, time, datetime, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'src', 'data', 'wins.json')
+LOGO_DIR = os.path.join(ROOT, 'public', 'logos', 'dex')
+
+# 代币图标体积上限。正常 logo 一般 5–50 KB；超过这个数的基本都是动画 GIF
+# 或超高分辨率图。别放宽这个值：2026-08-31 就是因为 dex logo 攒到 45 MB，
+# dist 涨到 67 MB，Cloudflare Pages 构建能过但 "Failed to publish assets"，
+# 整个站部署不上去。
+MAX_LOGO_BYTES = 200 * 1024
 
 # 本地开发走代理；CI(如 GitHub Actions)直连
 PROXY = os.environ.get('CRYPTONAV_PROXY', 'http://127.0.0.1:10809')
@@ -18,8 +25,52 @@ def get(url):
     return json.loads(op.open(req, timeout=25).read())
 
 
+def image_ext(data):
+    """按魔数判断真实图片格式，返回扩展名；不是已知图片则返回 None。
+
+    DexScreener 的 header 图有相当比例是动画 GIF（单文件实测最大 7.46 MB），
+    以前一律存成 .png，既掩盖了真实体积，也让按大小排查时看不出问题。
+    """
+    if data[:8] == b'\x89PNG\r\n\x1a\n':
+        return 'png'
+    if data[:6] in (b'GIF87a', b'GIF89a'):
+        return 'gif'
+    if data[:3] == b'\xff\xd8\xff':
+        return 'jpg'
+    if data[:4] == b'RIFF' and data[8:12] == b'WEBP':
+        return 'webp'
+    if b'<svg' in data[:512]:
+        return 'svg'
+    return None
+
+
+def prune_logos(keep):
+    """删掉本次没用上的旧 logo。
+
+    每天刷新都会往 LOGO_DIR 加新文件，不清理的话几个月就能攒到上百个 /
+    几十 MB —— 这就是部署挂掉的直接原因。所以每次采集完顺手清一遍。
+    """
+    keep = {os.path.basename(k) for k in keep if k}
+    removed = 0
+    freed = 0
+    for name in os.listdir(LOGO_DIR):
+        if name in keep:
+            continue
+        p = os.path.join(LOGO_DIR, name)
+        if not os.path.isfile(p):
+            continue
+        try:
+            freed += os.path.getsize(p)
+            os.remove(p)
+            removed += 1
+        except OSError:
+            pass
+    if removed:
+        print(f'pruned {removed} stale dex logo(s), freed {freed / 1024:.0f} KB')
+
+
 def fetch_top(limit=8, min_liq=20000):
-    logo_dir = os.path.join(ROOT, 'public', 'logos', 'dex')
+    logo_dir = LOGO_DIR
     os.makedirs(logo_dir, exist_ok=True)
     boosts = get('https://api.dexscreener.com/token-boosts/top/v1')
     rows = []
@@ -49,11 +100,14 @@ def fetch_top(limit=8, min_liq=20000):
             logo = ''
             remote = b.get('header') or ''
             if remote:
-                fname = f"{addr[:10]}.png"
                 try:
                     req = urllib.request.Request(remote, headers={'User-Agent': 'Mozilla/5.0'})
                     img = op.open(req, timeout=20).read()
-                    if len(img) > 200:
+                    ext = image_ext(img)
+                    # 只收真正是图片、且体积正常的。超限的一律丢弃，
+                    # 页面会退回首字母兜底，比拖垮整个部署划算得多。
+                    if ext and 200 < len(img) <= MAX_LOGO_BYTES:
+                        fname = f"{addr[:10]}.{ext}"
                         with open(os.path.join(logo_dir, fname), 'wb') as f:
                             f.write(img)
                         logo = f'/logos/dex/{fname}'
@@ -100,3 +154,5 @@ if __name__ == '__main__':
     print(f'Wrote {len(top)} tokens to {OUT} and {PUB}')
     for r in top:
         print(f"  {r['symbol']:10} {r['change6h']:+.1f}%")
+    # 清掉本轮没用上的旧 logo，避免 dist 逐日膨胀
+    prune_logos([r['logo'] for r in top])

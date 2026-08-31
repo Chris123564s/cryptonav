@@ -29,6 +29,12 @@ jobs:
           CI: 'true'
         run: python scripts/fetch_dex_wins.py
 
+      # 安全网：即便上面的采集中途失败，也保证 dex logo 目录不残留孤儿文件。
+      # 2026-08-31 就是因为这个目录攒到 45 MB、dist 涨到 67 MB，
+      # 导致 Cloudflare Pages 发布资源失败、整个站部署不上去。
+      - name: Prune stale dex logos
+        run: python scripts/prune-dex-logos.py
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"

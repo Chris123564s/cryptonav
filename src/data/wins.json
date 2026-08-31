@@ -43,7 +43,7 @@
     {
       "symbol": "catgirl",
       "name": "Cat Girl",
-      "logo": "/logos/dex/GUhxjTzQz2.png",
+      "logo": "",
       "address": "GUhxjTzQz2hw4A7mnLGU5TpTPQxkLtWURwJnEgoLpump",
       "chain": "solana",
       "change6h": 15.6,
@@ -53,7 +53,7 @@
     {
       "symbol": "CHUMP",
       "name": "Chump Coin",
-      "logo": "/logos/dex/0x0E0d2C89.png",
+      "logo": "",
       "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
       "chain": "robinhood",
       "change6h": 8.6,
