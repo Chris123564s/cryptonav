@@ -6,7 +6,12 @@ import { tickerCoins } from '../utils/data';
 const coins = tickerCoins.map(c => ({ id: c.id, symbol: c.symbol, name: c.name, image: c.image }));
 ---
 
-<Layout title="Crypto Market Dashboard - Live Prices, Fear & Greed, Gas Tracker | CryptoNav" description="Live crypto market dashboard: Fear & Greed Index, BTC dominance, Ethereum gas prices, top gainers and losers, and trending tokens. Updated every minute." canonical="https://cryptonav.site/dashboard">
+<Layout
+  title="Crypto Market Dashboard - Live Prices, Fear & Greed, Gas Tracker | CryptoNav"
+  description="Live crypto market dashboard: Fear & Greed Index, BTC dominance, Ethereum gas prices, top gainers and losers, and trending tokens. Updated every minute."
+  canonical="https://cryptonav.site/dashboard"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Dashboard' }]}
+>
   <!-- Breadcrumb -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <nav class="flex items-center gap-2 text-xs text-surface-400">

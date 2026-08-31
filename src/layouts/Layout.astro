@@ -2,6 +2,8 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { breadcrumbList, type Crumb } from '../utils/schema';
 
 interface Props {
   title?: string;
@@ -9,6 +11,10 @@ interface Props {
   showHeader?: boolean;
   showFooter?: boolean;
   canonical?: string;
+  /** Visual breadcrumb trail; also emitted as BreadcrumbList JSON-LD. */
+  breadcrumbs?: Crumb[];
+  /** Extra schema.org nodes for this page (object or array of objects). */
+  schema?: unknown;
 }
 
 const {
@@ -17,11 +23,18 @@ const {
   showHeader = true,
   showFooter = true,
   canonical = '',
+  breadcrumbs = [],
+  schema,
 } = Astro.props;
 
 const siteUrl = 'https://cryptonav.site';
 const canonicalUrl = canonical || siteUrl + Astro.url.pathname;
 const ogImage = `${siteUrl}/og-image.png`;
+
+// Breadcrumbs are optional; anything passed gets a BreadcrumbList node.
+const ldNodes: unknown[] = [];
+if (breadcrumbs.length > 0) ldNodes.push(breadcrumbList(breadcrumbs));
+if (schema) ldNodes.push(...(Array.isArray(schema) ? schema : [schema]));
 ---
 
 <!DOCTYPE html>
@@ -52,6 +65,9 @@ const ogImage = `${siteUrl}/og-image.png`;
 
     <!-- Canonical -->
     <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Structured data (JSON-LD) -->
+    <JsonLd schema={ldNodes} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

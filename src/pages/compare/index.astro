@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import comparisonsData from '../../data/comparisons.json';
+import { collectionPage, itemList } from '../../utils/schema';
 
 const comparisons = (comparisonsData as any).comparisons ?? comparisonsData;
 const grouped: Record<string, any[]> = {};
@@ -9,9 +10,33 @@ comparisons.forEach((c: any) => {
   if (!grouped[c.category]) grouped[c.category] = [];
   grouped[c.category].push(c);
 });
+
+const compareIndexSchema = [
+  collectionPage({
+    name: 'Crypto Comparisons & Reviews 2026',
+    description:
+      'Compare the best crypto exchanges, wallets, DeFi platforms, and tools. Side-by-side comparisons with fees, features, pros and cons.',
+    url: '/compare',
+  }),
+  itemList({
+    name: 'Crypto comparison guides',
+    url: '/compare',
+    items: comparisons.map((c: any) => ({
+      name: c.title,
+      url: `/compare/${c.slug}`,
+      description: c.metaDescription || c.summary,
+    })),
+  }),
+];
 ---
 
-<Layout title="Crypto Comparisons & Reviews 2026 - CryptoNav" description="Compare the best crypto exchanges, wallets, DeFi platforms, and tools. Side-by-side comparisons with fees, features, pros and cons." canonical="https://cryptonav.site/compare">
+<Layout
+  title="Crypto Comparisons & Reviews 2026 - CryptoNav"
+  description="Compare the best crypto exchanges, wallets, DeFi platforms, and tools. Side-by-side comparisons with fees, features, pros and cons."
+  canonical="https://cryptonav.site/compare"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Compare' }]}
+  schema={compareIndexSchema}
+>
   <!-- Breadcrumb -->
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <nav class="flex items-center gap-2 text-xs text-surface-400">

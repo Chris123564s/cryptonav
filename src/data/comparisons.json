@@ -2,6 +2,8 @@
   "comparisons": [
     {
       "slug": "binance-vs-coinbase",
+      "publishedAt": "2026-08-28",
+      "updatedAt": "2026-08-29",
       "title": "Binance vs Coinbase: Which Crypto Exchange Is Better in 2026?",
       "metaDescription": "Binance vs Coinbase comparison: fees, supported coins, security, staking rewards, and more. Find out which crypto exchange is right for you.",
       "category": "Exchanges",
@@ -80,6 +82,8 @@
     },
     {
       "slug": "ledger-vs-trezor",
+      "publishedAt": "2026-08-28",
+      "updatedAt": "2026-08-29",
       "title": "Ledger vs Trezor: Best Hardware Wallet Comparison 2026",
       "metaDescription": "Ledger vs Trezor hardware wallet comparison: security, supported coins, price, and features. Find the best cold wallet for your crypto.",
       "category": "Wallets",
@@ -155,6 +159,8 @@
     },
     {
       "slug": "uniswap-vs-pancakeswap",
+      "publishedAt": "2026-08-28",
+      "updatedAt": "2026-08-29",
       "title": "Uniswap vs PancakeSwap: Top DEX Comparison 2026",
       "metaDescription": "Uniswap vs PancakeSwap DEX comparison: fees, liquidity, supported chains, features. Find the best decentralized exchange for your trades.",
       "category": "DeFi",
@@ -231,6 +237,8 @@
     },
     {
       "slug": "metamask-vs-trust-wallet",
+      "publishedAt": "2026-08-28",
+      "updatedAt": "2026-08-29",
       "title": "MetaMask vs Trust Wallet: Best Crypto Wallet Comparison 2026",
       "metaDescription": "MetaMask vs Trust Wallet comparison: security, supported chains, DeFi access, DApp browser, and staking. Find the best crypto wallet for your needs.",
       "category": "Wallets",
@@ -310,6 +318,8 @@
     },
     {
       "slug": "best-crypto-exchanges-2026",
+      "publishedAt": "2026-08-28",
+      "updatedAt": "2026-08-29",
       "title": "Best Crypto Exchanges in 2026: Top 10 Ranked & Reviewed",
       "metaDescription": "Compare the top 10 crypto exchanges in 2026 by fees, security, coins, and features. Find the best exchange for your trading needs.",
       "category": "Exchanges",

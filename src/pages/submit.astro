@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Submit Project - CryptoNav">
+<Layout title="Submit Project - CryptoNav" breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Submit Project' }]}>
   <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <h1 class="text-2xl font-bold text-surface-800 dark:text-surface-100 mb-2">Submit a Project</h1>
     <p class="text-sm text-surface-500 dark:text-surface-400 mb-8">Found a great project? Submit it to us and it will go live after review</p>

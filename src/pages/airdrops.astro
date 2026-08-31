@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import AdBanner from '../components/AdBanner.astro';
 import airdropsData from '../data/airdrops.json';
+import { collectionPage, itemList } from '../utils/schema';
 
 const data = airdropsData as any;
 const airdrops = data.airdrops ?? data;
@@ -31,9 +32,43 @@ const statusColors: Record<string, string> = {
   ended: 'bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-400',
   rumored: 'bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400',
 };
+
+// Structured data.
+// Only CONFIRMED / ONGOING airdrops are listed — "rumored" entries are
+// speculative and "ended" ones are dead ends, neither belongs in a public
+// ItemList that Google may surface as a rich result.
+const listedAirdrops = sortedAll
+  .filter((a: any) => a.status === 'confirmed' || a.status === 'ongoing')
+  .slice(0, 30);
+
+const airdropsSchema = [
+  collectionPage({
+    name: 'Crypto Airdrop Calendar 2026',
+    description:
+      'Track confirmed and upcoming crypto airdrops. Snapshot dates, eligibility criteria, distribution details, and claiming guides.',
+    url: '/airdrops',
+  }),
+  itemList({
+    name: 'Confirmed and upcoming crypto airdrops',
+    url: '/airdrops',
+    items: listedAirdrops.map((a: any) => ({
+      name: a.project,
+      url: a.claimUrl || a.sourceUrl || a.website,
+      description: [a.actions, a.eligibility, a.amount ? `Reward: ${a.amount}` : '']
+        .filter(Boolean)
+        .join(' — '),
+    })),
+  }),
+].filter((node: any) => node['@type'] !== 'ItemList' || node.numberOfItems > 0);
 ---
 
-<Layout title="Crypto Airdrop Calendar 2026 - Confirmed & Upcoming Airdrops | CryptoNav" description="Track confirmed and upcoming crypto airdrops. Snapshot dates, eligibility criteria, distribution details, and claiming guides for all major airdrops." canonical="https://cryptonav.site/airdrops">
+<Layout
+  title="Crypto Airdrop Calendar 2026 - Confirmed & Upcoming Airdrops | CryptoNav"
+  description="Track confirmed and upcoming crypto airdrops. Snapshot dates, eligibility criteria, distribution details, and claiming guides for all major airdrops."
+  canonical="https://cryptonav.site/airdrops"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Airdrops' }]}
+  schema={airdropsSchema}
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <nav class="flex items-center gap-2 text-xs text-surface-400">
       <a href="/" class="hover:text-brand-500">Home</a>

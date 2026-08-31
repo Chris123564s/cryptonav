@@ -13,7 +13,8 @@
     "test:subscribe": "node scripts/test-subscribe.mjs",
     "test:build": "node scripts/check-faq-newsletter.mjs",
     "test:ads": "node scripts/check-ad-slots.mjs",
-    "test": "npm run test:cg && npm run test:subscribe && npm run build && npm run test:build && npm run test:ads"
+    "test:jsonld": "node scripts/check-jsonld.mjs",
+    "test": "npm run test:cg && npm run test:subscribe && npm run build && npm run test:build && npm run test:ads && npm run test:jsonld"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.2.1",

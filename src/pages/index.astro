@@ -11,13 +11,32 @@ import SuccessCases from '../components/SuccessCases.astro';
 import FeaturedCarousel from '../components/FeaturedCarousel.astro';
 import CategoryGrid from '../components/CategoryGrid.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { getLatestProjects, getActiveProjects } from '../utils/data';
+import { getLatestProjects, getActiveProjects, getReferralUrl } from '../utils/data';
+import { organization, webSite, itemList } from '../utils/schema';
 
 const latestProjects = getLatestProjects(12);
 const totalProjects = getActiveProjects().length;
+
+// Structured data: site identity + the newest directory entries.
+// NOTE: directory items intentionally point at the external site — there is no
+// /project/* detail page, so emitting one here would create a dead URL.
+const homeSchema = [
+  organization(),
+  webSite(),
+  itemList({
+    name: 'Newly listed crypto projects on CryptoNav',
+    url: '/',
+    description: `Hand-reviewed crypto resources across exchanges, wallets, DeFi, NFTs and market tools (${totalProjects} total).`,
+    items: latestProjects.map((p) => ({
+      name: p.name,
+      url: getReferralUrl(p),
+      description: p.description,
+    })),
+  }),
+];
 ---
 
-<Layout>
+<Layout schema={homeSchema}>
   <TickerBar />
 
   <!-- Hero -->

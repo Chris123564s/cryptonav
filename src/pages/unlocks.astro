@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import AdBanner from '../components/AdBanner.astro';
 import unlocksData from '../data/unlocks.json';
+import { collectionPage, itemList } from '../utils/schema';
 
 const unlocks = (unlocksData as any).unlocks ?? unlocksData;
 // Sort by date
@@ -46,9 +47,42 @@ function iconMarkup(u: any) {
   const initial = (u.token || '?').charAt(0);
   return { logo, initial };
 }
+
+// Structured data. Only UPCOMING unlocks go in the ItemList: a vesting event
+// that already happened is history, not something a searcher can act on.
+// NOTE: this is computed at build time, so GitHub Actions' nightly rebuild
+// keeps the list honest as dates pass.
+const listedUnlocks = upcoming
+  .slice(0, 30)
+  .map((u: any) => ({
+    name: `${u.project} (${u.token}) token unlock`,
+    url: u.website,
+    description: `${u.amount} (${u.percentSupply} of supply) unlocks on ${u.date}${u.value ? ` — ${u.value}` : ''}${u.note ? `. ${u.note}` : ''}`,
+  }))
+  .filter((it: any) => Boolean(it.url));
+
+const unlocksSchema = [
+  collectionPage({
+    name: 'Token Unlock Calendar 2026',
+    description:
+      'Track upcoming token unlocks and vesting schedules. Dates, amounts, percentages of supply, and estimated value for all major crypto token releases.',
+    url: '/unlocks',
+  }),
+  itemList({
+    name: 'Upcoming crypto token unlocks',
+    url: '/unlocks',
+    items: listedUnlocks,
+  }),
+].filter((node: any) => node['@type'] !== 'ItemList' || node.numberOfItems > 0);
 ---
 
-<Layout title="Token Unlock Calendar 2026 - Vesting & Release Schedule | CryptoNav" description="Track upcoming token unlocks and vesting schedules. Dates, amounts, percentages of supply, and estimated value for all major crypto token releases." canonical="https://cryptonav.site/unlocks">
+<Layout
+  title="Token Unlock Calendar 2026 - Vesting & Release Schedule | CryptoNav"
+  description="Track upcoming token unlocks and vesting schedules. Dates, amounts, percentages of supply, and estimated value for all major crypto token releases."
+  canonical="https://cryptonav.site/unlocks"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Unlocks' }]}
+  schema={unlocksSchema}
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <nav class="flex items-center gap-2 text-xs text-surface-400">
       <a href="/" class="hover:text-brand-500">Home</a>

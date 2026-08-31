@@ -1,0 +1,39 @@
+---
+/**
+ * Renders schema.org structured data as <script type="application/ld+json">.
+ *
+ * Accepts a single node or an array. Multiple nodes are folded into one
+ * @graph so a page only carries one script tag and one @context.
+ *
+ * Escaping: <, > and & are escaped to unicode so that user-submitted content
+ * (project descriptions, article text) can never break out of the script tag.
+ */
+interface Props {
+  schema: unknown;
+}
+
+const { schema } = Astro.props;
+
+const items = (Array.isArray(schema) ? schema : [schema]).filter(
+  (n) => n && typeof n === 'object',
+) as Record<string, unknown>[];
+
+let payload: unknown = null;
+if (items.length === 1) {
+  payload = items[0];
+} else if (items.length > 1) {
+  payload = {
+    '@context': 'https://schema.org',
+    '@graph': items.map(({ '@context': _ctx, ...rest }) => rest),
+  };
+}
+
+const json = payload
+  ? JSON.stringify(payload)
+      .replace(/</g, '\\u003c')
+      .replace(/>/g, '\\u003e')
+      .replace(/&/g, '\\u0026')
+  : '';
+---
+
+{json && <script type="application/ld+json" set:html={json} />}

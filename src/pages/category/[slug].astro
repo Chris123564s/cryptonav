@@ -3,7 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import { categories, getProjectsByParentCategory, getCategoryById } from '../../utils/data';
+import { categories, getProjectsByParentCategory, getCategoryById, getReferralUrl } from '../../utils/data';
+import { collectionPage, itemList } from '../../utils/schema';
 
 export async function getStaticPaths() {
   return categories.map(cat => ({
@@ -18,9 +19,32 @@ interface Props {
 
 const { category } = Astro.props;
 const projects = getProjectsByParentCategory(category.id);
+
+const categoryUrl = `/category/${category.slug}`;
+const categorySchema = [
+  collectionPage({
+    name: category.name,
+    description: category.description,
+    url: categoryUrl,
+  }),
+  itemList({
+    name: `Best ${category.name} projects and tools`,
+    url: categoryUrl,
+    items: projects.map((p) => ({
+      name: p.name,
+      url: getReferralUrl(p),
+      description: p.description,
+    })),
+  }),
+].filter((node: any) => node['@type'] !== 'ItemList' || node.numberOfItems > 0);
 ---
 
-<Layout title={`${category.name} - CryptoNav`} description={category.description}>
+<Layout
+  title={`${category.name} - CryptoNav`}
+  description={category.description}
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: category.name }]}
+  schema={categorySchema}
+>
   <!-- Breadcrumb -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <nav class="flex items-center gap-2 text-xs text-surface-400">

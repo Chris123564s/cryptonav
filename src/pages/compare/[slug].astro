@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import comparisonsData from '../../data/comparisons.json';
+import { article as articleSchema } from '../../utils/schema';
 
 export async function getStaticPaths() {
   const comparisons = (comparisonsData as any).comparisons ?? comparisonsData;
@@ -18,9 +19,28 @@ interface Props {
 const { comp } = Astro.props;
 const firstId = comp.contenders[0]?.name?.toLowerCase().replace(/\s/g, '') || 'a';
 const secondId = comp.contenders[1]?.name?.toLowerCase().replace(/\s/g, '') || 'b';
+
+const compareSchema = articleSchema({
+  headline: comp.title,
+  description: comp.metaDescription || comp.summary,
+  url: `/compare/${comp.slug}`,
+  datePublished: comp.publishedAt || '2026-08-28',
+  dateModified: comp.updatedAt || comp.publishedAt,
+  keywords: [comp.keyword],
+});
 ---
 
-<Layout title={comp.title} description={comp.metaDescription} canonical={`https://cryptonav.site/compare/${comp.slug}`}>
+<Layout
+  title={comp.title}
+  description={comp.metaDescription}
+  canonical={`https://cryptonav.site/compare/${comp.slug}`}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Compare', url: '/compare' },
+    { name: comp.title },
+  ]}
+  schema={compareSchema}
+>
   <!-- Breadcrumb -->
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <nav class="flex items-center gap-2 text-xs text-surface-400">

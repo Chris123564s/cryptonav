@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import learnData from '../../data/learn.json';
+import { collectionPage, itemList } from '../../utils/schema';
 
 const articles = (learnData as any).articles ?? learnData;
 
@@ -15,9 +16,33 @@ const catColors: Record<string, string> = {
   'Education': 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400',
   'Technology': 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400',
 };
+
+const learnIndexSchema = [
+  collectionPage({
+    name: 'Crypto Guides & Education',
+    description:
+      'Free crypto education guides. Learn what is staking, what is DeFi, how to read crypto charts, Ethereum Layer 2, and more.',
+    url: '/learn',
+  }),
+  itemList({
+    name: 'Crypto guides and explainers',
+    url: '/learn',
+    items: (articles as any[]).map((a: any) => ({
+      name: a.title,
+      url: `/learn/${a.slug}`,
+      description: a.description,
+    })),
+  }),
+];
 ---
 
-<Layout title="Crypto Guides & Education - Learn Crypto Basics | CryptoNav" description="Free crypto education guides. Learn what is staking, what is DeFi, how to read crypto charts, Ethereum Layer 2, and more. Beginner-friendly explanations." canonical="https://cryptonav.site/learn">
+<Layout
+  title="Crypto Guides & Education - Learn Crypto Basics | CryptoNav"
+  description="Free crypto education guides. Learn what is staking, what is DeFi, how to read crypto charts, Ethereum Layer 2, and more. Beginner-friendly explanations."
+  canonical="https://cryptonav.site/learn"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Learn' }]}
+  schema={learnIndexSchema}
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <nav class="flex items-center gap-2 text-xs text-surface-400">
       <a href="/" class="hover:text-brand-500">Home</a>

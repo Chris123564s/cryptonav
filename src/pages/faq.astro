@@ -2,31 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import AdBanner from '../components/AdBanner.astro';
 import faqData from '../data/faq.json';
+import { faqPage } from '../utils/schema';
 
 const groups = faqData.groups;
 const total = groups.reduce((n, g) => n + g.items.length, 0);
-
-// FAQPage structured data — the whole point is that Google can render these
-// directly in the results page, so every question/answer pair is emitted.
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: groups.flatMap((g) =>
-    g.items.map((item) => ({
-      '@type': 'Question',
-      name: item.q,
-      acceptedAnswer: { '@type': 'Answer', text: item.a },
-    }))
-  ),
-};
 ---
 
 <Layout
   title="FAQ - CryptoNav"
   description={`Answers to ${total} common questions about CryptoNav: how we pick projects, what Sponsored means, and the crypto basics — CEX vs DEX, hot vs cold wallets, staking, stablecoins, Layer 2 and staying safe from scams.`}
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'FAQ' }]}
+  schema={faqPage(groups)}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
     <nav class="flex items-center gap-2 text-xs text-surface-400 mb-6">

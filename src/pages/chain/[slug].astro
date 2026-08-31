@@ -2,7 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import { chains, getTokensByChain, getProjectsByChain, formatTokenPrice, formatMarketCap } from '../../utils/data';
+import { chains, getTokensByChain, getProjectsByChain, getReferralUrl, formatTokenPrice, formatMarketCap } from '../../utils/data';
+import { collectionPage, itemList } from '../../utils/schema';
 
 export async function getStaticPaths() {
   return chains.map(chain => ({
@@ -26,9 +27,46 @@ const chainProjects = getProjectsByChain(chain.id);
 const totalMarketCap = tokens.reduce((sum, t) => sum + (t.marketCap || 0), 0);
 const totalVolume = tokens.reduce((sum, t) => sum + (t.volume24h || 0), 0);
 const totalTvl = tokens.reduce((sum, t) => sum + (t.tvl || 0), 0);
+
+const chainUrl = `/chain/${chain.slug}`;
+// Cap the token ItemList: the page itself shows more, but structured data with
+// hundreds of near-identical nodes is noise and bloats the HTML.
+const topTokens = tokens.slice(0, 30);
+
+const chainSchema = [
+  collectionPage({
+    name: `${chain.name} Tokens & Prices`,
+    description: `Live prices, market cap, volume and 24h change for the top tokens on ${chain.name}.`,
+    url: chainUrl,
+  }),
+  itemList({
+    name: `Top ${chain.name} tokens by market cap`,
+    url: chainUrl,
+    items: topTokens.map((t) => ({
+      name: `${t.name} (${t.symbol.toUpperCase()})`,
+      url: t.website,
+      description: `${t.name} on ${chain.name} — price ${formatTokenPrice(t.price)}, market cap ${formatMarketCap(t.marketCap)}.`,
+    })),
+  }),
+  // Curated directory entries that actually work on this chain.
+  itemList({
+    name: `Best ${chain.name} projects and tools`,
+    url: chainUrl,
+    items: chainProjects.map((p) => ({
+      name: p.name,
+      url: getReferralUrl(p),
+      description: p.description,
+    })),
+  }),
+].filter((node: any) => node['@type'] !== 'ItemList' || node.numberOfItems > 0);
 ---
 
-<Layout title={`${chain.name} Tokens & Prices - CryptoNav`} description={`Live prices, market cap, volume, and 24h change for the top tokens on ${chain.name}. Browse ${tokens.length}+ ${chain.name} cryptocurrencies ranked by market cap.`}>
+<Layout
+  title={`${chain.name} Tokens & Prices - CryptoNav`}
+  description={`Live prices, market cap, volume, and 24h change for the top tokens on ${chain.name}. Browse ${tokens.length}+ ${chain.name} cryptocurrencies ranked by market cap.`}
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Chains', url: '/#chains' }, { name: chain.name }]}
+  schema={chainSchema}
+>
   <!-- Breadcrumb -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <nav class="flex items-center gap-2 text-xs text-surface-400">

@@ -21,15 +21,24 @@ check('newsletter page built', !!news, true);
 // FAQ
 check('faq JSON-LD present', /application\/ld\+json/.test(faq), true);
 check('faq JSON-LD is FAQPage', /"@type":"FAQPage"/.test(faq), true);
+// The FAQ page now goes through Layout.astro, so its structured data is emitted
+// inside a shared @graph alongside BreadcrumbList. Resolve the FAQPage node
+// instead of assuming the payload is a bare FAQPage.
 const ldMatch = faq.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
 let qCount = 0;
 if (ldMatch) {
   try {
     const ld = JSON.parse(ldMatch[1]);
-    qCount = ld.mainEntity.length;
+    const nodes = Array.isArray(ld['@graph']) ? ld['@graph'] : [ld];
+    const faqNode = nodes.find((n) => n['@type'] === 'FAQPage');
+    if (!faqNode) throw new Error('no FAQPage node in @graph');
+    qCount = faqNode.mainEntity.length;
     check('faq JSON-LD parses', true, true);
-    check('faq answers have text', ld.mainEntity.every((q) => q.acceptedAnswer.text.length > 40), true);
-  } catch { check('faq JSON-LD parses', false, true); }
+    check('faq answers have text', faqNode.mainEntity.every((q) => q.acceptedAnswer.text.length > 40), true);
+  } catch (e) {
+    check('faq JSON-LD parses', false, true);
+    console.error('   ↳ faq JSON-LD error:', e.message);
+  }
 }
 check('faq question count', qCount, 24);
 check('faq uses details/summary', (faq.match(/<details/g) || []).length, 24);

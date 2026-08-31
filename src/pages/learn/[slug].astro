@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import learnData from '../../data/learn.json';
+// aliased: the page already binds `article` to the current guide
+import { article as articleSchema } from '../../utils/schema';
 
 export function getStaticPaths() {
   const articles = (learnData as any).articles ?? learnData;
@@ -64,9 +66,29 @@ const catColors: Record<string, string> = {
   'Education': 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400',
   'Technology': 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400',
 };
+
+// Structured data for the guide.
+const learnSchema = articleSchema({
+  headline: article.title,
+  description: article.description,
+  url: `/learn/${article.slug}`,
+  datePublished: article.publishedAt,
+  authorName: article.author,
+  keywords: [article.keyword, ...(article.tags || [])],
+});
 ---
 
-<Layout title={`${article.title} | CryptoNav`} description={article.description} canonical={`https://cryptonav.site/learn/${article.slug}`}>
+<Layout
+  title={`${article.title} | CryptoNav`}
+  description={article.description}
+  canonical={`https://cryptonav.site/learn/${article.slug}`}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Learn', url: '/learn' },
+    { name: article.title },
+  ]}
+  schema={learnSchema}
+>
   <!-- Breadcrumb -->
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
     <nav class="flex items-center gap-2 text-xs text-surface-400">

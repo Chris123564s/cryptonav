@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="About - CryptoNav">
+<Layout title="About - CryptoNav" breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'About' }]}>
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <h1 class="text-2xl font-bold text-surface-800 dark:text-surface-100 mb-6">About CryptoNav</h1>
 
