@@ -1,74 +1,54 @@
 {
   "wins": [
     {
-      "symbol": "BAILEY",
-      "name": "BAILEY",
-      "logo": "/logos/dex/DTdDsWkaXi.png",
-      "address": "DTdDsWkaXimkyMQgr6mKTiTfsuFQBM6dHS478N6Apump",
+      "symbol": "Analyst",
+      "name": "Analyst",
+      "logo": "/logos/dex/0x3d07C81b.png",
+      "address": "0x3d07C81b65ea0414EFB533b4d196De0fa9A9c211",
+      "chain": "robinhood",
+      "change6h": 149.0,
+      "price": 0.000126,
+      "date": "2026-08-30"
+    },
+    {
+      "symbol": "pepescobar",
+      "name": "PEPE Escobar",
+      "logo": "",
+      "address": "F7TGmpDqNFKxhHGCMcHDzoyxwkNtuX2d4aTZuEwwpump",
       "chain": "solana",
-      "change6h": 723.0,
-      "price": 0.0005145,
-      "date": "2026-08-29"
+      "change6h": 50.0,
+      "price": 4.11e-05,
+      "date": "2026-08-30"
     },
     {
-      "symbol": "CHILLAPE",
-      "name": "Chill Ape",
-      "logo": "/logos/dex/5mFZZzyUaw.png",
-      "address": "5mFZZzyUawGknigAxf3zkQQtSpnYqSGUg5bRz3b3pump",
+      "symbol": "BOXED",
+      "name": "Boxed Cat",
+      "logo": "/logos/dex/0x76af8d3B.png",
+      "address": "0x76af8d3B40A0d7b5197935D0e84C14f7A3782e87",
+      "chain": "robinhood",
+      "change6h": 37.2,
+      "price": 0.0007221,
+      "date": "2026-08-30"
+    },
+    {
+      "symbol": "CGX",
+      "name": "CryptoGDEX",
+      "logo": "/logos/dex/6E8fPgsBvw.png",
+      "address": "6E8fPgsBvwjGRHcoeLUW8iugy736SKo54VvYLbYMpump",
       "chain": "solana",
-      "change6h": 231.0,
-      "price": 0.0001755,
-      "date": "2026-08-29"
+      "change6h": 34.6,
+      "price": 0.0006274,
+      "date": "2026-08-30"
     },
     {
-      "symbol": "nothing",
-      "name": "nothing",
-      "logo": "/logos/dex/GE8q5h6eSx.png",
-      "address": "GE8q5h6eSx5qf67A3DDatSPCtoLsqQqR58zuQmohpump",
+      "symbol": "catgirl",
+      "name": "Cat Girl",
+      "logo": "/logos/dex/GUhxjTzQz2.png",
+      "address": "GUhxjTzQz2hw4A7mnLGU5TpTPQxkLtWURwJnEgoLpump",
       "chain": "solana",
-      "change6h": 221.0,
-      "price": 0.0001389,
-      "date": "2026-08-29"
-    },
-    {
-      "symbol": "AST",
-      "name": "ast.fun",
-      "logo": "/logos/dex/0x265B3982.png",
-      "address": "0x265B3982Ea730748100947F52561A4EAb54afFFF",
-      "chain": "bsc",
-      "change6h": 32.2,
-      "price": 0.0002453,
-      "date": "2026-08-29"
-    },
-    {
-      "symbol": "ANTSEM",
-      "name": "The Black Ant",
-      "logo": "/logos/dex/DuVgdHeEk7.png",
-      "address": "DuVgdHeEk7ejWPxWY5G3PQA99oEGGLmnbWuWWxpEpump",
-      "chain": "solana",
-      "change6h": 19.8,
-      "price": 0.000475,
-      "date": "2026-08-29"
-    },
-    {
-      "symbol": "cat",
-      "name": "just a cat",
-      "logo": "/logos/dex/24GWZn5Her.png",
-      "address": "24GWZn5HerwLTVoZuC3H7Kxg6jLFMvroA1hTU4uWpump",
-      "chain": "solana",
-      "change6h": 1.4,
-      "price": 0.0005651,
-      "date": "2026-08-29"
-    },
-    {
-      "symbol": "ZSWAP",
-      "name": "ZygoSwap",
-      "logo": "/logos/dex/0x2e44aB95.png",
-      "address": "0x2e44aB95549b8a12AFDB970bde5A6a78365e4444",
-      "chain": "bsc",
-      "change6h": -0.2,
-      "price": 0.0008887,
-      "date": "2026-08-29"
+      "change6h": 15.6,
+      "price": 7.901e-05,
+      "date": "2026-08-30"
     },
     {
       "symbol": "CHUMP",
@@ -76,9 +56,29 @@
       "logo": "/logos/dex/0x0E0d2C89.png",
       "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
       "chain": "robinhood",
-      "change6h": -4.2,
-      "price": 0.02136,
-      "date": "2026-08-29"
+      "change6h": 8.6,
+      "price": 0.02155,
+      "date": "2026-08-30"
+    },
+    {
+      "symbol": "CHIBI",
+      "name": "Chibi-chan",
+      "logo": "/logos/dex/62gahMxD7c.png",
+      "address": "62gahMxD7cvSK3GuEyn3SvPwVY1366j8Z12B62mvpump",
+      "chain": "solana",
+      "change6h": 7.6,
+      "price": 0.0001156,
+      "date": "2026-08-30"
+    },
+    {
+      "symbol": "Greyson",
+      "name": "Pit Bull on One Wheel",
+      "logo": "/logos/dex/AfGdjAp9dj.png",
+      "address": "AfGdjAp9djSaqJxzYo3t6jy8tJA3o2aDPHoZ57Egpump",
+      "chain": "solana",
+      "change6h": 7.0,
+      "price": 0.000874,
+      "date": "2026-08-30"
     }
   ]
 }
