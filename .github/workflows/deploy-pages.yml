@@ -225,6 +225,50 @@ jobs:
           echo "         CryptoNav-待办操作手册.md."
           exit 1
 
+      # GitHub's Annotations panel only shows ::error:: / ::warning:: lines.
+      # Wrangler's output is plain stdout and never appears there, which is why
+      # every failed run so far looked contentless until someone expanded a
+      # collapsed log group by hand. Lift the decisive lines into annotations.
+      #
+      # The one thing that matters is the HTTP status Cloudflare returned:
+      # 401/403 means the token still lacks write access; 200s everywhere means
+      # the publish pipeline itself is broken and this is a support ticket.
+      - name: Surface the wrangler failure as annotations
+        if: failure()
+        run: |
+          # Turn CRs into newlines first (progress bars would otherwise collapse
+          # into one unreadable line), then escape % -- a raw % or CR inside an
+          # annotation is parsed as an escape sequence and corrupts the message.
+          annotate() {
+            tr '\r' '\n' \
+              | sed -e 's/%/%25/g' \
+              | grep -v '^[[:space:]]*$' \
+              | head -n "${1:-25}" \
+              | while IFS= read -r line; do echo "::error::$line"; done
+          }
+
+          if [ -s deploy-attempt-1.log ]; then
+            echo "::error::----- wrangler error (attempt 1, tail) -----"
+            tail -n 25 deploy-attempt-1.log | annotate 25
+          else
+            echo "::error::no attempt 1 log was produced -- the publish step never ran"
+          fi
+
+          if [ -s deploy-attempt-3.log ]; then
+            # Debug log: look for HTTP statuses and auth/permission signals.
+            status_lines=$(grep -inE '\b(401|403|404|429|500|502|503)\b|unauthorized|forbidden|denied|insufficient|not allowed|permission|authentication' \
+              deploy-attempt-3.log | head -n 15)
+            if [ -n "$status_lines" ]; then
+              echo "::error::----- HTTP / auth signals in attempt 3 (debug) -----"
+              printf '%s\n' "$status_lines" | annotate 15
+            else
+              echo "::error::attempt 3 (debug) shows NO 4xx/5xx and no permission errors"
+              echo "::error::-> the token was accepted and the uploads returned success,"
+              echo "::error::-> yet the publish still failed. That points at Cloudflare's"
+              echo "::error::-> publish pipeline, not at anything in this repository."
+            fi
+          fi
+
       - name: Upload deploy log
         if: failure()
         uses: actions/upload-artifact@v4
