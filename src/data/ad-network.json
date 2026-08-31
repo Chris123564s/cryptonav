@@ -1,5 +1,5 @@
 {
-  "note": "Fallback fill for every ad slot. Instead of an ad-network tag, each slot promotes a mainstream crypto site already listed in projects.json. The link is built by getReferralUrl(): it uses the code in affiliates.json once you fill it in, otherwise it falls back to the project's own referral/website. So filling in your affiliate codes automatically turns all 8 slots into earning links. Priority is: ads.json (direct-sold) > this file's 'html' (a real Coinzilla/Bitmedia tag, if you add one later) > this file's promo > 'Your Ad Here' placeholder.",
+  "note": "Fallback fill for every ad slot. Instead of an ad-network tag, each slot promotes a mainstream crypto site already listed in projects.json. The link is built by getReferralUrl(): it uses the code in affiliates.json once you fill it in, otherwise it falls back to the project's plain website URL. So filling in your affiliate codes automatically turns all 8 slots into earning links. Priority is: ads.json (direct-sold) > this file's 'html' (a real Coinzilla/Bitmedia tag, if you add one later) > this file's promo > 'Your Ad Here' placeholder.",
   "slots": {
     "home-banner": {
       "projectId": "bybit",
