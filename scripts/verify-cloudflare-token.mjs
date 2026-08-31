@@ -11,10 +11,15 @@
  * Checks, in order:
  *   1. the token is accepted at all          -> hard fail
  *   2. it is active and not expired          -> hard fail / warn near expiry
- *   3. it has *some* Cloudflare Pages grant  -> hard fail
- *   4. that grant looks like write, not read -> warn   (naming varies by API
- *                                             version, so never hard fail here)
+ *   3. it has a Cloudflare Pages grant       -> warn ONLY (advisory)
+ *   4. that grant looks like write, not read -> warn
  *   5. the account ID matches the token scope -> warn
+ *
+ * Steps 3 and 4 are advisory on purpose. Permission group names are not stable
+ * across API versions, so matching on them can only ever be a hint -- and a
+ * hard failure here blocks tokens that actually work. The authoritative check
+ * is a real call to the Pages API (the next workflow step): a 200 proves
+ * access whatever the grant is called, a 403 disproves it.
  *
  * Exit 0 = go ahead and deploy. Exit 1 = do not bother, it cannot work.
  *
@@ -121,14 +126,26 @@ async function main() {
     fail(`token status is "${result.status}", not active -- re-create it and update the secret`);
   }
 
-  // --- 3. has any Pages grant --------------------------------------------
+  // --- 3. Pages grant: ADVISORY ONLY, never a hard failure -----------------
+  //
+  // This used to hard-fail when no permission group name matched /pages/i.
+  // That was a false negative: the token in use could demonstrably list Pages
+  // projects (the next step proved it with a 200), yet the verify endpoint
+  // reported it under a name this regex did not recognise, and the deploy was
+  // blocked with "no Cloudflare Pages permission at all".
+  //
+  // Permission group naming is not stable across API versions, so name
+  // matching can only ever be a hint. The authoritative test is a real call to
+  // the Pages API, which the next step performs: a 200 there proves access no
+  // matter what the grant is called, and a 403 proves the opposite.
   const pagesGroups = groups.filter((g) => /pages/i.test(g));
-  if (pagesGroups.length === 0) {
-    fail(
-      'the token has no Cloudflare Pages permission at all -- it can never deploy',
-      're-create it with the "Edit Cloudflare Pages" template (or a custom token',
-      'granting Pages: Edit) and update the CLOUDFLARE_API_TOKEN secret.'
-    );
+  if (groups.length === 0) {
+    warn('the token reported no permission groups at all -- cannot judge its Pages');
+    warn('access from this response. The next step verifies it against the real API.');
+  } else if (pagesGroups.length === 0) {
+    warn(`none of this token's permission groups mentions Pages (${groups.join(', ')}).`);
+    warn('Either the token really lacks Pages access, or the grant is named');
+    warn('differently. The next step settles it by calling the Pages API directly.');
   }
 
   // --- 4. write vs read --------------------------------------------------
@@ -137,7 +154,7 @@ async function main() {
   // missing Write/Edit marker is a warning, never a hard failure -- a false
   // stop here would block a token that actually works.
   const writeGrants = groups.filter((g) => /(\bwrite\b|\bedit\b)/i.test(g));
-  if (!writeGrants.some((g) => /pages/i.test(g))) {
+  if (pagesGroups.length > 0 && !writeGrants.some((g) => /pages/i.test(g))) {
     warn(`Pages grants found: ${pagesGroups.join(', ')} -- none of them says Write or Edit.`);
     warn('a read-only Pages token can list projects but NOT deploy, and fails');
     warn('identically on every retry. If the deploy fails below, re-create the');

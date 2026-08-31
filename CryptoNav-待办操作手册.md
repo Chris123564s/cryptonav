@@ -251,18 +251,51 @@ Cloudflare 的 "internal error" 有一部分是瞬时故障。先排除这个可
 | 2 | token 绑定的账号和 `CLOUDFLARE_ACCOUNT_ID` 不是同一个 | 同上，脚本会对比 |
 | 3 | 平台侧发布流水线故障（和 Pages 后台同一个毛病） | 前两项都正常，且日志里上传调用返回 200 |
 
-第 1 名值得单独解释一下：**只读 token 是这次最像的凶手**。
-它能通过"列出项目列表"这道预检（那只需要 Read），但**不能部署**（那需要 Edit）。
-表现出来的样子和平台故障一模一样：三次都失败，且报错很含糊。
+#### 2.5.1 结论（已用证据锁定，不再猜）
 
-#### 2.6 重跑一次（新版本会自己把原因说出来）
+上面第 1 名**就是答案**，而且有硬证据：
 
-代码已经改好并推送，你只要重新跑一遍：
+f824985 那次运行时，"校验项目名"那一步**是通过的**。它调用了
+`GET /accounts/{id}/pages/projects` 并返回 200 —— **列项目需要 Pages 读权限**。
+所以 token 肯定**有 Pages 权限**，只是**没有写权限**。
 
-1. <https://github.com/Chris123564s/cryptonav/actions>
-2. 左侧 **Deploy to Cloudflare Pages (Wrangler)** → **Run workflow** → `main`
+> 中途有个插曲：自动检查一度报 "the token has no Cloudflare Pages permission at all"，
+> 那是**误报**。它靠权限组名字里有没有 "Pages" 来判断，而这个命名在不同 API 版本下
+> 不一致。已改成不再用名字判定，改以 Pages API 的实际返回码为准。
 
-然后**按顺序看这三段输出**：
+**所以：token 是只读的（建的时候选了 Read，而不是 Edit）。**
+
+#### 2.6 修复：重建 token（就这一步）
+
+1. 打开 <https://dash.cloudflare.com/profile/api-tokens>
+2. 找到 `cryptonav-github-deploy` → 建议**删掉重建**（token 权限建完不能改）
+3. **Create Custom Token**
+4. 权限（**关键是前两行，容易选错**）：
+
+   | 项 | 值 |
+   |---|---|
+   | Permissions 第 1 行 | **Account** → **Cloudflare Pages** → **Edit** |
+   | Permissions 第 2 行 | **Account** → **Account Settings** → **Read** |
+   | Account Resources | **Include** → 你的账号 |
+
+   ⚠️ **两个高频错误**：
+   - 选成 **Read** 而不是 **Edit** → 就是现在这个毛病（能列项目、不能部署）
+   - 选到 **Zone** 级别 → Pages 是 **Account** 级权限，Zone 级的 token 会被直接拒绝
+
+5. **Continue to summary** → **Create Token** → 复制
+6. 更新 GitHub 密钥：<https://github.com/Chris123564s/cryptonav/settings/secrets/actions>
+   → `CLOUDFLARE_API_TOKEN` → **Update secret**
+   （`CLOUDFLARE_ACCOUNT_ID` 不用动，它是对的）
+
+7. 重跑：Actions → **Deploy to Cloudflare Pages (Wrangler)** → Run workflow → `main`
+
+**怎么确认修好了**：`Verify the API token` 这一步会打印
+`permissions  : Cloudflare Pages Edit, ...`，且不再出现 Pages 相关的 warning。
+（顺带可以看一下这一行 —— 如果它显示的是 `Cloudflare Pages Read`，就说明还差一步。）
+
+#### 2.7 万一还是失败：怎么读日志
+
+如果 2.6 做完了还是失败，说明原因不是 token。这时按下面顺序看三段输出定位：
 
 **① 步骤 `Verify the API token with Cloudflare`**
 

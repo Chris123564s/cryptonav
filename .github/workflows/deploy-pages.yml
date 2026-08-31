@@ -106,11 +106,25 @@ jobs:
           body=$(printf '%s' "$resp" | sed '$d')
           code=$(printf '%s' "$resp" | tail -n1)
           echo "projects API HTTP $code"
+
+          # This call is also the authoritative permission test. It beats
+          # inspecting permission-group names, which are not stable across API
+          # versions: a 200 proves Pages access whatever the grant is called,
+          # and a 401/403 proves there is none.
+          if [ "$code" = "401" ] || [ "$code" = "403" ]; then
+            echo "::error::the Pages API rejected this token (HTTP $code)."
+            echo "::error::it cannot list projects, so it certainly cannot deploy."
+            echo "::error::re-create CLOUDFLARE_API_TOKEN with Account -> Cloudflare Pages"
+            echo "::error::-> Edit. Cloudflare Pages is an ACCOUNT-level permission; a"
+            echo "::error::token built from Zone-level permissions will be rejected here."
+            exit 1
+          fi
           if [ "$code" != "200" ]; then
             echo "::warning::could not list Pages projects (HTTP $code) -- skipping the name check"
             echo "::warning::if the name is wrong, the deploy will CREATE a new project with no custom domain"
             exit 0
           fi
+          echo "Pages API accepted this token -- it has at least read access to Pages"
           printf '%s' "$body" | node -e '
             let s = "";
             process.stdin.on("data", d => (s += d)).on("end", () => {
