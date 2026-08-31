@@ -42,12 +42,19 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 - `_routes.json` 是 `5c5b60a`（8-31 12:31）引入的，**同一个 bug 同时打挂了 Pages 自带
   Git 集成**。现已双双恢复并实证（见下）。
 
-### ⚠️ 待决策：当前每次 push 会被构建两次
-现在有两条**都能工作**的部署通道：Pages 自带 Git 集成 + Wrangler workflow
-（`.github/workflows/deploy-pages.yml`，13 步，纯 `workflow_dispatch` 手动触发）。
-二选一，方案已写在 workflow 文件顶部注释里：
-- **A（推荐）** 保留 Wrangler → 在 CF 后台断开 Pages Git 集成，并取消注释 `push: branches: [main]`
-- **B** 保留 Pages Git 集成 → 删掉这个 workflow，但故障又只剩 "an internal error occurred"
+### ✅ 已决策（2026-08-31）：选 A —— 保留 Wrangler，每次 push 到 main 自动部署
+- `deploy-pages.yml` 触发器 = `push: branches: [main]` + `workflow_dispatch`（保留手动，
+  也是发布非 main 分支做预览的唯一方式）
+- 5 个定时数据刷新 workflow 每天多次 push 到 main，会各自触发一次部署；
+  concurrency 组 `wrangler-pages-deploy` + `cancel-in-progress: false` 串行排队
+  （不取消进行中的，避免上传中途被砍留下半成品）
+- 故意**不加** `paths-ignore`：文档和 `.workbuddy-ai/**` 虽不影响站点，但过滤会新增
+  "推了却没部署"的静默失败类型；公开仓库 CI 分钟数免费。规则：push 到 main 就部署。
+
+### ⚠️ 唯一遗留人工步骤（用户尚未执行）
+**必须去 Cloudflare 后台断开 Pages Git 集成**，否则每次 push 仍会被构建发布两次：
+`Workers & Pages > cryptonav > Settings > Builds & deployments > Disconnect`
+断开**不会**删除项目或自定义域名。断完之后每个 push 只构建一次。
 
 ### CI 警告纪律（约定）
 **健康的流水线必须是零警告。** 无法判断的检查只能输出普通日志行（`note()`），
