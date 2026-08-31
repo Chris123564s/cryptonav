@@ -158,6 +158,11 @@ jobs:
           # non-ASCII paths, case collisions. An empty .gitkeep is tolerated.
           node scripts/scan-dist-integrity.mjs dist \
             || echo "::warning::dist integrity scan reported problems (see log)"
+          # Validated against Wrangler's real rules rather than the docs, which
+          # disagree: the docs call `exclude` optional, the code requires it.
+          # An invalid _routes.json fails every publish, so this is a hard
+          # failure -- no point spending three deploy attempts on it.
+          node scripts/check-routes-json.mjs
 
       - name: Install wrangler once
         id: wrangler
