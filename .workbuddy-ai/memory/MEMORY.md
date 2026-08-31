@@ -56,6 +56,13 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 `Workers & Pages > cryptonav > Settings > Builds & deployments > Disconnect`
 断开**不会**删除项目或自定义域名。断完之后每个 push 只构建一次。
 
+### 下次开工清单（详见 2026-08-31.md 收工总结）
+1. 断开 Pages Git 集成（上面那条），并确认一次提交只剩 1 个 check run
+2. 重新压测 `/api/cg/*` 边缘代理（连测 10+ 次），再决定是否仍需 CoinGecko key
+3. 手册剩余变现配置：8 个联盟码、3 个 newsletter 环境变量、Cache Rule、GSC 重新提交
+4. 待办任务 #53「airdrops 页适配新数据格式」
+5. 未答：`robots.txt` 是否精简到只保留 Cloudflare 托管规则未覆盖的部分
+
 ### CI 警告纪律（约定）
 **健康的流水线必须是零警告。** 无法判断的检查只能输出普通日志行（`note()`），
 不能进 Annotations 面板；`::warning::` 只留给可行动的情况。
