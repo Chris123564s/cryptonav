@@ -47,6 +47,16 @@ const related = (allArticles as any[])
   .filter((a: any) => a.slug !== article.slug && a.category === article.category)
   .slice(0, 3);
 
+// Directory CTA target.
+// `article.category` is a DISPLAY label ("DeFi", "Education", ...), NOT a
+// directory category id — linking straight to /category/{article.category}
+// produced 404s. Each article carries an explicit `directoryCategory` that is
+// guaranteed to exist in categories.json.
+import categoriesData from '../../data/categories.json';
+const directoryCats = (categoriesData as any[]) ?? [];
+const dirCat =
+  directoryCats.find((c: any) => c.id === article.directoryCategory) ?? directoryCats[0];
+
 // Breadcrumb
 const catColors: Record<string, string> = {
   'DeFi': 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
@@ -126,8 +136,8 @@ const catColors: Record<string, string> = {
       <!-- CTA -->
       <div class="mt-8 p-6 rounded-2xl bg-gradient-to-br from-brand-600 to-accent-500 text-white text-center">
         <h3 class="text-base font-bold mb-1">Explore Crypto Projects</h3>
-        <p class="text-sm text-white/80 mb-3">Browse our curated directory of {article.tags[0]} projects and tools.</p>
-        <a href="/category/exchanges" class="inline-block px-5 py-2 rounded-lg bg-white/20 hover:bg-white/30 text-sm font-semibold transition-colors">Browse Directory →</a>
+        <p class="text-sm text-white/80 mb-3">Browse our curated directory of {dirCat.name} projects and tools.</p>
+        <a href={`/category/${dirCat.id}`} class="inline-block px-5 py-2 rounded-lg bg-white/20 hover:bg-white/30 text-sm font-semibold transition-colors">Browse {dirCat.name} →</a>
       </div>
 
       <!-- Mid-article ad -->
