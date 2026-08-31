@@ -7,7 +7,7 @@ import tickerData from '../data/ticker.json';
 import chainTokensData from '../data/chain-tokens.json';
 import affiliatesData from '../data/affiliates.json';
 import adNetworkData from '../data/ad-network.json';
-import type { ProjectData, Category, AdConfig, FeaturedItem, TickerCoin, AdSlot, Chain, Token } from '../types';
+import type { ProjectData, Category, AdConfig, FeaturedItem, TickerCoin, AdSlot, Chain, Token, NetworkPromo } from '../types';
 
 export const projects: ProjectData[] = (projectsData as any).projects ?? projectsData as ProjectData[];
 export const categories: Category[] = categoriesData as Category[];
@@ -110,11 +110,36 @@ export function getReferralUrl(p: ProjectData): string {
   return p.referral || p.website;
 }
 
-/** 获取广告网络（Coinzilla/Bitmedia）填充代码；html 为空时返回 null（显示 Your Ad Here 占位） */
+/**
+ * 广告网络（Coinzilla/Bitmedia）原始 tag 代码。
+ * 只有真的接入广告网络后才需要填；html 为空时返回 null，交给 promo 或占位填充。
+ */
 export function getNetworkAd(slot: AdSlot): { network: string; html: string } | null {
   const entry = (adNetworkData as any)?.slots?.[slot];
   if (!entry || !entry.html) return null;
   return { network: entry.network || '', html: entry.html };
+}
+
+/**
+ * 广告位兜底推广：一个已在 projects.json 收录的主流加密站点。
+ * 链接走 getReferralUrl()，因此 affiliates.json 里一旦填了 code，
+ * 所有广告位会自动变成联盟链接，无需再改这里。
+ */
+export function getNetworkPromo(slot: AdSlot): NetworkPromo | null {
+  const entry = (adNetworkData as any)?.slots?.[slot];
+  if (!entry || !entry.projectId) return null;
+  const project = getProjectById(entry.projectId);
+  if (!project) return null;
+  const link = getReferralUrl(project);
+  if (!link) return null;
+  return {
+    projectId: entry.projectId,
+    title: entry.title || project.name,
+    subtitle: entry.subtitle || project.description,
+    cta: entry.cta || 'Learn more',
+    gradient: entry.gradient || 'default',
+    link,
+  };
 }
 
 /** 格式化数字 */

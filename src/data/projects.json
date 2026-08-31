@@ -391,7 +391,16 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "polygon",
+        "bsc",
+        "avalanche",
+        "optimism",
+        "base"
+      ]
     },
     {
       "id": "1inch",
@@ -448,7 +457,10 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum"
+      ]
     },
     {
       "id": "metamask",
@@ -533,7 +545,16 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche"
+      ]
     },
     {
       "id": "trust-wallet",
@@ -588,7 +609,17 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "polygon",
+        "avalanche",
+        "arbitrum",
+        "optimism",
+        "base"
+      ]
     },
     {
       "id": "trezor",
@@ -614,7 +645,16 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "avalanche",
+        "arbitrum",
+        "optimism",
+        "base"
+      ]
     },
     {
       "id": "safe",
@@ -641,7 +681,16 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "polygon",
+        "bsc",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche"
+      ]
     },
     {
       "id": "coingecko",
@@ -666,7 +715,19 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "arbitrum",
+        "base",
+        "polygon",
+        "avalanche",
+        "optimism",
+        "sui",
+        "ton"
+      ]
     },
     {
       "id": "coinmarketcap",
@@ -690,7 +751,19 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "arbitrum",
+        "base",
+        "polygon",
+        "avalanche",
+        "optimism",
+        "sui",
+        "ton"
+      ]
     },
     {
       "id": "dexscreener",
@@ -718,7 +791,19 @@
         "volume24h": 0,
         "twitterFollowers": 600000
       },
-      "audited": false
+      "audited": false,
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "arbitrum",
+        "base",
+        "polygon",
+        "avalanche",
+        "optimism",
+        "sui",
+        "ton"
+      ]
     },
     {
       "id": "dune",
@@ -742,7 +827,19 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "arbitrum",
+        "base",
+        "polygon",
+        "bsc",
+        "avalanche",
+        "optimism",
+        "sui",
+        "ton"
+      ]
     },
     {
       "id": "defillama",
@@ -763,7 +860,19 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "solana",
+        "arbitrum",
+        "base",
+        "polygon",
+        "bsc",
+        "avalanche",
+        "optimism",
+        "sui",
+        "ton"
+      ]
     },
     {
       "id": "etherscan",
@@ -784,7 +893,15 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "optimism",
+        "base",
+        "bsc",
+        "polygon"
+      ]
     },
     {
       "id": "solscan",
@@ -804,7 +921,10 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "solana"
+      ]
     },
     {
       "id": "aave",
@@ -831,7 +951,16 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "polygon",
+        "avalanche",
+        "arbitrum",
+        "optimism",
+        "base",
+        "bsc"
+      ]
     },
     {
       "id": "compound",
@@ -857,7 +986,14 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "polygon",
+        "base",
+        "optimism"
+      ]
     },
     {
       "id": "makerdao",
@@ -883,7 +1019,13 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "optimism",
+        "base"
+      ]
     },
     {
       "id": "lido",
@@ -910,7 +1052,14 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "optimism",
+        "base",
+        "polygon"
+      ]
     },
     {
       "id": "yearn",
@@ -935,7 +1084,14 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "optimism",
+        "polygon",
+        "bsc"
+      ]
     },
     {
       "id": "stargate",
@@ -957,7 +1113,16 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "arbitrum",
+        "polygon",
+        "optimism",
+        "base",
+        "avalanche"
+      ]
     },
     {
       "id": "across",
@@ -978,7 +1143,15 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "arbitrum",
+        "optimism",
+        "polygon",
+        "base",
+        "bsc"
+      ]
     },
     {
       "id": "opensea",
@@ -1003,7 +1176,17 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "polygon",
+        "solana",
+        "base",
+        "arbitrum",
+        "optimism",
+        "bsc",
+        "avalanche"
+      ]
     },
     {
       "id": "blur",
@@ -1027,7 +1210,11 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "base"
+      ]
     },
     {
       "id": "magic-eden",
@@ -1051,7 +1238,14 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "solana",
+        "ethereum",
+        "polygon",
+        "base",
+        "arbitrum"
+      ]
     },
     {
       "id": "ethereum",
@@ -1078,7 +1272,10 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum"
+      ]
     },
     {
       "id": "solana",
@@ -1104,7 +1301,10 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "solana"
+      ]
     },
     {
       "id": "bsc",
@@ -1125,7 +1325,10 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "bsc"
+      ]
     },
     {
       "id": "arbitrum",
@@ -1147,7 +1350,10 @@
       "featured": true,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "arbitrum"
+      ]
     },
     {
       "id": "optimism",
@@ -1172,7 +1378,10 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "optimism"
+      ]
     },
     {
       "id": "base",
@@ -1193,7 +1402,10 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "base"
+      ]
     },
     {
       "id": "openzeppelin",
@@ -1408,7 +1620,16 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche"
+      ]
     },
     {
       "id": "debank",
@@ -1429,7 +1650,16 @@
       "riskLevel": "low",
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-01-01"
+      "addedAt": "2026-01-01",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "polygon",
+        "arbitrum",
+        "optimism",
+        "base",
+        "avalanche"
+      ]
     },
     {
       "id": "airdropsio",
@@ -1477,7 +1707,17 @@
       "sponsored": false,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-08-27"
+      "addedAt": "2026-08-27",
+      "chains": [
+        "ethereum",
+        "solana",
+        "bsc",
+        "arbitrum",
+        "base",
+        "polygon",
+        "avalanche",
+        "optimism"
+      ]
     },
     {
       "id": "gmgn-ai",
@@ -1507,7 +1747,14 @@
       "sponsored": false,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-08-27"
+      "addedAt": "2026-08-27",
+      "chains": [
+        "solana",
+        "ethereum",
+        "base",
+        "bsc",
+        "polygon"
+      ]
     },
     {
       "id": "dextools",
@@ -1537,7 +1784,17 @@
       "sponsored": false,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-08-27"
+      "addedAt": "2026-08-27",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "solana",
+        "arbitrum",
+        "polygon",
+        "base",
+        "avalanche",
+        "optimism"
+      ]
     },
     {
       "id": "arkham",
@@ -1566,7 +1823,18 @@
       "sponsored": false,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-08-27"
+      "addedAt": "2026-08-27",
+      "chains": [
+        "ethereum",
+        "bsc",
+        "solana",
+        "arbitrum",
+        "base",
+        "polygon",
+        "avalanche",
+        "optimism",
+        "sui"
+      ]
     },
     {
       "id": "nansen",
@@ -1595,7 +1863,19 @@
       "sponsored": false,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-08-27"
+      "addedAt": "2026-08-27",
+      "chains": [
+        "ethereum",
+        "solana",
+        "arbitrum",
+        "base",
+        "polygon",
+        "bsc",
+        "avalanche",
+        "optimism",
+        "sui",
+        "ton"
+      ]
     },
     {
       "id": "bullx",
@@ -1625,7 +1905,14 @@
       "sponsored": false,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-08-27"
+      "addedAt": "2026-08-27",
+      "chains": [
+        "solana",
+        "ethereum",
+        "base",
+        "bsc",
+        "polygon"
+      ]
     },
     {
       "id": "photon",
@@ -1655,7 +1942,13 @@
       "sponsored": false,
       "status": "active",
       "source": "manual",
-      "addedAt": "2026-08-27"
+      "addedAt": "2026-08-27",
+      "chains": [
+        "solana",
+        "ethereum",
+        "base",
+        "bsc"
+      ]
     }
   ]
 }

@@ -76,6 +76,20 @@ export interface AdConfig {
 
 export type AdSlot = 'home-banner' | 'sidebar-top' | 'sidebar-bottom' | 'footer-banner' | 'inline-card' | 'article-top' | 'article-bottom' | 'learn-banner';
 
+/**
+ * Fallback fill for an ad slot: a mainstream crypto site from projects.json.
+ * `link` is resolved at render time via getReferralUrl(), so it picks up the
+ * affiliate code from affiliates.json as soon as one is configured.
+ */
+export interface NetworkPromo {
+  projectId: string;
+  title: string;
+  subtitle?: string;
+  cta?: string;
+  gradient?: string;
+  link: string;
+}
+
 export interface FeaturedItem {
   projectId: string;
   reason: string;

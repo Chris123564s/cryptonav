@@ -1,5 +1,5 @@
 ---
-import { getAd, getNetworkAd } from '../utils/data';
+import { getAd, getNetworkAd, getNetworkPromo } from '../utils/data';
 import type { AdSlot } from '../types';
 import NetworkAd from './NetworkAd.astro';
 
@@ -12,6 +12,7 @@ interface Props {
 const { slot, format = 'banner', className = '' } = Astro.props;
 const ad = getAd(slot);
 const networkAd = getNetworkAd(slot);
+const promo = getNetworkPromo(slot);
 
 const sizeClasses: Record<string, string> = {
   banner: 'w-full h-[120px] md:h-[180px]',
@@ -32,7 +33,7 @@ const gradients: Record<string, string> = {
 const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default'];
 ---
 
-{/* Priority: direct-sold Sponsored ad > network fill (Coinzilla/Bitmedia) > placeholder */}
+{/* Priority: direct-sold ad > ad-network tag > mainstream-site promo > placeholder */}
 {
   ad ? (
     <a
@@ -55,6 +56,21 @@ const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default
     </a>
   ) : networkAd ? (
     <NetworkAd html={networkAd.html} className={`${sizeClasses[format]} ${className}`} />
+  ) : promo ? (
+    <a
+      href={promo.link}
+      class={`ad-container ${sizeClasses[format]} ${className}`}
+      target={promo.link.startsWith('/') ? '' : '_blank'}
+      rel={promo.link.startsWith('/') ? '' : 'sponsored noopener'}
+      data-promo-project={promo.projectId}
+    >
+      <div class={`flex flex-col items-center justify-center text-center px-4 h-full bg-gradient-to-br ${gradients[promo.gradient || 'default'] || gradients['default']} text-white`}>
+        <p class="text-base md:text-lg font-bold">{promo.title}</p>
+        {promo.subtitle && <p class="text-xs md:text-sm text-white/90 mt-1 max-w-md">{promo.subtitle}</p>}
+        <span class="mt-2 inline-block px-3 py-1 rounded-md bg-white/20 text-xs font-semibold">{promo.cta} →</span>
+      </div>
+      <span class="ad-label">Ad</span>
+    </a>
   ) : (
     <div class={`ad-container ad-slot-placeholder ${sizeClasses[format]} ${className}`}>
       <div class="flex flex-col items-center justify-center text-center px-4 h-full">

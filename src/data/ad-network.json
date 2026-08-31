@@ -1,13 +1,69 @@
 {
-  "note": "Crypto ad-network (Coinzilla / Bitmedia) fill. For each slot, paste the exact ad tag snippet the network gives you into 'html'. Leave 'html' empty to keep showing the 'Your Ad Here' placeholder. 'network' is for reference only. Direct sold (Sponsored) ads in ads.json take priority over network fill.",
+  "note": "Fallback fill for every ad slot. Instead of an ad-network tag, each slot promotes a mainstream crypto site already listed in projects.json. The link is built by getReferralUrl(): it uses the code in affiliates.json once you fill it in, otherwise it falls back to the project's own referral/website. So filling in your affiliate codes automatically turns all 8 slots into earning links. Priority is: ads.json (direct-sold) > this file's 'html' (a real Coinzilla/Bitmedia tag, if you add one later) > this file's promo > 'Your Ad Here' placeholder.",
   "slots": {
-    "home-banner":    { "network": "coinzilla", "html": "" },
-    "sidebar-top":    { "network": "bitmedia",  "html": "" },
-    "sidebar-bottom": { "network": "coinzilla", "html": "" },
-    "footer-banner":  { "network": "bitmedia",  "html": "" },
-    "inline-card":    { "network": "coinzilla", "html": "" },
-    "article-top":    { "network": "coinzilla", "html": "" },
-    "article-bottom": { "network": "bitmedia",  "html": "" },
-    "learn-banner":   { "network": "coinzilla", "html": "" }
+    "home-banner": {
+      "projectId": "bybit",
+      "title": "Trade Bitcoin & Crypto on Bybit",
+      "subtitle": "Spot, futures and copy trading — deep liquidity on 600+ pairs",
+      "cta": "Start trading",
+      "gradient": "exchange",
+      "html": ""
+    },
+    "sidebar-top": {
+      "projectId": "trezor",
+      "title": "Cold-Store Your Crypto with Trezor",
+      "subtitle": "Open-source hardware wallet — your keys never leave the device",
+      "cta": "Get a Trezor",
+      "gradient": "wallet",
+      "html": ""
+    },
+    "sidebar-bottom": {
+      "projectId": "okx",
+      "title": "Trade 350+ Markets on OKX",
+      "subtitle": "Low fees, high liquidity, and an on-chain Web3 wallet built in",
+      "cta": "Join OKX",
+      "gradient": "exchange",
+      "html": ""
+    },
+    "footer-banner": {
+      "projectId": "coinmarketcap",
+      "title": "Track Every Coin on CoinMarketCap",
+      "subtitle": "Live prices, rankings and historical data for 2M+ assets",
+      "cta": "View markets",
+      "gradient": "default",
+      "html": ""
+    },
+    "inline-card": {
+      "projectId": "magic-eden",
+      "title": "Trade NFTs Across Chains on Magic Eden",
+      "subtitle": "Multi-chain NFT marketplace — mint, buy and sell in one place",
+      "cta": "Explore NFTs",
+      "gradient": "nft",
+      "html": ""
+    },
+    "article-top": {
+      "projectId": "dexscreener",
+      "title": "Chart Any On-Chain Pair on DexScreener",
+      "subtitle": "Real-time DEX charts and new-pair discovery across 80+ chains",
+      "cta": "Open charts",
+      "gradient": "defi",
+      "html": ""
+    },
+    "article-bottom": {
+      "projectId": "kraken",
+      "title": "Buy Crypto on Kraken",
+      "subtitle": "One of the longest-running exchanges — staking and futures included",
+      "cta": "Sign up",
+      "gradient": "exchange",
+      "html": ""
+    },
+    "learn-banner": {
+      "projectId": "coinbase",
+      "title": "Start Your Crypto Journey on Coinbase",
+      "subtitle": "Beginner-friendly onboarding with earn-on-learning rewards",
+      "cta": "Get started",
+      "gradient": "wallet",
+      "html": ""
+    }
   }
 }

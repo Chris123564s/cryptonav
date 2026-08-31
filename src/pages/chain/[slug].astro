@@ -1,7 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import AdBanner from '../../components/AdBanner.astro';
-import { chains, getTokensByChain, formatTokenPrice, formatMarketCap } from '../../utils/data';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { chains, getTokensByChain, getProjectsByChain, formatTokenPrice, formatMarketCap } from '../../utils/data';
 
 export async function getStaticPaths() {
   return chains.map(chain => ({
@@ -17,6 +18,9 @@ interface Props {
 const { chain } = Astro.props;
 const tokens = getTokensByChain(chain.id);
 const otherChains = chains.filter(c => c.id !== chain.id).slice(0, 8);
+// Curated directory projects usable on this chain (getProjectsByChain already
+// promotes active sponsors and sorts by recency).
+const chainProjects = getProjectsByChain(chain.id);
 
 // Calculate total stats
 const totalMarketCap = tokens.reduce((sum, t) => sum + (t.marketCap || 0), 0);
@@ -181,6 +185,26 @@ const totalTvl = tokens.reduce((sum, t) => sum + (t.tvl || 0), 0);
       </div>
     )}
   </div>
+
+  <!-- Curated projects usable on this chain -->
+  {chainProjects.length > 0 && (
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div class="flex items-baseline justify-between mb-3">
+        <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200">
+          Best {chain.name} Projects & Tools
+        </h2>
+        <span class="text-xs text-surface-400">{chainProjects.length} listed</span>
+      </div>
+      <p class="text-xs text-surface-400 mb-3">
+        Exchanges, wallets, DeFi protocols and tools from our directory that support {chain.name}.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {chainProjects.map(project => (
+          <ProjectCard project={project} compact />
+        ))}
+      </div>
+    </div>
+  )}
 
   <!-- Other Chains -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
