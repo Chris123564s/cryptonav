@@ -55,6 +55,18 @@ jobs:
           [ "$missing" -eq 0 ] || exit 1
           echo "secrets ok; project=$CLOUDFLARE_PAGES_PROJECT branch=$DEPLOY_BRANCH"
 
+      # Ask Cloudflare whether the token is live before spending three deploy
+      # attempts on it. A wrong scope, a read-only grant or a typo'd value all
+      # look identical downstream: wrangler just fails, three times, without
+      # saying why. This names the problem instead.
+      #
+      # Keep the logic in scripts/verify-cloudflare-token.mjs rather than inline:
+      # it needs real branching (read vs write grants, account scope, expiry),
+      # and inline `node -e` inside YAML is impossible to test and easy to break
+      # with shell expansion.
+      - name: Verify the API token with Cloudflare
+        run: node scripts/verify-cloudflare-token.mjs
+
       # `wrangler pages deploy` with an unknown --project-name does not error:
       # it silently creates a brand new Pages project. That project has no
       # custom domain attached, so the deploy would "succeed" while
@@ -118,15 +130,35 @@ jobs:
           node scripts/scan-dist-integrity.mjs dist \
             || echo "::warning::dist integrity scan reported problems (see log)"
 
+      - name: Install wrangler once
+        id: wrangler
+        run: |
+          # Installed ahead of the publish loop so that a slow npm download
+          # cannot be mistaken for a deploy failure, and so the version that
+          # ran is recorded in the log.
+          npm install --no-save wrangler@4
+          npx wrangler --version
+
       - name: Publish (3 attempts)
         run: |
           set -o pipefail
           for attempt in 1 2 3; do
             echo "::group::wrangler deploy attempt $attempt"
-            if npx --yes wrangler@4 pages deploy dist \
+            # Tee to a file: on failure we reprint the output outside the
+            # collapsible group, so the real wrangler error is visible without
+            # expanding anything by hand.
+            #
+            # The last attempt runs with WRANGLER_LOG=debug. Normal output says
+            # only "Failed to publish assets"; debug adds the HTTP status and
+            # response body of each Cloudflare API call, which is what actually
+            # distinguishes an auth problem from a platform-side outage.
+            if [ "$attempt" -eq 3 ]; then
+              export WRANGLER_LOG=debug
+            fi
+            if npx wrangler pages deploy dist \
                 --project-name="$CLOUDFLARE_PAGES_PROJECT" \
                 --branch="$DEPLOY_BRANCH" \
-                --commit-dirty=true; then
+                --commit-dirty=true 2>&1 | tee "deploy-attempt-$attempt.log"; then
               echo "::endgroup::"
               echo "published on attempt $attempt"
               exit 0
@@ -137,5 +169,37 @@ jobs:
               sleep 25
             fi
           done
+
           echo "::error::all 3 publish attempts failed"
+          echo ""
+          # Attempt 1 is the short, readable error. Print it whole.
+          echo "=========== WRANGLER OUTPUT (attempt 1, full) ==========="
+          cat deploy-attempt-1.log 2>/dev/null || echo "(no attempt 1 log)"
+          echo "=========== END WRANGLER OUTPUT ==========="
+          echo ""
+          # Attempt 3 is verbose debug output, so print only its tail; the
+          # complete log is uploaded as an artifact below.
+          echo "=========== WRANGLER DEBUG (attempt 3, last 150 lines) ==========="
+          tail -n 150 deploy-attempt-3.log 2>/dev/null || echo "(no attempt 3 log)"
+          echo "=========== END WRANGLER DEBUG ==========="
+          echo ""
+          echo "How to read the above:"
+          echo "  - 401/403, 'Authentication error', 'Insufficient permissions'"
+          echo "      -> the API token. Re-create it with 'Edit Cloudflare Pages'."
+          echo "  - 'Couldn't find account' / 'account not found'"
+          echo "      -> CLOUDFLARE_ACCOUNT_ID is wrong for this token."
+          echo "  - the same 'Failed to publish assets' / 'internal error' as the"
+          echo "    Pages dashboard, with 200s on the upload calls"
+          echo "      -> Pages CI is not the culprit either; the publish pipeline"
+          echo "         itself is failing. Escalate to Cloudflare support with the"
+          echo "         deployment IDs -- a ready-made ticket is in"
+          echo "         CryptoNav-待办操作手册.md."
           exit 1
+
+      - name: Upload deploy log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wrangler-deploy-log
+          path: deploy-attempt-*.log
+          if-no-files-found: ignore

@@ -232,6 +232,75 @@ Cloudflare 的 "internal error" 有一部分是瞬时故障。先排除这个可
 
 **如果失败**：日志里会有 Wrangler 的真实报错，把它发给我，或者走路径 3。
 
+#### 2.5 已经跑过一次，3 次尝试全失败（部署 `f824985`）
+
+这是已经发生过的情况。GitHub 的 Annotations 只显示 `attempt 1/2/3 failed`，
+**真正的报错被折叠在 Publish 步骤里**，看不见。所以我把 workflow 改成自我诊断的版本。
+
+**先说一个好消息**：那次运行的 Annotations 里只有 2 个 error，都是发布步骤产生的，
+**没有** "no Pages project named ..." 这条。这说明**项目名是对的**，
+`CLOUDFLARE_ACCOUNT_ID` 也大概率是对的（token 能正常列出项目列表）。
+
+**再看失败形态**：3 次尝试**全部**失败。偶发的网络抖动不会这样 —— 要么第 1 次就过，
+要么至少有一次侥幸成功。三次全败 = **确定性失败**，说明原因在配置或平台，不在运气。
+按可能性从高到低排：
+
+| 排名 | 原因 | 怎么确认 |
+|------|------|----------|
+| 1 | **token 是只读的**（建 token 时权限选了 Read 而不是 Edit） | 看第 2 步 `Verify the API token` 的输出 |
+| 2 | token 绑定的账号和 `CLOUDFLARE_ACCOUNT_ID` 不是同一个 | 同上，脚本会对比 |
+| 3 | 平台侧发布流水线故障（和 Pages 后台同一个毛病） | 前两项都正常，且日志里上传调用返回 200 |
+
+第 1 名值得单独解释一下：**只读 token 是这次最像的凶手**。
+它能通过"列出项目列表"这道预检（那只需要 Read），但**不能部署**（那需要 Edit）。
+表现出来的样子和平台故障一模一样：三次都失败，且报错很含糊。
+
+#### 2.6 重跑一次（新版本会自己把原因说出来）
+
+代码已经改好并推送，你只要重新跑一遍：
+
+1. <https://github.com/Chris123564s/cryptonav/actions>
+2. 左侧 **Deploy to Cloudflare Pages (Wrangler)** → **Run workflow** → `main`
+
+然后**按顺序看这三段输出**：
+
+**① 步骤 `Verify the API token with Cloudflare`**
+
+```
+token status : active          ← 不是 active 就直接失败并说明原因
+token expires: 2027-06-01...   ← 快过期会警告
+permissions  : Cloudflare Pages Write, ...
+account scope: includes a1b2...
+token check passed -- clear to deploy
+```
+
+- 出现 `::warning::Pages grants found: Cloudflare Pages Read ...` → **就是它了**。
+  去 <https://dash.cloudflare.com/profile/api-tokens> 重建 token，
+  权限选 **Account → Cloudflare Pages → Edit**（不是 Read），
+  再把新 token 更新到 `CLOUDFLARE_API_TOKEN` 密钥。
+- 出现 `::warning::the token is scoped to account(s) ...` → 账号配错了，
+  改 `CLOUDFLARE_ACCOUNT_ID`，或重建 token 时选对账号。
+- 出现 `::error::...` → 按错误文字处理，脚本会写清楚该改哪个 secret。
+
+**② 步骤 `Publish (3 attempts)` 结尾的 `WRANGLER OUTPUT (attempt 1, full)`**
+
+这是 Wrangler 原始报错的完整文本（不用展开折叠块）。
+
+**③ 紧随其后的 `WRANGLER DEBUG (attempt 3, last 150 lines)`**
+
+第 3 次尝试开了 `WRANGLER_LOG=debug`，会打印每个 Cloudflare API 调用的
+**HTTP 状态码和响应体**。这是区分"认证问题"和"平台故障"的决定性证据：
+看到 401/403 就是 token；看到上传调用全 200 却仍然失败，就是平台侧故障。
+完整日志会作为 `wrangler-deploy-log` 制品上传，可以下载。
+
+**对照表：**
+
+| 日志里出现 | 结论 | 动作 |
+|-----------|------|------|
+| 401 / 403 / `Authentication error` / `Insufficient permissions` | token 无效或权限不足 | 重建 token（Pages → **Edit**） |
+| `Couldn't find account` / `account not found` | Account ID 配错 | 改 `CLOUDFLARE_ACCOUNT_ID` |
+| 上传调用全部 200，仍报 `Failed to publish assets` | 平台侧故障，Pages CI 不是凶手 | 走路径 3 提工单 |
+
 ### 路径 3：提 Cloudflare 工单（前两条都失败时）
 
 去 <https://dash.cloudflare.com/?to=/:account/support> 提工单，正文里带上：
