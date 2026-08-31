@@ -18,11 +18,12 @@
     "test:dist-size": "node scripts/check-dist-size.mjs",
     "test:dist-integrity": "node scripts/scan-dist-integrity.mjs",
     "test:routes-json": "node scripts/check-routes-json.mjs",
+    "test:cloudflare-token": "node scripts/test-cloudflare-token.mjs",
     "test:robots": "node scripts/check-robots.mjs",
     "safety": "node scripts/build-safety-report.mjs",
     "safety:offline": "node scripts/build-safety-report.mjs --offline",
     "sources": "node scripts/verify-sources.mjs",
-    "test": "npm run test:cg && npm run test:subscribe && npm run test:safety && npm run build && npm run test:dist-size && npm run test:dist-integrity && npm run test:routes-json && npm run test:build && npm run test:ads && npm run test:jsonld && npm run test:meta && npm run test:robots",
+    "test": "npm run test:cg && npm run test:subscribe && npm run test:safety && npm run test:cloudflare-token && npm run build && npm run test:dist-size && npm run test:dist-integrity && npm run test:routes-json && npm run test:build && npm run test:ads && npm run test:jsonld && npm run test:meta && npm run test:robots",
     "test:meta": "node scripts/check-meta.mjs"
   },
   "dependencies": {

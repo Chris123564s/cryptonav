@@ -144,6 +144,15 @@ jobs:
             });
           '
 
+      # Pure Node, no dependencies, runs in about a second. It guards the
+      # guard: the token verifier reports "no permission groups" for the kind
+      # of account-level token that deploys this site, and an earlier version
+      # turned that into two warnings on EVERY run, including healthy ones.
+      # Nobody could tell a working deploy from a broken one after that.
+      # This fails the build if the verifier starts warning on a good token.
+      - name: Check the token verifier still behaves
+        run: node scripts/test-cloudflare-token.mjs
+
       - name: Install dependencies
         run: npm ci
 

@@ -11,7 +11,7 @@
  * Checks, in order:
  *   1. the token is accepted at all          -> hard fail
  *   2. it is active and not expired          -> hard fail / warn near expiry
- *   3. it has a Cloudflare Pages grant       -> warn ONLY (advisory)
+ *   3. it has a Cloudflare Pages grant       -> log only (advisory)
  *   4. that grant looks like write, not read -> warn
  *   5. the account ID matches the token scope -> warn
  *
@@ -20,6 +20,10 @@
  * hard failure here blocks tokens that actually work. The authoritative check
  * is a real call to the Pages API (the next workflow step): a 200 proves
  * access whatever the grant is called, a 403 disproves it.
+ *
+ * Step 3 writes to the plain log rather than the Annotations panel. A healthy
+ * run should produce zero warnings; otherwise the panel is noise and the one
+ * warning that does matter gets ignored.
  *
  * Exit 0 = go ahead and deploy. Exit 1 = do not bother, it cannot work.
  *
@@ -33,6 +37,17 @@ const VERIFY_URL = 'https://api.cloudflare.com/client/v4/user/tokens/verify';
 
 function warn(msg) {
   console.log(`::warning::${msg}`);
+}
+
+/**
+ * Informational line: goes to the step log, NOT to the Annotations panel.
+ *
+ * Used for "cannot tell" outcomes where a later step is authoritative. Putting
+ * those in ::warning:: made every healthy run show warnings, which trains
+ * people to ignore the panel -- and they then miss the one that matters.
+ */
+function note(msg) {
+  console.log(`(note) ${msg}`);
 }
 
 function fail(...msgs) {
@@ -140,12 +155,23 @@ async function main() {
   // matter what the grant is called, and a 403 proves the opposite.
   const pagesGroups = groups.filter((g) => /pages/i.test(g));
   if (groups.length === 0) {
-    warn('the token reported no permission groups at all -- cannot judge its Pages');
-    warn('access from this response. The next step verifies it against the real API.');
+    // Deliberately a plain log line, not ::warning::.
+    //
+    // Account-level API tokens created from the Cloudflare dashboard commonly
+    // report an empty permission_groups array on /user/tokens/verify while
+    // working perfectly. Emitting a warning here put two permanent,
+    // unactionable warnings on every single run -- including successful ones --
+    // and the deploy pipeline then looked broken when it was fine.
+    //
+    // Nothing is lost: the next step calls GET /accounts/{id}/pages/projects
+    // and hard-fails on 401/403, which is the real answer.
+    note('this token reported no permission groups, so its Pages access cannot be');
+    note('judged from this response. That is normal for account-level dashboard');
+    note('tokens. The next step settles it by calling the Pages API directly.');
   } else if (pagesGroups.length === 0) {
-    warn(`none of this token's permission groups mentions Pages (${groups.join(', ')}).`);
-    warn('Either the token really lacks Pages access, or the grant is named');
-    warn('differently. The next step settles it by calling the Pages API directly.');
+    note(`none of this token's permission groups mentions Pages (${groups.join(', ')}).`);
+    note('Either the token really lacks Pages access, or the grant is named');
+    note('differently. The next step settles it by calling the Pages API directly.');
   }
 
   // --- 4. write vs read --------------------------------------------------
