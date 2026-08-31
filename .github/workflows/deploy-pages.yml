@@ -55,6 +55,48 @@ jobs:
           [ "$missing" -eq 0 ] || exit 1
           echo "secrets ok; project=$CLOUDFLARE_PAGES_PROJECT branch=$DEPLOY_BRANCH"
 
+      # `wrangler pages deploy` with an unknown --project-name does not error:
+      # it silently creates a brand new Pages project. That project has no
+      # custom domain attached, so the deploy would "succeed" while
+      # cryptonav.site kept serving the old build -- the exact failure we are
+      # trying to fix, but harder to notice. Verify the name exists first.
+      #
+      # A failure of this *check* is non-fatal (the token may simply lack read
+      # scope) -- it warns and lets the deploy through. A definitive "not
+      # present" result is fatal.
+      - name: Verify the Pages project name is correct
+        run: |
+          resp=$(curl -sS -w '\n%{http_code}' \
+                 -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                 -H "Content-Type: application/json" \
+                 "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects" || true)
+          body=$(printf '%s' "$resp" | sed '$d')
+          code=$(printf '%s' "$resp" | tail -n1)
+          echo "projects API HTTP $code"
+          if [ "$code" != "200" ]; then
+            echo "::warning::could not list Pages projects (HTTP $code) -- skipping the name check"
+            echo "::warning::if the name is wrong, the deploy will CREATE a new project with no custom domain"
+            exit 0
+          fi
+          printf '%s' "$body" | node -e '
+            let s = "";
+            process.stdin.on("data", d => (s += d)).on("end", () => {
+              const want = process.env.CLOUDFLARE_PAGES_PROJECT;
+              let j;
+              try { j = JSON.parse(s); } catch { console.log("::warning::unparseable response -- skipping name check"); return; }
+              if (!j.success) { console.log("::warning::API said success=false -- skipping name check"); return; }
+              const names = (j.result || []).map(p => p.name);
+              console.log("existing Pages projects: " + (names.join(", ") || "(none)"));
+              if (!names.includes(want)) {
+                console.log(`::error::no Pages project named "${want}".`);
+                console.log("::error::refusing to deploy -- wrangler would create a new project with no custom domain.");
+                console.log("::error::set the repository variable CLOUDFLARE_PAGES_PROJECT to one of the names above.");
+                process.exit(1);
+              }
+              console.log(`project "${want}" exists -- good`);
+            });
+          '
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
