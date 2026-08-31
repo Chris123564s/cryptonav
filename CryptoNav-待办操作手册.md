@@ -204,10 +204,20 @@ Cloudflare 的 "internal error" 有一部分是瞬时故障。先排除这个可
    | `CLOUDFLARE_ACCOUNT_ID` | 2.1 复制的 Account ID |
    | `CLOUDFLARE_API_TOKEN` | 2.2 复制的 token |
 
-3. （可选）如果 Pages 项目名不叫 `cryptonav`，去
-   <https://github.com/Chris123564s/cryptonav/settings/variables/actions>
-   加一个 **Variable** `CLOUDFLARE_PAGES_PROJECT`，值为真实项目名。
-   不加也行，脚本默认用 `cryptonav`。
+3. **确认 Pages 项目名**（默认填的是 `cryptonav`，但必须核对）：
+
+   打开 <https://dash.cloudflare.com/> → **Workers & Pages**，
+   列表里那个挂着 `cryptonav.site` 域名的项目叫什么名字？
+
+   - **就叫 `cryptonav`** → 什么都不用做，用默认值
+   - **叫别的名字**（比如 `cryptonav-site`）→ 必须去
+     <https://github.com/Chris123564s/cryptonav/settings/variables/actions>
+     加一个 **Variable**：Name = `CLOUDFLARE_PAGES_PROJECT`，Value = 真实项目名
+
+   ⚠️ **这一步不是可选的，别跳过。** 原因是：`wrangler pages deploy` 遇到
+   不存在的项目名时**不会报错，而是直接新建一个同名项目**。新项目没有自定义域名，
+   于是部署会显示"成功"，但 `cryptonav.site` 继续跑旧版本 —— 正是我们要修的毛病，
+   只是伪装成了修好。所以我给 workflow 加了一道预检：名字对不上就**拒绝部署**并报错。
 
 #### 2.4 跑一次
 
