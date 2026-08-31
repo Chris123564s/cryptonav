@@ -20,6 +20,12 @@ interface Props {
 const { category } = Astro.props;
 const projects = getProjectsByParentCategory(category.id);
 
+// `{n}` keeps the metadata honest about how many projects we actually list;
+// see scripts/apply-category-meta.mjs for why the count is not hard-coded.
+const seoTitle = category.seoTitle ?? `${category.name} - CryptoNav`;
+const seoDescription = (category.seoDescription ?? category.description)
+  .replace('{n}', String(projects.length));
+
 const categoryUrl = `/category/${category.slug}`;
 const categorySchema = [
   collectionPage({
@@ -40,8 +46,8 @@ const categorySchema = [
 ---
 
 <Layout
-  title={`${category.name} - CryptoNav`}
-  description={category.description}
+  title={seoTitle}
+  description={seoDescription}
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: category.name }]}
   schema={categorySchema}
 >

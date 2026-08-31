@@ -4,6 +4,7 @@ import SafetyBadge from '../../components/SafetyBadge.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import { getVerifiedProjects, formatUsd, safety } from '../../utils/data';
 import { collectionPage, itemList, type Crumb } from '../../utils/schema';
+import { fitDescription } from '../../utils/seo';
 
 const rows = getVerifiedProjects();
 const c = safety.counts;
@@ -33,8 +34,8 @@ const crumbs: Crumb[] = [{ name: 'Home', url: '/' }, { name: 'Verify' }];
 ---
 
 <Layout
-  title="Crypto Project Safety Scores — Domain Age, Hack History & Verification"
-  description={`Automated safety checks on ${c.projects} crypto exchanges, wallets and DeFi protocols: domain registration dates, first online sightings and recorded security incidents, each traceable to a public source. Updated ${updated}.`}
+  title="Crypto Safety Scores — Domain Age & Hack History"
+  description={fitDescription(`Updated ${updated}. Safety checks on ${c.projects} crypto exchanges, wallets and DeFi protocols: domain age, first online sighting and recorded incidents.`)}
   breadcrumbs={crumbs}
   schema={ldNodes}
 >

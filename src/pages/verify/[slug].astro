@@ -4,6 +4,7 @@ import SafetyBadge from '../../components/SafetyBadge.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import { projects, getSafety, getReferralUrl, formatUsd, gradeColor, getSubCategoryById, safety } from '../../utils/data';
 import { article, faqPage, type Crumb } from '../../utils/schema';
+import { fitTitle, fitDescription } from '../../utils/seo';
 import type { SafetyProject } from '../../types';
 
 export function getStaticPaths() {
@@ -108,6 +109,18 @@ const related = projects
   .filter((p) => p.id !== project.id && p.category.split('-')[0] === parentCat)
   .slice(0, 6);
 
+/*
+ * Title variants, most descriptive first. `fitTitle` picks the richest one that
+ * still fits; the bare question is always short enough to be the fallback, so a
+ * long project name degrades the title gracefully instead of overflowing.
+ */
+const pageTitle = fitTitle([
+  `Is ${project.name} Safe? Domain Age, Hack History & Score`,
+  `Is ${project.name} Safe? Safety Score & Hack History`,
+  `Is ${project.name} Safe? (2026 Safety Check)`,
+  `Is ${project.name} Safe?`,
+]);
+
 const dims = [
   { key: 'longevity', label: 'Operating history', dim: s.dimensions.longevity,
     detail: s.ageNote ?? (s.firstSeenAt ? `first captured online ${s.firstSeenAt}` : s.domainRegisteredAt ? `domain registered ${s.domainRegisteredAt}` : 'unverified') },
@@ -119,8 +132,8 @@ const dims = [
 ---
 
 <Layout
-  title={`Is ${project.name} Safe? Domain Age, Hack History & Safety Score`}
-  description={verdict.slice(0, 158)}
+  title={pageTitle}
+  description={fitDescription(verdict)}
   breadcrumbs={crumbs}
   schema={ldNodes}
 >

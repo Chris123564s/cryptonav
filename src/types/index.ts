@@ -50,6 +50,13 @@ export interface Category {
   slug: string;
   icon: string;
   description: string;
+  /**
+   * Metadata override. `name` is too short to rank ("NFT - CryptoNav" is 15
+   * characters) and `description` reads as a hover hint rather than a search
+   * snippet. `{n}` in seoDescription is replaced with the live project count.
+   */
+  seoTitle?: string;
+  seoDescription?: string;
   subcategories: SubCategory[];
 }
 

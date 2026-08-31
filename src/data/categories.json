@@ -5,6 +5,8 @@
     "slug": "exchange",
     "icon": "exchange",
     "description": "Centralized and decentralized crypto trading platforms",
+      "seoTitle": "Best Crypto Exchanges 2026: CEX & DEX Compared",
+      "seoDescription": "Compare centralized and decentralized crypto exchanges on fees, chains, security record and KYC. {n} platforms, each with a public safety score.",
     "subcategories": [
       { "id": "exchange-cex", "name": "CEX", "slug": "cex", "description": "Traditional order-book exchanges" },
       { "id": "exchange-dex", "name": "DEX", "slug": "dex", "description": "On-chain automated market maker exchanges" },
@@ -18,6 +20,8 @@
     "slug": "wallet",
     "icon": "wallet",
     "description": "Crypto storage and management tools",
+      "seoTitle": "Best Crypto Wallets 2026: Hot & Cold Storage",
+      "seoDescription": "Compare self-custody and custodial crypto wallets on key control, chain support, backup model and security history. {n} wallets with safety scores.",
     "subcategories": [
       { "id": "wallet-hot", "name": "Hot Wallets", "slug": "hot", "description": "Online wallets, fast and convenient" },
       { "id": "wallet-cold", "name": "Hardware Wallets", "slug": "cold", "description": "Offline storage, secure and reliable" },
@@ -30,6 +34,8 @@
     "slug": "market",
     "icon": "chart",
     "description": "Market aggregation, on-chain analytics, and block explorers",
+      "seoTitle": "Crypto Market Data & Analytics Tools",
+      "seoDescription": "Price aggregators, on-chain analytics dashboards and block explorers for tracking the crypto market. {n} tools, each with a verified safety score.",
     "subcategories": [
       { "id": "market-aggregator", "name": "Market Aggregators", "slug": "aggregator", "description": "Multi-platform market aggregation" },
       { "id": "market-analytics", "name": "On-chain Analytics", "slug": "analytics", "description": "On-chain data analysis tools" },
@@ -42,6 +48,8 @@
     "slug": "defi",
     "icon": "defi",
     "description": "Decentralized finance protocols and applications",
+      "seoTitle": "Best DeFi Platforms & Protocols 2026",
+      "seoDescription": "Lending, DEX, staking and yield protocols compared on audit history and recorded incidents. {n} DeFi apps, each with a public safety score.",
     "subcategories": [
       { "id": "defi-lending", "name": "Lending", "slug": "lending", "description": "Decentralized lending protocols" },
       { "id": "defi-yield", "name": "Yield", "slug": "yield", "description": "Yield optimization and aggregators" },
@@ -55,6 +63,8 @@
     "slug": "nft",
     "icon": "nft",
     "description": "NFT marketplaces and tools",
+      "seoTitle": "Best NFT Marketplaces & Tools 2026",
+      "seoDescription": "NFT marketplaces, analytics dashboards and minting tools compared on fees, chain coverage and volume. {n} projects, each with a safety score.",
     "subcategories": [
       { "id": "nft-marketplace", "name": "NFT Marketplaces", "slug": "marketplace", "description": "NFT buy/sell platforms" },
       { "id": "nft-tools", "name": "NFT Tools", "slug": "tools", "description": "Minting and analysis tools" }
@@ -66,6 +76,8 @@
     "slug": "infra",
     "icon": "infra",
     "description": "Public chains, Layer 2, and developer tools",
+      "seoTitle": "Crypto Infrastructure: Chains, L2s & Dev Tools",
+      "seoDescription": "Layer 1 blockchains, Layer 2 rollups, bridges and developer tooling, each with verified domain history and recorded incident data. {n} projects.",
     "subcategories": [
       { "id": "infra-chain", "name": "Public Chains", "slug": "chain", "description": "Blockchain base-layer networks" },
       { "id": "infra-layer2", "name": "Layer 2", "slug": "layer2", "description": "Layer 2 scaling solutions" },
@@ -78,6 +90,8 @@
     "slug": "security",
     "icon": "shield",
     "description": "Smart contract audits and security tools",
+      "seoTitle": "Crypto Security & Smart Contract Audit Tools",
+      "seoDescription": "Audit firms, contract scanners and transaction simulators for checking a protocol before you sign. {n} tools, each with a verified safety score.",
     "subcategories": [
       { "id": "security-audit", "name": "Audit Firms", "slug": "audit", "description": "Smart contract audit services" },
       { "id": "security-tools", "name": "Security Tools", "slug": "tools", "description": "Security detection and risk control" }
@@ -89,6 +103,8 @@
     "slug": "media",
     "icon": "media",
     "description": "News media and learning communities",
+      "seoTitle": "Crypto News, Research & Community Hubs",
+      "seoDescription": "News outlets, research desks and community forums covering crypto markets and regulation, with domain age verified for each source. {n} sources.",
     "subcategories": [
       { "id": "media-news", "name": "News Media", "slug": "news", "description": "Crypto news outlets" },
       { "id": "media-community", "name": "Communities", "slug": "community", "description": "Discussion communities" },
@@ -101,6 +117,8 @@
     "slug": "tools",
     "icon": "tool",
     "description": "Tax, portfolio, and trading tools",
+      "seoTitle": "Crypto Utility Tools: Tax, Portfolio & Trading",
+      "seoDescription": "Portfolio trackers, tax calculators, trading terminals and alerting tools for managing crypto positions and reporting them. {n} tools listed.",
     "subcategories": [
       { "id": "tools-portfolio", "name": "Portfolio", "slug": "portfolio", "description": "Asset management tools" },
       { "id": "tools-tax", "name": "Tax Tools", "slug": "tax", "description": "Crypto tax calculation" },
@@ -113,6 +131,8 @@
     "slug": "analytics-trading",
     "icon": "analytics",
     "description": "On-chain analytics, smart-money tracking, and copy-trading terminals",
+      "seoTitle": "Crypto Analytics & Copy-Trading Platforms",
+      "seoDescription": "On-chain analytics dashboards, smart-money trackers and copy-trading terminals for following wallets and trades in real time. {n} platforms.",
     "subcategories": [
       { "id": "at-onchain", "name": "On-chain Analytics", "slug": "onchain", "description": "Wallet and smart-money analysis" },
       { "id": "at-copytrade", "name": "Copy Trading", "slug": "copytrade", "description": "Follow and copy top traders" },

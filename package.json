@@ -18,7 +18,8 @@
     "safety": "node scripts/build-safety-report.mjs",
     "safety:offline": "node scripts/build-safety-report.mjs --offline",
     "sources": "node scripts/verify-sources.mjs",
-    "test": "npm run test:cg && npm run test:subscribe && npm run test:safety && npm run build && npm run test:build && npm run test:ads && npm run test:jsonld"
+    "test": "npm run test:cg && npm run test:subscribe && npm run test:safety && npm run build && npm run test:build && npm run test:ads && npm run test:jsonld && npm run test:meta",
+    "test:meta": "node scripts/check-meta.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.2.1",

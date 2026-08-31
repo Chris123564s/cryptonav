@@ -3,14 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import AdBanner from '../components/AdBanner.astro';
 import faqData from '../data/faq.json';
 import { faqPage } from '../utils/schema';
+import { fitDescription } from '../utils/seo';
 
 const groups = faqData.groups;
 const total = groups.reduce((n, g) => n + g.items.length, 0);
 ---
 
 <Layout
-  title="FAQ - CryptoNav"
-  description={`Answers to ${total} common questions about CryptoNav: how we pick projects, what Sponsored means, and the crypto basics — CEX vs DEX, hot vs cold wallets, staking, stablecoins, Layer 2 and staying safe from scams.`}
+  title="CryptoNav FAQ: Listings, Sponsors & Crypto Basics"
+  description={fitDescription(`Answers to ${total} questions about CryptoNav: how we pick projects, what Sponsored means, and the crypto basics — CEX vs DEX, wallets, staking and avoiding scams.`)}
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'FAQ' }]}
   schema={faqPage(groups)}
 >
