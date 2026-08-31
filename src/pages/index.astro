@@ -11,11 +11,14 @@ import SuccessCases from '../components/SuccessCases.astro';
 import FeaturedCarousel from '../components/FeaturedCarousel.astro';
 import CategoryGrid from '../components/CategoryGrid.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { getLatestProjects, getActiveProjects, getReferralUrl } from '../utils/data';
+import { getLatestProjects, getActiveProjects, getReferralUrl, getVerifiedProjects, safety, gradeColor } from '../utils/data';
 import { organization, webSite, itemList } from '../utils/schema';
 
 const latestProjects = getLatestProjects(12);
 const totalProjects = getActiveProjects().length;
+// Highest-scoring verified projects. Leads with the strongest numbers, which is
+// also the least misleading way to summarise a safety dataset.
+const topVerified = getVerifiedProjects().slice(0, 6);
 
 // Structured data: site identity + the newest directory entries.
 // NOTE: directory items intentionally point at the external site — there is no
@@ -77,6 +80,40 @@ const homeSchema = [
   <!-- Categories -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <CategoryGrid />
+  </div>
+
+  <!-- Safety verification strip -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <div class="flex items-baseline justify-between mb-3">
+      <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">
+        Verified, not just listed
+      </h2>
+      <a href="/verify" class="text-sm text-brand-500 hover:underline">All {safety.counts.projects} reports →</a>
+    </div>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mb-3 max-w-3xl">
+      Domain registration dates from registry records, first online sightings from the Internet Archive,
+      and recorded losses from the DefiLlama incident database — {safety.counts.withIncidents} of our
+      listed projects have at least one incident on file. Every figure carries its source.
+    </p>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      {topVerified.map(({ project, safety: s }) => (
+        <a
+          href={`/verify/${project.id}`}
+          class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-3 hover:border-brand-300 dark:hover:border-brand-600 transition-colors"
+        >
+          <div class="flex items-center gap-1.5 mb-1.5">
+            <span class="text-base font-extrabold" style={`color: ${gradeColor(s.grade)}`}>
+              {s.score ?? '—'}
+            </span>
+            <span class="text-[10px] font-semibold" style={`color: ${gradeColor(s.grade)}`}>{s.grade}</span>
+          </div>
+          <div class="text-sm font-semibold text-surface-800 dark:text-surface-100 truncate">{project.name}</div>
+          <div class="text-[11px] text-surface-400 truncate">
+            {s.incidentCount > 0 ? `${s.incidentCount} incident${s.incidentCount === 1 ? '' : 's'}` : 'No incidents'}
+          </div>
+        </a>
+      ))}
+    </div>
   </div>
 
   <!-- Latest Projects + Sidebar -->

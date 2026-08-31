@@ -1,0 +1,48 @@
+name: Refresh Safety Verification
+
+on:
+  schedule:
+    # Weekly is enough: domain registration dates never move and incident
+    # records are rare. Running this hourly would hammer four free APIs to
+    # re-derive numbers that have not changed.
+    - cron: '0 7 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Rebuild the safety report
+        # Deliberately not behind a cache: the report caches its own lookups in
+        # src/data/safety.json, so this run only queries what is missing or
+        # stale, and a transient API failure cannot erase a verified fact.
+        run: node scripts/build-safety-report.mjs
+
+      - name: Assert the report is internally consistent
+        run: node scripts/check-safety.mjs
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/safety.json
+          if git diff --cached --quiet; then
+            echo "No changes — verification data is up to date"
+          else
+            git commit -m "chore: refresh safety verification report"
+            git push
+          fi

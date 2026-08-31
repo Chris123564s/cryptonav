@@ -1,0 +1,213 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SafetyBadge from '../../components/SafetyBadge.astro';
+import AdBanner from '../../components/AdBanner.astro';
+import { getVerifiedProjects, formatUsd, safety } from '../../utils/data';
+import { collectionPage, itemList, type Crumb } from '../../utils/schema';
+
+const rows = getVerifiedProjects();
+const c = safety.counts;
+const updated = safety.generatedAt.slice(0, 10);
+
+const url = '/verify';
+const ldNodes = [
+  collectionPage({
+    name: 'Crypto Project Safety Verification',
+    description: `Domain registration dates, first online sightings and recorded security incidents for ${c.projects} crypto exchanges, wallets and DeFi protocols, each with its source.`,
+    url,
+  }),
+  itemList({
+    name: 'Crypto projects by safety score',
+    url,
+    items: rows
+      .filter((r) => r.safety.score !== null)
+      .map((r) => ({
+        name: r.project.name,
+        url: `/verify/${r.project.id}`,
+        description: `${r.project.name}: safety grade ${r.safety.grade} (${r.safety.score}/100) from ${r.safety.verifiedChecks} automated checks; ${r.safety.incidentCount} recorded incidents.`,
+      })),
+  }),
+].filter((n: any) => n['@type'] !== 'ItemList' || n.numberOfItems > 0);
+
+const crumbs: Crumb[] = [{ name: 'Home', url: '/' }, { name: 'Verify' }];
+---
+
+<Layout
+  title="Crypto Project Safety Scores — Domain Age, Hack History & Verification"
+  description={`Automated safety checks on ${c.projects} crypto exchanges, wallets and DeFi protocols: domain registration dates, first online sightings and recorded security incidents, each traceable to a public source. Updated ${updated}.`}
+  breadcrumbs={crumbs}
+  schema={ldNodes}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <nav class="flex items-center gap-2 text-xs text-surface-400">
+      <a href="/" class="hover:text-brand-500">Home</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-surface-600 dark:text-surface-300">Verify</span>
+    </nav>
+  </div>
+
+  <!-- Header -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <h1 class="text-2xl sm:text-3xl font-bold text-surface-800 dark:text-surface-100">
+      Crypto Safety Verification
+    </h1>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-2 max-w-3xl leading-relaxed">
+      Every project is checked against public, reproducible sources — registry records for when a domain
+      was created, the Internet Archive for when a site actually went live, the DefiLlama incident
+      database for recorded losses, and GoPlus for token-contract risk. Where a source cannot answer,
+      we say so instead of filling the gap.
+    </p>
+
+    <div class="flex flex-wrap gap-3 mt-4">
+      <div class="bg-surface-50 dark:bg-surface-800/50 rounded-lg px-4 py-2 border border-surface-100 dark:border-surface-700">
+        <span class="text-xs text-surface-400">Projects checked</span>
+        <p class="text-sm font-semibold text-surface-700 dark:text-surface-200">{c.projects}</p>
+      </div>
+      <div class="bg-surface-50 dark:bg-surface-800/50 rounded-lg px-4 py-2 border border-surface-100 dark:border-surface-700">
+        <span class="text-xs text-surface-400">With domain age</span>
+        <p class="text-sm font-semibold text-surface-700 dark:text-surface-200">{c.withDomainAge}/{c.projects}</p>
+      </div>
+      <div class="bg-surface-50 dark:bg-surface-800/50 rounded-lg px-4 py-2 border border-surface-100 dark:border-surface-700">
+        <span class="text-xs text-surface-400">With incidents on record</span>
+        <p class="text-sm font-semibold text-surface-700 dark:text-surface-200">{c.withIncidents}</p>
+      </div>
+      <div class="bg-surface-50 dark:bg-surface-800/50 rounded-lg px-4 py-2 border border-surface-100 dark:border-surface-700">
+        <span class="text-xs text-surface-400">Token contracts checked</span>
+        <p class="text-sm font-semibold text-surface-700 dark:text-surface-200">{c.withContract}</p>
+      </div>
+      <div class="bg-surface-50 dark:bg-surface-800/50 rounded-lg px-4 py-2 border border-surface-100 dark:border-surface-700">
+        <span class="text-xs text-surface-400">Last refreshed</span>
+        <p class="text-sm font-semibold text-surface-700 dark:text-surface-200">{updated}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <AdBanner slot="home-banner" format="banner" />
+  </div>
+
+  <!-- Table -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+    <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 overflow-hidden">
+      <div class="grid grid-cols-[1fr_84px_120px_110px_90px] sm:grid-cols-[1fr_100px_150px_130px_120px_90px] gap-2 px-4 py-2.5 text-xs font-semibold text-surface-400 uppercase tracking-wide border-b border-surface-100 dark:border-surface-700 bg-surface-50 dark:bg-surface-800/50">
+        <div>Project</div>
+        <div>Score</div>
+        <div class="hidden sm:block">Domain registered</div>
+        <div class="sm:hidden text-right">Registered</div>
+        <div class="text-right">Incidents</div>
+        <div class="hidden sm:block text-right">Recorded loss</div>
+        <div class="text-right">Checks</div>
+      </div>
+
+      {rows.map(({ project, safety: s }) => (
+        <a
+          href={`/verify/${project.id}`}
+          class="grid grid-cols-[1fr_84px_120px_110px_90px] sm:grid-cols-[1fr_100px_150px_130px_120px_90px] gap-2 px-4 py-3 items-center border-b border-surface-100 dark:border-surface-700 last:border-0 hover:bg-surface-50 dark:hover:bg-surface-700/30 transition-colors"
+        >
+          <div class="flex items-center gap-2.5 min-w-0">
+            <img src={project.logo} alt="" class="w-6 h-6 rounded-full object-cover shrink-0" loading="lazy" />
+            <div class="min-w-0">
+              <div class="text-sm font-semibold text-surface-800 dark:text-surface-100 truncate">{project.name}</div>
+              <div class="text-[11px] text-surface-400 truncate">{s.domain}</div>
+            </div>
+          </div>
+
+          <div><SafetyBadge safety={s} /></div>
+
+          <div class="hidden sm:block text-sm font-mono text-surface-600 dark:text-surface-300">
+            {s.domainRegisteredAt ?? '—'}
+          </div>
+          <div class="sm:hidden text-xs font-mono text-surface-500 dark:text-surface-400 text-right">
+            {s.domainRegisteredAt ? s.domainRegisteredAt.slice(0, 7) : '—'}
+          </div>
+
+          <div class="text-right text-sm text-surface-600 dark:text-surface-300">
+            {s.incidentCount === 0 ? (
+              <span class="text-surface-400">none</span>
+            ) : (
+              <span class="font-semibold">{s.incidentCount}</span>
+            )}
+          </div>
+
+          <div class="hidden sm:block text-right text-sm font-mono text-surface-600 dark:text-surface-300">
+            {s.incidentCount ? formatUsd(s.incidentTotalUsd) : '—'}
+          </div>
+
+          <div class="text-right text-xs text-surface-400">{s.verifiedChecks}/{s.totalChecks}</div>
+        </a>
+      ))}
+    </div>
+
+    <p class="text-[11px] text-surface-400 mt-2">
+      "Domain registered" is the registry record for the domain, not the age of the project. Premium
+      domains bought second-hand carry a much older date; where we can detect that, the project page
+      flags it and the score is discounted.
+    </p>
+  </div>
+
+  <!-- Method -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3" id="method">How scoring works</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+        <h3 class="text-sm font-semibold text-surface-800 dark:text-surface-100">The three checks</h3>
+        <ul class="text-sm text-surface-600 dark:text-surface-300 mt-2 space-y-2">
+          <li><strong class="text-surface-700 dark:text-surface-200">Operating history — 35%</strong><br />Registry creation date and earliest archived snapshot. Source: RDAP, Internet Archive.</li>
+          <li><strong class="text-surface-700 dark:text-surface-200">Incident record — 40%</strong><br />Documented losses, weighted by size and recency. Source: DefiLlama.</li>
+          <li><strong class="text-surface-700 dark:text-surface-200">Token contract — 25%</strong><br />Honeypot, ownership, mint and holder-count checks, where the project has a token. Source: GoPlus.</li>
+        </ul>
+        <p class="text-xs text-surface-400 mt-3">
+          Checks that return no data are dropped and their weight redistributed, so a project without a
+          token is not penalised for not having one. At least two checks must succeed before a score is
+          published.
+        </p>
+        <p class="text-xs text-surface-400 mt-2">
+          A score is also capped at the share of the rubric actually checked: a project we could only
+          verify across two of three checks cannot score above 75, however clean those two look.
+        </p>
+      </div>
+
+      <div class="bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/40 rounded-xl p-4">
+        <h3 class="text-sm font-semibold text-surface-800 dark:text-surface-100">What a score is not</h3>
+        <ul class="text-sm text-surface-600 dark:text-surface-300 mt-2 space-y-1.5 list-disc list-inside">
+          <li>Not an audit — no code has been reviewed.</li>
+          <li>Not a solvency or licensing check.</li>
+          <li>Not a guarantee. Incident databases only contain what became public.</li>
+          <li>Not investment advice.</li>
+        </ul>
+        <p class="text-xs text-surface-500 dark:text-surface-400 mt-3">
+          We would rather publish "not verified" than invent a number. That is why some rows show fewer
+          than three checks.
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-4 mt-3">
+      <h3 class="text-sm font-semibold text-surface-800 dark:text-surface-100">Incident attribution is curated by hand</h3>
+      <p class="text-sm text-surface-600 dark:text-surface-300 mt-2 leading-relaxed">
+        DefiLlama's feed names victims in free text, so automatic name matching produces false
+        accusations. We rejected matches that look right and are not:
+      </p>
+      <ul class="text-xs text-surface-500 dark:text-surface-400 mt-2 space-y-1">
+        {Object.entries(safety.rejectedMatches).map(([id, reason]) => (
+          <li><strong class="text-surface-600 dark:text-surface-300">{id}</strong> — {reason}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-4 mt-3">
+      <h3 class="text-sm font-semibold text-surface-800 dark:text-surface-100">Sources</h3>
+      <dl class="text-sm text-surface-600 dark:text-surface-300 mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5">
+        {Object.entries(safety.sources).map(([k, v]) => (
+          <div class="flex gap-2">
+            <dt class="text-surface-400 min-w-[110px]">{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="text-xs text-surface-400 mt-3">
+        All four are public and require no API key, so anyone can reproduce these numbers.
+      </p>
+    </div>
+  </div>
+</Layout>

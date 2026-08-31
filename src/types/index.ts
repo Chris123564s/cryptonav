@@ -138,3 +138,87 @@ export interface Token {
   sponsoredUntil?: string;
   addedAt: string;
 }
+
+/* ------------------------------------------------------------------ *
+ * Safety verification — produced by scripts/build-safety-report.mjs.
+ *
+ * Every field that reaches a page is either read from a named external
+ * source or derived from one. Nothing here is hand-written: the old
+ * `verified` / `riskLevel` flags on ProjectData were assertions with no
+ * evidence behind them, and this replaces them.
+ * ------------------------------------------------------------------ */
+
+export type SafetyGrade = 'A' | 'B' | 'C' | 'D' | 'E' | 'unrated';
+export type AgeConfidence = 'high' | 'medium' | 'low' | 'unknown';
+
+export interface SafetyIncident {
+  date: string;
+  dateTs: number;
+  name: string;
+  amountUsd: number | null;
+  technique: string | null;
+  targetType: string | null;
+  returnedFunds: string | null;
+  source: string;
+}
+
+export interface SafetyToken {
+  symbol: string;
+  chain: number;
+  address: string;
+  holderCount: number | null;
+  isOpenSource: boolean;
+  isHoneypot: boolean;
+  isMintable: boolean;
+  isProxy: boolean;
+  canTakeBackOwnership: boolean;
+}
+
+export interface SafetyDimension {
+  score: number;
+  max: number;
+  weight: number;
+  penalty?: number;
+}
+
+export interface SafetyProject {
+  name: string;
+  category: string;
+  domain: string;
+  website: string;
+  domainRegisteredAt: string | null;
+  domainRegistrar: string | null;
+  firstSeenAt: string | null;
+  operatingSince: string | null;
+  ageYears: number | null;
+  ageConfidence: AgeConfidence;
+  ageNote: string | null;
+  incidents: SafetyIncident[];
+  incidentCount: number;
+  incidentTotalUsd: number;
+  token: SafetyToken | null;
+  contractFlags: string[];
+  dimensions: {
+    longevity: SafetyDimension | null;
+    incidents: SafetyDimension | null;
+    contract: SafetyDimension | null;
+  };
+  score: number | null;
+  grade: SafetyGrade;
+  coverage: number;
+  verifiedChecks: number;
+  totalChecks: number;
+  unratedReason: string | null;
+}
+
+export interface SafetyReport {
+  generatedAt: string;
+  method: string;
+  weights: Record<string, number>;
+  counts: Record<string, number>;
+  sources: Record<string, string>;
+  rejectedMatches: Record<string, string>;
+  warnings: string[];
+  notes: string[];
+  projects: Record<string, SafetyProject>;
+}

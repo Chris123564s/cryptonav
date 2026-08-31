@@ -1,6 +1,7 @@
 ---
 import type { ProjectData } from '../types';
-import { formatNumber, getProjectChains, getReferralUrl } from '../utils/data';
+import SafetyBadge from './SafetyBadge.astro';
+import { formatNumber, getProjectChains, getReferralUrl, getSafety } from '../utils/data';
 
 interface Props {
   project: ProjectData;
@@ -8,6 +9,9 @@ interface Props {
 }
 
 const { project, compact = false } = Astro.props;
+// Rendered as a non-interactive span: the card is already one big anchor, and
+// nesting a link here would both break the markup and hijack the outbound click.
+const safety = getSafety(project.id);
 
 // Get category slug
 function getCategorySlug(categoryId: string): string {
@@ -52,6 +56,7 @@ function getCategorySlug(categoryId: string): string {
         {project.featured && !project.sponsored && (
           <span class="featured-badge">Featured</span>
         )}
+        {safety && <SafetyBadge safety={safety} />}
         {project.audited && (
           <span class="inline-flex items-center gap-0.5 text-[10px] text-green-600 dark:text-green-400">
             <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 9.83 0 0 0 0 9.999 11.954 9.83 0 0 0 2.166 15c.532-1.623 2.052-2.834 3.834-2.834h10c1.782 0 3.302 1.211 3.834 2.834A11.954 9.83 0 0 0 20 10 11.954 9.83 0 0 0 17.834 5c-.532 1.623-2.052 2.834-3.834 2.834h-10c-1.782 0-3.302-1.211-3.834-2.835z" clip-rule="evenodd"/></svg>

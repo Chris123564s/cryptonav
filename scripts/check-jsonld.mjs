@@ -84,9 +84,15 @@ for (const file of pages) {
 // Routes that are plain static HTML copied from public/ and never go through
 // Layout.astro — they are not expected to carry structured data.
 const NON_ASTRO_ROUTES = new Set(['/404', '/admin']);
+// /embed/* is iframe payload: a bare document with no Layout, no navigation and
+// `noindex`. Expecting structured data there would be pointless.
+const NON_ASTRO_PREFIXES = ['/embed/'];
+
+const isExempt = (route) =>
+  NON_ASTRO_ROUTES.has(route) || NON_ASTRO_PREFIXES.some((p) => route.startsWith(p));
 
 for (const [route, page] of byPath) {
-  if (NON_ASTRO_ROUTES.has(route)) continue;
+  if (isExempt(route)) continue;
   ok(`[${route}] has JSON-LD`, page.blocks.length >= 1, `${page.blocks.length} blocks`);
   for (const b of page.blocks) {
     ok(`[${route}] JSON-LD parses`, b.ok, b.error || '');

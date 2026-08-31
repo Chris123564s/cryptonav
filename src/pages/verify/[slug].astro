@@ -1,0 +1,368 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SafetyBadge from '../../components/SafetyBadge.astro';
+import AdBanner from '../../components/AdBanner.astro';
+import { projects, getSafety, getReferralUrl, formatUsd, gradeColor, getSubCategoryById, safety } from '../../utils/data';
+import { article, faqPage, type Crumb } from '../../utils/schema';
+import type { SafetyProject } from '../../types';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: (typeof projects)[0];
+}
+
+const { project } = Astro.props;
+const s = getSafety(project.id) as SafetyProject | null;
+if (!s) {
+  throw new Error(`no safety record for ${project.id} — run scripts/build-safety-report.mjs`);
+}
+
+const slug = project.id;
+const url = `/verify/${slug}`;
+const rated = s.score !== null;
+const color = gradeColor(s.grade);
+
+// Use the registry's own names. Splitting the raw id on "-" is how you end up
+// printing "Exchange Cex" on a public page.
+const sub = getSubCategoryById(project.category);
+const categoryLabel = sub ? `${sub.category.name} · ${sub.subcategory.name}` : project.category;
+
+/* --- verdict, assembled from data rather than written per project --- */
+const incidentLine = s.incidentCount === 0
+  ? 'no security incident on record'
+  : `${s.incidentCount} recorded ${s.incidentCount === 1 ? 'incident' : 'incidents'} totalling ${formatUsd(s.incidentTotalUsd)}`;
+
+const ageLine = s.firstSeenAt
+  ? `the site has been online since ${s.firstSeenAt}`
+  : s.domainRegisteredAt
+    ? `its domain was registered on ${s.domainRegisteredAt}`
+    : 'its domain age could not be verified';
+
+const verdict = rated
+  ? `${project.name} scores ${s.score}/100 (grade ${s.grade}) across ${s.verifiedChecks} of ${s.totalChecks} automated checks. ${incidentLine.charAt(0).toUpperCase() + incidentLine.slice(1)}; ${ageLine}.`
+  : `${project.name} is not rated: ${s.unratedReason}. ${incidentLine.charAt(0).toUpperCase() + incidentLine.slice(1)}; ${ageLine}.`;
+
+/* --- FAQ is rendered visibly and must match the JSON-LD --- */
+const faqs = [
+  {
+    q: `Is ${project.name} safe?`,
+    a: verdict,
+  },
+  {
+    q: `Has ${project.name} ever been hacked?`,
+    a: s.incidentCount === 0
+      ? `No security incident involving ${project.name} appears in the DefiLlama hack database, which tracks ${'over 1,200'} recorded crypto incidents. Absence of a record is not proof that nothing happened — it means no incident has been publicly documented in that source.`
+      : `Yes. ${project.name} has ${s.incidentCount} recorded ${s.incidentCount === 1 ? 'incident' : 'incidents'} totalling ${formatUsd(s.incidentTotalUsd)}. ${s.incidents.map((i) => `${i.date}: ${i.name}${i.amountUsd ? ` (${formatUsd(i.amountUsd)})` : ''}${i.technique ? `, ${i.technique}` : ''}`).join('. ')}. Source: DefiLlama.`,
+  },
+  {
+    q: `How old is ${project.name}?`,
+    a: s.firstSeenAt
+      ? `The Internet Archive holds a snapshot of ${s.domain} from ${s.firstSeenAt}. Its domain was registered on ${s.domainRegisteredAt ?? 'an unverified date'}.${s.ageNote ? ` Caveat: ${s.ageNote}.` : ''}`
+      : s.domainRegisteredAt
+        ? `The domain ${s.domain} was registered on ${s.domainRegisteredAt}${s.domainRegistrar ? ` through ${s.domainRegistrar}` : ''}.${s.ageNote ? ` Caveat: ${s.ageNote}.` : ''}`
+        : `We could not verify when ${s.domain} was registered.`,
+  },
+];
+if (s.token) {
+  faqs.push({
+    q: `Is the ${s.token.symbol} contract safe?`,
+    a: `${s.token.symbol} at ${s.token.address.slice(0, 10)}… has ${s.token.holderCount?.toLocaleString('en-US') ?? 'an unverified number of'} holders. `
+      + (s.contractFlags.length
+        ? `Automated checks flag: ${s.contractFlags.join('; ')}.`
+        : 'Automated checks found no risk flags: the source is published, it is not a honeypot, and ownership cannot be reclaimed.')
+      + ' Source: GoPlus.',
+  });
+}
+
+// Dates come from the report, not from the build clock: a rebuild that changes
+// no data must not look like a fresh verification.
+const nowIso = safety.generatedAt.slice(0, 10);
+
+const ldNodes = [
+  article({
+    headline: `Is ${project.name} Safe? — Verified Facts, Domain Age and Incident History`,
+    description: verdict.slice(0, 200),
+    url,
+    datePublished: nowIso,
+    dateModified: nowIso,
+    keywords: [`is ${project.name} safe`, `${project.name} review`, `${project.name} hack`, `${project.name} legitimacy`, `${categoryLabel.toLowerCase()} safety`],
+  }),
+  faqPage([{ items: faqs }]),
+];
+
+const crumbs: Crumb[] = [
+  { name: 'Home', url: '/' },
+  { name: 'Verify', url: '/verify' },
+  { name: project.name },
+];
+
+/* related projects: same parent category, excluding this one */
+const parentCat = project.category.split('-')[0];
+const related = projects
+  .filter((p) => p.id !== project.id && p.category.split('-')[0] === parentCat)
+  .slice(0, 6);
+
+const dims = [
+  { key: 'longevity', label: 'Operating history', dim: s.dimensions.longevity,
+    detail: s.ageNote ?? (s.firstSeenAt ? `first captured online ${s.firstSeenAt}` : s.domainRegisteredAt ? `domain registered ${s.domainRegisteredAt}` : 'unverified') },
+  { key: 'incidents', label: 'Incident record', dim: s.dimensions.incidents,
+    detail: s.incidentCount === 0 ? 'no incident in the DefiLlama database' : `${s.incidentCount} incidents, ${formatUsd(s.incidentTotalUsd)}` },
+  { key: 'contract', label: 'Token contract', dim: s.dimensions.contract,
+    detail: s.token ? `${s.token.symbol} · ${s.token.holderCount?.toLocaleString('en-US') ?? '?'} holders` : 'no token to check' },
+];
+---
+
+<Layout
+  title={`Is ${project.name} Safe? Domain Age, Hack History & Safety Score`}
+  description={verdict.slice(0, 158)}
+  breadcrumbs={crumbs}
+  schema={ldNodes}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <nav class="flex items-center gap-2 text-xs text-surface-400">
+      <a href="/" class="hover:text-brand-500">Home</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <a href="/verify" class="hover:text-brand-500">Verify</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-surface-600 dark:text-surface-300">{project.name}</span>
+    </nav>
+  </div>
+
+  <!-- Header -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+      <div>
+        <span class="inline-block text-[11px] font-medium px-2 py-0.5 rounded-full bg-surface-100 dark:bg-surface-700 text-surface-500 dark:text-surface-400 mb-2">
+          {categoryLabel}
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-bold text-surface-800 dark:text-surface-100">
+          Is {project.name} Safe?
+        </h1>
+        <p class="text-sm text-surface-500 dark:text-surface-400 mt-1.5 max-w-2xl">
+          Domain registration, first online sighting, recorded security incidents and token-contract
+          checks — each with its source. Last refreshed
+          <time datetime={nowIso}>{nowIso}</time>.
+        </p>
+      </div>
+      <SafetyBadge safety={s} variant="block" />
+    </div>
+
+    <p class="mt-4 text-sm text-surface-600 dark:text-surface-300 bg-surface-50 dark:bg-surface-800/50 border border-surface-200 dark:border-surface-700 rounded-lg px-4 py-3">
+      {verdict}
+    </p>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <AdBanner slot="home-banner" format="banner" />
+  </div>
+
+  <!-- Verified facts -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3">What we verified</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+        <div class="text-[11px] uppercase tracking-wide text-surface-400">Domain registered</div>
+        <div class="text-lg font-semibold text-surface-800 dark:text-surface-100 mt-0.5">
+          {s.domainRegisteredAt ?? 'Not verified'}
+        </div>
+        <div class="text-xs text-surface-400 mt-1">
+          {s.domain ? `${s.domain} · ` : ''}{s.domainRegistrar ? `via ${s.domainRegistrar} · ` : ''}source: RDAP registry
+        </div>
+        {s.ageNote && (
+          <p class="text-xs text-amber-600 dark:text-amber-400 mt-2 leading-relaxed">{s.ageNote}</p>
+        )}
+      </div>
+
+      <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+        <div class="text-[11px] uppercase tracking-wide text-surface-400">First seen online</div>
+        <div class="text-lg font-semibold text-surface-800 dark:text-surface-100 mt-0.5">
+          {s.firstSeenAt ?? 'Not available'}
+        </div>
+        <div class="text-xs text-surface-400 mt-1">
+          earliest archived snapshot · source: Internet Archive
+        </div>
+        <p class="text-xs text-surface-400 mt-2 leading-relaxed">
+          {s.firstSeenAt
+            ? 'A live snapshot is stronger evidence of real operation than a registration date.'
+            : s.ageConfidence === 'low'
+              ? 'The archive had no reachable record and the registration date predates crypto itself, so no operating age is claimed at all.'
+              : 'The archive had no reachable record, so this rests on the registration date alone — enough to show the domain is not new, not enough to date the project.'}
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+        <div class="text-[11px] uppercase tracking-wide text-surface-400">Recorded incidents</div>
+        <div class="text-lg font-semibold text-surface-800 dark:text-surface-100 mt-0.5">
+          {s.incidentCount === 0 ? 'None on record' : `${s.incidentCount} · ${formatUsd(s.incidentTotalUsd)}`}
+        </div>
+        <div class="text-xs text-surface-400 mt-1">source: DefiLlama hack database</div>
+      </div>
+
+      <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+        <div class="text-[11px] uppercase tracking-wide text-surface-400">Token contract</div>
+        <div class="text-lg font-semibold text-surface-800 dark:text-surface-100 mt-0.5">
+          {s.token ? s.token.symbol : 'No token'}
+        </div>
+        <div class="text-xs text-surface-400 mt-1">
+          {s.token
+            ? `${s.token.holderCount?.toLocaleString('en-US') ?? '—'} holders · source: GoPlus`
+            : 'this project has no token contract to inspect'}
+        </div>
+        {s.contractFlags.length > 0 && (
+          <ul class="text-xs text-amber-600 dark:text-amber-400 mt-2 space-y-0.5">
+            {s.contractFlags.map((f) => <li>• {f}</li>)}
+          </ul>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <!-- Incident ledger -->
+  {s.incidentCount > 0 && (
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+      <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3">
+        Incident history
+      </h2>
+      <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 overflow-hidden">
+        <div class="grid grid-cols-[92px_1fr_110px] sm:grid-cols-[110px_1fr_130px_160px] gap-2 px-4 py-2.5 text-xs font-semibold text-surface-400 uppercase tracking-wide border-b border-surface-100 dark:border-surface-700 bg-surface-50 dark:bg-surface-800/50">
+          <div>Date</div>
+          <div>Incident</div>
+          <div class="text-right">Loss</div>
+          <div class="hidden sm:block">Technique</div>
+        </div>
+        {s.incidents.map((i) => (
+          <div class="grid grid-cols-[92px_1fr_110px] sm:grid-cols-[110px_1fr_130px_160px] gap-2 px-4 py-3 items-center border-b border-surface-100 dark:border-surface-700 last:border-0">
+            <div class="text-xs font-mono text-surface-500 dark:text-surface-400">{i.date}</div>
+            <div class="text-sm text-surface-700 dark:text-surface-200 min-w-0 truncate" title={i.name}>{i.name}</div>
+            <div class="text-right text-sm font-mono text-surface-700 dark:text-surface-200">{formatUsd(i.amountUsd)}</div>
+            <div class="hidden sm:block text-xs text-surface-400 truncate" title={i.technique ?? ''}>{i.technique ?? '—'}</div>
+          </div>
+        ))}
+        <div class="px-4 py-2 text-[11px] text-surface-400 bg-surface-50 dark:bg-surface-800/50">
+          Attribution is curated by CryptoNav: DefiLlama's feed identifies victims by free-text name or
+          protocol id, and naive matching produces false positives such as "Blur Finance" (an unrelated
+          exit scam) being attributed to Blur.io.
+        </div>
+      </div>
+    </div>
+  )}
+
+  <!-- Score breakdown -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3">How the score is built</h2>
+    <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 overflow-hidden">
+      <div class="grid grid-cols-[1fr_80px_90px_1fr] gap-2 px-4 py-2.5 text-xs font-semibold text-surface-400 uppercase tracking-wide border-b border-surface-100 dark:border-surface-700 bg-surface-50 dark:bg-surface-800/50">
+        <div>Check</div>
+        <div class="text-right">Score</div>
+        <div class="text-right">Weight</div>
+        <div class="hidden sm:block">Basis</div>
+      </div>
+      {dims.map(({ key, label, dim, detail }) => (
+        <div class="grid grid-cols-[1fr_80px_90px] sm:grid-cols-[1fr_80px_90px_1fr] gap-2 px-4 py-3 items-center border-b border-surface-100 dark:border-surface-700 last:border-0">
+          <div class="text-sm text-surface-700 dark:text-surface-200">{label}</div>
+          <div class="text-right text-sm font-mono text-surface-600 dark:text-surface-300">
+            {dim ? `${dim.score}/${dim.max}` : '—'}
+          </div>
+          <div class="text-right text-sm text-surface-400">{dim ? `${dim.weight}%` : 'n/a'}</div>
+          <div class="hidden sm:block text-xs text-surface-400 truncate" title={detail}>{detail}</div>
+        </div>
+      ))}
+      <div class="px-4 py-2.5 text-[11px] text-surface-400 bg-surface-50 dark:bg-surface-800/50 leading-relaxed">
+        Checks that returned no data are dropped and their weight redistributed, so a project without a
+        token is not penalised for not having one. At least two of three checks must succeed before any
+        score is published at all — a single dimension is not a safety score.
+        {s.score !== null && s.score >= s.coverage && (
+          <strong> This score is capped at {s.coverage}, the share of the rubric we were able to check —
+          we would rather publish a lower number than imply we verified more than we did.</strong>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <!-- Limitations -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3">
+      What this score does not tell you
+    </h2>
+    <div class="bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/40 rounded-xl p-4">
+      <ul class="text-sm text-surface-600 dark:text-surface-300 space-y-1.5 list-disc list-inside">
+        <li><strong>Not an audit.</strong> No code has been reviewed. A clean score says nothing about smart-contract correctness.</li>
+        <li><strong>Not a solvency check.</strong> We do not verify reserves, proof-of-liabilities or licensing.</li>
+        <li><strong>Not regulatory advice.</strong> Whether a platform may legally serve you depends on your jurisdiction.</li>
+        <li><strong>Incident data is incomplete by nature.</strong> Undisclosed breaches, insolvencies and exit scams leave no record.</li>
+        <li><strong>Domain age is not project age.</strong> Where the two disagree we say so on this page.</li>
+      </ul>
+      <p class="text-xs text-surface-500 dark:text-surface-400 mt-3">
+        A high score means "nothing we can automatically verify looks wrong" — not "this cannot lose your money".
+      </p>
+    </div>
+  </div>
+
+  <!-- FAQ (visible, mirrors the JSON-LD) -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3">Common questions</h2>
+    <div class="space-y-3">
+      {faqs.map((f) => (
+        <div class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+          <h3 class="text-sm font-semibold text-surface-800 dark:text-surface-100">{f.q}</h3>
+          <p class="text-sm text-surface-600 dark:text-surface-300 mt-1.5 leading-relaxed">{f.a}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Embed -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+    <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-1">Embed this badge</h2>
+    <p class="text-xs text-surface-400 mb-3">
+      Show live verification on your own site. The badge always reflects the newest check.
+    </p>
+    <pre class="bg-surface-900 dark:bg-black text-surface-100 text-xs rounded-xl p-4 overflow-x-auto"><code>&lt;iframe src="https://cryptonav.site/embed/{slug}" width="320" height="132" frameborder="0" loading="lazy" title="{project.name} safety rating by CryptoNav"&gt;&lt;/iframe&gt;</code></pre>
+  </div>
+
+  <!-- CTA -->
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
+    <div class="flex flex-wrap items-center gap-3">
+      <a
+        href={getReferralUrl(project)}
+        rel="noopener noreferrer nofollow sponsored"
+        target="_blank"
+        class="inline-flex items-center px-5 py-2.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-sm font-semibold transition-colors"
+      >
+        Visit {project.name}
+      </a>
+      <a href="/verify" class="text-sm text-brand-500 hover:underline">See all verified projects →</a>
+    </div>
+    <p class="text-[11px] text-surface-400 mt-2">
+      The link above may be an affiliate link. It does not affect the score: every figure on this page
+      comes from the external sources named beside it.
+    </p>
+  </div>
+
+  <!-- Related -->
+  {related.length > 0 && (
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3">Compare with similar projects</h2>
+      <div class="flex flex-wrap gap-2">
+        {related.map((p) => {
+          const rs = getSafety(p.id);
+          return (
+            <a
+              href={`/verify/${p.id}`}
+              class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 text-sm text-surface-600 dark:text-surface-300 hover:border-brand-300 dark:hover:border-brand-600 transition-colors"
+            >
+              {p.name}
+              {rs && <SafetyBadge safety={rs} />}
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  )}
+</Layout>

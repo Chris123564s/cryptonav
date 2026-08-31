@@ -1,0 +1,53 @@
+---
+/**
+ * Compact safety indicator for directory cards.
+ *
+ * Deliberately shows the grade and the number of checks behind it, never a
+ * bare number: a score without its coverage reads as more certain than it is.
+ * When a project could not be rated we say so instead of showing a zero.
+ */
+import { gradeColor } from '../utils/data';
+import type { SafetyProject } from '../types';
+
+interface Props {
+  safety: SafetyProject | null;
+  /** 'inline' for cards, 'block' for page headers. */
+  variant?: 'inline' | 'block';
+}
+
+const { safety, variant = 'inline' } = Astro.props;
+if (!safety) return null;
+
+const color = gradeColor(safety.grade);
+const rated = safety.score !== null;
+---
+
+{variant === 'inline' ? (
+  <span
+    class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold leading-none"
+    style={`background: ${color}18; color: ${color}; border: 1px solid ${color}40`}
+    title={rated
+      ? `CryptoNav safety grade ${safety.grade} (${safety.score}/100) from ${safety.verifiedChecks} of ${safety.totalChecks} automated checks`
+      : `Not rated: ${safety.unratedReason}`}
+  >
+    <span class="font-bold">{rated ? safety.grade : '—'}</span>
+    <span class="opacity-80">{rated ? safety.score : 'unrated'}</span>
+  </span>
+) : (
+  <div class="inline-flex items-center gap-3 px-4 py-3 rounded-xl border" style={`background: ${color}12; border-color: ${color}35`}>
+    <div class="text-center">
+      <div class="text-2xl font-extrabold leading-none" style={`color: ${color}`}>{rated ? safety.score : '—'}</div>
+      <div class="text-[10px] uppercase tracking-wide text-surface-400 mt-0.5">of 100</div>
+    </div>
+    <div class="border-l pl-3" style={`border-color: ${color}35`}>
+      <div class="text-sm font-bold" style={`color: ${color}`}>
+        {rated ? `Grade ${safety.grade}` : 'Not rated'}
+      </div>
+      <div class="text-[11px] text-surface-500 dark:text-surface-400">
+        {rated
+          ? `${safety.verifiedChecks} of ${safety.totalChecks} checks verified`
+          : safety.unratedReason}
+      </div>
+    </div>
+  </div>
+)}
