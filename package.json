@@ -9,7 +9,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test:cg": "node scripts/test-cg-proxy.mjs"
+    "test:cg": "node scripts/test-cg-proxy.mjs",
+    "test:subscribe": "node scripts/test-subscribe.mjs",
+    "test:build": "node scripts/check-faq-newsletter.mjs",
+    "test:ads": "node scripts/check-ad-slots.mjs",
+    "test": "npm run test:cg && npm run test:subscribe && npm run build && npm run test:build && npm run test:ads"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.2.1",

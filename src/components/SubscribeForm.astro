@@ -1,0 +1,127 @@
+---
+// Newsletter signup form.
+//
+// Posts to the /api/subscribe Pages Function. If no email provider has been
+// configured yet the function answers 503 with `unconfigured`, and the form
+// then surfaces a mailto link instead of failing silently — an unconfigured
+// provider is a config problem, not something the visitor did wrong.
+interface Props {
+  variant?: 'page' | 'compact';
+  source?: string;
+}
+
+const { variant = 'page', source = 'site' } = Astro.props;
+
+const page = variant === 'page';
+const mailtoHref =
+  'mailto:hello@cryptonav.site?subject=' +
+  encodeURIComponent('Newsletter subscription') +
+  '&body=' +
+  encodeURIComponent('Please add me to the CryptoNav newsletter.');
+---
+
+<form
+  class:list={['subscribe-form', page ? 'space-y-3' : 'space-y-2']}
+  data-source={source}
+  novalidate
+>
+  <!-- Honeypot: hidden from humans, attractive to bots -->
+  <div class="hidden" aria-hidden="true">
+    <label for={`hp-${source}`}>Website</label>
+    <input id={`hp-${source}`} type="text" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class:list={['flex gap-2', page ? 'flex-col sm:flex-row' : 'flex-col']}>
+    <input
+      type="email"
+      name="email"
+      required
+      autocomplete="email"
+      placeholder="you@example.com"
+      aria-label="Email address"
+      class:list={[
+        'flex-1 min-w-0 rounded-lg border border-surface-200 dark:border-surface-600 bg-white dark:bg-surface-800 px-3 text-surface-800 dark:text-surface-100 placeholder:text-surface-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-colors',
+        page ? 'py-3 text-sm' : 'py-2 text-xs',
+      ]}
+    />
+    <button
+      type="submit"
+      class:list={[
+        'shrink-0 rounded-lg bg-brand-600 text-white font-semibold hover:bg-brand-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors',
+        page ? 'px-6 py-3 text-sm' : 'px-4 py-2 text-xs',
+      ]}
+    >
+      Subscribe
+    </button>
+  </div>
+
+  <p
+    class:list={['subscribe-msg hidden', page ? 'text-xs' : 'text-[11px]']}
+    role="status"
+    aria-live="polite"
+  ></p>
+
+  <p class:list={['subscribe-fallback hidden text-surface-400', page ? 'text-xs' : 'text-[11px]']}>
+    Signup is still being set up. Email us instead:
+    <a href={mailtoHref} class="text-brand-500 hover:text-brand-400 underline">hello@cryptonav.site</a>
+  </p>
+</form>
+
+<script>
+  // Astro bundles this once per page no matter how many forms are rendered.
+  document.querySelectorAll<HTMLFormElement>('.subscribe-form').forEach((form) => {
+    const input = form.querySelector<HTMLInputElement>('input[name="email"]');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const msg = form.querySelector<HTMLElement>('.subscribe-msg');
+    const fallback = form.querySelector<HTMLElement>('.subscribe-fallback');
+    if (!input || !button || !msg) return;
+
+    function show(text: string, ok: boolean) {
+      msg!.textContent = text;
+      msg!.classList.remove('hidden');
+      msg!.className =
+        msg!.className.replace(/\btext-(green|red)-500\b/g, '').trim() +
+        (ok ? ' text-green-500' : ' text-red-500');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = input!.value.trim();
+      if (!email) return show('Please enter your email address.', false);
+
+      button!.disabled = true;
+      const original = button!.textContent;
+      button!.textContent = 'Subscribing...';
+      fallback?.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            source: form.dataset.source || '',
+            website:
+              (form.querySelector<HTMLInputElement>('input[name="website"]') || {}).value || '',
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && data.ok) {
+          show('Thanks — you are subscribed. Check your inbox for a confirmation.', true);
+          input!.value = '';
+        } else if (data.unconfigured) {
+          show('Online signup is not connected yet.', false);
+          fallback?.classList.remove('hidden');
+        } else {
+          show(data.error || 'Something went wrong. Please try again.', false);
+        }
+      } catch {
+        show('Network error. Please try again.', false);
+      } finally {
+        button!.disabled = false;
+        button!.textContent = original;
+      }
+    });
+  });
+</script>

@@ -1,0 +1,130 @@
+{
+  "groups": [
+    {
+      "id": "about",
+      "title": "About CryptoNav",
+      "items": [
+        {
+          "q": "What is CryptoNav?",
+          "a": "CryptoNav is a curated crypto directory for a global audience. We list and review exchanges, wallets, market-data tools, DeFi protocols, NFT marketplaces, infrastructure projects, security firms and trading tools — currently 60+ hand-checked projects across 24 categories. Every entry is reviewed by a human before it goes live; we do not auto-list anything."
+        },
+        {
+          "q": "Is CryptoNav free to use?",
+          "a": "Yes. Every page, comparison and guide is free and requires no account. We fund the site through sponsored placements and affiliate links, which never change the order of our editorial rankings — sponsored entries are always labelled as such."
+        },
+        {
+          "q": "How often is the data updated?",
+          "a": "Project listings are reviewed manually whenever something changes. Live market data — prices, market caps, trending coins, gas fees and the fear & greed index — refreshes automatically every few minutes while a page is open, sourced from CoinGecko."
+        },
+        {
+          "q": "Does CryptoNav hold my funds or keys?",
+          "a": "Never. We are a directory and research site only. We have no custody, no wallet, no deposit address and no login that could hold assets. Any site that claims to be CryptoNav and asks for funds, a seed phrase or a private key is impersonating us."
+        },
+        {
+          "q": "Which regions do you cover?",
+          "a": "We aim at a global English-speaking audience. Availability of any listed exchange or protocol depends on your local regulation, so always check that a service operates in your country before signing up."
+        }
+      ]
+    },
+    {
+      "id": "directory",
+      "title": "Using the directory",
+      "items": [
+        {
+          "q": "How do you choose which projects to list?",
+          "a": "We look for real usage and staying power: live product, verifiable team or codebase, meaningful liquidity or user base, and no unresolved major security incident. Projects that are purely speculative, unaudited clones of existing protocols, or whose only documentation is a marketing page are not listed."
+        },
+        {
+          "q": "What does the 'Sponsored' label mean?",
+          "a": "It means the project pays for placement. Sponsored entries are grouped at the top of a category and always carry the label. Sponsorship buys visibility, not a positive review — our descriptions and category assignments are written independently of who is paying."
+        },
+        {
+          "q": "How do I find the best exchange for my needs?",
+          "a": "Start with our comparison guides, which put the big platforms side by side on fees, supported assets, security history and regional availability. Then check the Exchanges category for the full list. If you trade on-chain instead, the DEX and Analytics & copy-trading categories are the better starting point."
+        },
+        {
+          "q": "Can I suggest a project that is missing?",
+          "a": "Yes — use the Submit page. Include the official website and a short note on what the project does. Every submission is reviewed by hand; we do not accept paid placement through the submission form."
+        }
+      ]
+    },
+    {
+      "id": "basics",
+      "title": "Crypto basics",
+      "items": [
+        {
+          "q": "What is the difference between a centralized and a decentralized exchange?",
+          "a": "A centralized exchange (CEX) holds your funds and matches orders on its own order book, so you trade against the platform and must trust it with custody. A decentralized exchange (DEX) settles trades on-chain from your own wallet, so you keep custody — but you also bear the full risk of smart-contract bugs and you pay gas on every transaction. CEXs are usually easier and cheaper for large trades; DEXs are the only way to trade long-tail on-chain assets."
+        },
+        {
+          "q": "What is a hot wallet versus a cold wallet?",
+          "a": "A hot wallet is software connected to the internet — a browser extension or mobile app. It is convenient for frequent trading but exposed to malware and phishing. A cold wallet is a hardware device that signs transactions offline, so your private keys never touch an internet-connected computer. A common setup is a hardware wallet for savings and a hot wallet with a small balance for daily use."
+        },
+        {
+          "q": "Do I need to complete KYC to buy crypto?",
+          "a": "On regulated centralized exchanges, yes — expect identity verification before you can deposit fiat or withdraw. Decentralized exchanges, most on-chain tools and hardware wallets do not require KYC because there is no account to verify. Some platforms sit in between and allow limited withdrawals without full verification."
+        },
+        {
+          "q": "What is a stablecoin?",
+          "a": "A stablecoin is a token designed to track a stable reference, usually the US dollar. Fiat-backed stablecoins hold reserves off-chain, crypto-backed ones over-collateralize with other crypto, and algorithmic ones use supply mechanics instead of reserves. They are used for trading pairs, moving value between exchanges and earning yield — but each design carries a different failure mode, so check how a stablecoin maintains its peg before relying on it."
+        },
+        {
+          "q": "What does staking mean, and what are the risks?",
+          "a": "Staking means locking tokens to help secure a proof-of-stake network in exchange for rewards. The main risks are price volatility, lock-up periods during which you cannot sell, slashing penalties if a validator misbehaves, and smart-contract risk if you stake through a liquid staking protocol. Staking rewards are not guaranteed returns."
+        },
+        {
+          "q": "What is a Layer 2 network?",
+          "a": "A Layer 2 is a network that processes transactions off a base chain such as Ethereum and posts the results back to it, inheriting its security while offering much lower fees. Rollups are the dominant design: optimistic rollups assume transactions are valid and rely on a challenge window, while zero-knowledge rollups publish a cryptographic proof of validity."
+        },
+        {
+          "q": "What is market cap, and why does it matter?",
+          "a": "Market cap is the current price multiplied by circulating supply. It gives a rough sense of relative size, which is why rankings use it instead of raw price. It is not the amount of money invested in an asset and not the cost to move the price — thin liquidity and large unlock schedules can make a big market cap behave like a small one."
+        },
+        {
+          "q": "What is an airdrop?",
+          "a": "An airdrop distributes tokens to wallet addresses, usually to reward early users of a protocol. Legitimate airdrops never ask for your seed phrase or a payment to claim. Our Airdrops page tracks confirmed and rumoured distributions so you can see what is live before connecting a wallet."
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "title": "Staying safe",
+      "items": [
+        {
+          "q": "How do I avoid crypto scams?",
+          "a": "The rules that catch almost everything: never type a seed phrase into any website or form, never approve a token spend you do not understand, treat unsolicited DMs offering help as hostile, and verify you are on the real domain before connecting a wallet — phishing domains are the single most common drain. Bookmark the sites you use rather than following search or social links."
+        },
+        {
+          "q": "What is a token approval, and why is it risky?",
+          "a": "When you trade on a DEX you grant a contract permission to move a specific token from your wallet. Unlimited approvals stay valid indefinitely, so a later exploit of that contract can drain the approved balance. Prefer exact-amount approvals, and revoke approvals you no longer use — the Security & Audit category lists tools for this."
+        },
+        {
+          "q": "Is a project being audited enough to trust it?",
+          "a": "No. An audit is a point-in-time review by a third party, not a guarantee. Read which firm did it, what scope it covered and whether the findings were fixed. Many exploited protocols had been audited; audits reduce risk, they do not remove it."
+        },
+        {
+          "q": "Are my funds insured on an exchange?",
+          "a": "Usually not in the way bank deposits are. Some exchanges hold insurance against their own operational failures or keep customer assets in segregated reserves, but neither protects you if you are phished or if the exchange becomes insolvent. Treat any balance on an exchange as counterparty risk and move long-term holdings to self-custody."
+        }
+      ]
+    },
+    {
+      "id": "business",
+      "title": "Listings & advertising",
+      "items": [
+        {
+          "q": "How can my project be listed?",
+          "a": "Submit it through the Submit page. Listings are free and are reviewed on merit — there is no way to buy an editorial listing. If you want guaranteed placement and timing, that is a sponsored placement instead."
+        },
+        {
+          "q": "What advertising options are available?",
+          "a": "We offer banner placements across the site, sponsored listings inside relevant categories, and sponsored slots in our editorial guides. Packages, sizes and pricing are on the Advertise page."
+        },
+        {
+          "q": "Do affiliate links change your rankings?",
+          "a": "No. Rankings within a category follow our editorial criteria. Some outbound links are affiliate links and we may earn a commission when you sign up through them, at no extra cost to you — but that does not move a project up or down, and it never affects a comparison's conclusion."
+        }
+      ]
+    }
+  ]
+}
