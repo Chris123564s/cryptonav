@@ -1,27 +1,68 @@
 name: Deploy to Cloudflare Pages (Wrangler)
 
-# This workflow exists because Cloudflare Pages' own Git-integrated builder
-# started failing on 2026-08-31 with a contentless error:
+# WHY THIS WORKFLOW EXISTS
+# ------------------------
+# Cloudflare Pages' own Git-integrated builder started failing on 2026-08-31
+# with a contentless error:
 #
 #     Failed: an internal error occurred. If this continues, contact support
 #     Error: Failed to publish assets.
 #
-# It fires ~1.5s after "Deploying your site to Cloudflare's global network...",
-# survives a 61 MB -> 21 MB reduction in output size, and fires on docs-only
-# commits that produce a byte-identical `dist`. That is a time-correlated
-# failure, not a content-correlated one -- see cloudflare/workers-sdk#13259 for
-# the same shape of report.
+# That was NOT the platform outage it looked like. It was our own
+# public/_routes.json, added that same morning in 5c5b60a ("perf: stop
+# invoking Pages Functions on static routes") as:
 #
-# Publishing with Wrangler instead does two useful things:
-#   1. it bypasses the Pages Git builder entirely, and
-#   2. it surfaces a real error instead of "an internal error occurred".
+#     { "version": 1, "include": ["/api/*"] }
 #
-# Trigger is manual on purpose: while the Pages Git integration is still
-# enabled, an automatic trigger would build and publish every push twice.
-# Once this is proven, add `push: branches: [main]` and disable the Pages Git
-# integration in the Cloudflare dashboard to stop the duplicate builds.
+# Cloudflare's docs say `exclude` is optional. Wrangler disagrees: its
+# isRoutesJSONSpec() requires BOTH include and exclude to be arrays, so the
+# file was rejected as INVALID_JSON_SPEC on every publish. Pages' builder
+# reports that as "Failed to publish assets"; Wrangler names it outright:
+#
+#     Invalid _routes.json file found at: dist/_routes.json
+#
+# Adding "exclude": [] fixed it (0b21725). The v1 conclusion recorded below
+# was wrong and is kept only so nobody re-derives it.
+#
+# [SUPERSEDED -- this reasoning was circular]
+#   "It fires ~1.5s after 'Deploying your site to Cloudflare's global
+#    network...', survives a 61 MB -> 21 MB reduction in output size, and fires
+#    on docs-only commits that produce a byte-identical dist. That is a
+#    time-correlated failure, not a content-correlated one -- see
+#    cloudflare/workers-sdk#13259 for the same shape of report."
+#
+#   The flaw: "docs-only commit + byte-identical dist ==> platform, not us"
+#   already assumes the content is valid. An always-present, always-invalid
+#   _routes.json explains those observations just as well -- "unchanged" then
+#   means "fails every time". Ruling out our own output because the failure did
+#   not track our changes is exactly backwards when the bad file is a constant.
+#
+# STATUS AS OF 2026-08-31 21:00 (+0800)
+#   Both deploy paths work again. Verified: ed1c0e2 added
+#   public/logos/tokens/chevron-xstock.png, no Wrangler run has happened since,
+#   and that file now serves 200 / image/png / 4098 bytes -- so the Pages Git
+#   integration built and published it on its own.
+#
+# DECISION NEEDED -- right now every push is built twice, once by Pages and
+# once by Wrangler. Pick one:
+#
+#   A. Keep Wrangler, disable the Pages Git integration (Pages > project >
+#      Settings > Builds & deployments > Disconnect). Better errors, this
+#      workflow's 13 pre-flight checks, and one build per push. Requires
+#      uncommenting the `push:` trigger below.
+#
+#   B. Keep the Pages Git integration and delete this workflow. Zero
+#      maintenance, but a failure goes back to being "an internal error
+#      occurred" with no diagnostics.
+#
+# Until that is settled the trigger stays manual, which at least keeps the two
+# paths from racing each other on the same commit.
 
 on:
+  # Option A (see above): enable this once the Pages Git integration is
+  # disconnected, so a push deploys exactly once.
+  # push:
+  #   branches: [main]
   workflow_dispatch:
     inputs:
       branch:
