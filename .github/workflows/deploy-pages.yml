@@ -1,0 +1,99 @@
+name: Deploy to Cloudflare Pages (Wrangler)
+
+# This workflow exists because Cloudflare Pages' own Git-integrated builder
+# started failing on 2026-08-31 with a contentless error:
+#
+#     Failed: an internal error occurred. If this continues, contact support
+#     Error: Failed to publish assets.
+#
+# It fires ~1.5s after "Deploying your site to Cloudflare's global network...",
+# survives a 61 MB -> 21 MB reduction in output size, and fires on docs-only
+# commits that produce a byte-identical `dist`. That is a time-correlated
+# failure, not a content-correlated one -- see cloudflare/workers-sdk#13259 for
+# the same shape of report.
+#
+# Publishing with Wrangler instead does two useful things:
+#   1. it bypasses the Pages Git builder entirely, and
+#   2. it surfaces a real error instead of "an internal error occurred".
+#
+# Trigger is manual on purpose: while the Pages Git integration is still
+# enabled, an automatic trigger would build and publish every push twice.
+# Once this is proven, add `push: branches: [main]` and disable the Pages Git
+# integration in the Cloudflare dashboard to stop the duplicate builds.
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Deployment branch. "main" = production, anything else = preview.'
+        required: false
+        default: 'main'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wrangler-pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT || 'cryptonav' }}
+      DEPLOY_BRANCH: ${{ github.event.inputs.branch || 'main' }}
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - name: Verify secrets are present
+        run: |
+          missing=0
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || { echo "::error::secret CLOUDFLARE_API_TOKEN is not set"; missing=1; }
+          [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || { echo "::error::secret CLOUDFLARE_ACCOUNT_ID is not set"; missing=1; }
+          [ "$missing" -eq 0 ] || exit 1
+          echo "secrets ok; project=$CLOUDFLARE_PAGES_PROJECT branch=$DEPLOY_BRANCH"
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Check output integrity before publishing
+        run: |
+          node scripts/check-dist-size.mjs
+          # Catches the class of problem Cloudflare reports as a bare
+          # "Failed to publish assets": invalid UTF-8, NUL bytes, empty files,
+          # non-ASCII paths, case collisions. An empty .gitkeep is tolerated.
+          node scripts/scan-dist-integrity.mjs dist \
+            || echo "::warning::dist integrity scan reported problems (see log)"
+
+      - name: Publish (3 attempts)
+        run: |
+          set -o pipefail
+          for attempt in 1 2 3; do
+            echo "::group::wrangler deploy attempt $attempt"
+            if npx --yes wrangler@4 pages deploy dist \
+                --project-name="$CLOUDFLARE_PAGES_PROJECT" \
+                --branch="$DEPLOY_BRANCH" \
+                --commit-dirty=true; then
+              echo "::endgroup::"
+              echo "published on attempt $attempt"
+              exit 0
+            fi
+            echo "::endgroup::"
+            echo "::warning::attempt $attempt failed"
+            if [ "$attempt" -lt 3 ]; then
+              sleep 25
+            fi
+          done
+          echo "::error::all 3 publish attempts failed"
+          exit 1

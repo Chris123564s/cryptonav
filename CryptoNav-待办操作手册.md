@@ -23,33 +23,82 @@
 
 # P0 · 修复 Cloudflare Pages 部署（**必须先做**）
 
-> **2026-08-31 更新：根因已定位并修复，代码已推送（`9885cd4`）。**
-> 见下面「根因（已定位）」。这一节剩下的操作步骤仍然有用 —— 用来确认新的部署是否真的跑起来了。
+> **2026-08-31 二次更新：下面「根因（已定位）」里写的"体积"结论是错的，已被实测推翻。**
+> 真正的结论见「根因（最终结论）」。**清理 dex logo 本身仍然是个真 bug，修得对、必须修，
+> 但它不是这次部署失败的原因。**
 
-## 根因（已定位）
+## 根因（最终结论）
 
 报错是：
 
 ```
+Deploying your site to Cloudflare's global network...   ← 2026-08-31T09:12:04.076Z
 Failed: an internal error occurred. If this continues, contact support
-Error: Failed to publish assets.
+Error: Failed to publish assets.                        ← 2026-08-31T09:12:05.584Z
 ```
 
-**构建是成功的，只有"发布资源"这一步失败。** 所以本地 `npm run build` 永远全绿，
-问题只能出在产物本身。
+**构建成功，只有"发布资源"这一步失败。而且从"开始发布"到"失败"只花了 1.5 秒。**
 
-真正的原因在 `public/logos/dex/`：
+### 被推翻的第一轮结论：体积
 
-- `scripts/fetch_dex_wins.py` 每天下载 DexScreener 涨幅榜代币的 header 图，
-  只判断了下限 `len(img) > 200`，**没有上限**；
-- 这些 header 图很多其实是**动画 GIF**（文件头是 `GIF89a`），却被一律存成 `.png`，
-  单个"代币图标"最大 **7.46 MB**；
-- 而且**从来不删旧文件**。每天多几个，攒到 **106 个文件 / 45 MB**，
-  而 `wins.json` 只引用其中 **7 个** —— 另外 99 个是没人用的孤儿。
+我最初认为是产物太大（`dist` 曾达 67 MB），清理到 21 MB。**但体积假说被实测直接证伪：**
 
-`dist` 因此涨到 **67 MB / 695 个文件**。
+我用 `git worktree` 把最后一个**部署成功**的版本 `2e624fa` 单独检出并构建了一次：
 
-已做的修复：
+| 版本 | 文件数 | 体积 | 结果 |
+|------|--------|------|------|
+| `2e624fa`（最后一次成功上线） | 568 | **61.53 MB** | ✅ 部署成功 |
+| 当前 HEAD | 630 | **21.89 MB** | ❌ 部署失败 |
+
+**61 MB 能上线，21 MB 反而失败。** 体积完全不是原因。
+（那 61 MB 里装的正是我后来清掉的 106 个孤儿 dex logo —— 清理必须做，但它不是解药。）
+
+### 逐项排除
+
+| 假设 | 结论 | 依据 |
+|------|------|------|
+| 产物总体积超限 | ❌ 排除 | 61 MB 成功 / 21 MB 失败（上表） |
+| 单文件超限（25 MB） | ❌ 排除 | 最大文件是 `admin/decap-cms.js` = 5.06 MB |
+| 文件数超限（20000） | ❌ 排除 | 630 个 |
+| `_routes.json` 格式错 | ❌ 排除 | schema 合规，且见下——它已经在线上生效了 |
+| `_headers` 格式错 | ❌ 排除 | 见下——它已经在线上生效了 |
+| 非法 UTF-8 / NUL 字节 | ❌ 排除 | `scripts/scan-dist-integrity.mjs` 逐字节严格解码，0 命中 |
+| 文件名非 ASCII / 路径过长 / 大小写冲突 | ❌ 排除 | 同上脚本，0 命中 |
+| `build` 脚本被改坏 | ❌ 排除 | 一直是 `astro build`，从未变过 |
+| GitHub Actions 抢跑导致冲突 | ❌ 排除 | 5 个 workflow 全是 `schedule` + `workflow_dispatch`，无 `push` 触发 |
+
+**`_headers` 已在线上生效**这一点是这么测出来的（官方文档说明 `_headers` 只作用于静态资源、
+不作用于 Functions 响应）：
+
+```bash
+# 静态资源 —— 带上了 _headers 里配的两个头
+curl -sI https://cryptonav.site/admin/config.yml | findstr /I "content-type-options referrer-policy"
+#   x-content-type-options: nosniff
+#   referrer-policy: strict-origin-when-cross-origin
+
+# Functions 端点 —— 两个头都没有
+curl -sI https://cryptonav.site/api/cg/global | findstr /I "content-type-options referrer-policy"
+#   （空）
+```
+
+这个"静态有、Functions 没有"的差异，正是 `_headers` 正在生效的签名。
+所以引入这两个文件的 `5c5b60a` **部署成功过**，第一次失败是 **`180c73b`**。
+
+### 那么真正的原因是什么
+
+所有**内容层面**的原因都排除了，剩下最有力的证据是这条：
+
+> **`3ed8bc6` 是一个纯文档提交**（只改了 `.workbuddy-ai/memory/2026-08-31.md`），
+> 它产出的 `dist` 和上一个提交**逐字节相同** —— 它也失败了。
+
+内容导致的失败无法解释"一个产出完全没变的提交也失败"。**失败是跟时间相关的，不是跟内容相关的。**
+加上 1.5 秒就失败、报错是笼统的 "internal error" 而不是具体的 "File X is larger than 25 MB"
+（Cloudflare 对真正的校验失败会给明确信息），这些都指向 **Cloudflare 平台侧的发布流水线故障**。
+
+同类报告：<https://github.com/cloudflare/workers-sdk/issues/13259>（2026-04，Pages 发布流水线
+在构建成功、资源上传成功之后，在最终发布步骤失败，且与用户代码无关）。
+
+### 已做的修复（清理 dex logo —— 是真 bug，但不是这次的原因）
 
 | 改动 | 说明 |
 |------|------|
@@ -105,7 +154,106 @@ f46bede  feat: SEO metadata gate and per-page titles/descriptions
 
 换句话说：**最近两手的所有工作，用户一个字都看不到。**
 
-## 操作步骤
+## 三条解封路径（按成本从低到高，依次尝试）
+
+### 路径 1：直接重试（0 成本，10 秒，先做这个）
+
+Cloudflare 的 "internal error" 有一部分是瞬时故障。先排除这个可能：
+
+1. 打开 <https://dash.cloudflare.com/> → **Workers & Pages** → **cryptonav** → **Deployments**
+2. 找到状态为 Failed 的那一条，点右侧 **⋯** → **Retry deployment**
+3. 等 3–5 分钟看结果
+
+如果重试成功，说明是瞬时故障，到此为止。**如果还是 `Failed to publish assets`，走路径 2。**
+
+### 路径 2：改用 Wrangler 从 GitHub Actions 部署（推荐，约 5 分钟）
+
+> 我已经把 workflow 写好了：`.github/workflows/deploy-pages.yml`。
+> 你只需要填两个密钥，然后手动点一次运行。
+
+**绕开 Pages 内置 CI 的好处有两个**：一是如果故障在 Pages 的 Git 构建器里，这条路能直接解封；
+二是 Wrangler 会给**真实的报错信息**，而不是一句 "an internal error occurred"。
+脚本里带了 3 次自动重试（每次间隔 25 秒），用来吸收瞬时故障。
+
+#### 2.1 拿 Account ID
+
+1. 打开 <https://dash.cloudflare.com/>
+2. 左侧 **Workers & Pages**
+3. 右侧边栏底部能看到 **Account ID**，复制（32 位十六进制）
+
+#### 2.2 建 API Token
+
+1. 右上角头像 → **My Profile** → **API Tokens**
+   （直达：<https://dash.cloudflare.com/profile/api-tokens>）
+2. **Create Custom Token**
+3. 配置：
+   - Token name: `cryptonav-github-deploy`
+   - Permissions: **Account** → **Cloudflare Pages** → **Edit**
+   - Account Resources: **Include** → 选中你的账号
+   - （其余留空即可，**不要**给更多权限）
+4. **Continue to summary** → **Create Token** → 复制 token
+   ⚠️ 只显示这一次，关掉就找不回来了
+
+#### 2.3 填进 GitHub Secrets
+
+1. 打开 <https://github.com/Chris123564s/cryptonav/settings/secrets/actions>
+2. **New repository secret**，加两个：
+
+   | Name | Value |
+   |------|-------|
+   | `CLOUDFLARE_ACCOUNT_ID` | 2.1 复制的 Account ID |
+   | `CLOUDFLARE_API_TOKEN` | 2.2 复制的 token |
+
+3. （可选）如果 Pages 项目名不叫 `cryptonav`，去
+   <https://github.com/Chris123564s/cryptonav/settings/variables/actions>
+   加一个 **Variable** `CLOUDFLARE_PAGES_PROJECT`，值为真实项目名。
+   不加也行，脚本默认用 `cryptonav`。
+
+#### 2.4 跑一次
+
+1. <https://github.com/Chris123564s/cryptonav/actions>
+2. 左侧点 **Deploy to Cloudflare Pages (Wrangler)**
+3. 右上角 **Run workflow** → branch 选 `main` → **Run workflow**
+4. 点进去看日志。成功会打印 `published on attempt 1`
+
+**如果成功**：站点立刻更新。之后建议去 Cloudflare 后台把 Pages 的 Git 集成关掉
+（**Settings** → **Builds & deployments** → 断开 Git），
+再给这个 workflow 加上 `push` 触发，避免每次提交构建两遍。
+
+**如果失败**：日志里会有 Wrangler 的真实报错，把它发给我，或者走路径 3。
+
+### 路径 3：提 Cloudflare 工单（前两条都失败时）
+
+去 <https://dash.cloudflare.com/?to=/:account/support> 提工单，正文里带上：
+
+```
+Project: cryptonav (Cloudflare Pages)
+Symptom: every deployment since 2026-08-31 fails at the "publish assets" step,
+         roughly 1.5 seconds after "Deploying your site to Cloudflare's global network..."
+Error:   Failed: an internal error occurred.
+         Error: Failed to publish assets.
+
+Failing deployment IDs:
+  8335d524-fc3c-4e31-a4f5-e761bf208a97   (commit 5213991)
+  b3637183-3c22-48e7-9590-e57c24401510   (commit 3ed8bc6)
+
+What we have ruled out:
+  - output size: a 61.53 MB / 568-file build deployed fine; a 21.89 MB / 630-file
+    build fails. Per-file max is 5.06 MB (limit 25 MB).
+  - _routes.json: valid per docs (1 include rule, <=100 rules, <=100 chars)
+  - _headers: confirmed live and working on the currently-served deployment
+  - content integrity: strict UTF-8 decode, NUL bytes, empty files, non-ASCII
+    paths and case collisions all clean across all 630 output files
+  - build command unchanged (`astro build`)
+  - a docs-only commit (3ed8bc6) producing a byte-identical dist also fails,
+    which points at the publish pipeline rather than our output
+
+Related: https://github.com/cloudflare/workers-sdk/issues/13259
+```
+
+---
+
+## 操作步骤（原诊断流程，仍可用于确认状态）
 
 ### 第 1 步：打开部署列表
 
