@@ -14,7 +14,7 @@ const { variant = 'page', source = 'site' } = Astro.props;
 
 const page = variant === 'page';
 const mailtoHref =
-  'mailto:hello@cryptonav.site?subject=' +
+  'mailto:contact@cryptonav.site?subject=' +
   encodeURIComponent('Newsletter subscription') +
   '&body=' +
   encodeURIComponent('Please add me to the CryptoNav newsletter.');
@@ -63,7 +63,7 @@ const mailtoHref =
 
   <p class:list={['subscribe-fallback hidden text-surface-400', page ? 'text-xs' : 'text-[11px]']}>
     Signup is still being set up. Email us instead:
-    <a href={mailtoHref} class="text-brand-500 hover:text-brand-400 underline">hello@cryptonav.site</a>
+    <a href={mailtoHref} class="text-brand-500 hover:text-brand-400 underline">contact@cryptonav.site</a>
   </p>
 </form>
 

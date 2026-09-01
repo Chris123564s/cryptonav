@@ -49,7 +49,7 @@ const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default
         <div class={`flex flex-col items-center justify-center text-center px-4 h-full bg-gradient-to-br ${gradientClass} text-white`}>
           <p class="text-base md:text-lg font-bold">{ad.title}</p>
           {ad.subtitle && <p class="text-xs md:text-sm text-white/90 mt-1 max-w-md">{ad.subtitle}</p>}
-          {!ad.subtitle && <p class="text-xs text-white/80 mt-1">Contact: advertise@cryptonav.site</p>}
+          {!ad.subtitle && <p class="text-xs text-white/80 mt-1">Contact: contact@cryptonav.site</p>}
         </div>
       )}
       <span class="ad-label">Ad</span>
@@ -75,7 +75,7 @@ const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default
     <div class={`ad-container ad-slot-placeholder ${sizeClasses[format]} ${className}`}>
       <div class="flex flex-col items-center justify-center text-center px-4 h-full">
         <p class="text-sm font-medium text-surface-400 dark:text-surface-500">Your Ad Here</p>
-        <a href="/advertise" class="text-xs text-brand-500 hover:text-brand-600 mt-1">advertise@cryptonav.site</a>
+        <a href="/advertise" class="text-xs text-brand-500 hover:text-brand-600 mt-1">contact@cryptonav.site</a>
       </div>
       <span class="ad-label">Ad</span>
     </div>
