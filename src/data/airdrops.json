@@ -15,15 +15,15 @@
       "category": "Memecoin",
       "symbol": "SOLPUMP",
       "chain": "Ink",
+      "website": "https://solpump.io",
+      "note": "",
       "eligibility": "in SolPump Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-09",
-      "website": "https://solpump.io",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "nado",
@@ -40,15 +40,15 @@
       "category": "Perpetual",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://app.nado.xyz",
+      "note": "",
       "eligibility": "for a potential Nado airdrop in 2026.",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://app.nado.xyz",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "mint-io",
@@ -65,15 +65,15 @@
       "category": "Gaming",
       "symbol": "MNTD",
       "chain": "Ink",
+      "website": "https://mint.io",
+      "note": "",
       "eligibility": "depends on the campaign terms and the compliance requirements that apply in your region.",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-31",
-      "website": "https://mint.io",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "dow-protocol",
@@ -90,15 +90,15 @@
       "category": "Rwa",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://app.dowprotocol.com",
+      "note": "",
       "eligibility": "in the Dow Protocol Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-24",
-      "website": "https://app.dowprotocol.com",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "axis-robotics",
@@ -115,15 +115,15 @@
       "category": "Ai",
       "symbol": "AXIS",
       "chain": "Ink",
+      "website": "https://hub.axisrobotics.ai",
+      "note": "",
       "eligibility": ", allocation, and timing to be published before any claim event. Points themselves carry no claim right. Treat this like other potential retroactive airdrops : a live points program worth farming, with the token part still open. The Point System went live in early August 2026. Five factors set your total: how many valid tasks you complete, their difficulty tier, the quality score of each submission, how widely your tasks spread across scenarios and skills, and the output of contributors you invi",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-07",
-      "website": "https://hub.axisrobotics.ai",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "risex",
@@ -140,15 +140,15 @@
       "category": "Dex",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://rise.trade",
+      "note": "",
       "eligibility": "in the RISEx Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://rise.trade",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "nowa",
@@ -165,15 +165,15 @@
       "category": "Trading",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://app.nowa.finance",
+      "note": "",
       "eligibility": "in the Nowa Airdrop",
       "amount": "$125,000",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://app.nowa.finance",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "megapot",
@@ -190,15 +190,15 @@
       "category": "Play",
       "symbol": "MEGAPOT",
       "chain": "Ink",
+      "website": "https://megapot.io",
+      "note": "",
       "eligibility": "is subject to Kaito’s approval.",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-03-26",
-      "website": "https://megapot.io",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "osero",
@@ -215,15 +215,15 @@
       "category": "Stablecoin",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://form.typeform.com",
+      "note": "",
       "eligibility": "",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://form.typeform.com",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "polymarket",
@@ -240,15 +240,15 @@
       "category": "Marketplace",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://polymarket.com",
+      "note": "",
       "eligibility": "criteria, allocation details, or distribution date have been disclosed. Key Parameters: Airdrop Allocation: Not disclosed Distribution Method: TBA — likely activity-based (trading volume, consistency, diversity) TGE Date: TBA — confirmed to follow the U.S. platform relaunch Community speculation points to trading volume, market diversity, reinvested winnings, and linked social accounts as potential eligibility signals. Polymarket has also encouraged users to link their X (Twitter) accounts, whic",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-31",
-      "website": "https://polymarket.com",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "ondo-perps",
@@ -265,15 +265,15 @@
       "category": "Perpetual",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://app.ondoperps.xyz",
+      "note": "",
       "eligibility": "",
       "amount": "$125,000",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-31",
-      "website": "https://app.ondoperps.xyz",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "push-chain",
@@ -290,15 +290,15 @@
       "category": "L",
       "symbol": "PC",
       "chain": "Ink",
+      "website": "https://portal.push.org",
+      "note": "",
       "eligibility": "in the Push Chain Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://portal.push.org",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "flop-labs",
@@ -315,15 +315,15 @@
       "category": "Ai",
       "symbol": "FLOP",
       "chain": "Ink",
+      "website": "https://flop.finance",
+      "note": "",
       "eligibility": "rules and snapshot dates are unpublished. His 19 August essay put roughly 20% of supply with testnet participants, released across ten years. Key Parameters: Airdrop Allocation : Roughly 20% of total supply to testnet participants, distributed over ten years Distribution Method : Testnet participation, mining, validating and community contribution TGE Date : Airdrop targeted for Q4 2026, genesis block targeted for Q1 2027 The testnet is the center of it, and it is not live. Hayes has said it ope",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-31",
-      "website": "https://flop.finance",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "monetrix",
@@ -340,15 +340,15 @@
       "category": "Liquidity",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://monetrix.xyz",
+      "note": "",
       "eligibility": "Telegram Twitter / X",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://monetrix.xyz",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "sweep-finance",
@@ -365,15 +365,15 @@
       "category": "",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://sweep.finance",
+      "note": "",
       "eligibility": "in the Sweep Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://sweep.finance",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "kinetiq",
@@ -390,15 +390,15 @@
       "category": "Perpetual",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://markets.xyz",
+      "note": "",
       "eligibility": "details and program duration will be announced in the coming weeks.",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-31",
-      "website": "https://markets.xyz",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "voice",
@@ -415,15 +415,15 @@
       "category": "Socialfi",
       "symbol": "VOICE",
       "chain": "Ink",
+      "website": "https://voice.fun",
+      "note": "",
       "eligibility": "rules have not been published. VOICE&#8217;s terms also state that tiers, whitelist status, and allocations are discretionary and subject to final verification, so no amount is promised to any single wallet. Stacking CLOUT is still the practical way to position ahead of the distribution. Latest Update: The official roadmap now targets Q4 2026 for the $VOICE TGE and Tier-1 exchange listings.",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-28",
-      "website": "https://voice.fun",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "tradoor0",
@@ -440,15 +440,15 @@
       "category": "Trading",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://tradoor0.xyz",
+      "note": "",
       "eligibility": "for a potential 2026 airdrop.",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-31",
-      "website": "https://tradoor0.xyz",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "tbook",
@@ -465,15 +465,15 @@
       "category": "Rwa",
       "symbol": "BOOK",
       "chain": "Ink",
+      "website": "https://engage.tbook.com",
+      "note": "",
       "eligibility": "weights WISE score and verifiable contribution history over wallet count, so one well-built profile beats a spread of empty addresses. Key Parameters: Airdrop Allocation : 7.5% of total supply (750,000,000 $BOOK) Distribution Method : WISE Credit Score tiers, SBT holdings, Bookies NFT ownership and leaderboard placement TGE Date : Targeted for Q1 2026 in official documentation; not yet completed Vesting Schedule : Released in multiple phases, with the schedule set by community governance vote Th",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-31",
-      "website": "https://engage.tbook.com",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "ink-chain",
@@ -490,15 +490,15 @@
       "category": "L",
       "symbol": "INK",
       "chain": "Ink",
+      "website": "https://invite.kraken.com",
+      "note": "",
       "eligibility": "right now.",
       "amount": "$1M",
       "snapshot": "2026-07-23",
       "distribution": "2026-07-23",
-      "website": "https://invite.kraken.com",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "gte",
@@ -515,15 +515,15 @@
       "category": "Dex",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://waitlist.gte.xyz",
+      "note": "",
       "eligibility": "details, official links and safety notes.",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://waitlist.gte.xyz",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "neosoul",
@@ -540,15 +540,15 @@
       "category": "Ai",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://event.neosoul.ai",
+      "note": "",
       "eligibility": "in the NeoSoul Airdrop",
       "amount": "$125,000",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-31",
-      "website": "https://event.neosoul.ai",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "sight",
@@ -565,15 +565,15 @@
       "category": "Prediction",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://sighthood.com",
+      "note": "",
       "eligibility": "dashboard, and no published distribution mechanism, so any allocation to early users is speculative. What the project has done is issue a free Genesis NFT to its first followers, which is the cleanest record a team at this stage has of who showed up early. The Genesis claims closed around August 11, 2026, and claimants were told to watch their wallets over the following days. Invitation codes for community sharing were floated as a next step but have not been distributed, leaving the waitlist as",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-18",
-      "website": "https://sighthood.com",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "startale",
@@ -590,15 +590,15 @@
       "category": "Blockchain",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://app.startale.com",
+      "note": "",
       "eligibility": "for future airdrops, exclusive rewards and other Startale App benefits. The points are in-app points that cannot be redeemed or exchanged with Startale for money. Points accrue through several channels at once. Daily GM check-ins pay 10 points per 10 check-ins, monthly mission campaigns are worth 100 to 150 points and reset each month, and liquidity earns 0.0025 points per dollar per day with a $10 minimum. Mini App campaigns carry their own point pools, and referrals pay 10% of what invited use",
       "amount": "$125,000",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-19",
-      "website": "https://app.startale.com",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "canopy",
@@ -615,15 +615,15 @@
       "category": "Blockchain",
       "symbol": "CNPY",
       "chain": "Ink",
+      "website": "https://app.canopynetwork.org",
+      "note": "",
       "eligibility": "in the Canopy Network Airdrop (Ended)",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-08-31",
-      "website": "https://app.canopynetwork.org",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "omega",
@@ -640,15 +640,15 @@
       "category": "Dex",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://olympus.omeganetwork.co",
+      "note": "",
       "eligibility": "in the Olympus Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://olympus.omeganetwork.co",
       "funding": "",
-      "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "fortune-foes",
@@ -665,15 +665,15 @@
       "category": "Gaming",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://fortunefoes.com",
+      "note": "",
       "eligibility": "in the Fortune Foes Allowlist",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-20",
-      "website": "https://fortunefoes.com",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "amadeus-protocol",
@@ -690,15 +690,15 @@
       "category": "L",
       "symbol": "AMA",
       "chain": "Ink",
+      "website": "https://amahub.ama.one",
+      "note": "",
       "eligibility": "in the Amadeus Protocol Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-31",
-      "website": "https://amahub.ama.one",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "rialo",
@@ -715,15 +715,15 @@
       "category": "L",
       "symbol": "RIALO",
       "chain": "Ink",
+      "website": "https://playground.rialo.io",
+      "note": "",
       "eligibility": "in the Rialo Airdrop",
       "amount": "$1M",
       "snapshot": "2026-08-31",
       "distribution": "2026-02-03",
-      "website": "https://playground.rialo.io",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "bitrobot",
@@ -740,15 +740,15 @@
       "category": "Ai",
       "symbol": "",
       "chain": "Ink",
+      "website": "https://app.bitrobot.ai",
+      "note": "",
       "eligibility": "in the BitRobot Airdrop",
       "amount": "$125,000",
       "snapshot": "TBA",
       "distribution": "2026-08-18",
-      "website": "https://app.bitrobot.ai",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "hertzflow",
@@ -773,7 +773,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "yakkamon",
@@ -798,7 +798,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "hyena",
@@ -823,7 +823,7 @@
       "funding": "",
       "note": "",
       "phase": "ended",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "linera",
@@ -848,7 +848,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "meridian",
@@ -873,7 +873,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "nava-ai",
@@ -898,7 +898,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "optimism",
@@ -923,7 +923,7 @@
       "funding": "",
       "note": "",
       "phase": "ended",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "outcome",
@@ -948,7 +948,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     },
     {
       "id": "retium",
@@ -973,10 +973,10 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-08-31"
+      "updatedAt": "2026-09-01"
     }
   ],
-  "lastFetched": "2026-08-31T22:08:24.222317+00:00",
+  "lastFetched": "2026-09-01T10:39:14.000747+00:00",
   "source": "airdrops.io + CoinGecko",
   "totalTracked": 39
 }
