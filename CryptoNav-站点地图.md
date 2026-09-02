@@ -3,7 +3,7 @@
 - 站点：https://cryptonav.site
 - 索引文件：https://cryptonav.site/sitemap-index.xml
 - 子地图：https://cryptonav.site/sitemap-0.xml
-- 收录 URL 总数：**173**
+- 收录 URL 总数：**110**
 
 ---
 
@@ -61,72 +61,6 @@
 ## /dashboard （1）
 
 - https://cryptonav.site/dashboard/
-
-## /embed （63）
-
-- https://cryptonav.site/embed/1inch/
-- https://cryptonav.site/embed/aave/
-- https://cryptonav.site/embed/across/
-- https://cryptonav.site/embed/airdropsio/
-- https://cryptonav.site/embed/arbitrum/
-- https://cryptonav.site/embed/arkham/
-- https://cryptonav.site/embed/ave-ai/
-- https://cryptonav.site/embed/base/
-- https://cryptonav.site/embed/binance/
-- https://cryptonav.site/embed/bitget/
-- https://cryptonav.site/embed/blur/
-- https://cryptonav.site/embed/bsc/
-- https://cryptonav.site/embed/bullx/
-- https://cryptonav.site/embed/bybit/
-- https://cryptonav.site/embed/certik/
-- https://cryptonav.site/embed/coinbase/
-- https://cryptonav.site/embed/coindesk/
-- https://cryptonav.site/embed/coingecko/
-- https://cryptonav.site/embed/coinmarketcal/
-- https://cryptonav.site/embed/coinmarketcap/
-- https://cryptonav.site/embed/cointelegraph/
-- https://cryptonav.site/embed/compound/
-- https://cryptonav.site/embed/curve/
-- https://cryptonav.site/embed/debank/
-- https://cryptonav.site/embed/defillama/
-- https://cryptonav.site/embed/dexscreener/
-- https://cryptonav.site/embed/dextools/
-- https://cryptonav.site/embed/dune/
-- https://cryptonav.site/embed/dydx/
-- https://cryptonav.site/embed/ethereum/
-- https://cryptonav.site/embed/etherscan/
-- https://cryptonav.site/embed/gate-io/
-- https://cryptonav.site/embed/gmgn-ai/
-- https://cryptonav.site/embed/koinly/
-- https://cryptonav.site/embed/kraken/
-- https://cryptonav.site/embed/ledger/
-- https://cryptonav.site/embed/lido/
-- https://cryptonav.site/embed/magic-eden/
-- https://cryptonav.site/embed/makerdao/
-- https://cryptonav.site/embed/metamask/
-- https://cryptonav.site/embed/mexc/
-- https://cryptonav.site/embed/nansen/
-- https://cryptonav.site/embed/okx/
-- https://cryptonav.site/embed/opensea/
-- https://cryptonav.site/embed/openzeppelin/
-- https://cryptonav.site/embed/optimism/
-- https://cryptonav.site/embed/pancakeswap/
-- https://cryptonav.site/embed/phantom/
-- https://cryptonav.site/embed/photon/
-- https://cryptonav.site/embed/rabby/
-- https://cryptonav.site/embed/rekt/
-- https://cryptonav.site/embed/safe/
-- https://cryptonav.site/embed/solana/
-- https://cryptonav.site/embed/solscan/
-- https://cryptonav.site/embed/stargate/
-- https://cryptonav.site/embed/sushiswap/
-- https://cryptonav.site/embed/theblock/
-- https://cryptonav.site/embed/tokeninsight/
-- https://cryptonav.site/embed/trezor/
-- https://cryptonav.site/embed/trust-wallet/
-- https://cryptonav.site/embed/uniswap/
-- https://cryptonav.site/embed/yearn/
-- https://cryptonav.site/embed/zerion/
 
 ## /faq （1）
 
