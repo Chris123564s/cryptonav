@@ -11,6 +11,13 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 - 调度：GitHub Actions 每6小时增量采集，每天全量刷新，每周死链检测
 - **涨跌颜色惯例：国际惯例（绿=涨，红=跌）**，不用中国惯例
 
+## 联系邮箱与邮件系统（2026-09-02 查证）
+- **全站唯一对外联系邮箱：`contact@cryptonav.site`**（2026-09-01 统一；原 `hello@` / `advertise@` 已全部废弃，涉及源码 13 处 / 7 个文件）。例外：`SubscribeForm.astro` 的 `placeholder="you@example.com"` 是输入框占位符，**故意保留**——改了会变成"预填站长邮箱"的怪异 UI。
+- **域名邮件已接入腾讯企业邮**：MX = `mxbiz1.qq.com`(5) / `mxbiz2.qq.com`(10)。无需另建 Zoho / Cloudflare Email Routing，只需在企业邮后台确认或新增 `contact@` 账号。
+- **⚠️ 该域开了 catch-all**：随机不存在地址 `zzqx-nonexistent-9284@cryptonav.site` 的 SMTP 探测同样返回 `250 Ok` → **RCPT TO 探测在此域完全不可信**，必须做对照测试，别把 250 当"邮箱存在"的证据。
+- **⚠️ 缺 SPF / DMARC**（TXT 无 `v=spf1`）：收信多半正常，但用 contact@ **外发回信会进对方垃圾箱**。建议补 SPF：`v=spf1 include:spf.mail.qq.com ~all`。
+- **验证线上邮箱必须用解码器，不能 grep**：Cloudflare Email Obfuscation 把邮箱加密成 `/cdn-cgi/l/email-protection#<hex>` 和 `<span class="__cf_email__" data-cfemail="<hex>">`，HTML 里没有明文，`grep` **新旧地址都返回 0**，极易误判成"部署没生效"。解码：hex 首字节为 XOR key，其后每字节 XOR key 得明文。已固化为 `scripts/check-cf-email.py`（可传任意 URL、`--expect` 指定期望地址、exit 0/1 可挂 CI）。
+
 ## 实时行情数据架构（重要）
 
 浏览器端行情组件（MarketChart / TickerBar / CurrentPicks / NewTokensRadar / dashboard）
