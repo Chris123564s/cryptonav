@@ -6,7 +6,7 @@
       "slug": "solpump",
       "status": "ongoing",
       "actions": "Participate hourly, grab free SOL",
-      "votes": 266,
+      "votes": 269,
       "published": "2025-08-21",
       "claimUrl": "https://airdrops.io/visit/6t63/",
       "sourceUrl": "https://airdrops.io/solpump/",
@@ -23,7 +23,7 @@
       "distribution": "2026-08-09",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "nado",
@@ -48,7 +48,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "mint-io",
@@ -73,7 +73,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "dow-protocol",
@@ -81,7 +81,7 @@
       "slug": "dow-protocol",
       "status": "ongoing",
       "actions": "Connect X, Publish a Post, Refer Friends",
-      "votes": 212,
+      "votes": 211,
       "published": "2026-08-24",
       "claimUrl": "https://airdrops.io/visit/59b3/",
       "sourceUrl": "https://airdrops.io/dow-protocol/",
@@ -98,7 +98,7 @@
       "distribution": "2026-08-24",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "risex",
@@ -123,7 +123,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "axis-robotics",
@@ -131,7 +131,7 @@
       "slug": "axis-robotics",
       "status": "ongoing",
       "actions": "Complete Pre-Training Tasks, Sign Your Submissions & Refer to Earn",
-      "votes": 202,
+      "votes": 204,
       "published": "2026-08-07",
       "claimUrl": "https://airdrops.io/visit/fxa3/",
       "sourceUrl": "https://airdrops.io/axis-robotics/",
@@ -148,7 +148,7 @@
       "distribution": "2026-08-07",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "nowa",
@@ -173,7 +173,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "osero",
@@ -198,7 +198,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "polymarket",
@@ -223,7 +223,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "monetrix",
@@ -248,7 +248,32 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
+    },
+    {
+      "id": "ondo-perps",
+      "project": "Ondo Perps",
+      "slug": "ondo-perps",
+      "status": "confirmed",
+      "actions": "Join & start Trading",
+      "votes": 175,
+      "published": "2026-05-25",
+      "claimUrl": "https://airdrops.io/visit/hfa3/",
+      "sourceUrl": "https://airdrops.io/ondo-perps/",
+      "sourceType": "homepage",
+      "logo": "https://airdrops.io/wp-content/uploads/2026/05/Ondo-Perps-logo.png.webp",
+      "category": "Perpetual",
+      "symbol": "",
+      "chain": "Ink",
+      "website": "https://app.ondoperps.xyz",
+      "note": "",
+      "eligibility": "",
+      "amount": "$125,000",
+      "snapshot": "2026-08-31",
+      "distribution": "2026-08-31",
+      "funding": "",
+      "phase": "confirmed",
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "push-chain",
@@ -273,32 +298,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
-    },
-    {
-      "id": "ondo-perps",
-      "project": "Ondo Perps",
-      "slug": "ondo-perps",
-      "status": "confirmed",
-      "actions": "Join & start Trading",
-      "votes": 173,
-      "published": "2026-05-25",
-      "claimUrl": "https://airdrops.io/visit/hfa3/",
-      "sourceUrl": "https://airdrops.io/ondo-perps/",
-      "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2026/05/Ondo-Perps-logo.png.webp",
-      "category": "Perpetual",
-      "symbol": "",
-      "chain": "Ink",
-      "website": "https://app.ondoperps.xyz",
-      "note": "",
-      "eligibility": "",
-      "amount": "$125,000",
-      "snapshot": "2026-08-31",
-      "distribution": "2026-08-31",
-      "funding": "",
-      "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "sweep-finance",
@@ -323,7 +323,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "flop-labs",
@@ -348,7 +348,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "kinetiq",
@@ -373,7 +373,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "voice",
@@ -398,7 +398,7 @@
       "distribution": "2026-08-28",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "tradoor0",
@@ -423,7 +423,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "tbook",
@@ -448,32 +448,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
-    },
-    {
-      "id": "ink-chain",
-      "project": "Ink",
-      "slug": "ink-chain",
-      "status": "confirmed",
-      "actions": "Trade on Kraken Pro & Interact with Dapps",
-      "votes": 141,
-      "published": "2024-11-05",
-      "claimUrl": "https://airdrops.io/visit/mm93/",
-      "sourceUrl": "https://airdrops.io/ink-chain/",
-      "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2024/11/Ink-Profile-Picture.jpg.webp",
-      "category": "L",
-      "symbol": "INK",
-      "chain": "Ink",
-      "website": "https://invite.kraken.com",
-      "note": "",
-      "eligibility": "right now.",
-      "amount": "$1M",
-      "snapshot": "2026-07-23",
-      "distribution": "2026-07-23",
-      "funding": "",
-      "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "gte",
@@ -498,7 +473,32 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
+    },
+    {
+      "id": "ink-chain",
+      "project": "Ink",
+      "slug": "ink-chain",
+      "status": "confirmed",
+      "actions": "Trade on Kraken Pro & Interact with Dapps",
+      "votes": 140,
+      "published": "2024-11-05",
+      "claimUrl": "https://airdrops.io/visit/mm93/",
+      "sourceUrl": "https://airdrops.io/ink-chain/",
+      "sourceType": "homepage",
+      "logo": "https://airdrops.io/wp-content/uploads/2024/11/Ink-Profile-Picture.jpg.webp",
+      "category": "L",
+      "symbol": "INK",
+      "chain": "Ink",
+      "website": "https://invite.kraken.com",
+      "note": "",
+      "eligibility": "right now.",
+      "amount": "$1M",
+      "snapshot": "2026-07-23",
+      "distribution": "2026-07-23",
+      "funding": "",
+      "phase": "confirmed",
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "amadeus-protocol",
@@ -506,7 +506,7 @@
       "slug": "amadeus-protocol",
       "status": "ongoing",
       "actions": "Create Wallet, Complete Check-In, Finish Social Tasks",
-      "votes": 80,
+      "votes": 72,
       "published": "2026-08-31",
       "claimUrl": "https://airdrops.io/visit/fab3/",
       "sourceUrl": "https://airdrops.io/amadeus-protocol/",
@@ -523,7 +523,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "sight",
@@ -531,7 +531,7 @@
       "slug": "sight",
       "status": "ongoing",
       "actions": "Submit Email and Join Waitlist",
-      "votes": 60,
+      "votes": 61,
       "published": "2026-08-18",
       "claimUrl": "https://airdrops.io/visit/77b3/",
       "sourceUrl": "https://airdrops.io/sight/",
@@ -548,7 +548,32 @@
       "distribution": "2026-08-18",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
+    },
+    {
+      "id": "tread-fi",
+      "project": "Tread fi",
+      "slug": "tread-fi",
+      "status": "confirmed",
+      "actions": "Submit Wallet & Register for Airdrop",
+      "votes": 61,
+      "published": "2025-11-10",
+      "claimUrl": "https://airdrops.io/visit/5773/",
+      "sourceUrl": "https://airdrops.io/tread-fi/",
+      "sourceType": "homepage",
+      "logo": "https://airdrops.io/wp-content/uploads/2025/11/8k2xMeGv_400x400.jpg.webp",
+      "category": "Perpetual",
+      "symbol": "",
+      "chain": "Ink",
+      "website": "https://app.tread.fi",
+      "note": "",
+      "eligibility": "details, official links and safety notes.",
+      "amount": "$1M",
+      "snapshot": "2026-09-01",
+      "distribution": "2026-09-01",
+      "funding": "",
+      "phase": "confirmed",
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "startale",
@@ -556,7 +581,7 @@
       "slug": "startale",
       "status": "ongoing",
       "actions": "Fund Your Wallet, Check in Daily, Complete Missions",
-      "votes": 55,
+      "votes": 56,
       "published": "2026-08-19",
       "claimUrl": "https://airdrops.io/visit/f8b3/",
       "sourceUrl": "https://airdrops.io/startale/",
@@ -573,32 +598,7 @@
       "distribution": "2026-08-19",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
-    },
-    {
-      "id": "tread-fi",
-      "project": "Tread fi",
-      "slug": "tread-fi",
-      "status": "confirmed",
-      "actions": "Submit Wallet & Register for Airdrop",
-      "votes": 55,
-      "published": "2025-11-10",
-      "claimUrl": "https://airdrops.io/visit/5773/",
-      "sourceUrl": "https://airdrops.io/tread-fi/",
-      "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2025/11/8k2xMeGv_400x400.jpg.webp",
-      "category": "Perpetual",
-      "symbol": "",
-      "chain": "Ink",
-      "eligibility": "details, official links and safety notes.",
-      "amount": "$1M",
-      "snapshot": "2026-09-01",
-      "distribution": "2026-09-01",
-      "website": "https://app.tread.fi",
-      "funding": "",
-      "note": "",
-      "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "neosoul",
@@ -623,7 +623,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "canopy",
@@ -631,7 +631,7 @@
       "slug": "canopy",
       "status": "confirmed",
       "actions": "Connect wallet & Claim Tokens",
-      "votes": 38,
+      "votes": 31,
       "published": "2026-02-26",
       "claimUrl": "https://airdrops.io/visit/3ab3/",
       "sourceUrl": "https://airdrops.io/canopy/",
@@ -648,7 +648,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "omega",
@@ -673,7 +673,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "retium",
@@ -690,15 +690,15 @@
       "category": "L",
       "symbol": "RTM",
       "chain": "Ink",
+      "website": "https://discord.com",
+      "note": "",
       "eligibility": "in Retium’s Testnet Access Program",
       "amount": "$1M",
       "snapshot": "TBA",
       "distribution": "2026-08-20",
-      "website": "https://discord.com",
       "funding": "",
-      "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "fortune-foes",
@@ -723,32 +723,7 @@
       "distribution": "2026-08-20",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
-    },
-    {
-      "id": "rialo",
-      "project": "Rialo",
-      "slug": "rialo",
-      "status": "ongoing",
-      "actions": "Join testnet",
-      "votes": 6,
-      "published": "2026-02-03",
-      "claimUrl": "https://airdrops.io/visit/39b3/",
-      "sourceUrl": "https://airdrops.io/rialo/",
-      "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2026/01/Rialo.jpg.webp",
-      "category": "L",
-      "symbol": "RIALO",
-      "chain": "Ink",
-      "website": "https://playground.rialo.io",
-      "note": "",
-      "eligibility": "in the Rialo Airdrop",
-      "amount": "$1M",
-      "snapshot": "2026-08-31",
-      "distribution": "2026-02-03",
-      "funding": "",
-      "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "linera",
@@ -756,12 +731,37 @@
       "slug": "linera",
       "status": "ongoing",
       "actions": "Interact with testnet",
-      "votes": 4,
+      "votes": 2,
       "published": "2025-04-21",
       "claimUrl": "https://airdrops.io/visit/via3/",
       "sourceUrl": "https://airdrops.io/linera/",
       "sourceType": "homepage",
       "logo": "https://airdrops.io/wp-content/uploads/2025/04/Linera.jpg.webp",
+      "category": "L",
+      "symbol": "LNRA",
+      "chain": "Ink",
+      "eligibility": "Twitter / X Email",
+      "amount": "$1M",
+      "snapshot": "TBA",
+      "distribution": "2025-04-21",
+      "website": "https://portal.linera.net",
+      "funding": "",
+      "note": "",
+      "phase": "ongoing",
+      "updatedAt": "2026-09-02"
+    },
+    {
+      "id": "rialo",
+      "project": "Rialo",
+      "slug": "rialo",
+      "status": "ongoing",
+      "actions": "Join testnet",
+      "votes": 2,
+      "published": "2026-02-03",
+      "claimUrl": "https://airdrops.io/visit/39b3/",
+      "sourceUrl": "https://airdrops.io/rialo/",
+      "sourceType": "homepage",
+      "logo": "https://airdrops.io/wp-content/uploads/2026/01/Rialo.jpg.webp",
       "category": "L",
       "symbol": "",
       "chain": "Multi-chain",
@@ -769,11 +769,11 @@
       "amount": "TBA",
       "snapshot": "TBA",
       "distribution": "TBA",
-      "website": "https://airdrops.io/linera/",
+      "website": "https://airdrops.io/rialo/",
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "bitrobot",
@@ -798,7 +798,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "hertzflow",
@@ -823,7 +823,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "yakkamon",
@@ -848,7 +848,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "hyena",
@@ -873,7 +873,7 @@
       "funding": "",
       "note": "",
       "phase": "ended",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "nava-ai",
@@ -898,7 +898,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "optimism",
@@ -923,7 +923,7 @@
       "funding": "",
       "note": "",
       "phase": "ended",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     },
     {
       "id": "outcome",
@@ -948,10 +948,10 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-01"
+      "updatedAt": "2026-09-02"
     }
   ],
-  "lastFetched": "2026-09-01T20:15:42.282922+00:00",
+  "lastFetched": "2026-09-02T10:05:01.765850+00:00",
   "source": "airdrops.io + CoinGecko",
   "totalTracked": 38
 }
