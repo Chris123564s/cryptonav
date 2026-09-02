@@ -18,6 +18,15 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 - **⚠️ 缺 SPF / DMARC**（TXT 无 `v=spf1`）：收信多半正常，但用 contact@ **外发回信会进对方垃圾箱**。建议补 SPF：`v=spf1 include:spf.mail.qq.com ~all`。
 - **验证线上邮箱必须用解码器，不能 grep**：Cloudflare Email Obfuscation 把邮箱加密成 `/cdn-cgi/l/email-protection#<hex>` 和 `<span class="__cf_email__" data-cfemail="<hex>">`，HTML 里没有明文，`grep` **新旧地址都返回 0**，极易误判成"部署没生效"。解码：hex 首字节为 XOR key，其后每字节 XOR key 得明文。已固化为 `scripts/check-cf-email.py`（可传任意 URL、`--expect` 指定期望地址、exit 0/1 可挂 CI）。
 
+## 联盟码写入原则（2026-09-02 定）
+- **码可以用，域名必须官方。** 访客只接触到官方域名，风险即归零——这是唯一需要守的边界。
+- `src/data/affiliates.json` 的 `template` 已硬编码各家官方域名，**用户只需提供 ref 码，不需要提供完整链接**。填码后自动拼成 `binance.com/en/register?ref=码` 这类官方链接，与用户原链接的域名完全无关。
+- ✅ **可写**：任意来源的 ref 码，只要 ①域名取自模板（不取自用户给的链接）②用户确认码属于自己。
+- ❌ **仍不写**：非官方域名本身（`bsmkweb.cc`、`glneokotyjv.com` 之类绝不写进任何 URL 字段）。
+- 取码方法：链接里 `ref=` / `refCode=` / `/join/` / `/referral/` 之后、`&` 之前那串。
+- 当前状态：**Binance 已填 `GRO_28502_B2R17`**（commit `02cdb20`）；其余 7 家（okx/bybit/coinbase/kraken/gate-io/bitget/mexc）仍为空。
+- 背景教训：曾因"链接域名非官方"反复拒绝用户提供的码，导致用户无路可走（09-02 被用户纠正）。正确做法是**只取码 + 官方模板**——如此访客零风险，剩余风险仅涉及用户自身返佣归属，应由用户自主决定，**不要家长式拦阻**。
+
 ## 实时行情数据架构（重要）
 
 浏览器端行情组件（MarketChart / TickerBar / CurrentPicks / NewTokensRadar / dashboard）
