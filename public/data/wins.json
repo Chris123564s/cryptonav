@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "NICKGPRO",
-      "name": "NICK GPRO",
+      "symbol": "GOATFONE",
+      "name": "goatonfone",
       "logo": "",
-      "address": "91X4ErT2VPRbK6SHsEBQ8J1T25twwFeTJhrHxJv7pump",
+      "address": "0xd4F6d4Dd3703F7468bBC90CAe24d98D80D756C08",
+      "chain": "robinhood",
+      "change6h": 847.0,
+      "price": 0.0002479,
+      "date": "2026-09-02"
+    },
+    {
+      "symbol": "Pumpooor",
+      "name": "Pumpooor",
+      "logo": "/logos/dex/H76u9jTTbM.jpg",
+      "address": "H76u9jTTbMtEF5JGmqXM2wW6xqMXpvTdVyer4RvKpump",
       "chain": "solana",
-      "change6h": 2180.0,
-      "price": 0.001883,
-      "date": "2026-09-01"
+      "change6h": 645.0,
+      "price": 0.0006617,
+      "date": "2026-09-02"
     },
     {
-      "symbol": "ORBIO",
-      "name": "Orbio.so",
-      "logo": "/logos/dex/0xAa07A0e9.jpg",
-      "address": "0xAa07A0e9209e16aC99708C3EC70159c6eF3128A3",
+      "symbol": "TRUSTY",
+      "name": "Trust Wallet Mascot",
+      "logo": "/logos/dex/0x4e79A464.jpg",
+      "address": "0x4e79A464877b63f411500a4d158B3532CecF7777",
+      "chain": "bsc",
+      "change6h": 487.0,
+      "price": 0.0002685,
+      "date": "2026-09-02"
+    },
+    {
+      "symbol": "LLM",
+      "name": "Large Language Model",
+      "logo": "/logos/dex/0x334796C7.jpg",
+      "address": "0x334796C7A865892654E5d987756B1f9078B7b904",
       "chain": "robinhood",
-      "change6h": 1679.0,
-      "price": 0.002639,
-      "date": "2026-09-01"
+      "change6h": 49.9,
+      "price": 9.252e-05,
+      "date": "2026-09-02"
     },
     {
-      "symbol": "ABE",
-      "name": "Uniswap Dog",
-      "logo": "/logos/dex/0x92Eb4E3d.jpg",
-      "address": "0x92Eb4E3dF132A47924fD2743a55Fe17Cb05De35B",
+      "symbol": "ASS",
+      "name": "Asscoin",
+      "logo": "/logos/dex/0xDa8f6a94.jpg",
+      "address": "0xDa8f6a941573ebDddCd649C18295EA85Ef049d63",
       "chain": "robinhood",
-      "change6h": 500.0,
-      "price": 0.008835,
-      "date": "2026-09-01"
+      "change6h": 40.3,
+      "price": 7.14e-05,
+      "date": "2026-09-02"
     },
     {
-      "symbol": "KATANA",
-      "name": "Katana",
-      "logo": "/logos/dex/0x48760f06.jpg",
-      "address": "0x48760f0658160161c2A1816bA3C3a3e4dF0FE152",
-      "chain": "robinhood",
-      "change6h": 250.0,
-      "price": 8.286e-05,
-      "date": "2026-09-01"
-    },
-    {
-      "symbol": "DONK",
-      "name": "GOOFYDONK",
+      "symbol": "DOGGIE",
+      "name": "Doggie Mode",
       "logo": "",
-      "address": "7WJ3ksZauPhEQJjcWbopPY5SrtRhSSHKR973fRR3pump",
+      "address": "0xa9eFe2Fc94dE79734C03051515F48f254Ce61e18",
+      "chain": "robinhood",
+      "change6h": 30.9,
+      "price": 0.001897,
+      "date": "2026-09-02"
+    },
+    {
+      "symbol": "CHOMP",
+      "name": "Hungry Chomp",
+      "logo": "/logos/dex/9AXxGepWb5.jpg",
+      "address": "9AXxGepWb5oHUTM7kzKLHhah561XFh96SpR7vdtspump",
       "chain": "solana",
-      "change6h": 109.0,
-      "price": 0.0001133,
-      "date": "2026-09-01"
+      "change6h": 28.8,
+      "price": 8.109e-05,
+      "date": "2026-09-02"
     },
     {
-      "symbol": "HuaHua",
-      "name": "HE HUA",
-      "logo": "/logos/dex/0x2c5E010E.jpg",
-      "address": "0x2c5E010E61099cb5f846C7c524C0f9367FdFc865",
+      "symbol": "POOLS",
+      "name": "pools.trade",
+      "logo": "",
+      "address": "0x385b36Ff682Ab4C76E7c37A66b96aABC466471d5",
       "chain": "robinhood",
-      "change6h": 66.8,
-      "price": 4.141e-10,
-      "date": "2026-09-01"
-    },
-    {
-      "symbol": "ODYSSEUS",
-      "name": "KEKIUS ODYSSEUS",
-      "logo": "/logos/dex/0x29629331.jpg",
-      "address": "0x296293317f67DA4f333968BB86928681e26B77fA",
-      "chain": "robinhood",
-      "change6h": 33.0,
-      "price": 8.216e-05,
-      "date": "2026-09-01"
-    },
-    {
-      "symbol": "BANKLESS",
-      "name": "Bankless Coin",
-      "logo": "/logos/dex/0x5e8907A3.jpg",
-      "address": "0x5e8907A3F45D7B30BE6AddbAb0312E46e5061614",
-      "chain": "robinhood",
-      "change6h": 18.9,
-      "price": 0.0001813,
-      "date": "2026-09-01"
+      "change6h": 26.8,
+      "price": 0.002133,
+      "date": "2026-09-02"
     }
   ]
 }
