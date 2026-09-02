@@ -1,7 +1,7 @@
 {
   "note": "Central affiliate/referral config. Fill 'code' with your REAL referral code for each exchange. When 'code' is empty the site falls back to the project's plain website URL (no referral parameter) — never invent a code: a fabricated one fails silently and earns nothing while looking like it works. 'template' is the signup URL with {code} substituted by your code. This is the ONLY file you edit to activate affiliate links.",
   "exchanges": {
-    "binance":  { "code": "", "template": "https://www.binance.com/en/register?ref={code}" },
+    "binance":  { "code": "GRO_28502_B2R17", "template": "https://www.binance.com/en/register?ref={code}" },
     "okx":      { "code": "", "template": "https://www.okx.com/join/{code}" },
     "bybit":    { "code": "", "template": "https://www.bybit.com/register?ref={code}" },
     "coinbase": { "code": "", "template": "https://www.coinbase.com/join/{code}" },
