@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "GOATFONE",
-      "name": "goatonfone",
-      "logo": "",
-      "address": "0xd4F6d4Dd3703F7468bBC90CAe24d98D80D756C08",
+      "symbol": "UNICORN",
+      "name": "UNICORN",
+      "logo": "/logos/dex/0x1345330E.jpg",
+      "address": "0x1345330E2f656a337A73236619da5B1fE3057368",
       "chain": "robinhood",
-      "change6h": 847.0,
-      "price": 0.0002479,
-      "date": "2026-09-02"
+      "change6h": 102.0,
+      "price": 0.0001091,
+      "date": "2026-09-03"
     },
     {
-      "symbol": "Pumpooor",
-      "name": "Pumpooor",
-      "logo": "/logos/dex/H76u9jTTbM.jpg",
-      "address": "H76u9jTTbMtEF5JGmqXM2wW6xqMXpvTdVyer4RvKpump",
-      "chain": "solana",
-      "change6h": 645.0,
-      "price": 0.0006617,
-      "date": "2026-09-02"
+      "symbol": "NAV",
+      "name": "Net Asset Value",
+      "logo": "/logos/dex/0x3e7f2c3A.jpg",
+      "address": "0x3e7f2c3A81a1c8302eacE254928e0fBa5A3Bc447",
+      "chain": "robinhood",
+      "change6h": 71.5,
+      "price": 0.0005436,
+      "date": "2026-09-03"
     },
     {
-      "symbol": "TRUSTY",
-      "name": "Trust Wallet Mascot",
-      "logo": "/logos/dex/0x4e79A464.jpg",
-      "address": "0x4e79A464877b63f411500a4d158B3532CecF7777",
+      "symbol": "PUNCH",
+      "name": "パンチ",
+      "logo": "",
+      "address": "0xea87D1D2BCa64DB00a089bFe24FE0d9Bd234Bdf4",
+      "chain": "robinhood",
+      "change6h": 60.5,
+      "price": 0.0001504,
+      "date": "2026-09-03"
+    },
+    {
+      "symbol": "Fwedgie",
+      "name": "FrontalWedgie",
+      "logo": "/logos/dex/0xAB2300c7.png",
+      "address": "0xAB2300c7d284b769FBF55a2AdFBaEf280ef948D2",
+      "chain": "robinhood",
+      "change6h": 59.1,
+      "price": 8.854e-05,
+      "date": "2026-09-03"
+    },
+    {
+      "symbol": "TOM",
+      "name": "Giggle Tom",
+      "logo": "/logos/dex/0x7b87829a.jpg",
+      "address": "0x7b87829a47b835F7BE99A74b62D6c04d57847777",
       "chain": "bsc",
-      "change6h": 487.0,
-      "price": 0.0002685,
-      "date": "2026-09-02"
+      "change6h": 43.3,
+      "price": 6.652e-05,
+      "date": "2026-09-03"
     },
     {
-      "symbol": "LLM",
-      "name": "Large Language Model",
-      "logo": "/logos/dex/0x334796C7.jpg",
-      "address": "0x334796C7A865892654E5d987756B1f9078B7b904",
+      "symbol": "I",
+      "name": "i",
+      "logo": "/logos/dex/0xE9Ae0B4E.jpg",
+      "address": "0xE9Ae0B4EE3Afc555cCa8C54A974C06f4f0a41E18",
       "chain": "robinhood",
-      "change6h": 49.9,
-      "price": 9.252e-05,
-      "date": "2026-09-02"
+      "change6h": 42.5,
+      "price": 0.0002596,
+      "date": "2026-09-03"
     },
     {
-      "symbol": "ASS",
-      "name": "Asscoin",
-      "logo": "/logos/dex/0xDa8f6a94.jpg",
-      "address": "0xDa8f6a941573ebDddCd649C18295EA85Ef049d63",
+      "symbol": "ROBLOXIANS",
+      "name": "The Robloxians",
+      "logo": "/logos/dex/0xB528a38e.jpg",
+      "address": "0xB528a38eA684eD26ea0Eee9de5d222DA6228c10D",
       "chain": "robinhood",
-      "change6h": 40.3,
-      "price": 7.14e-05,
-      "date": "2026-09-02"
+      "change6h": 33.5,
+      "price": 0.003262,
+      "date": "2026-09-03"
     },
     {
-      "symbol": "DOGGIE",
-      "name": "Doggie Mode",
-      "logo": "",
-      "address": "0xa9eFe2Fc94dE79734C03051515F48f254Ce61e18",
-      "chain": "robinhood",
-      "change6h": 30.9,
-      "price": 0.001897,
-      "date": "2026-09-02"
-    },
-    {
-      "symbol": "CHOMP",
-      "name": "Hungry Chomp",
-      "logo": "/logos/dex/9AXxGepWb5.jpg",
-      "address": "9AXxGepWb5oHUTM7kzKLHhah561XFh96SpR7vdtspump",
+      "symbol": "SOLCAT",
+      "name": "Solcat",
+      "logo": "/logos/dex/HmJDgky11u.jpg",
+      "address": "HmJDgky11u77hpBss6D8sjNpYPD5B6fWgSVDj58jpump",
       "chain": "solana",
-      "change6h": 28.8,
-      "price": 8.109e-05,
-      "date": "2026-09-02"
-    },
-    {
-      "symbol": "POOLS",
-      "name": "pools.trade",
-      "logo": "",
-      "address": "0x385b36Ff682Ab4C76E7c37A66b96aABC466471d5",
-      "chain": "robinhood",
-      "change6h": 26.8,
-      "price": 0.002133,
-      "date": "2026-09-02"
+      "change6h": 19.1,
+      "price": 0.0008585,
+      "date": "2026-09-03"
     }
   ]
 }
