@@ -13,6 +13,7 @@
  *   node scripts/check-outbound-links.mjs
  *   node scripts/check-outbound-links.mjs --json
  *   node scripts/check-outbound-links.mjs --projects <path.json>   (测试用)
+ *   node scripts/check-outbound-links.mjs --known <path.json>       (测试用)
  *
  * 关于「被拦截」和「真死了」必须分开看（这是这个脚本最重要的一点）：
  * 大量加密站点部署在 Cloudflare / Akamai 后面，会对数据中心 IP 和脚本 UA
@@ -38,6 +39,33 @@ const PROJECTS =
   projectsArgIdx > -1 && process.argv[projectsArgIdx + 1]
     ? process.argv[projectsArgIdx + 1]
     : new URL('../src/data/projects.json', import.meta.url);
+
+// 已人工复核过的跨域名重定向，见 known-redirects.json。
+//
+// 为什么要这份清单：重定向警告是设计成「每周都看一眼」的，但如果同一个
+// 官方改名每周都报一次，它就会变成噪音，然后整份报告被忽略 —— 而这正是
+// 上面区分 block / dead 时想避免的死法，只是换了个入口。
+//
+// 所以复核过的落点不变就降级成一行说明；**落点变了反而要大声报**，因为那
+// 意味着域名又动了一次，可能是被卖了，也可能是清单过期了。
+const knownArgIdx = process.argv.indexOf('--known');
+const KNOWN_REDIRECTS =
+  knownArgIdx > -1 && process.argv[knownArgIdx + 1]
+    ? process.argv[knownArgIdx + 1]
+    : new URL('./known-redirects.json', import.meta.url);
+let knownEntries = [];
+try {
+  knownEntries = JSON.parse(readFileSync(KNOWN_REDIRECTS, 'utf8')).entries || [];
+} catch {
+  knownEntries = [];
+}
+const hostOf = (u) => {
+  try {
+    return new URL(u).host.replace(/^www\./, '');
+  } catch {
+    return '';
+  }
+};
 
 const TIMEOUT_MS = 25_000;
 const MAX_ATTEMPTS = 2;
@@ -128,6 +156,27 @@ async function check(p) {
         const b = new URL(res.url);
         if (a.host.replace(/^www\./, '') !== b.host.replace(/^www\./, '')) crossDomain = b.host;
       } catch {}
+
+      // 已复核过的：落点对得上就安静，对不上就是新情况，必须重新报出来。
+      if (crossDomain) {
+        const entry = knownEntries.find((e) => e.id === p.id || e.from === p.website);
+        if (entry) {
+          const expected = hostOf(`https://${entry.to}`);
+          const landed = hostOf(res.url);
+          if (expected && landed === expected) {
+            return { ...p, ...verdict, final: res.url, crossDomain, status: res.status, allowlisted: true };
+          }
+          return {
+            ...p,
+            ...verdict,
+            final: res.url,
+            crossDomain,
+            status: res.status,
+            drifted: true,
+            expected: entry.to,
+          };
+        }
+      }
       return { ...p, ...verdict, final: res.url, crossDomain, status: res.status };
     } catch (e) {
       clearTimeout(timer);
@@ -161,6 +210,9 @@ const timeout = bucket('timeout');
 const warn = bucket('warn');
 const block = bucket('block');
 const ok = bucket('ok');
+// crossDomain 里已经排除掉这两类，避免同一个重定向被报两次。
+const drifted = results.filter((r) => r.drifted);
+const allowlisted = results.filter((r) => r.allowlisted);
 
 if (asJson) {
   console.log(JSON.stringify({ generatedAt: new Date().toISOString(), total: results.length, results }, null, 2));
@@ -172,12 +224,26 @@ if (asJson) {
   if (err.length) { console.log(`⚠️  请求出错 ${err.length} 个：`); err.forEach((r) => console.log(line(r))); console.log(''); }
   if (timeout.length) { console.log(`⏱  超时 ${timeout.length} 个（可能只是本机网络）：`); timeout.forEach((r) => console.log(line(r))); console.log(''); }
   if (warn.length) { console.log(`🔸 其它状态码 ${warn.length} 个：`); warn.forEach((r) => console.log(line(r))); console.log(''); }
-  const cross = results.filter((r) => r.crossDomain);
+
+  // 三类重定向分开放，因为它们的处置完全不同：
+  // 落点变了 = 清单过期或域名出事，必须重新看；没见过的 = 首次发现，需要判断；
+  // 已复核且稳定的 = 已经决定不动了，只列出来证明它还在被盯着。
+  if (drifted.length) {
+    console.log(`🔴 已复核重定向的落点变了 ${drifted.length} 个（清单过期或域名出问题）：`);
+    drifted.forEach((r) => console.log(`${line(r)}   预期 ${r.expected}`));
+    console.log('');
+  }
+  const cross = results.filter((r) => r.crossDomain && !r.allowlisted && !r.drifted);
   if (cross.length) { console.log(`↪️  重定向到别的域名 ${cross.length} 个（需人工判断是否正常）：`); cross.forEach((r) => console.log(line(r))); console.log(''); }
+  if (allowlisted.length) {
+    console.log(`✅ 已复核的重定向 ${allowlisted.length} 个（落点未变，无需处理）：`);
+    allowlisted.forEach((r) => console.log(line(r)));
+    console.log('');
+  }
   if (block.length) { console.log(`🛡  被反爬拦截 ${block.length} 个（不代表站点有问题）：`); block.forEach((r) => console.log(`  ${String(r.name).padEnd(24)} ${String(r.why).padEnd(22)} ${r.website}`)); console.log(''); }
   console.log(`✅ 正常 ${ok.length} 个`);
   console.log('');
-  console.log(`汇总：正常 ${ok.length} / 拦截 ${block.length} / 失效 ${dead.length} / 出错 ${err.length} / 超时 ${timeout.length} / 其它 ${warn.length}`);
+  console.log(`汇总：正常 ${ok.length} / 拦截 ${block.length} / 失效 ${dead.length} / 出错 ${err.length} / 超时 ${timeout.length} / 其它 ${warn.length} / 待判重定向 ${cross.length} / 落点漂移 ${drifted.length}`);
 }
 
 // 只有"确认失效"才算失败。拦截和超时都不算 —— 否则这份报告会天天报红，

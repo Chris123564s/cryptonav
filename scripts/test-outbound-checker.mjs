@@ -22,6 +22,7 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT = fileURLToPath(new URL('./check-outbound-links.mjs', import.meta.url));
 const FIXTURE = fileURLToPath(new URL('../_outbound-fixture.json', import.meta.url));
+const KNOWN = fileURLToPath(new URL('../_outbound-known.json', import.meta.url));
 
 const server = createServer((req, res) => {
   const p = new URL(req.url, 'http://127.0.0.1').pathname;
@@ -36,6 +37,12 @@ const server = createServer((req, res) => {
     res.writeHead(302, { location: `http://localhost:${PORT}/ok` });
     return res.end('go away');
   }
+  // 用例 6：清单里记的落点是 /ok，实际跳到了 /elsewhere —— 「落点漂移」。
+  if (p === '/moved-again') {
+    res.writeHead(302, { location: `http://localhost:${PORT}/elsewhere` });
+    return res.end('go away');
+  }
+  if (p === '/elsewhere') return send(200, 'somewhere else');
   return send(404, 'not found');
 });
 
@@ -58,6 +65,12 @@ const deadPort = await new Promise((resolve) => {
 });
 
 const writeFixture = (projects) => writeFileSync(FIXTURE, JSON.stringify({ projects }, null, 2));
+const writeKnown = (entries) => writeFileSync(KNOWN, JSON.stringify({ entries }, null, 2));
+
+// 用例 5、6 需要一份指向 fixture 的已复核清单；其余用例不传 --known，
+// 走脚本默认的 known-redirects.json（那些域名在 fixture 里根本不会出现，
+// 所以不会意外命中）。
+let knownFixture = false;
 
 // 同 test-link-checker.mjs：必须用异步 spawn。spawnSync 会阻塞父进程的事件
 // 循环，而这个测试的 HTTP 服务就跑在父进程里 —— 父等子、子等父，直接死锁。
@@ -68,7 +81,11 @@ for (const k of ['http_proxy', 'https_proxy', 'HTTP_PROXY', 'HTTPS_PROXY', 'all_
 
 function run() {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [SCRIPT, '--projects', FIXTURE], { env: childEnv });
+    const args = [SCRIPT, '--projects', FIXTURE];
+    // 清单和数据源一样可注入：默认那份 known-redirects.json 里的域名是真是
+    // 互联网地址，本地测试打不到，只能换一份指向 fixture 的。
+    if (knownFixture) args.push('--known', KNOWN);
+    const child = spawn(process.execPath, args, { env: childEnv });
     let out = '';
     let err = '';
     const timer = setTimeout(() => {
@@ -150,14 +167,44 @@ writeFixture([
   assertCleanStderr(r, '用例4 重定向不算失败');
 }
 
+// --- 用例 5：已复核的重定向，落点未变 -> 不再重复告警 ------------------
+// 复核过的官方改名如果每周都报一次，这份报告就会变成噪音然后被忽略，
+// 连带淹没某一周新出现的真问题。所以命中清单且落点一致的要安静下来。
+knownFixture = true;
+writeKnown([{ id: 'renamed', from: `http://127.0.0.1:${PORT}/moved`, to: `localhost:${PORT}` }]);
+writeFixture([{ name: 'Renamed Protocol', id: 'renamed', website: `http://127.0.0.1:${PORT}/moved`, status: 'active' }]);
+{
+  const r = await run().catch((e) => ({ code: -1, out: '', err: e.message }));
+  ok(r.code === 0, `用例5 已复核重定向不重复告警：期望 exit 0，实际 ${r.code}`);
+  ok(!r.out.includes('重定向到别的域名 1 个'), '用例5 已复核重定向不重复告警：不应再计入「需人工判断」');
+  ok(r.out.includes('已复核的重定向 1 个'), '用例5 已复核重定向不重复告警：应归入「已复核的重定向」');
+  assertCleanStderr(r, '用例5 已复核重定向不重复告警');
+}
+
+// --- 用例 6：已复核的重定向，落点变了 -> 必须重新报出来 ----------------
+// 这是清单机制真正想抓的东西：域名又动了一次。可能是官方再次改版，
+// 也可能是域名被卖了、被劫持了 —— 无论如何不能再安静下去。
+writeKnown([{ id: 'renamed', from: `http://127.0.0.1:${PORT}/moved-again`, to: `nowhere.example` }]);
+writeFixture([{ name: 'Renamed Protocol', id: 'renamed', website: `http://127.0.0.1:${PORT}/moved-again`, status: 'active' }]);
+{
+  const r = await run().catch((e) => ({ code: -1, out: '', err: e.message }));
+  ok(r.out.includes('落点变了 1 个'), '用例6 落点漂移：应归入「落点变了」');
+  ok(r.out.includes('nowhere.example'), '用例6 落点漂移：应打印出清单里记的预期落点，方便对照');
+  ok(!r.out.includes('已复核的重定向 1 个'), '用例6 落点漂移：不应被当成稳定项放过');
+  assertCleanStderr(r, '用例6 落点漂移');
+}
+knownFixture = false;
+
 server.close();
 // Node 自己的删，不走 shell —— 绕开本机 safe-delete 的批量确认钩子。
-try {
-  rmSync(FIXTURE, { force: true });
-} catch {}
+for (const f of [FIXTURE, KNOWN]) {
+  try {
+    rmSync(f, { force: true });
+  } catch {}
+}
 
 const total = pass + failures.length;
-console.log('subprocess runs:        4 (exit 0 / exit 1 / exit 1 / exit 0)');
+console.log('subprocess runs:        6 (exit 0 / exit 1 / exit 1 / exit 0 / exit 0 / exit 0)');
 console.log('');
 if (failures.length) {
   for (const f of failures) console.log('  FAIL:', f);

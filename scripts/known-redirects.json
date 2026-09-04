@@ -1,0 +1,49 @@
+{
+  "_why": "check-outbound-links.mjs 每次跑都会把跨域名重定向报成警告。复核过的重定向如果继续每周报一次，这份报告就会变成噪音然后被忽略——那跟没有检测是一样的，而且更糟，因为它会连带淹没某一周新出现的真问题。所以人工确认过的重定向记在这里：命中预期落点的，降级成一行说明；落点变了，反而要大声报，因为那意味着域名又动了一次。",
+  "_how_to_review": "判断一个跨域名重定向能不能进这份清单，只看一件事：它是不是官方行为。用浏览器打开 from，看落地页的 title 和品牌是否仍是同一个项目。不要用 whois 注册年限当证据——二级市场买来的老域名（1inch.com 1999、phantom.com 1992、arkm.com 2001）会把 longevity 维度虚高十几年，那是另一种污染。",
+  "_note_on_url_fields": "这里的 to 只用来比对落点，不写进 projects.json。改 projects.json 的 website 会改变安全评分的 longevity 输入，是另一个决定，不要顺手做。",
+  "entries": [
+    {
+      "id": "curve",
+      "from": "https://curve.fi",
+      "to": "curve.finance",
+      "verified": "2026-09-04",
+      "reason": "官方改名。Curve 很早就从 curve.fi 迁到 curve.finance，落地页 title 仍为 Curve。保留 .fi 是因为它仍是最广为人知的品牌域名，且能正常跳转。"
+    },
+    {
+      "id": "1inch",
+      "from": "https://1inch.io",
+      "to": "1inch.com",
+      "verified": "2026-09-04",
+      "reason": "官方改名。RDAP 显示 1inch.com 注册于 1999-10-25，是二级市场买来的老域名，项目本身 2019 年才上线。若把 website 改成 1inch.com，longevity 会从 7.3 年跳到 26.9 年，制造一个和 blur.io 同款的评分虚高。"
+    },
+    {
+      "id": "dydx",
+      "from": "https://dydx.exchange",
+      "to": "dydx.xyz",
+      "verified": "2026-09-04",
+      "reason": "官方换域名，dYdX 现主域为 dydx.xyz。落地页 title 正常。"
+    },
+    {
+      "id": "phantom",
+      "from": "https://phantom.app",
+      "to": "phantom.com",
+      "verified": "2026-09-04",
+      "reason": "官方换域名。phantom.com 注册于 1992-02-14，同样是买来的老域名；钱包本体 2021 年才发布。改成 phantom.com 会让 longevity 从 5.8 年跳到 34.6 年。"
+    },
+    {
+      "id": "arkham",
+      "from": "https://www.arkhamintelligence.com",
+      "to": "info.arkm.com",
+      "verified": "2026-09-04",
+      "reason": "官方换域名到 arkm.com。arkm.com 注册于 2001-10-07，是买来的老域名，项目 2022 年上线。改成 arkm.com 会让 longevity 从 6.6 年跳到 24.9 年。"
+    },
+    {
+      "id": "magic-eden",
+      "from": "https://magiceden.io",
+      "to": "magiceden.us",
+      "verified": "2026-09-04",
+      "reason": "不是改名，是地理/实体分流：美国出口 IP 会被送到 magiceden.us/?gr（gr = geo redirect），其它地区仍留在 magiceden.io。本站点面向国际用户，必须保留 .io；改成 .us 会把非美国访客送进美国实体站点。GitHub Actions 跑在美国，所以 CI 每次都会看到这条跳转——这正是它需要被列进来的原因。"
+    }
+  ]
+}

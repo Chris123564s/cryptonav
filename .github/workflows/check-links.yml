@@ -188,11 +188,23 @@ jobs:
       - name: Flag cross-domain redirects for review
         if: always()
         run: |
-          block=$(awk 'f&&/^$/{exit} /重定向到别的域名/{f=1} f' outbound.log || true)
-          if [ -z "$block" ]; then exit 0; fi
-          printf '%s\n' "$block" \
-            | sed -e 's/%/%25/g' -e 's/\r/%0D/g' \
-            | while IFS= read -r line; do echo "::warning::$line"; done
+          # Two blocks, because the review state has two halves:
+          #   落点变了       -- a redirect we had already accepted now lands
+          #                     somewhere else. Either the allowlist is stale
+          #                     or the domain changed hands. Loudest case.
+          #   重定向到别的域名 -- a redirect nobody has looked at yet.
+          # Redirects already reviewed and still landing where expected are
+          # printed in the log but deliberately not warned about: a notice
+          # that repeats every week is noise, and noise hides the week
+          # something new turns up.
+          for pat in '落点变了' '重定向到别的域名'; do
+            block=$(awk -v p="$pat" 'f&&/^$/{exit} $0~p{f=1} f' outbound.log || true)
+            if [ -n "$block" ]; then
+              printf '%s\n' "$block" \
+                | sed -e 's/%/%25/g' -e 's/\r/%0D/g' \
+                | while IFS= read -r line; do echo "::warning::$line"; done
+            fi
+          done
 
       - name: Upload outbound audit
         if: always()
