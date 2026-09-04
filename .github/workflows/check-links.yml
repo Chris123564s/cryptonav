@@ -1,0 +1,203 @@
+name: Link health (internal crawl + outbound audit)
+
+# WHY THIS WORKFLOW EXISTS
+# ------------------------
+# Two jobs, one concern: are the links on this site still good?
+#
+#   crawl     -- internal links, via scripts/check-live-links.mjs
+#   outbound  -- the 63 project websites we send visitors to,
+#                via scripts/check-outbound-links.mjs
+#
+# They are in one file on purpose: pushing anything under .github/workflows/
+# needs a PAT with the `workflow` scope, and that token is supplied by hand.
+# One file means one grant covers both checks instead of two rounds of
+# "no, that token is still missing the scope".
+#
+# scripts/check-live-links.mjs was written on 2026-09-04 and, until now, was
+# only ever run by hand from a laptop. A crawler that nobody runs on a schedule
+# is a test that has already rotted: internal links break silently whenever a
+# page is renamed, a category slug changes, or a route is removed, and nothing
+# in the build catches that -- Astro resolves internal hrefs at build time, so
+# a link to a page that no longer exists still *builds* fine and only fails in
+# a visitor's browser (and in Google's crawl).
+#
+# The outbound half covers a gap the Safety Score does not: that score has only
+# longevity / incidents / contract dimensions and never asks whether a project's
+# website still resolves. For a directory, a link to a dead site is worse than
+# no link at all, and it fails silently -- the page builds, it renders, and only
+# a real visitor discovers the parking page on the other end.
+#
+# WHY WEEKLY AND NOT DAILY
+#   The crawl is ~220 sequential requests (110 sitemap URLs, then every unique
+#   internal href found on them). That is minutes of work against a site whose
+#   URL set changes maybe once a week. Daily would spend the time to re-prove
+#   the same thing 6 days out of 7.
+#
+# WHY 04:00 UTC ON TUESDAY
+#   The five data-refresh workflows occupy 00/02/03/06/12/18 and the safety
+#   report runs Monday 07:00. 04:00 Tuesday is the first genuinely quiet slot,
+#   and running just after the 03:00 unlocks refresh means a link added by
+#   that job is already live when we check it.
+#
+# NOTE ON THE EXIT CODE
+#   The script exits 1 on any failure and 0 otherwise; that is the only signal
+#   this job uses. It was hardened on 2026-09-04 because two of its failure
+#   paths only *printed* a warning without counting it -- a broken sitemap
+#   entry or an empty crawl would have produced a green run.
+
+on:
+  schedule:
+    - cron: '0 4 * * 2'
+  workflow_dispatch:
+    inputs:
+      site:
+        description: 'Base URL to crawl. Defaults to production.'
+        required: false
+        default: 'https://cryptonav.site'
+
+permissions:
+  contents: read
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      SITE_URL: ${{ github.event.inputs.site || 'https://cryptonav.site' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # No `npm ci`. The crawler is dependency-free on purpose: a 3-minute npm
+      # install to run a script that only needs global fetch would double the
+      # job's runtime and add a whole class of unrelated failure (registry
+      # blips, lockfile drift) to a job that is supposed to report on the site,
+      # not on the toolchain.
+
+      # Self-check FIRST, before trusting the crawler's verdict.
+      #
+      # test-link-checker.mjs asserts the crawler's exit-code contract against a
+      # local fixture server (clean site -> 0, dead link -> 1, broken sitemap ->
+      # 1). That contract is the ONLY signal this job reads, and it was silently
+      # broken once: process.exit() raced undici's keep-alive handles, crashed
+      # inside libuv on Windows, and turned every run -- passing or failing --
+      # into exit code 127. Nothing noticed for as long as the script had been
+      # alive, because it had only ever been run by hand and its stdout still
+      # looked fine. Six seconds here means a broken crawler says so instead of
+      # reporting a bogus pass or a bogus failure about the site.
+      - name: Verify the crawler's exit-code contract
+        run: node scripts/test-link-checker.mjs
+
+      - name: Crawl the live site
+        id: crawl
+        run: |
+          set -o pipefail
+          node scripts/check-live-links.mjs "$SITE_URL" 2>&1 | tee crawl.log
+          exit "${PIPESTATUS[0]}"
+
+      # The crawler writes plain `!! <status> <path>` lines to stdout. GitHub's
+      # Annotations panel only renders ::error:: lines, so without this step a
+      # failing run shows nothing but "Process completed with exit code 1" and
+      # the actual broken URLs stay buried in a log nobody opens -- the same
+      # problem deploy-pages.yml already solves for wrangler output.
+      - name: Surface broken URLs as annotations
+        if: failure()
+        run: |
+          lines=$(grep -a '^!!' crawl.log || true)
+          if [ -z "$lines" ]; then
+            echo "::error::the crawl failed but reported no broken URL -- see the log above"
+            exit 0
+          fi
+          printf '%s\n' "$lines" \
+            | sed -e 's/%/%25/g' -e 's/\r/%0D/g' \
+            | head -n 30 \
+            | while IFS= read -r line; do echo "::error::$line"; done
+          echo "::error::$(printf '%s\n' "$lines" | wc -l | tr -d ' ') problem(s) found on $SITE_URL"
+
+      - name: Upload crawl log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dead-link-crawl-log
+          path: crawl.log
+          if-no-files-found: ignore
+
+  outbound:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # This one genuinely HAS to run here and not on a laptop.
+      #
+      # Measured on 2026-09-04: run behind this machine's local proxy, Node's
+      # fetch failed on 40 of 63 sites -- binance.com, coinbase.com and
+      # coingecko.com among them -- all `fetch failed` / ECONNRESET, while curl
+      # through the same proxy at the same moment got real status codes from
+      # every one of them. A run like that reports 40 dead outbound links on a
+      # site that has none. Actions has direct network access, so the numbers
+      # it produces actually mean something.
+      # Same reasoning as the crawl job's self-check, and this contract is the
+      # subtler of the two: what matters is not just "does it exit 1 when a
+      # site is gone" but "does it stay at 0 when a site merely blocks us".
+      # test-outbound-checker.mjs pins both directions against a local fixture,
+      # plus the connection-refused branch (undici hides ECONNREFUSED inside
+      # `err.cause`, which is easy to mis-classify as a generic error that
+      # doesn't move the exit code).
+      - name: Verify the outbound checker's exit-code contract
+        run: node scripts/test-outbound-checker.mjs
+
+      - name: Audit the 63 outbound project websites
+        id: outbound
+        run: |
+          set -o pipefail
+          node scripts/check-outbound-links.mjs 2>&1 | tee outbound.log
+          exit "${PIPESTATUS[0]}"
+
+      # Only `dead` fails the job: DNS failure, connection refused, 404, 410,
+      # invalid certificate, or a 5xx that survived the retry. Bot-blocking
+      # (401/403/429) is deliberately NOT a failure -- a large share of these
+      # sites sit behind Cloudflare, and if a routine datacentre probe counted
+      # as an outage this job would go red every single week and then be
+      # ignored, which is the same as not having it. The script prints the
+      # blocked ones for context; they just don't move the exit code.
+      - name: Surface confirmed-dead links as annotations
+        if: failure()
+        run: |
+          block=$(awk 'f&&/^$/{exit} /确认失效/{f=1} f' outbound.log || true)
+          if [ -z "$block" ]; then
+            echo "::error::the outbound audit failed but listed no dead link -- see the log above"
+            exit 0
+          fi
+          printf '%s\n' "$block" \
+            | sed -e 's/%/%25/g' -e 's/\r/%0D/g' \
+            | while IFS= read -r line; do echo "::error::$line"; done
+
+      # Cross-domain redirects are not failures -- they are usually an
+      # official rename (curve.fi -> curve.finance). But they are the one class
+      # of result that needs a human: a redirect can equally mean the domain
+      # was sold and now parks. Warn on every run so it stays visible without
+      # turning a healthy week red.
+      - name: Flag cross-domain redirects for review
+        if: always()
+        run: |
+          block=$(awk 'f&&/^$/{exit} /重定向到别的域名/{f=1} f' outbound.log || true)
+          if [ -z "$block" ]; then exit 0; fi
+          printf '%s\n' "$block" \
+            | sed -e 's/%/%25/g' -e 's/\r/%0D/g' \
+            | while IFS= read -r line; do echo "::warning::$line"; done
+
+      - name: Upload outbound audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: outbound-link-audit
+          path: outbound.log
+          if-no-files-found: ignore
