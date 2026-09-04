@@ -3,7 +3,7 @@
   "exchanges": {
     "binance":  { "code": "GRO_28502_B2R17", "template": "https://www.binance.com/en/register?ref={code}" },
     "okx":      { "code": "", "template": "https://www.okx.com/join/{code}" },
-    "bybit":    { "code": "", "template": "https://www.bybit.com/register?ref={code}" },
+    "bybit":    { "code": "166214", "template": "https://partner.bybit.com/b/{code}" },
     "coinbase": { "code": "", "template": "https://www.coinbase.com/join/{code}" },
     "kraken":   { "code": "", "template": "https://www.kraken.com/signup?referral={code}" },
     "gate-io":  { "code": "", "template": "https://www.gate.io/signup/{code}" },
