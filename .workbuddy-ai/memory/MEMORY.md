@@ -24,7 +24,18 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 - ✅ **可写**：任意来源的 ref 码，只要 ①域名取自模板（不取自用户给的链接）②用户确认码属于自己。
 - ❌ **仍不写**：非官方域名本身（`bsmkweb.cc`、`glneokotyjv.com` 之类绝不写进任何 URL 字段）。
 - 取码方法：链接里 `ref=` / `refCode=` / `/join/` / `/referral/` 之后、`&` 之前那串。
-- 当前状态：**Binance 已填 `GRO_28502_B2R17`**（commit `02cdb20`）；其余 7 家（okx/bybit/coinbase/kraken/gate-io/bitget/mexc）仍为空。
+- 当前状态（9-04 已上线）：**Binance `GRO_28502_B2R17`**（`02cdb20`）、
+  **Bybit `166214` → `partner.bybit.com/b/166214`**（`87a5716`，已 push 并部署，线上验证通过）；
+  其余 6 家（okx/coinbase/kraken/gate-io/bitget/mexc）仍为空。
+- ⚠️ **9-04 重要修正：「域名必须官方」≠「域名必须是交易所主域」**。我曾把 bybit 的联盟短链
+  `partner.bybit.com/b/166214` 卡在"模板格式不兼容"上反复验证域名归属，被用户一句
+  **"不要去参考模板了，以我的为准"** 点破：`template` 只是**拼接壳子**，域名填什么由用户给的
+  链接决定，不必等于 `bybit.com` 这种主域。
+  - 真正的判断标准不是"域名长什么样"，而是 **"这个链接是不是用户从自己官方后台复制出来的"**。
+    交易所联盟短链域（`partner.bybit.com` 这类）出自用户官方后台，与主域同属官方，**照写**。
+  - 仍然不写的只有一种：**来源不明、用户本人无法确认归属的野鸡域名**（`bsmkweb.cc` 等）。
+  - 流程简化为：**用户给什么链接，就把 `template` 的域名换成那个链接的域名，`code` 填链接里的 ID**，
+    不再要求用户"提炼纯码"。
 - 背景教训：曾因"链接域名非官方"反复拒绝用户提供的码，导致用户无路可走（09-02 被用户纠正）。正确做法是**只取码 + 官方模板**——如此访客零风险，剩余风险仅涉及用户自身返佣归属，应由用户自主决定，**不要家长式拦阻**。
 
 ## 实时行情数据架构（重要）
@@ -92,9 +103,37 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 是限流放宽还是缓存命中，再决定是否仍需 CoinGecko key。
 `/api/cg/ping` 返回 403 是 CoinGecko 免费档自身限流，代码未使用该端点。
 
+### ✅ 边缘代理压测结论（2026-09-04 15:05，14 连测，推翻上面所有旧结论）
+- **14/14 全部 HTTP 200，零 429**，价格随上游变动（80877 → 80861）→ 确实在真取数，不是假数据。
+- **`X-CG-Cache` HIT 率 7/8**（第 1 次 MISS 后连续 HIT）→ **Cache API 正常工作，
+  一次上游请求服务多批访客，代理是有效的**。"无 key 时代理 100% 无用"那条旧结论作废。
+- **`X-CG-Auth: demo-key` → CoinGecko Demo key 已配置并生效**（限流按 key 不按 IP）。
+  之前"待注册 key"的待办已完成，不用再动。
+- ⚠️ **判断缓存有没有生效要看 `X-CG-Cache`，不要看 `cf-cache-status`**。
+  实测 `cf-cache-status: DYNAMIC` + `age: 0`（Cloudflare HTTP 边缘层不缓存 Pages Functions
+  响应，这是预期行为），但应用层 Cache API 已经扛住了缓存职责。
+  我第一次压测只抓 cf-cache-status，误判成"缓存完全没生效"，白紧张一场。
+  → 以后查这个代理：`curl -D - ... | grep -i "x-cg-cache\|x-cg-auth"`。
+
 ## 文档产出
 - `CryptoNav-产品方案.md` — 完整产品方案（定位/功能/架构/技术/路线图）
 - `CryptoNav-数据采集方案.md` — 数据自动采集与录入实现方案
+
+## 广告位机制（2026-09-04 实测，容易理解错）
+
+- 配置在 `src/data/ads.json`（`id / slot / title / subtitle / image / gradient /
+  link / startAt / endAt / weight / active`）。5 个 slot：
+  `home-banner`、`sidebar-top`、`sidebar-bottom`、`footer-banner`、`inline-card`。
+- ⚠️ **`weight` 不是"展示概率"，是"构建时被选中的概率"**。`getAd()` 用 `Math.random()`
+  按权重挑一条，而 Astro 是**静态生成** → 一次构建里**每个页面各自随机一次，构建完就固定**。
+  → 要稳定展示某条广告，就让它成为该 slot 的唯一候选（把同 slot 其他条 `active: false`），
+    否则每次部署（数据 workflow 一天好几次）都可能把它换掉。
+- **`image` 填不填决定看不看得见文案**：填了 → 只渲染 `<img>`，title/subtitle 不显示
+  （alt 里才有）；不填 → 走渐变背景 + 文字卡片。**活动推广必须留空 image。**
+  （无图时会加 `border-dashed`，看起来像占位，需要时可以改组件区分）
+- 外链广告自动带 `rel="sponsored noopener"` 和 "Ad" 标签，SEO 无害。
+- 当前（9-04）：`home-banner` = Bybit TradFi 活动（ad-006，`affiliate_id=166214`）；
+  原 Binance 占位（ad-001，纯官网无佣金）已停用。
 
 ## 长期变现方案（3阶段路线图）
 
