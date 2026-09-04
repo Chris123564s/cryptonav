@@ -556,14 +556,14 @@ https://www.mexc.com/register?refCode=Cryptonav
 ```json
 {
   "exchanges": {
-    "binance":  { "code": "你的BINANCE码", "template": "https://www.binance.com/en/register?ref={code}" },
-    "okx":      { "code": "你的OKX码",     "template": "https://www.okx.com/join/{code}" },
-    "bybit":    { "code": "你的BYBIT码",   "template": "https://www.bybit.com/register?ref={code}" },
+    "binance":  { "code": "GRO_28502_B2R17", "template": "https://www.binance.com/en/register?ref={code}" },
+    "okx":      { "code": "",              "template": "https://www.okx.com/join/{code}" },
+    "bybit":    { "code": "166214",        "template": "https://partner.bybit.com/b/{code}" },
     "coinbase": { "code": "",              "template": "https://www.coinbase.com/join/{code}" },
     "kraken":   { "code": "",              "template": "https://www.kraken.com/signup?referral={code}" },
-    "gate-io":  { "code": "你的GATE码",    "template": "https://www.gate.io/signup/{code}" },
-    "bitget":   { "code": "你的BITGET码",  "template": "https://www.bitget.com/referral/{code}" },
-    "mexc":     { "code": "你的MEXC码",    "template": "https://www.mexc.com/register?refCode={code}" }
+    "gate-io":  { "code": "",              "template": "https://www.gate.io/signup/{code}" },
+    "bitget":   { "code": "",              "template": "https://www.bitget.com/referral/{code}" },
+    "mexc":     { "code": "",              "template": "https://www.mexc.com/register?refCode={code}" }
   }
 }
 ```
@@ -665,6 +665,169 @@ curl -s -X POST -H "Content-Type: application/json" ^
 
 ✅ 期望：`{"ok":true,...}`，并且去 Buttondown 后台能看到这个订阅者。
 ❌ 如果还是 503：变量没填、名字拼错、或者没重新部署。
+
+---
+
+# P1 · 补 SPF / DMARC（否则 contact@ 的回信进垃圾箱）
+
+## 现状（2026-09-04 查真实 DNS 的结果，不是猜的）
+
+| 记录 | 状态 |
+|------|------|
+| MX | ✅ `mxbiz1.qq.com`(5) / `mxbiz2.qq.com`(10) —— 腾讯企业邮，**收信正常** |
+| **SPF** | ❌ **完全没有**（`@` 的 TXT 里没有任何 `v=spf1`） |
+| **DMARC** | ❌ **完全没有**（`_dmarc.cryptonav.site` 无记录） |
+| DKIM | ❓ 未知（`default._domainkey` 无记录，但选择器名由企业邮后台决定，查不到 ≠ 没配） |
+
+`@` 现在有 3 条 TXT：
+
+```
+bitmedia-site-verification=394ca10802169195cef87a71d5c0754b
+feba56fcb7180d0eec6df296dde80fd6
+google-site-verification=k2XV5x7u_1xXgcplNH5oCZ0S1bGsmWxCriQI4Q4bb5A
+```
+
+**这三条都不会和 SPF 冲突**，直接加第 4 条即可。
+
+## 为什么要紧
+
+MX 只管**收**信。你用 `contact@cryptonav.site` **回**广告主询盘时，对方服务器查不到任何发信授权，
+也没有 DMARC 策略兜底 —— 回信大概率进对方垃圾箱。
+
+**广告主没收到你的报价，这条变现线索就断了，而且你永远不会知道它断过。**
+
+## 操作步骤（Cloudflare Dashboard）
+
+`Cloudflare 后台 → cryptonav.site → DNS → Records → Add record`
+
+**第 1 条（SPF）**
+
+| 字段 | 值 |
+|------|-----|
+| Type | `TXT` |
+| Name | `@` |
+| Content | `v=spf1 include:spf.mail.qq.com ~all` |
+| TTL | Auto |
+
+**第 2 条（DMARC）**
+
+| 字段 | 值 |
+|------|-----|
+| Type | `TXT` |
+| Name | `_dmarc` |
+| Content | `v=DMARC1; p=none; rua=mailto:contact@cryptonav.site; fo=1` |
+| TTL | Auto |
+
+`include:spf.mail.qq.com` 已实测有效（它展开为 7 个 `mail.qq.com` 子段的 include）。
+`_spf.mx.cloudflare.net` 虽存在，但本域 TXT 里没有 include 它，说明 Email Routing 没开，不冲突。
+
+### 两个别踩的坑
+
+- **一个域名只能有一条 SPF。** 以后再授权别的发信服务（Resend、SES、Cloudflare Email Routing），
+  必须把它的 `include:` 加进**这一条**，绝不能新建第二条 `v=spf1` ——
+  两条并存会直接 PermError，**比完全没有更糟**。
+- **DMARC 先 `p=none` 观察。** 收一阵聚合报告、确认没有漏掉的合法发信源之后再改 `p=quarantine`。
+  一上来就 reject，漏掉哪个服务就彻底收不到哪个服务的信。
+
+## 验证（等 5 分钟生效后）
+
+这台机器的本地 DNS 被污染，`dig` / `nslookup` 结果不可信。用 DoH 查：
+
+```bash
+curl -s -H "accept: application/dns-json" ^
+  "https://cloudflare-dns.com/dns-query?name=cryptonav.site&type=TXT"
+```
+
+✅ 期望：返回里出现 `"v=spf1 include:spf.mail.qq.com ~all"`。
+
+```bash
+curl -s -H "accept: application/dns-json" ^
+  "https://cloudflare-dns.com/dns-query?name=_dmarc.cryptonav.site&type=TXT"
+```
+
+✅ 期望：返回里出现 `"v=DMARC1; p=none; ..."`。
+
+> 注：走 `127.0.0.1` 的本地代理时 `cloudflare-dns.com` 可达（`dns.google` 的 DoH 会返回 400，别用它）。
+
+---
+
+# P1 · 接入 Bitmedia（域名已验证，只差贴代码）
+
+## 好消息一：你已经验证过域名了
+
+DNS 里已经有 `bitmedia-site-verification=394ca10802169195cef87a71d5c0754b`，
+说明 Bitmedia 那边的域名验证早就过了，不用再走一遍。
+
+## 好消息二：代码链路我实测通过了（2026-09-04）
+
+我往一个槽位的 `html` 字段塞了探针并完整构建了一次：
+
+```
+探针出现在 11 处（8 个 /learn/* 页 + /faq/ + 数据 chunk）
+<script> 标签原样保留，没被 Astro 打包或剥离
+```
+
+**脚本型 tag 能正常工作**，你贴代码就能显示。
+
+另外确认：仓库和线上响应头**都没有 CSP**（只有 `nosniff` 和 `referrer-policy`），
+不会拦第三方脚本。贴了不显示的情况不会出现。
+
+## 但有个优先级顺序，不知道会白等
+
+`AdBanner.astro` 的渲染优先级是：
+
+```
+ads.json 直投广告  >  ad-network.json 的 html（广告网络 tag）  >  promo 联盟推广  >  "Your Ad Here" 兜底
+```
+
+**直投广告会盖住广告网络 tag。** 所以往被直投占用的槽位贴 Bitmedia 代码，
+当时不会显示——要等直投到期才轮到它。
+
+## 8 个槽位现状（2026-09-04）
+
+| 槽位 | 覆盖页面 | 当前被谁占着 | 现在贴代码会显示吗 |
+|------|----------|--------------|--------------------|
+| `home-banner` | 首页、/airdrops、/chain/*、/compare/*、/dashboard | ad-006 Bybit（到 2026-10-04） | ❌ 被直投盖住 |
+| `sidebar-top` | 首页、/category/* | ad-002 Ledger | ❌ 被直投盖住 |
+| `sidebar-bottom` | 首页、/category/* | ad-003 Uniswap | ❌ 被直投盖住 |
+| `footer-banner` | 首页 | ad-004 CoinGecko | ❌ 被直投盖住 |
+| `inline-card` | /category/* | ad-005 OpenSea | ❌ 被直投盖住 |
+| **`article-top`** | /faq、/newsletter、/learn/*（8 篇） | 无 | ✅ **约 11 个页面** |
+| **`article-bottom`** | /faq、/newsletter、/learn/*（8 篇） | 无 | ✅ **约 11 个页面** |
+| **`learn-banner`** | /learn 索引页 | 无 | ✅ 1 个页面 |
+
+**建议先贴 `article-top` 和 `article-bottom`** —— 这两个立刻生效，加起来覆盖约 22 个页面次，
+而且都是长文阅读页，停留时间长。
+
+## 操作步骤
+
+1. Bitmedia 后台 → Zones / Ad Units → 按尺寸建广告单元
+2. 复制它给的整段 snippet（script + 容器 div，**一整段都要**）
+3. 填到 `src/data/ad-network.json` 对应槽位的 `html` 字段（现在是空字符串 `""`）
+4. 提交推送
+
+```json
+"article-top": {
+  "projectId": "dexscreener",
+  "title": "...",
+  "subtitle": "...",
+  "cta": "Open charts",
+  "gradient": "defi",
+  "html": "<把 Bitmedia 的整段代码贴在这里>"
+}
+```
+
+`html` 一旦有值，它就会盖掉同槽位的 promo 联盟推广；`projectId` 那几个字段留着不用删，
+哪天把 `html` 清空就自动退回联盟推广，是个免费的安全网。
+
+## 尺寸对照（建 Bitmedia 广告单元时照这个选）
+
+| 槽位 | 站内实际尺寸 | Bitmedia 建议规格 |
+|------|--------------|-------------------|
+| `article-top` / `article-bottom` | 通栏，高 120px（移动端）/ 180px（桌面） | 728×90 或 970×90（响应式会缩） |
+| `learn-banner` | 通栏，同上 | 728×90 |
+| `sidebar-top` / `sidebar-bottom` | 宽自适应，高 250px | 300×250 |
+| `inline-card` | 通栏，高 120px | 468×60 |
 
 ---
 
@@ -917,6 +1080,19 @@ Disallow: /
         [ ] Production + Preview 都勾了
         [ ] 重新部署过
         [ ] POST /api/subscribe 返回 ok:true
+
+[ ] P1  SPF / DMARC（2026-09-04 实测：两条都完全没有）
+        [ ] TXT @      = v=spf1 include:spf.mail.qq.com ~all
+        [ ] TXT _dmarc = v=DMARC1; p=none; rua=mailto:contact@cryptonav.site; fo=1
+        [ ] DoH 查询确认两条都已生效
+        [ ] （确认无遗漏发信源后再考虑 p=quarantine）
+
+[ ] P1  Bitmedia（域名验证已完成，只差贴代码）
+        [ ] 按尺寸建好广告单元
+        [ ] article-top 的 html 填好 → 约 11 个页面生效
+        [ ] article-bottom 的 html 填好 → 约 11 个页面生效
+        [ ] learn-banner 的 html 填好
+        [ ] 线上确认脚本真的加载并展示
 
 [ ] P2  Cache Rule
         [ ] 规则建好并 Deploy
