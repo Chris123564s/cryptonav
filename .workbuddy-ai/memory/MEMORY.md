@@ -135,6 +135,44 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 - 当前（9-04）：`home-banner` = Bybit TradFi 活动（ad-006，`affiliate_id=166214`）；
   原 Binance 占位（ad-001，纯官网无佣金）已停用。
 
+## 链接健康巡检（2026-09-04 上线）
+
+`.github/workflows/check-links.yml`，周二 04:00 UTC，两个 job：
+- `crawl` —— `check-live-links.mjs`，110 个站内 URL / 110 条内链，CI 上只跑 31 秒
+- `outbound` —— `check-outbound-links.mjs`，63 个 active 项目官网存活性
+
+**设计原则：只有「确认失效」才让 job 变红。**
+- 外链分 `ok / block / dead / timeout / error / warn`，**只有 dead 影响退出码**。
+  63 个里 18 个（Gate.io、Etherscan、OpenSea…）会挡数据中心 IP 返回 403，
+  算成失效就每周报红 → 被当噪音忽略 → 连带淹没真问题。
+- 两个脚本都用 `process.exitCode`，**不用 `process.exit()`**（后者会撞 undici
+  keep-alive 句柄，在 Node 24 / Windows 上让退出码变成 127，成功失败都是）。
+- 每个 job 跑之前先跑自己的契约测试（`test-link-checker.mjs` / `test-outbound-checker.mjs`），
+  **先验证检测器没坏，再信它的结论**。
+
+## ⚠️ 6 个跨域名重定向都不要改（2026-09-04 决策，理由反直觉）
+
+清单在 `scripts/known-redirects.json`，每条都写了日期和理由。**别去"修正"这些 URL**：
+
+| 项目 | 现 URL | 跳转到 | 为什么不动 |
+|---|---|---|---|
+| Curve | curve.fi | curve.finance | 官方改名，品牌域名仍是 .fi |
+| 1inch | 1inch.io | 1inch.com | 1inch.com 注册于 **1999**，买来的老域名 |
+| dYdX | dydx.exchange | dydx.xyz | 官方换域名 |
+| Phantom | phantom.app | phantom.com | phantom.com 注册于 **1992**，买来的老域名 |
+| Arkham | arkhamintelligence.com | info.arkm.com | arkm.com 注册于 **2001**，买来的老域名 |
+| Magic Eden | magiceden.io | magiceden.us/?gr | **不是改名**，是地理/实体分流 |
+
+- **前 5 个不改的真正理由**：1inch.com / phantom.com / arkm.com 都是二级市场买来的
+  老域名。把 `projects.json` 的 website 改成它们，longevity 会从 7.3 / 5.8 / 6.6 年
+  跳到 26.9 / 34.6 / 24.9 年，**制造 3 个新的 blur 式评分污染**
+  （blur.io 2013 注册 / 2022 上线，评分虚高到 98，是手册里已记录的已知问题）。
+- **Magic Eden 是另一回事**：`?gr` = geo redirect，美国 IP 才被送到 .us。
+  Actions 跑在美国所以每次都看到。本站面向国际用户，**必须保留 .io**，
+  改成 .us 会把非美访客送进美国实体站点。
+- 清单机制：复核过且落点未变 → 安静一行不再告警；**落点变了反而大声报**
+  （域名又动了，可能被卖了）。
+
 ## 长期变现方案（3阶段路线图）
 
 ### Phase 1：立即上线（零开发成本）
