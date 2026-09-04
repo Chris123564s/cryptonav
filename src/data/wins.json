@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "UNICORN",
-      "name": "UNICORN",
-      "logo": "/logos/dex/0x1345330E.jpg",
-      "address": "0x1345330E2f656a337A73236619da5B1fE3057368",
+      "symbol": "BABYAI",
+      "name": "Baby Artificial Inu",
+      "logo": "/logos/dex/0xa9Fcd15f.jpg",
+      "address": "0xa9Fcd15f315f5ffa918D3A767A980EE3dC019667",
       "chain": "robinhood",
-      "change6h": 102.0,
-      "price": 0.0001091,
-      "date": "2026-09-03"
+      "change6h": 151.0,
+      "price": 0.0001661,
+      "date": "2026-09-04"
     },
     {
-      "symbol": "NAV",
-      "name": "Net Asset Value",
-      "logo": "/logos/dex/0x3e7f2c3A.jpg",
-      "address": "0x3e7f2c3A81a1c8302eacE254928e0fBa5A3Bc447",
+      "symbol": "CASHKITTY",
+      "name": "Cash Kitty",
+      "logo": "/logos/dex/0x0B6A2Ff9.jpg",
+      "address": "0x0B6A2Ff9C899fE41870CDaa2733f2A07F9da9Ac4",
       "chain": "robinhood",
-      "change6h": 71.5,
-      "price": 0.0005436,
-      "date": "2026-09-03"
+      "change6h": 146.0,
+      "price": 0.0002658,
+      "date": "2026-09-04"
     },
     {
-      "symbol": "PUNCH",
-      "name": "パンチ",
-      "logo": "",
-      "address": "0xea87D1D2BCa64DB00a089bFe24FE0d9Bd234Bdf4",
+      "symbol": "TAMC",
+      "name": "Apes Movement",
+      "logo": "/logos/dex/0xd006A295.jpg",
+      "address": "0xd006A2953572F68B77C2c36aD9a80eA0593436c0",
       "chain": "robinhood",
-      "change6h": 60.5,
-      "price": 0.0001504,
-      "date": "2026-09-03"
+      "change6h": 123.0,
+      "price": 0.0001249,
+      "date": "2026-09-04"
     },
     {
-      "symbol": "Fwedgie",
-      "name": "FrontalWedgie",
-      "logo": "/logos/dex/0xAB2300c7.png",
-      "address": "0xAB2300c7d284b769FBF55a2AdFBaEf280ef948D2",
-      "chain": "robinhood",
-      "change6h": 59.1,
-      "price": 8.854e-05,
-      "date": "2026-09-03"
-    },
-    {
-      "symbol": "TOM",
-      "name": "Giggle Tom",
-      "logo": "/logos/dex/0x7b87829a.jpg",
-      "address": "0x7b87829a47b835F7BE99A74b62D6c04d57847777",
-      "chain": "bsc",
-      "change6h": 43.3,
-      "price": 6.652e-05,
-      "date": "2026-09-03"
-    },
-    {
-      "symbol": "I",
-      "name": "i",
-      "logo": "/logos/dex/0xE9Ae0B4E.jpg",
-      "address": "0xE9Ae0B4EE3Afc555cCa8C54A974C06f4f0a41E18",
-      "chain": "robinhood",
-      "change6h": 42.5,
-      "price": 0.0002596,
-      "date": "2026-09-03"
-    },
-    {
-      "symbol": "ROBLOXIANS",
-      "name": "The Robloxians",
-      "logo": "/logos/dex/0xB528a38e.jpg",
-      "address": "0xB528a38eA684eD26ea0Eee9de5d222DA6228c10D",
-      "chain": "robinhood",
-      "change6h": 33.5,
-      "price": 0.003262,
-      "date": "2026-09-03"
-    },
-    {
-      "symbol": "SOLCAT",
-      "name": "Solcat",
-      "logo": "/logos/dex/HmJDgky11u.jpg",
-      "address": "HmJDgky11u77hpBss6D8sjNpYPD5B6fWgSVDj58jpump",
+      "symbol": "uselesscat",
+      "name": "Useless Cat",
+      "logo": "/logos/dex/917vmMXeo1.jpg",
+      "address": "917vmMXeo1Cim7W92Cd8MPF7j3624xYmh9xksnc1pump",
       "chain": "solana",
-      "change6h": 19.1,
-      "price": 0.0008585,
-      "date": "2026-09-03"
+      "change6h": 25.5,
+      "price": 0.0001133,
+      "date": "2026-09-04"
+    },
+    {
+      "symbol": "SIDEEYE",
+      "name": "SIDE EYE BABY",
+      "logo": "/logos/dex/7jAxKsGdGS.jpg",
+      "address": "7jAxKsGdGS3T9w4pntSN7fgn6iCF65uk3XDZqxzapump",
+      "chain": "solana",
+      "change6h": 11.9,
+      "price": 4.787e-05,
+      "date": "2026-09-04"
+    },
+    {
+      "symbol": "IF",
+      "name": "What If",
+      "logo": "",
+      "address": "0x232CDFc415D10b673845D83Dc02ba2eaBe7e30d1",
+      "chain": "robinhood",
+      "change6h": 10.7,
+      "price": 0.01521,
+      "date": "2026-09-04"
+    },
+    {
+      "symbol": "CHOMP",
+      "name": "Hungry Chomp",
+      "logo": "/logos/dex/9AXxGepWb5.jpg",
+      "address": "9AXxGepWb5oHUTM7kzKLHhah561XFh96SpR7vdtspump",
+      "chain": "solana",
+      "change6h": 5.5,
+      "price": 5.817e-05,
+      "date": "2026-09-04"
+    },
+    {
+      "symbol": "Bibi",
+      "name": "Bibi",
+      "logo": "",
+      "address": "0x9B7a8126Cc5768D665F7fd2bD416eFEE93eB7777",
+      "chain": "bsc",
+      "change6h": 3.8,
+      "price": 0.0001534,
+      "date": "2026-09-04"
     }
   ]
 }
