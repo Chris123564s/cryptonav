@@ -28,8 +28,12 @@
   }
   
   /* 广告容器 */
+  /* 虚线边框不写在这里。它曾经在，结果是每一个广告位——包括那些有真实素材的
+     正式广告——都套着一圈虚线，看着全像没卖出去的空位；而且组件里那句
+     "有图就不加 border-dashed"因此完全失效（基础类已经先加上了，去掉无从谈起）。
+     现在只有「Your Ad Here」占位会显式加 border-dashed，实线 = 这条位子是有内容的。 */
   .ad-container {
-    @apply relative overflow-hidden rounded-lg border border-dashed border-surface-300 dark:border-surface-600
+    @apply relative overflow-hidden rounded-lg border border-surface-200 dark:border-surface-700
            bg-surface-100 dark:bg-surface-800 flex items-center justify-center;
   }
   .ad-label {

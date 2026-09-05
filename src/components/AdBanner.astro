@@ -38,7 +38,7 @@ const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default
   ad ? (
     <a
       href={ad.link}
-      class={`ad-container ${ad.image ? '' : 'border-dashed'} ${sizeClasses[format]} ${className}`}
+      class={`ad-container ${sizeClasses[format]} ${className}`}
       target={ad.link.startsWith('/') ? '' : '_blank'}
       rel={ad.link.startsWith('/') ? '' : 'sponsored noopener'}
       data-ad-id={ad.id}
@@ -46,10 +46,15 @@ const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default
       {ad.image ? (
         <img src={ad.image} alt={ad.title} class="w-full h-full object-cover" loading="lazy" />
       ) : (
-        <div class={`flex flex-col items-center justify-center text-center px-4 h-full bg-gradient-to-br ${gradientClass} text-white`}>
+        // w-full matters as much as h-full. The container is a centred flex box,
+        // so a child without an explicit width shrinks to its text and leaves
+        // the container's own grey background showing on both sides -- a banner
+        // that looks unfilled even though it is rendering correctly.
+        <div class={`w-full flex flex-col items-center justify-center text-center px-4 h-full bg-gradient-to-br ${gradientClass} text-white`}>
           <p class="text-base md:text-lg font-bold">{ad.title}</p>
           {ad.subtitle && <p class="text-xs md:text-sm text-white/90 mt-1 max-w-md">{ad.subtitle}</p>}
-          {!ad.subtitle && <p class="text-xs text-white/80 mt-1">Contact: contact@cryptonav.site</p>}
+          {ad.cta && <span class="mt-2 inline-block px-3 py-1 rounded-md bg-white/20 text-xs font-semibold">{ad.cta} →</span>}
+          {!ad.subtitle && !ad.cta && <p class="text-xs text-white/80 mt-1">Contact: contact@cryptonav.site</p>}
         </div>
       )}
       <span class="ad-label">Ad</span>
@@ -64,7 +69,7 @@ const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default
       rel={promo.link.startsWith('/') ? '' : 'sponsored noopener'}
       data-promo-project={promo.projectId}
     >
-      <div class={`flex flex-col items-center justify-center text-center px-4 h-full bg-gradient-to-br ${gradients[promo.gradient || 'default'] || gradients['default']} text-white`}>
+      <div class={`w-full flex flex-col items-center justify-center text-center px-4 h-full bg-gradient-to-br ${gradients[promo.gradient || 'default'] || gradients['default']} text-white`}>
         <p class="text-base md:text-lg font-bold">{promo.title}</p>
         {promo.subtitle && <p class="text-xs md:text-sm text-white/90 mt-1 max-w-md">{promo.subtitle}</p>}
         <span class="mt-2 inline-block px-3 py-1 rounded-md bg-white/20 text-xs font-semibold">{promo.cta} →</span>
@@ -72,7 +77,7 @@ const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default
       <span class="ad-label">Ad</span>
     </a>
   ) : (
-    <div class={`ad-container ad-slot-placeholder ${sizeClasses[format]} ${className}`}>
+    <div class={`ad-container ad-slot-placeholder border-dashed ${sizeClasses[format]} ${className}`}>
       <div class="flex flex-col items-center justify-center text-center px-4 h-full">
         <p class="text-sm font-medium text-surface-400 dark:text-surface-500">Your Ad Here</p>
         <a href="/advertise" class="text-xs text-brand-500 hover:text-brand-600 mt-1">contact@cryptonav.site</a>

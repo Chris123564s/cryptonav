@@ -72,8 +72,16 @@ export interface AdConfig {
   slot: AdSlot;
   title: string;
   subtitle?: string;
-  image: string;
+  /**
+   * Omit it and the slot renders a gradient card with the copy visible.
+   * Set it and the slot renders ONLY the image -- title and subtitle become
+   * alt text nobody reads. So a promotion whose message matters (a bonus, a
+   * fee discount, a deadline) has to leave this empty.
+   */
+  image?: string;
   gradient?: string;
+  /** Button label on the gradient card. Ignored when `image` is set. */
+  cta?: string;
   link: string;
   startAt: string;
   endAt: string;
