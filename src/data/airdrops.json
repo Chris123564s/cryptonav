@@ -23,7 +23,7 @@
       "distribution": "2026-08-09",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "mint-io",
@@ -43,12 +43,12 @@
       "website": "https://mint.io",
       "note": "",
       "eligibility": "depends on the campaign terms and the compliance requirements that apply in your region.",
-      "amount": "$1M",
-      "snapshot": "2026-09-02",
-      "distribution": "2026-09-02",
+      "amount": "$100,000",
+      "snapshot": "2026-09-05",
+      "distribution": "2026-09-05",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "nado",
@@ -70,10 +70,10 @@
       "eligibility": "for a potential Nado airdrop in 2026.",
       "amount": "$1M",
       "snapshot": "TBA",
-      "distribution": "2026-09-02",
+      "distribution": "2026-09-04",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "dow-protocol",
@@ -93,12 +93,12 @@
       "website": "https://app.dowprotocol.com",
       "note": "",
       "eligibility": "in the Dow Protocol Airdrop",
-      "amount": "$1M",
+      "amount": "$100,000",
       "snapshot": "TBA",
       "distribution": "2026-08-24",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "risex",
@@ -123,7 +123,7 @@
       "distribution": "2026-09-04",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "axis-robotics",
@@ -148,7 +148,7 @@
       "distribution": "2026-08-07",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "nowa",
@@ -173,7 +173,7 @@
       "distribution": "2026-09-04",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "ondo-perps",
@@ -198,7 +198,7 @@
       "distribution": "2026-09-02",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "osero",
@@ -218,12 +218,12 @@
       "website": "https://form.typeform.com",
       "note": "",
       "eligibility": "",
-      "amount": "$1M",
+      "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-02",
+      "distribution": "2026-09-04",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "monetrix",
@@ -243,12 +243,12 @@
       "website": "https://monetrix.xyz",
       "note": "",
       "eligibility": "Telegram Twitter / X",
-      "amount": "$1M",
+      "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-02",
+      "distribution": "2026-09-04",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "polymarket",
@@ -268,12 +268,12 @@
       "website": "https://polymarket.com",
       "note": "",
       "eligibility": "criteria, allocation details, or distribution date have been disclosed. Key Parameters: Airdrop Allocation: Not disclosed Distribution Method: TBA — likely activity-based (trading volume, consistency, diversity) TGE Date: TBA — confirmed to follow the U.S. platform relaunch Community speculation points to trading volume, market diversity, reinvested winnings, and linked social accounts as potential eligibility signals. Polymarket has also encouraged users to link their X (Twitter) accounts, whic",
-      "amount": "$1M",
-      "snapshot": "2026-09-02",
-      "distribution": "2026-09-02",
+      "amount": "$100,000",
+      "snapshot": "2026-09-04",
+      "distribution": "2026-09-04",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "push-chain",
@@ -295,10 +295,10 @@
       "eligibility": "in the Push Chain Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
-      "distribution": "2026-09-02",
+      "distribution": "2026-09-04",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "voice",
@@ -323,7 +323,7 @@
       "distribution": "2026-08-28",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "kinetiq",
@@ -348,7 +348,7 @@
       "distribution": "2026-09-04",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "sweep-finance",
@@ -370,10 +370,10 @@
       "eligibility": "in the Sweep Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
-      "distribution": "2026-09-02",
+      "distribution": "2026-09-04",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "tradoor0",
@@ -393,12 +393,12 @@
       "website": "https://tradoor0.xyz",
       "note": "",
       "eligibility": "for a potential 2026 airdrop.",
-      "amount": "$1M",
-      "snapshot": "2026-09-02",
-      "distribution": "2026-09-02",
+      "amount": "$100,000",
+      "snapshot": "2026-09-04",
+      "distribution": "2026-09-04",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "tbook",
@@ -423,7 +423,7 @@
       "distribution": "2026-09-04",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "hypertrade",
@@ -445,10 +445,10 @@
       "eligibility": "in the Hypertrade Airdrop",
       "amount": "$1M",
       "snapshot": "TBA",
-      "distribution": "2026-09-02",
+      "distribution": "2026-09-04",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "ink-chain",
@@ -468,12 +468,12 @@
       "website": "https://invite.kraken.com",
       "note": "",
       "eligibility": "right now.",
-      "amount": "$1M",
+      "amount": "$100,000",
       "snapshot": "2026-07-23",
       "distribution": "2026-07-23",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "flop-labs",
@@ -498,7 +498,7 @@
       "distribution": "2026-09-04",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "beldex-2",
@@ -523,7 +523,7 @@
       "distribution": "2026-09-03",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "sight",
@@ -548,7 +548,7 @@
       "distribution": "2026-08-18",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "gyndore",
@@ -573,7 +573,7 @@
       "distribution": "2026-09-03",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "startale",
@@ -598,7 +598,7 @@
       "distribution": "2026-08-19",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "axis",
@@ -623,7 +623,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "amadeus-protocol",
@@ -648,7 +648,7 @@
       "distribution": "2026-08-31",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "dualmint",
@@ -673,7 +673,7 @@
       "distribution": "2026-09-02",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "tread-fi",
@@ -698,7 +698,7 @@
       "distribution": "2026-09-03",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "base",
@@ -723,7 +723,7 @@
       "distribution": "2026-09-03",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "c8ntinuum",
@@ -748,7 +748,7 @@
       "distribution": "2026-09-02",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "neosoul",
@@ -773,7 +773,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "entropy",
@@ -798,7 +798,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "dac",
@@ -823,7 +823,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "fortune-foes",
@@ -848,7 +848,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "retium",
@@ -873,7 +873,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "hertzflow",
@@ -898,7 +898,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "omega",
@@ -923,7 +923,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "drake",
@@ -948,7 +948,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "glider",
@@ -973,7 +973,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "jupiter",
@@ -998,7 +998,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "outcome",
@@ -1023,7 +1023,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "reels",
@@ -1048,7 +1048,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "rialo",
@@ -1073,7 +1073,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     },
     {
       "id": "variational",
@@ -1098,10 +1098,10 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-04"
+      "updatedAt": "2026-09-05"
     }
   ],
-  "lastFetched": "2026-09-04T19:59:48.551051+00:00",
+  "lastFetched": "2026-09-05T09:34:28.153153+00:00",
   "source": "airdrops.io + CoinGecko",
   "totalTracked": 44
 }
