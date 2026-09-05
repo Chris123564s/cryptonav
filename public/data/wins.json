@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "BABYAI",
-      "name": "Baby Artificial Inu",
-      "logo": "/logos/dex/0xa9Fcd15f.jpg",
-      "address": "0xa9Fcd15f315f5ffa918D3A767A980EE3dC019667",
+      "symbol": "CATSTRO",
+      "name": "Fidel Catstro",
+      "logo": "/logos/dex/0x157A752F.jpg",
+      "address": "0x157A752F3446fe891d6e2881006813703fbB3aD9",
       "chain": "robinhood",
-      "change6h": 151.0,
-      "price": 0.0001661,
-      "date": "2026-09-04"
+      "change6h": 2575.0,
+      "price": 0.001361,
+      "date": "2026-09-05"
     },
     {
-      "symbol": "CASHKITTY",
-      "name": "Cash Kitty",
-      "logo": "/logos/dex/0x0B6A2Ff9.jpg",
-      "address": "0x0B6A2Ff9C899fE41870CDaa2733f2A07F9da9Ac4",
-      "chain": "robinhood",
-      "change6h": 146.0,
-      "price": 0.0002658,
-      "date": "2026-09-04"
-    },
-    {
-      "symbol": "TAMC",
-      "name": "Apes Movement",
-      "logo": "/logos/dex/0xd006A295.jpg",
-      "address": "0xd006A2953572F68B77C2c36aD9a80eA0593436c0",
-      "chain": "robinhood",
-      "change6h": 123.0,
-      "price": 0.0001249,
-      "date": "2026-09-04"
-    },
-    {
-      "symbol": "uselesscat",
-      "name": "Useless Cat",
-      "logo": "/logos/dex/917vmMXeo1.jpg",
-      "address": "917vmMXeo1Cim7W92Cd8MPF7j3624xYmh9xksnc1pump",
-      "chain": "solana",
-      "change6h": 25.5,
-      "price": 0.0001133,
-      "date": "2026-09-04"
-    },
-    {
-      "symbol": "SIDEEYE",
-      "name": "SIDE EYE BABY",
-      "logo": "/logos/dex/7jAxKsGdGS.jpg",
-      "address": "7jAxKsGdGS3T9w4pntSN7fgn6iCF65uk3XDZqxzapump",
-      "chain": "solana",
-      "change6h": 11.9,
-      "price": 4.787e-05,
-      "date": "2026-09-04"
-    },
-    {
-      "symbol": "IF",
-      "name": "What If",
+      "symbol": "memestonk",
+      "name": "memestonk",
       "logo": "",
-      "address": "0x232CDFc415D10b673845D83Dc02ba2eaBe7e30d1",
-      "chain": "robinhood",
-      "change6h": 10.7,
-      "price": 0.01521,
-      "date": "2026-09-04"
-    },
-    {
-      "symbol": "CHOMP",
-      "name": "Hungry Chomp",
-      "logo": "/logos/dex/9AXxGepWb5.jpg",
-      "address": "9AXxGepWb5oHUTM7kzKLHhah561XFh96SpR7vdtspump",
+      "address": "CYAQyGC9Nc9RV5MiSiJxdE8utWZtdjtt3tKe1Uvjpump",
       "chain": "solana",
-      "change6h": 5.5,
-      "price": 5.817e-05,
-      "date": "2026-09-04"
+      "change6h": 373.0,
+      "price": 0.0004535,
+      "date": "2026-09-05"
     },
     {
-      "symbol": "Bibi",
-      "name": "Bibi",
-      "logo": "",
-      "address": "0x9B7a8126Cc5768D665F7fd2bD416eFEE93eB7777",
-      "chain": "bsc",
-      "change6h": 3.8,
-      "price": 0.0001534,
-      "date": "2026-09-04"
+      "symbol": "NVDA $BRRR",
+      "name": "NVDA BRRR",
+      "logo": "/logos/dex/0x43b96E85.jpg",
+      "address": "0x43b96E852E662033031770125F860aE03b473dC8",
+      "chain": "robinhood",
+      "change6h": 204.0,
+      "price": 0.0003037,
+      "date": "2026-09-05"
+    },
+    {
+      "symbol": "GoMeme",
+      "name": "GoMeme",
+      "logo": "/logos/dex/925phSqb5L.png",
+      "address": "925phSqb5LFULiLbU6L8dUH4UiHYPewsdKp5xH31pump",
+      "chain": "solana",
+      "change6h": 92.2,
+      "price": 0.0001019,
+      "date": "2026-09-05"
+    },
+    {
+      "symbol": "WSB",
+      "name": "We Stay Bullish",
+      "logo": "/logos/dex/0x6b288916.jpg",
+      "address": "0x6b2889161B511dd5a4e6b7857119358753a57322",
+      "chain": "robinhood",
+      "change6h": 69.9,
+      "price": 0.000181,
+      "date": "2026-09-05"
+    },
+    {
+      "symbol": "PUMPLIFE",
+      "name": "Pump Life",
+      "logo": "/logos/dex/5761e8gCMZ.jpg",
+      "address": "5761e8gCMZFBHLU4RuFsfkWab96oJEtEr3uoF9A4pump",
+      "chain": "solana",
+      "change6h": 41.0,
+      "price": 0.0006437,
+      "date": "2026-09-05"
+    },
+    {
+      "symbol": "ORDIHOOD",
+      "name": "Ordihood",
+      "logo": "/logos/dex/0xb27ac340.jpg",
+      "address": "0xb27ac340261a8486b8f39dd23b8a95D434a071Bc",
+      "chain": "robinhood",
+      "change6h": 12.7,
+      "price": 0.0001905,
+      "date": "2026-09-05"
+    },
+    {
+      "symbol": "GI",
+      "name": "Golden Inu",
+      "logo": "/logos/dex/0x8EfD3bBD.jpg",
+      "address": "0x8EfD3bBD9A94D11AE654B72804A04f6A805c80f7",
+      "chain": "robinhood",
+      "change6h": 2.8,
+      "price": 0.001179,
+      "date": "2026-09-05"
     }
   ]
 }
