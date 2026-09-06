@@ -1941,6 +1941,31 @@
         "base",
         "bsc"
       ]
+    },
+    {
+      "id": "t",
+      "name": "t",
+      "logo": "",
+      "category": "exchanges",
+      "tags": [],
+      "description": "test",
+      "website": "https://t.co",
+      "chains": [],
+      "social": {
+        "twitter": "",
+        "telegram": "",
+        "discord": "",
+        "github": ""
+      },
+      "metrics": {},
+      "verified": false,
+      "audited": false,
+      "riskLevel": "medium",
+      "featured": false,
+      "sponsored": false,
+      "status": "pending",
+      "source": "community-submit",
+      "addedAt": "2026-09-06"
     }
   ]
 }
