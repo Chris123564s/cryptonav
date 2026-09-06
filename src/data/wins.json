@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "CATSTRO",
-      "name": "Fidel Catstro",
-      "logo": "/logos/dex/0x157A752F.jpg",
-      "address": "0x157A752F3446fe891d6e2881006813703fbB3aD9",
+      "symbol": "BELL",
+      "name": "Openbell",
+      "logo": "/logos/dex/0x218d0dC5.jpg",
+      "address": "0x218d0dC56476b05F131bD6CC82B80C7b052Fa9B1",
       "chain": "robinhood",
-      "change6h": 2575.0,
-      "price": 0.001361,
-      "date": "2026-09-05"
+      "change6h": 145.0,
+      "price": 0.001871,
+      "date": "2026-09-06"
     },
     {
-      "symbol": "memestonk",
-      "name": "memestonk",
-      "logo": "",
-      "address": "CYAQyGC9Nc9RV5MiSiJxdE8utWZtdjtt3tKe1Uvjpump",
-      "chain": "solana",
-      "change6h": 373.0,
-      "price": 0.0004535,
-      "date": "2026-09-05"
-    },
-    {
-      "symbol": "NVDA $BRRR",
-      "name": "NVDA BRRR",
-      "logo": "/logos/dex/0x43b96E85.jpg",
-      "address": "0x43b96E852E662033031770125F860aE03b473dC8",
+      "symbol": "🅿️",
+      "name": "Pushin' 🅿️",
+      "logo": "/logos/dex/0x2Ff153bA.png",
+      "address": "0x2Ff153bA4591d1B134E1e2ef42Fd897d2E686cC3",
       "chain": "robinhood",
-      "change6h": 204.0,
-      "price": 0.0003037,
-      "date": "2026-09-05"
+      "change6h": 117.0,
+      "price": 0.0001206,
+      "date": "2026-09-06"
     },
     {
-      "symbol": "GoMeme",
-      "name": "GoMeme",
-      "logo": "/logos/dex/925phSqb5L.png",
-      "address": "925phSqb5LFULiLbU6L8dUH4UiHYPewsdKp5xH31pump",
-      "chain": "solana",
-      "change6h": 92.2,
-      "price": 0.0001019,
-      "date": "2026-09-05"
+      "symbol": "TrustCat",
+      "name": "TrustCat",
+      "logo": "/logos/dex/0x75B36491.jpg",
+      "address": "0x75B364916b65f1e8959fa0210A6922C2EE237777",
+      "chain": "bsc",
+      "change6h": 53.5,
+      "price": 0.001582,
+      "date": "2026-09-06"
     },
     {
-      "symbol": "WSB",
-      "name": "We Stay Bullish",
-      "logo": "/logos/dex/0x6b288916.jpg",
-      "address": "0x6b2889161B511dd5a4e6b7857119358753a57322",
+      "symbol": "PONINU",
+      "name": "PONS INU",
+      "logo": "/logos/dex/0x5Ec9cd90.jpg",
+      "address": "0x5Ec9cd905ff6695fC8b5943A5e1E83A23B610156",
       "chain": "robinhood",
-      "change6h": 69.9,
-      "price": 0.000181,
-      "date": "2026-09-05"
+      "change6h": 34.9,
+      "price": 0.0004786,
+      "date": "2026-09-06"
     },
     {
-      "symbol": "PUMPLIFE",
-      "name": "Pump Life",
-      "logo": "/logos/dex/5761e8gCMZ.jpg",
-      "address": "5761e8gCMZFBHLU4RuFsfkWab96oJEtEr3uoF9A4pump",
-      "chain": "solana",
-      "change6h": 41.0,
-      "price": 0.0006437,
-      "date": "2026-09-05"
-    },
-    {
-      "symbol": "ORDIHOOD",
-      "name": "Ordihood",
-      "logo": "/logos/dex/0xb27ac340.jpg",
-      "address": "0xb27ac340261a8486b8f39dd23b8a95D434a071Bc",
+      "symbol": "WASTED",
+      "name": "WASTED",
+      "logo": "/logos/dex/0x2bBd69Fc.jpg",
+      "address": "0x2bBd69Fc69dC9922f9f76142251D2827fD46188C",
       "chain": "robinhood",
-      "change6h": 12.7,
-      "price": 0.0001905,
-      "date": "2026-09-05"
+      "change6h": 20.6,
+      "price": 0.00014,
+      "date": "2026-09-06"
     },
     {
-      "symbol": "GI",
-      "name": "Golden Inu",
-      "logo": "/logos/dex/0x8EfD3bBD.jpg",
-      "address": "0x8EfD3bBD9A94D11AE654B72804A04f6A805c80f7",
+      "symbol": "CUPCAKE",
+      "name": "Cupcake",
+      "logo": "/logos/dex/0x0Ae4CAB4.jpg",
+      "address": "0x0Ae4CAB49B6F048F9C589a522620BeBfC4edEdC6",
       "chain": "robinhood",
-      "change6h": 2.8,
-      "price": 0.001179,
-      "date": "2026-09-05"
+      "change6h": 12.5,
+      "price": 0.02006,
+      "date": "2026-09-06"
+    },
+    {
+      "symbol": "ORBIT",
+      "name": "EnginesCreation",
+      "logo": "/logos/dex/0x62F1F3cf.jpg",
+      "address": "0x62F1F3cf2c72bebdd4bc2C628ed1A03626761e18",
+      "chain": "robinhood",
+      "change6h": 9.5,
+      "price": 0.0002556,
+      "date": "2026-09-06"
+    },
+    {
+      "symbol": "SIRIUS",
+      "name": "The Dogestar",
+      "logo": "/logos/dex/0x3b4A0048.jpg",
+      "address": "0x3b4A0048a00787A644932cD648Faa043410C163e",
+      "chain": "robinhood",
+      "change6h": 6.5,
+      "price": 0.003699,
+      "date": "2026-09-06"
     }
   ]
 }
