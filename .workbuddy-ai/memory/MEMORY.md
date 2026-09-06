@@ -1,307 +1,158 @@
 # CryptoNav 项目记忆
 
 ## 项目概述
-CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站，聚合交易所、钱包、行情工具、DeFi、NFT 等全品类资源。网站语言为英文。
+面向**国际用户**的英文加密币综合导航站（交易所/钱包/行情/DeFi/NFT）。
+Astro + Tailwind + JSON 数据 + Cloudflare Pages；仓库 `Chris123564s/cryptonav`（main）。
+涨跌颜色用**国际惯例（绿涨红跌）**。
 
-## 关键决策
-- 技术栈：Astro + Tailwind CSS + JSON 数据 + Cloudflare Pages 部署
-- 变现模式：广告位（5种）+ 赞助收录 + 联盟链接 + 项目推荐位
-- 数据采集：CoinGecko API + DefiLlama API + GitHub Trending + 社区提交
-- 采集策略：自动采集 + 质量评分 + 人工审核（评分≥60自动收录）
-- 调度：GitHub Actions 每6小时增量采集，每天全量刷新，每周死链检测
-- **涨跌颜色惯例：国际惯例（绿=涨，红=跌）**，不用中国惯例
+## 联系邮箱（2026-09-02 查证）
+- 全站唯一对外邮箱 **`contact@cryptonav.site`**，已接入腾讯企业邮（MX = mxbiz1/2.qq.com）。
+  例外：`SubscribeForm.astro` 的 `placeholder="you@example.com"` **故意保留**（改成站长邮箱 = 预填怪 UI）。
+- ⚠️ **该域开了 catch-all**：不存在地址也返回 `250 Ok` → **SMTP RCPT 探测完全不可信**。
+- ⚠️ **缺 SPF/DMARC**：用 contact@ 外发会进垃圾箱。待用户在 CF 后台手动加
+  `v=spf1 include:spf.mail.qq.com ~all`（现有 token 无 DNS 权限，只能后台加）。
+- **验证线上邮箱必须解码，不能 grep**：CF Email Obfuscation 把邮箱加密成
+  `/cdn-cgi/l/email-protection#<hex>`，HTML 无明文，grep 新旧地址都返回 0 →
+  极易误判"部署没生效"。解码器：`scripts/check-cf-email.py`（可 `--expect`，exit 0/1 可挂 CI）。
 
-## 联系邮箱与邮件系统（2026-09-02 查证）
-- **全站唯一对外联系邮箱：`contact@cryptonav.site`**（2026-09-01 统一；原 `hello@` / `advertise@` 已全部废弃，涉及源码 13 处 / 7 个文件）。例外：`SubscribeForm.astro` 的 `placeholder="you@example.com"` 是输入框占位符，**故意保留**——改了会变成"预填站长邮箱"的怪异 UI。
-- **域名邮件已接入腾讯企业邮**：MX = `mxbiz1.qq.com`(5) / `mxbiz2.qq.com`(10)。无需另建 Zoho / Cloudflare Email Routing，只需在企业邮后台确认或新增 `contact@` 账号。
-- **⚠️ 该域开了 catch-all**：随机不存在地址 `zzqx-nonexistent-9284@cryptonav.site` 的 SMTP 探测同样返回 `250 Ok` → **RCPT TO 探测在此域完全不可信**，必须做对照测试，别把 250 当"邮箱存在"的证据。
-- **⚠️ 缺 SPF / DMARC**（TXT 无 `v=spf1`）：收信多半正常，但用 contact@ **外发回信会进对方垃圾箱**。建议补 SPF：`v=spf1 include:spf.mail.qq.com ~all`。
-- **验证线上邮箱必须用解码器，不能 grep**：Cloudflare Email Obfuscation 把邮箱加密成 `/cdn-cgi/l/email-protection#<hex>` 和 `<span class="__cf_email__" data-cfemail="<hex>">`，HTML 里没有明文，`grep` **新旧地址都返回 0**，极易误判成"部署没生效"。解码：hex 首字节为 XOR key，其后每字节 XOR key 得明文。已固化为 `scripts/check-cf-email.py`（可传任意 URL、`--expect` 指定期望地址、exit 0/1 可挂 CI）。
+## 联盟码写入原则（2026-09-02 定，09-04 修正）
+- **唯一要守的边界：访客只接触官方域名。** 码的来源不影响访客安全。
+- ✅ **可写**：用户给什么链接，就把 `template` 的**域名换成那个链接的域名**，`code` 填链接里的 ID。
+- ❌ **不写**：来源不明、用户无法确认归属的野鸡域名（`bsmkweb.cc` 等）。
+- ⚠️ **"域名必须官方" ≠ "必须是交易所主域"**。曾把 bybit 联盟短链 `partner.bybit.com/b/166214`
+  卡在"模板不兼容"上反复验证，被用户 **"不要去参考模板了，以我的为准"** 点破：
+  `template` 只是拼接壳子。联盟短链域出自官方后台，与主域同属官方，**照写**。
+- 教训：别因"域名不够官方"拦阻用户 —— 剩余风险只涉及返佣归属，应由用户自主决定，**不要家长式拦阻**。
+- 现状：binance `GRO_28502_B2R17` ✅、bybit `166214` ✅（均上线）；
+  **okx / coinbase / kraken / gate-io / bitget / mexc 6 家待填（用户直接发链接即可）**。
 
-## 联盟码写入原则（2026-09-02 定）
-- **码可以用，域名必须官方。** 访客只接触到官方域名，风险即归零——这是唯一需要守的边界。
-- `src/data/affiliates.json` 的 `template` 已硬编码各家官方域名，**用户只需提供 ref 码，不需要提供完整链接**。填码后自动拼成 `binance.com/en/register?ref=码` 这类官方链接，与用户原链接的域名完全无关。
-- ✅ **可写**：任意来源的 ref 码，只要 ①域名取自模板（不取自用户给的链接）②用户确认码属于自己。
-- ❌ **仍不写**：非官方域名本身（`bsmkweb.cc`、`glneokotyjv.com` 之类绝不写进任何 URL 字段）。
-- 取码方法：链接里 `ref=` / `refCode=` / `/join/` / `/referral/` 之后、`&` 之前那串。
-- 当前状态（9-04 已上线）：**Binance `GRO_28502_B2R17`**（`02cdb20`）、
-  **Bybit `166214` → `partner.bybit.com/b/166214`**（`87a5716`，已 push 并部署，线上验证通过）；
-  其余 6 家（okx/coinbase/kraken/gate-io/bitget/mexc）仍为空。
-- ⚠️ **9-04 重要修正：「域名必须官方」≠「域名必须是交易所主域」**。我曾把 bybit 的联盟短链
-  `partner.bybit.com/b/166214` 卡在"模板格式不兼容"上反复验证域名归属，被用户一句
-  **"不要去参考模板了，以我的为准"** 点破：`template` 只是**拼接壳子**，域名填什么由用户给的
-  链接决定，不必等于 `bybit.com` 这种主域。
-  - 真正的判断标准不是"域名长什么样"，而是 **"这个链接是不是用户从自己官方后台复制出来的"**。
-    交易所联盟短链域（`partner.bybit.com` 这类）出自用户官方后台，与主域同属官方，**照写**。
-  - 仍然不写的只有一种：**来源不明、用户本人无法确认归属的野鸡域名**（`bsmkweb.cc` 等）。
-  - 流程简化为：**用户给什么链接，就把 `template` 的域名换成那个链接的域名，`code` 填链接里的 ID**，
-    不再要求用户"提炼纯码"。
-- 背景教训：曾因"链接域名非官方"反复拒绝用户提供的码，导致用户无路可走（09-02 被用户纠正）。正确做法是**只取码 + 官方模板**——如此访客零风险，剩余风险仅涉及用户自身返佣归属，应由用户自主决定，**不要家长式拦阻**。
+## 广告位机制（易理解错）
+- 渲染优先级：`ads.json 直投（active + 时间窗）> ad-network.json 的 html（广告网络 tag）> promo > "Your Ad Here"`。
+- ⚠️ **`weight` 是"构建时被选中的概率"，不是展示概率**。Astro 静态生成 → 每个页面构建时
+  `Math.random()` 抽一次，构建完固定。要稳定展示某条，就让它成为该 slot 唯一候选。
+- **`image` 填不填决定看不看得见文案**：填了只渲染 `<img>`（title/subtitle 进 alt）；
+  不填才走渐变+文字。**活动推广必须留空 image。**
+- 统计口径：`scripts/check-ad-slots.mjs` 用 `data-ad-id=`（直投）/ `data-promo-project=`（promo）计数。
+  ⚠️ 按"官网 URL 出现次数"统计会**被项目卡片链接污染**，不可信。
+- **RULE（写进 ad-network.json 的 note 了）**：promo 的 `projectId` **必须是 affiliates.json 的 key**，
+  否则 `getReferralUrl()` 无码可拼、只渲染他人官网，**永远不赚钱且页面上看不出区别**。
+  校验：`node -e "const a=require('./src/data/affiliates.json').exchanges,n=require('./src/data/ad-network.json').slots;for(const[s,v]of Object.entries(n))console.log(s,v.projectId,v.projectId in a?'ok':'NEVER EARNS')"`
 
-## 实时行情数据架构（重要）
+### 广告卡视觉（2026-09-06 重做）
+- 渐变**不用 Tailwind 类**，改三个 CSS 变量 `--ad-1 / --ad-2 / --ad-glow` 写在行内 style
+  （卡片需要两个端色 + 第三个更亮的高光色，只有 CSS 能一次带全）。配色表在 `AdBanner.astro`。
+- 层次：基础渐变 + 两个模糊光斑 + 网格纹理（mask 渐隐）+ 内描边 + 暗角。
+  宽 banner 在 md+ 左右分栏（文案左/CTA 右），sidebar 与 inline 居中堆叠。
+- **描述在 <640px 隐藏**：120px 高装不下「换行标题+描述+按钮」，`overflow-hidden` 会拦腰截断。
+- **直投与 promo 已合并为一条渲染路径**（原本两段几乎重复的代码，正是"CTA 只有 promo 有"的原因）。
+- **改 `.ad-container` / `.ad-label` 必须用更高特异性覆盖**：它们在 `@layer components` ——
+  那是 **Tailwind 的处理层，不是原生 cascade layer**，覆盖**不能靠加载顺序**。
+  示例：`.ad-label.ad-label--on-media`（Astro 编译后 `.ad-label[data-astro-cid-x].ad-label--on-media`，
+  0,3,0）＞ 全局 `.ad-label`（0,1,0）。
+- **同一页出现的槽位不要用同一个 gradient**：首页曾有 bybit/binance/okx 三个都是 `exchange`（金），
+  两个侧栏上下相邻像同一条广告重复。现 橙/金/靛蓝/蓝。
 
-浏览器端行情组件（MarketChart / TickerBar / CurrentPicks / NewTokensRadar / dashboard）
-统一走 `src/utils/coingecko.ts` 的 `cgFetch()`，双路取数：
+### 两个「渲染正常但看着像没卖出去」的 bug（2026-09-05 修，易复发）
+1. **渐变卡缺 `w-full`**：容器是 `flex items-center justify-center`，子项只写 `h-full`
+   → 宽度按文字撑开，两侧露灰底，**看着像空位**。有图分支是 `img.w-full`，所以只有无图的
+   渐变卡中招 —— 而活动推广恰恰必须无图。
+2. **`border-dashed` 曾写死在 `.ad-container` 基础类**：所有广告（含真素材）都套虚线，
+   同时让组件里 `ad.image?'':'border-dashed'` 彻底失效（基础类先加上了）。
+   已移除，**虚线现在只留给 "Your Ad Here" 占位**。
+- 顺带：`AdConfig.image` 改可选（ad-006 从无此字段却在断言必填）；新增可选 `cta`。
 
-1. **优先** `/api/cg/*` —— Cloudflare Pages Function（`functions/api/cg/[[path]].js`），
-   边缘缓存 + 并发去重 + 24h 陈旧兜底。一次上游请求服务所有访客。
-2. **回退** 访客自己的 IP 直连 CoinGecko —— 当边缘返回 429/5xx 时触发；
-   一旦边缘失败，本页生命周期内不再重试边缘。
-
-**为什么需要回退（线上实测结论）**：CoinGecko 免费档按 IP 限流，而 Cloudflare 数据中心
-出口 IP 被海量 Worker 共用，长期被限流。实测同一时刻：边缘连续 5 次 429， residential IP
-直连连续 3 次 200。无 key 时边缘缓存永远填不满 → 代理 100% 无用。
-
-**彻底解法**：注册 CoinGecko 免费 Demo key，在 Cloudflare Pages 配环境变量
-`COINGECKO_API_KEY`（Pro 用 `COINGECKO_PRO_API_KEY`）。限流从「按 IP」变「按 key」，
-边缘缓存才真正生效。代码已支持，配好 key 无需改任何代码。
-
-回归测试：`npm run test:cg`（`scripts/test-cg-proxy.mjs`，21 条断言，mock Cache API + mock 上游）。
-
-## 部署架构（2026-08-31 修复后，重要）
-
-### 根因与现状
-- `public/_routes.json` 缺 `"exclude": []` 导致**所有**部署在发布阶段被拒一整天。
-  云文档说 exclude 可选，Wrangler 源码（`isRoutesJSONSpec()`）要求 include 和 exclude
-  必须都是数组。Pages 自带构建器只报 `Failed to publish assets`，Wrangler 会直说
-  `Invalid _routes.json`。已修复并加 `scripts/check-routes-json.mjs` 常驻校验
-  （规则抄自 Wrangler 4.127.1 源码，**注释里写明了为什么不能照文档"简化"**）。
-- `_routes.json` 是 `5c5b60a`（8-31 12:31）引入的，**同一个 bug 同时打挂了 Pages 自带
-  Git 集成**。现已双双恢复并实证（见下）。
-
-### ✅ 已决策（2026-08-31）：选 A —— 保留 Wrangler，每次 push 到 main 自动部署
-- `deploy-pages.yml` 触发器 = `push: branches: [main]` + `workflow_dispatch`（保留手动，
-  也是发布非 main 分支做预览的唯一方式）
-- 5 个定时数据刷新 workflow 每天多次 push 到 main，会各自触发一次部署；
-  concurrency 组 `wrangler-pages-deploy` + `cancel-in-progress: false` 串行排队
-  （不取消进行中的，避免上传中途被砍留下半成品）
-- 故意**不加** `paths-ignore`：文档和 `.workbuddy-ai/**` 虽不影响站点，但过滤会新增
-  "推了却没部署"的静默失败类型；公开仓库 CI 分钟数免费。规则：push 到 main 就部署。
-
-### ⚠️ 唯一遗留人工步骤（用户尚未执行）
-**必须去 Cloudflare 后台断开 Pages Git 集成**，否则每次 push 仍会被构建发布两次：
-`Workers & Pages > cryptonav > Settings > Builds & deployments > Disconnect`
-断开**不会**删除项目或自定义域名。断完之后每个 push 只构建一次。
-
-### 下次开工清单（详见 2026-08-31.md 收工总结）
-1. 断开 Pages Git 集成（上面那条），并确认一次提交只剩 1 个 check run
-2. 重新压测 `/api/cg/*` 边缘代理（连测 10+ 次），再决定是否仍需 CoinGecko key
-3. 手册剩余变现配置：8 个联盟码、3 个 newsletter 环境变量、Cache Rule、GSC 重新提交
-4. 待办任务 #53「airdrops 页适配新数据格式」
-5. 未答：`robots.txt` 是否精简到只保留 Cloudflare 托管规则未覆盖的部分
-
-### CI 警告纪律（约定）
-**健康的流水线必须是零警告。** 无法判断的检查只能输出普通日志行（`note()`），
-不能进 Annotations 面板；`::warning::` 只留给可行动的情况。
-典型反例：本站用的是 account 级 dashboard token，`/user/tokens/verify` 返回空的
-`permission_groups`，导致"有没有 Pages 权限"的提示每次都响 → 成功部署看起来像坏的。
-已用 `scripts/test-cloudflare-token.mjs`（12 用例，断言**精确警告数**）锁死。
-
-### 边缘代理实测（2026-08-31 21:00，单次观测，非趋势）
-`/api/cg/simple/price?ids=bitcoin&vs_currencies=usd` → `{"bitcoin":{"usd":77867}}`，
-边缘返回 200。与上方"无 key 时代理 100% 无用"的旧结论不一致，需要重新压测确认
-是限流放宽还是缓存命中，再决定是否仍需 CoinGecko key。
-`/api/cg/ping` 返回 403 是 CoinGecko 免费档自身限流，代码未使用该端点。
-
-### ✅ 边缘代理压测结论（2026-09-04 15:05，14 连测，推翻上面所有旧结论）
-- **14/14 全部 HTTP 200，零 429**，价格随上游变动（80877 → 80861）→ 确实在真取数，不是假数据。
-- **`X-CG-Cache` HIT 率 7/8**（第 1 次 MISS 后连续 HIT）→ **Cache API 正常工作，
-  一次上游请求服务多批访客，代理是有效的**。"无 key 时代理 100% 无用"那条旧结论作废。
-- **`X-CG-Auth: demo-key` → CoinGecko Demo key 已配置并生效**（限流按 key 不按 IP）。
-  之前"待注册 key"的待办已完成，不用再动。
-- ⚠️ **判断缓存有没有生效要看 `X-CG-Cache`，不要看 `cf-cache-status`**。
-  实测 `cf-cache-status: DYNAMIC` + `age: 0`（Cloudflare HTTP 边缘层不缓存 Pages Functions
-  响应，这是预期行为），但应用层 Cache API 已经扛住了缓存职责。
-  我第一次压测只抓 cf-cache-status，误判成"缓存完全没生效"，白紧张一场。
-  → 以后查这个代理：`curl -D - ... | grep -i "x-cg-cache\|x-cg-auth"`。
-
-## 文档产出
-- `CryptoNav-产品方案.md` — 完整产品方案（定位/功能/架构/技术/路线图）
-- `CryptoNav-数据采集方案.md` — 数据自动采集与录入实现方案
-
-## 广告位机制（2026-09-04 实测，容易理解错）
-
-- 配置在 `src/data/ads.json`（`id / slot / title / subtitle / image / gradient /
-  link / startAt / endAt / weight / active`）。5 个 slot：
-  `home-banner`、`sidebar-top`、`sidebar-bottom`、`footer-banner`、`inline-card`。
-- ⚠️ **`weight` 不是"展示概率"，是"构建时被选中的概率"**。`getAd()` 用 `Math.random()`
-  按权重挑一条，而 Astro 是**静态生成** → 一次构建里**每个页面各自随机一次，构建完就固定**。
-  → 要稳定展示某条广告，就让它成为该 slot 的唯一候选（把同 slot 其他条 `active: false`），
-    否则每次部署（数据 workflow 一天好几次）都可能把它换掉。
-- **`image` 填不填决定看不看得见文案**：填了 → 只渲染 `<img>`，title/subtitle 不显示
-  （alt 里才有）；不填 → 走渐变背景 + 文字卡片。**活动推广必须留空 image。**
-  （无图时会加 `border-dashed`，看起来像占位，需要时可以改组件区分）
-- 外链广告自动带 `rel="sponsored noopener"` 和 "Ad" 标签，SEO 无害。
-- 当前（9-04）：`home-banner` = Bybit TradFi 活动（ad-006，`affiliate_id=166214`）；
-  原 Binance 占位（ad-001，纯官网无佣金）已停用。
-
-## ⚠️ 两个「看起来没卖出去」的渲染 bug（2026-09-05 修，容易复发）
-
-1. **渐变卡缺 `w-full`**：`.ad-container` 是 `flex items-center justify-center`，
-   内层 div 只写了 `h-full` 没写 `w-full` → flex 子项宽度按内容撑开，
-   渐变只到文字那么宽，两侧露出容器灰底 + 边框，**看着像空位**。
-   有 image 的分支是 `<img class="w-full h-full object-cover">`，所以只有无图的
-   渐变卡会中招 —— 而活动推广恰恰必须无图（填图就只剩 img，文案消失）。
-2. **`border-dashed` 曾写死在 `.ad-container` 基础类里**：所有广告位（含真素材的）
-   都套虚线；同时让组件里 `ad.image ? '' : 'border-dashed'` 这行彻底失效
-   （基础类先加上了，去掉无从谈起）。现已从基础类移除，
-   **虚线只留给 "Your Ad Here" 占位**，语义是「这个位子空着待售」。
-
-`AdConfig.image` 已改为可选（ad-006 从来就没有 image，类型却在断言必填）；
-新增可选 `cta` —— 之前直投渐变卡没有 CTA 按钮而 promo 卡有，**付钱的比免费的还空**。
-
-## 变现缺口实测（2026-09-06，129 处广告渲染）
-
-| 来源 | 渲染次数 | 是否赚钱 |
+### 变现现状（2026-09-06，129 处渲染）
+| 来源 | 渲染 | 状态 |
 |---|---|---|
 | ad-006 Bybit（home-banner） | 84 | ✅ 有佣金 |
-| ad-002/003/004/005 占位直投 | 24 | ❌ 指向 Ledger/Uniswap/CoinGecko/OpenSea **官网** |
-| promo（kraken / coinbase） | 11 | ❌ 码为空，填上立刻赚钱 |
-| promo（dexscreener） | 10 | ❌ 不在 affiliates 里，永远不赚钱 |
+| promo binance（sidebar-top） | 11 | ✅ 有佣金 |
+| promo okx / gate-io / kraken / bitget / coinbase / mexc | 34 | ⏳ **只等 6 个码** |
+- **95/129 已能赚（74%），剩余 34 处全部卡在 6 个联盟码上** —— 填码即变现，无需改代码。
+- 同日处置：停用 ad-002~005（Ledger/Uniswap/CoinGecko/OpenSea 官网直投，24 处白送流量且
+  **优先级高于 promo，等于占着会赚钱的位子**）；5 个 promo 换成联盟表内交易所
+  （dexscreener→gate-io，另发现 trezor/coinmarketcap/magic-eden 同样不在表内，一并换）。
+  8 个槽位现在 1:1 对应 8 家交易所，无重复。
 
-→ **只有 65% 的广告位真在赚钱。** 缺口主要在「6 个联盟码没填」和
-「4 条占位直投 + dexscreener promo 无法变现」两处。
+## 实时行情架构
+浏览器组件统一走 `src/utils/coingecko.ts` 的 `cgFetch()`：
+1. 优先 `/api/cg/*` —— Pages Function（`functions/api/cg/[[path]].js`），Cache API 缓存 + 并发去重 + 24h 陈旧兜底。
+2. 回退访客 IP 直连 —— 边缘 429/5xx 时触发，本页生命周期内不再重试边缘。
+
+✅ **2026-09-04 压测（14 连测，推翻此前所有悲观结论）**：
+- 14/14 HTTP 200 零 429，价格随上游变动 → 真取数。
+- **`X-CG-Cache` HIT 率 7/8** → Cache API 正常工作，"无 key 时代理 100% 无用"作废。
+- **`X-CG-Auth: demo-key` → Demo key 已配置生效**，不用再注册。
+- ⚠️ **看缓存要看 `X-CG-Cache`，不要看 `cf-cache-status`**（后者恒为 DYNAMIC，是预期行为，
+  看它会误判"缓存没生效"）。查询：`curl -D - ... | grep -i "x-cg-cache\|x-cg-auth"`。
+- 回归：`npm run test:cg`（21 断言，mock Cache API + 上游）。
+
+## 部署与 CI
+- ✅ **选 A：保留 Wrangler，push 到 main 自动部署**（`deploy-pages.yml`，另可 `workflow_dispatch`）。
+  5 个数据 workflow 每天多次 push 到 main，各触发一次部署；concurrency 组串行排队
+  （`cancel-in-progress: false`，避免上传中途被砍留半成品）。
+  故意**不加 `paths-ignore`**：过滤会新增"推了却没部署"的静默失败类型。规则：push 到 main 就部署。
+- ⚠️ **用户尚未执行**：去 CF 后台**断开 Pages Git 集成**（每次 push 仍在构建两次）。
+  `Workers & Pages > cryptonav > Settings > Builds & deployments > Disconnect`（不会删项目/域名）。
+- `_routes.json` 必须同时有 `include` **和** `exclude` 两个数组（云文档说 exclude 可选，
+  Wrangler 源码 `isRoutesJSONSpec()` 要求都是数组）。缺 exclude 曾让所有部署在发布阶段被拒一整天；
+  Pages 自带构建器只报 `Failed to publish assets`，Wrangler 会直说 `Invalid _routes.json`。
+  常驻校验：`scripts/check-routes-json.mjs`（规则抄自 Wrangler 4.127.1 源码）。
+- **CI 警告纪律：健康流水线必须零警告。** 无法判断的检查只输出普通日志（`note()`），
+  `::warning::` 只留给可行动项。已用 `scripts/test-cloudflare-token.mjs`（12 用例，
+  断言**精确警告数**）锁死 —— 反例：account 级 dashboard token 的 `/user/tokens/verify`
+  返回空 permission_groups，导致"有没有 Pages 权限"每次都响，成功部署看着像坏的。
 
 ## 链接健康巡检（2026-09-04 上线）
-
-`.github/workflows/check-links.yml`，周二 04:00 UTC，两个 job：
-- `crawl` —— `check-live-links.mjs`，110 个站内 URL / 110 条内链，CI 上只跑 31 秒
-- `outbound` —— `check-outbound-links.mjs`，63 个 active 项目官网存活性
-
-**设计原则：只有「确认失效」才让 job 变红。**
-- 外链分 `ok / block / dead / timeout / error / warn`，**只有 dead 影响退出码**。
-  63 个里 18 个（Gate.io、Etherscan、OpenSea…）会挡数据中心 IP 返回 403，
+`.github/workflows/check-links.yml`，周二 04:00 UTC，**crawl + outbound 合并在一个文件**
+（推 `.github/workflows/` 需 PAT 的 `workflow` scope，一个文件 = 一次授权覆盖两项）。
+- crawl：110 URL / 110 内链 / 0 死链 / CI 上 31 秒（本地走代理要 4-5 分钟）。
+- outbound：63 个 active 项目官网。
+- **只有「确认失效」才让 job 变红**：分类 `ok/block/dead/timeout/error/warn`，
+  **只有 dead 影响退出码**。63 个里 18 个（Gate.io、Etherscan、OpenSea…）会挡数据中心 IP 返回 403，
   算成失效就每周报红 → 被当噪音忽略 → 连带淹没真问题。
-- 两个脚本都用 `process.exitCode`，**不用 `process.exit()`**（后者会撞 undici
-  keep-alive 句柄，在 Node 24 / Windows 上让退出码变成 127，成功失败都是）。
-- 每个 job 跑之前先跑自己的契约测试（`test-link-checker.mjs` / `test-outbound-checker.mjs`），
-  **先验证检测器没坏，再信它的结论**。
+- 两个脚本都用 **`process.exitCode`，禁用 `process.exit()`**（后者撞 undici keep-alive 句柄，
+  Node 24/Windows 上退出码被污染成 127，成功失败都是）。
+- 每个 job **先跑自己的契约测试**，先验证检测器没坏再信结论。
 
-## ⚠️ 6 个跨域名重定向都不要改（2026-09-04 决策，理由反直觉）
+### ⚠️ 6 个跨域名重定向都不要改（2026-09-04 决策）
+清单 `scripts/known-redirects.json`（每条含日期+理由）。机制：复核过且落点未变 → 安静一行；
+**落点变了反而大声报**（域名又动了，可能被卖了）。
 
-清单在 `scripts/known-redirects.json`，每条都写了日期和理由。**别去"修正"这些 URL**：
-
-| 项目 | 现 URL | 跳转到 | 为什么不动 |
+| 项目 | 现 URL | 跳到 | 为什么不动 |
 |---|---|---|---|
 | Curve | curve.fi | curve.finance | 官方改名，品牌域名仍是 .fi |
 | 1inch | 1inch.io | 1inch.com | 1inch.com 注册于 **1999**，买来的老域名 |
 | dYdX | dydx.exchange | dydx.xyz | 官方换域名 |
-| Phantom | phantom.app | phantom.com | phantom.com 注册于 **1992**，买来的老域名 |
-| Arkham | arkhamintelligence.com | info.arkm.com | arkm.com 注册于 **2001**，买来的老域名 |
-| Magic Eden | magiceden.io | magiceden.us/?gr | **不是改名**，是地理/实体分流 |
+| Phantom | phantom.app | phantom.com | phantom.com 注册于 **1992** |
+| Arkham | arkhamintelligence.com | info.arkm.com | arkm.com 注册于 **2001** |
+| Magic Eden | magiceden.io | magiceden.us/?gr | **不是改名，是地理分流** |
 
-- **前 5 个不改的真正理由**：1inch.com / phantom.com / arkm.com 都是二级市场买来的
-  老域名。把 `projects.json` 的 website 改成它们，longevity 会从 7.3 / 5.8 / 6.6 年
-  跳到 26.9 / 34.6 / 24.9 年，**制造 3 个新的 blur 式评分污染**
-  （blur.io 2013 注册 / 2022 上线，评分虚高到 98，是手册里已记录的已知问题）。
-- **Magic Eden 是另一回事**：`?gr` = geo redirect，美国 IP 才被送到 .us。
-  Actions 跑在美国所以每次都看到。本站面向国际用户，**必须保留 .io**，
-  改成 .us 会把非美访客送进美国实体站点。
-- 清单机制：复核过且落点未变 → 安静一行不再告警；**落点变了反而大声报**
-  （域名又动了，可能被卖了）。
+- **前 5 个不改的真正理由**：改 website 会让 longevity 从 7.3/5.8/6.6 年跳到 26.9/34.6/24.9 年，
+  **制造 3 个新的 blur 式评分污染**（blur.io 2013 注册 / 2022 上线，评分虚高到 98）。
+- **Magic Eden 是另一回事**：`?gr` = geo redirect，Actions 跑在美国才每次看到。
+  本站面向国际用户，**必须保留 .io**，改成 .us 会把非美访客送进美国实体站点。
 
-## 长期变现方案（3阶段路线图）
+## 已知未完成 / 待用户动作
+- **6 个联盟码**（决定 34 处 promo 能否变现）—— 发完整链接即可。
+- **Newsletter**：线上 `POST /api/subscribe` 返回 **503**，前端显示
+  **"Online signup is not connected yet."**（每个想订阅的访客都看得到，自曝站点未完成）。
+  需在 CF Pages 配 `NEWSLETTER_PROVIDER` / `_ENDPOINT` / `_TOKEN` 并**重新部署**；
+  或至少先改掉这句文案。
+- **Bitmedia/Coinzilla 广告位代码**：8 个槽位全空，建议先贴 `article-top` / `article-bottom`。
+- **SPF/DMARC**（见上，需后台手动）。
+- Bybit 活动截止日暂设 2026-10-04，待确认；两套 Bybit 链接是否统一
+  （卡片 `partner.bybit.com/b/166214` vs 广告 `bybit.com/en/sign-up?affiliate_id=166214`）。
+- 其他：Wayback 在 CI 的可用性、blur 评分偏高、arkham 合约数据缺失、`/embed/[slug]` 徽章 BD、
+  GitHub Node 20 弃用警告（需改 7 个 workflow 含部署流水线，风险大于收益，暂不动）。
 
-### Phase 1：立即上线（零开发成本）
-- 接入加密广告网络（Coinzilla / Bitmedia），CPM $5-15
-- 交易所/钱包项目链接改为联盟链接（Binance/OKX/Bybit referral，CPA $50-300）
-- projects.json 加 `sponsored` 字段，赞助项目置顶 + "Sponsored" 标签（月费 $50-200/项目）
+## 路线图与内容现状（压缩）
+- 变现优先级：联盟链接 > 广告网络 CPM > Sponsored 标签 > 链页 > 自助投放。
+- 已上线内容：compare/ 5 篇对比页、dashboard（恐慌指数+Gas+涨跌榜）、
+  `/chain/[slug]`（CoinGecko 6h 刷新）、/airdrops + /unlocks 日历、learn/ 8 篇指南。
+  总 174 页。
+- SEO 黄金机会："Binance vs Coinbase"（KD=1，月搜 3400）等对比页已建，每页带联盟链接。
+- 行业 CPM 基准（2026）：CEX $8-15、DeFi $6-12、钱包 $5-10、NFT $3-8。
+- 教训：广告位 ≠ 广告收入（流量→广告主→付费→数据→续费）；新站 DA=0，SEO 需 6-12 月。
 
-### Phase 2：1-3 个月后（有流量后）
-- 建 Chains 维度：`/chain/[slug]` 页面 + projects.json 加 `chains` 数组字段
-- 链页顶部高价值广告位（CPM $10-20）
-- 主动 BD 联系热门链上项目卖 banner 位（月费 $200-500/位）
-- 每周 Newsletter 赞助（$100-300/期）
-
-### Phase 3：6-12 个月后（品牌建立后）
-- 广告主自助投放入口（/advertise 页面）
-- 加密支付收款（USDT/USCC，Coinbase Commerce / NOWPayments）
-- 广告主数据 dashboard（曝光/点击/转化）
-- 链页 Premium 独家 banner（$500-2000/月/链）
-
-### 变现优先级
-联盟链接 > 广告网络 CPM > Sponsored 标签 > Chains 页面 > 自助投放
-
-### 行业 CPM 基准（2026）
-- CEX: $8-15（高级 $18-35）
-- DeFi: $6-12（高级 $15-30）
-- 钱包: $5-10（高级 $12-25）
-- NFT/GameFi: $3-8（高级 $10-20）
-
-### 关键教训
-- 广告位 ≠ 广告收入：从建位到收钱需走完 流量→广告主→付费→数据报告→续费 全链
-- 新站 DA=0，SEO 排名需 6-12 月，不能指望链页立即有广告价值
-- 加密广告网络可零成本接入、从第一天填充库存，是 Phase 1 首选
-
-## 待确认
-- 初始项目数据需录入 50-80 个核心项目
-- Chains 维度推迟到 Phase 2 再建（用户已认可分阶段方案）
-- Phase 1 三件事待用户确认后开始执行
-
-## 流量突破点分析（2026-08-28）
-
-### 核心问题诊断
-- 网站目前 63 个项目，页面 27 个，DA=0，无自然流量
-- CoinGecko/CoinMarketCap/DefiLlama 已占据价格查询和 DeFi 数据赛道
-- 作为"导航站"纯目录价值有限，用户去 Google 搜 "best crypto exchange" 更方便
-
-### 5 大突破方向
-
-**1. SEO 长尾词矩阵（低KD高转化）**
-- "Binance vs Coinbase"（KD=1，月搜 3400）— 做交易所对比页
-- "Ledger vs Trezor"（KD=3，月搜 500）— 做钱包对比页
-- "best crypto exchange"（KD=82，月搜 7500）— 做 Top 10 列表页
-- "best crypto wallet for beginners"（月搜 500）
-- "crypto exchange with lowest fees"（月搜 700）
-- 每个对比/评测页都带联盟链接，直接变现
-
-**2. 每日必看内容（提高留存/日活）**
-- 现有 Success Cases（DexScreener 涨幅榜）已有雏形
-- 可加：Fear & Greed Index、BTC 主导率、Gas 费实时监控
-- 每日市场简报（自动化：价格变动 + 大事件 + 链上异常）
-- 加密日历（代币解锁、主网升级、IDO 等）
-
-**3. 链页 SEO（已建好基础）**
-- /chain/ethereum /chain/solana 等页面已上线
-- 目标关键词："ethereum tokens" "solana meme coins" "arbitrum defi projects"
-- 需要把 CoinGecko API 自动采集的真实代币数据做上去（已建脚本，等 Actions 运行）
-- 每链页可扩展为该链的"一站式信息中心"
-
-**4. 对比/评测内容（高转化低难度）**
-- "Binance vs Coinbase" KD=1 — 黄金机会
-- "Uniswap vs PancakeSwap" — DEX 对比
-- "MetaMask vs Trust Wallet" — 钱包对比
-- "Best DeFi platforms 2026" — 综合评测
-- 这类内容 SEO 难度低 + 联盟转化率高
-
-**5. 工具化（提高粘性）**
-- 现有：MarketChart（K线）、TickerBar（行情条）、NewTokensRadar（新币雷达）
-- 可加：Gas 费追踪器、空投日历、代币解锁日历
-- 工具类页面用户停留时间长、回访频率高
-
-## 5大突破方向实现状态（2026-08-28 全部完成）
-
-### ✅ 方向1：对比评测页 (compare/)
-- 5 篇对比页 + 索引页，共 6 个页面
-- Binance vs Coinbase / Ledger vs Trezor / Uniswap vs PancakeSwap / MetaMask vs Trust Wallet / Best Crypto Exchanges 2026
-- 每页含优缺点、评分、费用表、联盟链接
-
-### ✅ 方向2：每日市场仪表盘 (dashboard.astro)
-- Fear & Greed Index + BTC Dominance + ETH Gas Tracker + Top Gainers/Losers + Trending Searches
-- 客户端实时 API 调用，1-5 分钟自动刷新
-
-### ✅ 方向3：链页 SEO（已实现于前阶段）
-- /chain/[slug] 页面展示真实代币（CoinGecko API 自动采集）
-- GitHub Actions 每 6 小时刷新
-
-### ✅ 方向4：空投 + 解锁日历
-- /airdrops: 15 个确认/传闻空投
-- /unlocks: 15 个代币解锁事件 + 倒计时
-
-### ✅ 方向5：SEO 教育指南 (learn/)
-- 8 篇教育文章 + 索引页，共 9 个页面
-- 关键词合计月搜索量 30,000+
-- What is staking / stablecoin / DeFi / Web3 / How to read charts / L2 / BTC vs ETH / Market cap
-
-### 当前页面总数：45 页（原 27 + 新增 18）
-### Header 导航：Categories / Chains / Dashboard / Compare / Airdrops / Unlocks / Learn / Submit / Advertise
+## 文档产出
+`CryptoNav-产品方案.md`、`CryptoNav-数据采集方案.md`、`CryptoNav-待办操作手册.md`
