@@ -148,6 +148,24 @@ Astro + Tailwind + JSON 数据 + Cloudflare Pages；仓库 `Chris123564s/crypton
 - **不影响线上**：GitHub Actions 每次是干净 runner，dist 从零生成；
   只有本地手动 `wrangler pages deploy dist` 才会把死文件一起传上去 —— 真要手动部署前先换干净目录。
 
+## 两个未配置的写入端点（都曾把"我们没配好"直接说给访客听）
+
+| 端点 | 需要的环境变量 | 未配置时访客看到 | 现状 |
+|---|---|---|---|
+| `POST /api/subscribe` | `NEWSLETTER_PROVIDER` / `_ENDPOINT` / `_TOKEN` | 原：「Online signup is not connected yet.」 | 已改文案（2026-09-06），**变量仍未配** → 线上 503 |
+| `POST /api/submit` | **`GITHUB_ISSUE_TOKEN`** | 原：「Server not configured. Please contact admin.」 | 已改文案（2026-09-06），**变量仍未配** → 线上 500 |
+
+- **`/api/submit` 是 BD 入口**（项目方自荐），漏的是潜在客户，比订阅更值钱。
+- **`GITHUB_ISSUE_TOKEN` 手册此前完全没记过** —— 这大概就是从没配上的原因。
+  它调 GitHub API 把提交**直接写进 `src/data/projects.json`**（`status: 'pending'`）。
+- ⚠️ **必须单独开 fine-grained token**，只给 `Chris123564s/cryptonav` 一个仓库、
+  权限只给 **Contents: Read and write**（不需要 `workflow`，它只写 `projects.json`）。
+  **不要复用推代码的 PAT** —— 那个用完要 revoke，而这个要长期存在 Cloudflare 里。
+- ✅ **已核实安全**：写入的条目是 `status: 'pending'`，而 `getActiveProjects()`
+  只取 `status === 'active'`（63 条全是 active）→ **未审条目不会自动上线**，需人工改 status。
+- 教训：前端**原样打印后端 `error` 字段**（`submit.astro` 就是 `data.error` 直出），
+  所以后端文案 = 访客可见文案。写这类消息时按"给客户看"的标准写，不是按"给运维看"。
+
 ## 已知未完成 / 待用户动作
 - **6 个联盟码**（决定 34 处 promo 能否变现）—— 发完整链接即可。
 - **Newsletter**：线上 `POST /api/subscribe` 返回 **503**，前端显示
