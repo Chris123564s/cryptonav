@@ -61,6 +61,12 @@
 | promo binance（sidebar-top） | 11 | ✅ 有佣金 |
 | promo okx/gate-io/kraken/bitget/coinbase/mexc | 34 | ⏳ **只等 6 个码** |
 - **95/129 已能赚（74%），剩余 34 处全部卡在 6 个联盟码上** —— 填码即变现，无需改代码。
+- **ad-006（Bybit，home-banner）设了 `endAt: 2026-10-04`（这个日期是我猜的，待用户确认）**。
+  到期后 home-banner 会回落到 promo —— 而 home-banner 的 promo 正是 **bybit（有码）**，
+  所以**到期不会掉成不赚钱的位子**，只是换成另一套 bybit 素材。
+- ⚠️ **判断"有没有码"要看 `code` 的值，不能只看 key 在不在 affiliates.json**：
+  8 家**全都是 key**，但只有 binance / bybit 的 `code` 非空 ——
+  6 家（okx / coinbase / kraken / gate-io / bitget / mexc）是**空字符串**。
 - 同日停用 ad-002~005（Ledger/Uniswap/CoinGecko/OpenSea 官网直投，24 处白送流量，
   且**优先级高于 promo，等于占着会赚钱的位子**）；5 个 promo 换成联盟表内交易所。
   8 个槽位现在 1:1 对应 8 家交易所。
@@ -218,6 +224,13 @@
 **它不是死代码**（`public/admin/` 有 `config.yml` + `decap-cms.js` + `index.html`，静态托管不走 Astro 路由）。
 - ✅ **`GITHUB_CLIENT_SECRET` 已配置**（四个端点里唯一配好的）。无副作用探测：
   `curl -s https://cryptonav.site/api/callback` → `missing code` = 已配置（代码先查 secret 再查 code）。
+- ✅ **常驻校验 `npm run test:cms`（`scripts/check-cms-fields.mjs`）**：比对 config.yml
+  与实际 JSON，**"数据里有但没声明"就失败**（那是会被静默删掉的），
+  "声明了但数据里没有"只提示（无害）。已接进 `npm test` 链。当前 **6 个 collection 全清**。
+  ⚠️ 写这个脚本时踩的坑：**file collection 的根字段只是包裹层**
+  （`fields: [{name:"projects", widget:"list", fields:[id,name,...]}]`），
+  它的名字**不属于** item 的字段路径 —— 一开始把声明路径算成 `projects.name`，
+  导致 64 个字段全部误报。**根字段有嵌套时，子字段用空前缀递归。**
 - ⚠️ **Decap 保存时会整份重写 JSON：未在 `config.yml` 声明的字段被静默丢弃。**
   已修（commit 7834718）：metrics 原只声明 `users/volume/tvl`(string)，实际数据是
   `tvl/volume24h/marketCapRank/twitterFollowers/githubStars`(number) → **保存任一项目会抹掉 4 个指标、
