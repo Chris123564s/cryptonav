@@ -2,6 +2,10 @@
 --
 -- 用法：Supabase 后台 -> SQL Editor -> 粘贴执行。
 --
+-- 不需要新建 project：在现有任意 Supabase 项目里执行即可，一张表不占位子。
+-- 建议选有真实流量的那个项目 —— 免费版会把 7 天不活跃的项目自动 Pause，
+-- 项目一暂停订阅接口就 502，而没人会主动发现（平时本来也没人订阅）。
+--
 -- ⚠️ 两个约束是被 functions/api/subscribe.js 的行为逼出来的，改之前先读注释：
 --
 --   1) 列名必须和 generic provider 发的 payload 逐字一致：

@@ -633,6 +633,25 @@ HTTP 状态码 **503**。
 建表 SQL 在仓库里：**`supabase/newsletter_subscribers.sql`**
 （Supabase 后台 → SQL Editor → 整段粘贴执行）。
 
+#### 免费版 3 个项目满了怎么办：不用新建
+
+一张表不需要独占一个 project。**在现有三个项目里随便挑一个，跑同一段 SQL 就行**，
+只是 `NEWSLETTER_ENDPOINT` 里的项目 ref 跟着换成那个项目的。
+
+挑哪个的建议：
+
+- ✅ **挑已经在跑公开站点、有真实流量的那个**（比如 Find It For Me 的生产库）。
+  理由见下方「暂停」那条 —— 活跃项目不会被暂停。
+- ⚠️ 别挑 7 天没访问的项目：**Supabase 免费版会把不活跃项目自动 Pause**，
+  一旦暂停，订阅接口就会 502，访客看到「Subscription failed」——
+  而且这种失败不会有人主动发现，因为平时也没人去订阅。
+- 那三个项目都很重要、不想混进来的话：把其中一个不用的 **Pause 掉**腾位子
+  （免费版限制的是 active 项目），或者回头改用 Buttondown（免费 100 订阅者）。
+
+放进同一个库安全吗？安全。`anon` key 只能往 `newsletter_subscribers` 这张表插数据
+（RLS 只给了这一张表的 insert 策略，**没有 select 策略，读不到**），
+碰不到同项目里其他业务表 —— 它们各自有各自的 RLS。
+
 > ⚠️ **这个 SQL 有两处是被 `functions/api/subscribe.js` 的行为逼出来的，不要随手改：**
 > 1. 列名必须和接口发出的字段逐字一致 `{email, source, subscribedAt, site}`。
 >    一旦对不上，PostgREST 返回 400，而接口**把上游 400 当成"已经在列表里"直接报成功** ——
