@@ -26,6 +26,11 @@ User-agent: *
 Content-Signal: ai-train=no, search=yes, ai-input=yes
 Allow: /
 
+# Not content: the Decap CMS login and the API. This only keeps them out of
+# the index — it is not access control, /admin/ is still reachable by URL.
+Disallow: /admin/
+Disallow: /api/
+
 # ---------------------------------------------------------------------------
 # AI answer engines and search crawlers — ALLOWED.
 # These index pages for retrieval and return a source link when they cite us.
