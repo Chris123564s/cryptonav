@@ -41,3 +41,9 @@ __pycache__/
 # untracked) just keeps the working tree permanently dirty.
 /_outbound-fixture.json
 /_outbound-known.json
+
+# local build artifacts that are never deployed
+/_dist_verify/
+/_local_stale/
+/_build*.log
+/_b.log
