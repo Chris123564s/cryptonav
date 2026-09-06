@@ -643,7 +643,7 @@ Buttondown 注册：<https://buttondown.com/> → 注册 → Settings → API �
 | `NEWSLETTER_PROVIDER` | `buttondown`（或 `generic` / `mailchimp`） | 普通文本 |
 | `NEWSLETTER_ENDPOINT` | 你的订阅接口 URL，**必填**，不填就一直是 503 | 普通文本 |
 | `NEWSLETTER_TOKEN` | 你的 API Key | ⚠️ **点 Encrypt 加密** |
-| `GITHUB_ISSUE_TOKEN` | 见下方说明，**不填则项目提交表单一直失败** | ⚠️ **点 Encrypt 加密** |
+| `GITHUB_ISSUE_TOKEN` | 见下方说明，**不填则项目提交表单一直失败**。<br>✅ **2026-09-06 实测已配置生效** | ⚠️ **点 Encrypt 加密** |
 
 四条都要**同时勾选 "Production" 和 "Preview"**。
 
@@ -653,6 +653,10 @@ Buttondown 注册：<https://buttondown.com/> → 注册 → Settings → API �
 
 `functions/api/submit.js` 用它调用 GitHub API，把访客提交的项目**直接写进 `src/data/projects.json`**（`status: 'pending'`）。
 
+✅ **2026-09-06 实测已配置生效**（此前手册没记过这条，一度以为没配）。验证方法：真的 POST 一次，
+返回 `{"success":true,...}` 且仓库多出一个 `feat: add pending project "x" via community submit` 提交，
+即为配好了。**注意这是有副作用的探测**——会真写一条数据，测完记得删（见下方"副作用"）。
+
 - **必须单独开一个 token，不要复用推代码的 PAT。** 这个是长期存在 Cloudflare 里的，而推代码的 PAT 用完就该 revoke。
 - 用 **fine-grained token**：只勾 `Chris123564s/cryptonav` 一个仓库，权限只给 **Contents: Read and write**。
   不要给 `workflow` 权限——它只需要读写 `projects.json` 这一个文件。
@@ -660,8 +664,12 @@ Buttondown 注册：<https://buttondown.com/> → 注册 → Settings → API �
   人就这么流失了。这是 BD 入口，漏的是潜在客户——比订阅那个更值钱。
 - 写入的条目标记为 `status: 'pending'`，而 `getActiveProjects()` 只取 `status === 'active'`，
   所以**未审条目不会自动上线**，需要你人工把 status 改成 `active` 再部署。
+- ⚠️ **副作用：每一条提交都会在 main 上产生一个提交，从而触发一次部署。**
+  也就是说项目方每填一次表单，站点就自动重新构建一次（不需要你干预）。
+  副作用是 `projects.json` 会累积 `pending` 条目，**建议隔一阵清一次**，
+  否则数据文件里会混进一堆垃圾（实测一条测试提交就真的留下了一条 `id: "t"`）。
 
-#### 关于 CMS（`/admin/`）——唯一已经配好了的功能
+#### 关于 CMS（`/admin/`）——四个端点里已配好的之一
 
 站点自带 **Decap CMS**，入口是 `https://cryptonav.site/admin/`，登录走 GitHub OAuth：
 `/api/auth` → GitHub 授权 → `/api/callback` 换 token → `postMessage` 回传给 CMS。
@@ -1174,8 +1182,11 @@ Disallow: /
         [ ] 重新部署过
         [ ] POST /api/subscribe 返回 ok:true
 
-[ ] P1  GITHUB_ISSUE_TOKEN（项目提交表单，2026-09-06 发现手册此前完全没记过这条）
-        [ ] 单独开的 fine-grained token，只给 cryptonav 仓库 Contents: Read and write
+[x] P1  GITHUB_ISSUE_TOKEN（项目提交表单，2026-09-06 发现手册此前完全没记过这条）
+        [x] 2026-09-06 实测已配置生效 —— 提交真的写进了 projects.json
+        [ ] 确认它是单独开的 fine-grained token（只给 cryptonav 仓库 Contents: Read and write），
+            而不是复用了推代码的 PAT —— 这个要长期留在 Cloudflare 里
+        [ ] 隔一阵清一次 projects.json 里累积的 pending 条目
         [ ] 没有复用推代码的 PAT（那个用完要 revoke）
         [ ] 点了 Encrypt + Production / Preview 都勾了
         [ ] 重新部署过

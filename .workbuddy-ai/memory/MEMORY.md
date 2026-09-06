@@ -137,23 +137,25 @@
 - **Magic Eden 是另一回事**：`?gr` = geo redirect，Actions 跑在美国才每次看到。
   本站面向国际用户，**必须保留 .io**，改成 .us 会把非美访客送进美国实体站点。
 
-## 两个未配置的写入端点（都曾把"我们没配好"直接说给访客听）
+## 两个写入端点（都曾把"我们没配好"直接说给访客听）
 
 | 端点 | 需要的环境变量 | 现状 |
 |---|---|---|
 | `POST /api/subscribe` | `NEWSLETTER_PROVIDER` / `_ENDPOINT` / `_TOKEN` | 文案已改（2026-09-06），**变量未配** → 线上 503 |
-| `POST /api/submit` | **`GITHUB_ISSUE_TOKEN`** | 文案已改，**变量未配** → 线上 500 |
+| `POST /api/submit` | `GITHUB_ISSUE_TOKEN` | ✅ **2026-09-06 实测已配置生效**（此前记成"未配 500"，是错的） |
 
-- **`/api/submit` 是 BD 入口**（项目方自荐），漏的是潜在客户，比订阅更值钱。
-  **`GITHUB_ISSUE_TOKEN` 手册此前完全没记过** —— 这大概就是从没配上的原因。
-  它调 GitHub API 把提交**直接写进 `src/data/projects.json`**（`status: 'pending'`）。
-- ⚠️ **必须单独开 fine-grained token**：只给 `Chris123564s/cryptonav` 一个仓库、
-  权限只给 **Contents: Read and write**。**不要复用推代码的 PAT**（那个用完要 revoke，
-  而这个要长期存在 Cloudflare 里）。
-- ✅ **已核实安全**：写入条目是 `status: 'pending'`，`getActiveProjects()` 只取
-  `status === 'active'`（63 条全 active）→ **未审条目不会自动上线**。
+- **`/api/submit` 是 BD 入口**（项目方自荐），比订阅更值钱。它调 GitHub API 把提交
+  **直接写进 `src/data/projects.json`**（`status: 'pending'`）。
+- ⚠️ **探测它有副作用**：真 POST 一次会**在 main 上创建一个提交**（`feat: add pending project "x" via
+  community submit`）并**触发一次部署**，且条目会留在数据里。我 2026-09-06 打探针就留下一条
+  `id:"t"`，已用提交 `6b5ac3c` 删掉。**别把它当无副作用的健康检查。**
+- ⚠️ **每条提交都会触发部署** → `projects.json` 会累积 pending 条目，需定期清。
+- ✅ **安全**：写入条目是 `status: 'pending'`，`getActiveProjects()` 只取 `status === 'active'`
+  → **未审条目不会自动上线**。
 - 教训：前端**原样打印后端 `error` 字段**（`submit.astro` 就是 `data.error` 直出），
   所以后端文案 = 访客可见文案，要按"给客户看"的标准写。
+- ⚠️ **别用"线上返回什么"去推断变量配没配**：subscribe 返回 503 是**旧文案**（新文案还没部署），
+  很容易把"代码没上线"误读成"变量没配"。**先确认部署版本，再判断配置。**
 
 ## CMS / OAuth（2026-09-06 盘点环境变量时挖出）
 `https://cryptonav.site/admin/` 是 **Decap CMS**，登录 `/api/auth` → GitHub → `/api/callback`。
@@ -180,8 +182,8 @@
        push https://Chris123564s:<PAT>@github.com/Chris123564s/cryptonav.git main
    ```
 2. **6 个联盟码**（决定 34 处 promo 变现）—— 发完整链接即可，可与 PAT 一起给。
-3. **`GITHUB_ISSUE_TOKEN`** —— 另开 fine-grained token（见上）。
-4. **Newsletter 三变量** + 配完必须重新部署。
+3. **Newsletter 三变量** + 配完必须重新部署。
+   （`GITHUB_ISSUE_TOKEN` 不用管了 —— 2026-09-06 实测已配置生效。）
 5. **Bitmedia/Coinzilla 广告位代码**：8 个槽位全空，建议先贴 `article-top` / `article-bottom`。
 6. **SPF/DMARC**（后台手动）。
 7. Bybit 活动截止日暂设 2026-10-04 待确认；两套 Bybit 链接是否统一
