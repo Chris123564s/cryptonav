@@ -35,3 +35,9 @@ temp/
 # Python
 __pycache__/
 *.pyc
+
+# Test fixtures written by scripts/test-outbound-checker.mjs on every run.
+# They are regenerated each time, so committing them (or leaving them
+# untracked) just keeps the working tree permanently dirty.
+/_outbound-fixture.json
+/_outbound-known.json
