@@ -141,7 +141,7 @@
 
 | 端点 | 需要的环境变量 | 现状 |
 |---|---|---|
-| `POST /api/subscribe` | `NEWSLETTER_PROVIDER` / `_ENDPOINT` / `_TOKEN` | 文案已改（2026-09-06），**变量未配** → 线上 503 |
+| `POST /api/subscribe` | `NEWSLETTER_PROVIDER` / `_ENDPOINT` / `_TOKEN` | 方案已定（Supabase），**变量待用户填** → 线上 503 |
 | `POST /api/submit` | `GITHUB_ISSUE_TOKEN` | ✅ **2026-09-06 实测已配置生效**（此前记成"未配 500"，是错的） |
 
 - **`/api/submit` 是 BD 入口**（项目方自荐），比订阅更值钱。它调 GitHub API 把提交
@@ -156,6 +156,24 @@
   所以后端文案 = 访客可见文案，要按"给客户看"的标准写。
 - ⚠️ **别用"线上返回什么"去推断变量配没配**：subscribe 返回 503 是**旧文案**（新文案还没部署），
   很容易把"代码没上线"误读成"变量没配"。**先确认部署版本，再判断配置。**
+
+## Newsletter → Supabase（2026-09-06 定，commit 内含建表 SQL）
+
+选 `generic` provider 直写 Supabase 表，**不接第三方 ESP**（用户已有 Supabase 账号，零月费）。
+建表 SQL：`supabase/newsletter_subscribers.sql`。三个变量：
+`NEWSLETTER_PROVIDER=generic`、`NEWSLETTER_ENDPOINT=https://<proj>.supabase.co/rest/v1/newsletter_subscribers`、
+`NEWSLETTER_TOKEN=anon key`（**绝不能是 service_role**；anon 本来就是公开的，安全靠 RLS）。
+
+⚠️ **两条硬约束都是 `subscribe.js` 的行为逼出来的**（改 schema 前必读）：
+1. **列名必须与 payload 逐字一致** `{email, source, subscribedAt, site}`。
+   接口把**上游 400 当成功**（本意是兼容 Buttondown/Mailchimp 的"已在列表"），
+   而 PostgREST 遇到表里没有的列就返回 400 → **静默失败：访客看到成功，一条没存**。
+   `subscribedAt` **必须带双引号建列**（不加引号 Postgres 折成 `subscribedat`）。
+2. **重复邮箱不能返回 409**（409 不在 ok/400 里 → 抛"Subscription failed"给访客，
+   老用户重订反而报错）。SQL 用 **BEFORE INSERT 触发器返回 NULL** 吞掉重复 → 回 201。
+- RLS：只给 anon `for insert` 策略，**无 select 策略 = 读不到**，邮箱列表不会泄露。
+- 后端没配时表单本来就降级成 mailto，所以**不是"功能坏了"，是"话难听 + 收不到地址"**。
+- 改完环境变量**必须重新部署**才生效（CF 不一定自动触发，去 Deployments 点 Retry）。
 
 ## CMS / OAuth（2026-09-06 盘点环境变量时挖出）
 `https://cryptonav.site/admin/` 是 **Decap CMS**，登录 `/api/auth` → GitHub → `/api/callback`。
