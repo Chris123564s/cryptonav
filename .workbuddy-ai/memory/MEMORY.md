@@ -132,6 +132,22 @@ Astro + Tailwind + JSON 数据 + Cloudflare Pages；仓库 `Chris123564s/crypton
 - **Magic Eden 是另一回事**：`?gr` = geo redirect，Actions 跑在美国才每次看到。
   本站面向国际用户，**必须保留 .io**，改成 .us 会把非美访客送进美国实体站点。
 
+## ⚠️ 本地验证 dist 的坑：dist 不会被清理（2026-09-06）
+
+**本机的 `dist/` 每次构建都不会清空**，旧产物会一直堆积（实测同一目录里混着三批构建的
+10 个 `hoisted.*.js` + 3 个 `Layout_*.mjs`）。原因是沙箱的 safe-delete 守卫（阈值 50 个文件）
+拦掉了 Astro 的 `emptyOutDir`，也就是 `npm run build` 那个 exit=1 的来源。
+
+- **后果**：`grep -r ... dist/` 会读到上一批甚至上上批的旧文件，**据此得出的结论可能是错的**。
+  我因此把"旧文案还在"误判成改动没生效，实际 HTML 引用的是最新那份。
+- **正确做法**：先取 HTML 实际引用的资源名，再只查这些文件：
+  ```bash
+  refs=$(grep -rho 'hoisted\.[A-Za-z0-9_]*\.js' dist --include=*.html | sort -u)
+  for h in $refs; do echo "$h 旧=$(grep -c '旧文案' dist/_astro/$h)"; done
+  ```
+- **不影响线上**：GitHub Actions 每次是干净 runner，dist 从零生成；
+  只有本地手动 `wrangler pages deploy dist` 才会把死文件一起传上去 —— 真要手动部署前先换干净目录。
+
 ## 已知未完成 / 待用户动作
 - **6 个联盟码**（决定 34 处 promo 能否变现）—— 发完整链接即可。
 - **Newsletter**：线上 `POST /api/subscribe` 返回 **503**，前端显示
