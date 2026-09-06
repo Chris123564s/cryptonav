@@ -20,62 +20,95 @@ const sizeClasses: Record<string, string> = {
   inline: 'w-full h-[120px]',
 };
 
-// 渐变样式映射
+// The wide banner is the only slot with enough horizontal room for a real ad
+// layout: copy on the left, call to action pinned right. The sidebar columns
+// and the inline card are narrow, so they stay stacked and centred.
+const wide = format === 'banner';
+
+// Each gradient ships as three custom properties instead of Tailwind classes:
+// the card needs its two end colours AND a third, brighter hue for the glow
+// layer, and only CSS can carry all three from a single value.
 const gradients: Record<string, string> = {
-  'btc': 'from-orange-500 to-amber-600',
-  'eth': 'from-indigo-500 to-purple-600',
-  'exchange': 'from-yellow-500 to-amber-600',
-  'defi': 'from-emerald-500 to-teal-600',
-  'wallet': 'from-blue-500 to-cyan-600',
-  'nft': 'from-pink-500 to-rose-600',
-  'default': 'from-brand-600 to-accent-500',
+  btc: '--ad-1:#f59e0b; --ad-2:#c2410c; --ad-glow:#fcd34d;',
+  eth: '--ad-1:#6366f1; --ad-2:#6d28d9; --ad-glow:#a5b4fc;',
+  exchange: '--ad-1:#f0b90b; --ad-2:#b45309; --ad-glow:#fde68a;',
+  defi: '--ad-1:#10b981; --ad-2:#0f766e; --ad-glow:#6ee7b7;',
+  wallet: '--ad-1:#3b82f6; --ad-2:#0e7490; --ad-glow:#93c5fd;',
+  nft: '--ad-1:#ec4899; --ad-2:#be123c; --ad-glow:#fbcfe8;',
+  default: '--ad-1:#2563eb; --ad-2:#b45309; --ad-glow:#93c5fd;',
 };
-const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default'];
+
+// Direct-sold and promo render identically; only the tracking attribute and
+// the optional image differ. Unifying them keeps one visual to maintain.
+const card = ad
+  ? { title: ad.title, subtitle: ad.subtitle, cta: ad.cta, link: ad.link, image: ad.image }
+  : promo
+    ? { title: promo.title, subtitle: promo.subtitle, cta: promo.cta, link: promo.link, image: undefined }
+    : null;
+
+const tracking: Record<string, string> = ad
+  ? { 'data-ad-id': ad.id }
+  : promo
+    ? { 'data-promo-project': promo.projectId }
+    : {};
+
+// Read the gradient off whichever entry is actually being rendered. Falling
+// back to `promo.gradient` for a direct-sold ad would borrow a colour picked
+// for a different brand.
+const gradientKey = ad ? ad.gradient : promo?.gradient;
+const vars = gradients[gradientKey || 'default'] || gradients.default;
 ---
 
-{/* Priority: direct-sold ad > ad-network tag > mainstream-site promo > placeholder */}
+{/* Priority: direct-sold ad > ad-network tag > promo > placeholder */}
 {
-  ad ? (
+  card ? (
     <a
-      href={ad.link}
-      class={`ad-container ${sizeClasses[format]} ${className}`}
-      target={ad.link.startsWith('/') ? '' : '_blank'}
-      rel={ad.link.startsWith('/') ? '' : 'sponsored noopener'}
-      data-ad-id={ad.id}
+      href={card.link}
+      class={`ad-container ad-shell ${sizeClasses[format]} ${className}`}
+      target={card.link.startsWith('/') ? '' : '_blank'}
+      rel={card.link.startsWith('/') ? '' : 'sponsored noopener'}
+      {...tracking}
     >
-      {ad.image ? (
-        <img src={ad.image} alt={ad.title} class="w-full h-full object-cover" loading="lazy" />
+      {card.image ? (
+        <img
+          src={card.image}
+          alt={card.title}
+          class="ad-image w-full h-full object-cover"
+          loading="lazy"
+        />
       ) : (
-        // w-full matters as much as h-full. The container is a centred flex box,
-        // so a child without an explicit width shrinks to its text and leaves
-        // the container's own grey background showing on both sides -- a banner
-        // that looks unfilled even though it is rendering correctly.
-        <div class={`w-full flex flex-col items-center justify-center text-center px-4 h-full bg-gradient-to-br ${gradientClass} text-white`}>
-          <p class="text-base md:text-lg font-bold">{ad.title}</p>
-          {ad.subtitle && <p class="text-xs md:text-sm text-white/90 mt-1 max-w-md">{ad.subtitle}</p>}
-          {ad.cta && <span class="mt-2 inline-block px-3 py-1 rounded-md bg-white/20 text-xs font-semibold">{ad.cta} →</span>}
-          {!ad.subtitle && !ad.cta && <p class="text-xs text-white/80 mt-1">Contact: contact@cryptonav.site</p>}
+        // w-full and h-full both matter: the container is a centred flex box,
+        // so a child without an explicit width shrinks to its own text and
+        // leaves the container's grey background showing on both sides -- a
+        // banner that looks unfilled even though it renders correctly.
+        <div class={`ad-card w-full h-full ${wide ? 'ad-card--wide' : 'ad-card--stacked'}`} style={vars}>
+          <span class="ad-glow ad-glow--a" aria-hidden="true"></span>
+          <span class="ad-glow ad-glow--b" aria-hidden="true"></span>
+          <span class="ad-grid" aria-hidden="true"></span>
+          <span class="ad-shine" aria-hidden="true"></span>
+
+          <div class={`ad-body ${wide ? 'ad-body--wide' : 'ad-body--stacked'}`}>
+            <div class="min-w-0">
+              <p class={`ad-title ${wide ? 'ad-title--wide' : ''}`}>{card.title}</p>
+              {card.subtitle ? (
+                <p class="ad-subtitle">{card.subtitle}</p>
+              ) : (
+                !card.cta && <p class="ad-subtitle">Contact: contact@cryptonav.site</p>
+              )}
+            </div>
+            {card.cta && (
+              <span class="ad-cta">
+                {card.cta}
+                <span class="ad-cta-arrow" aria-hidden="true">→</span>
+              </span>
+            )}
+          </div>
         </div>
       )}
-      <span class="ad-label">Ad</span>
+      <span class="ad-label ad-label--on-media">Ad</span>
     </a>
   ) : networkAd ? (
     <NetworkAd html={networkAd.html} className={`${sizeClasses[format]} ${className}`} />
-  ) : promo ? (
-    <a
-      href={promo.link}
-      class={`ad-container ${sizeClasses[format]} ${className}`}
-      target={promo.link.startsWith('/') ? '' : '_blank'}
-      rel={promo.link.startsWith('/') ? '' : 'sponsored noopener'}
-      data-promo-project={promo.projectId}
-    >
-      <div class={`w-full flex flex-col items-center justify-center text-center px-4 h-full bg-gradient-to-br ${gradients[promo.gradient || 'default'] || gradients['default']} text-white`}>
-        <p class="text-base md:text-lg font-bold">{promo.title}</p>
-        {promo.subtitle && <p class="text-xs md:text-sm text-white/90 mt-1 max-w-md">{promo.subtitle}</p>}
-        <span class="mt-2 inline-block px-3 py-1 rounded-md bg-white/20 text-xs font-semibold">{promo.cta} →</span>
-      </div>
-      <span class="ad-label">Ad</span>
-    </a>
   ) : (
     <div class={`ad-container ad-slot-placeholder border-dashed ${sizeClasses[format]} ${className}`}>
       <div class="flex flex-col items-center justify-center text-center px-4 h-full">
@@ -86,3 +119,240 @@ const gradientClass = gradients[ad?.gradient || 'default'] || gradients['default
     </div>
   )
 }
+
+<style>
+  /* ---------- card surface ---------- */
+  .ad-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    background-image: linear-gradient(135deg, var(--ad-1), var(--ad-2));
+  }
+
+  /* Depth: an inner hairline for the "glass" edge, plus a soft vignette that
+     keeps white text legible over the brighter gradient corners. */
+  .ad-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+    background: radial-gradient(
+      130% 120% at 100% 100%,
+      rgba(0, 0, 0, 0.34),
+      transparent 62%
+    );
+  }
+
+  /* ---------- light layers ---------- */
+  .ad-glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(30px);
+    pointer-events: none;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ad-glow--a {
+    width: 58%;
+    aspect-ratio: 1 / 1;
+    top: -34%;
+    right: -12%;
+    background: var(--ad-glow);
+    opacity: 0.5;
+  }
+  .ad-glow--b {
+    width: 46%;
+    aspect-ratio: 1 / 1;
+    bottom: -38%;
+    left: -8%;
+    background: #fff;
+    opacity: 0.16;
+  }
+  .ad-card:hover .ad-glow--a {
+    transform: scale(1.18) translate(-6%, 6%);
+  }
+  .ad-card:hover .ad-glow--b {
+    transform: scale(1.12) translate(6%, -6%);
+  }
+
+  /* Faint grid, faded out towards the bottom-right so it reads as texture
+     rather than as a table. */
+  .ad-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+    -webkit-mask-image: radial-gradient(90% 90% at 18% 0%, #000 0%, transparent 72%);
+    mask-image: radial-gradient(90% 90% at 18% 0%, #000 0%, transparent 72%);
+  }
+
+  /* Hover sweep. Purely decorative, and disabled below for reduced motion. */
+  .ad-shine {
+    position: absolute;
+    top: -10%;
+    bottom: -10%;
+    left: -70%;
+    width: 45%;
+    opacity: 0;
+    pointer-events: none;
+    transform: skewX(-16deg);
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  }
+  .ad-card:hover .ad-shine {
+    animation: ad-sweep 0.9s ease-out;
+  }
+  @keyframes ad-sweep {
+    0% {
+      left: -70%;
+      opacity: 0;
+    }
+    12% {
+      opacity: 1;
+    }
+    100% {
+      left: 125%;
+      opacity: 0;
+    }
+  }
+
+  /* ---------- content ---------- */
+  .ad-body {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    height: 100%;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    .ad-body--wide {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      gap: 1.5rem;
+      padding: 1.25rem 2rem;
+    }
+  }
+
+  .ad-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  }
+  @media (min-width: 768px) {
+    .ad-title {
+      font-size: 1.125rem;
+    }
+    .ad-title--wide {
+      font-size: 1.375rem;
+    }
+  }
+
+  /* The 120px slots cannot fit title + description + button once the title
+     wraps, so the description is dropped on phones rather than clipped
+     mid-sentence by overflow-hidden. */
+  .ad-subtitle {
+    display: none;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.88);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  }
+  @media (min-width: 640px) {
+    .ad-subtitle {
+      display: block;
+    }
+  }
+  @media (min-width: 768px) {
+    .ad-subtitle {
+      font-size: 0.875rem;
+    }
+  }
+
+  .ad-cta {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+    padding: 0.4rem 0.85rem;
+    border-radius: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.3),
+      0 1px 2px rgba(0, 0, 0, 0.12);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    transition:
+      background-color 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .ad-card:hover .ad-cta {
+    background: rgba(255, 255, 255, 0.28);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.45),
+      0 4px 12px rgba(0, 0, 0, 0.18);
+  }
+  .ad-cta-arrow {
+    transition: transform 0.25s ease;
+  }
+  .ad-card:hover .ad-cta-arrow {
+    transform: translateX(3px);
+  }
+  @media (min-width: 768px) {
+    .ad-cta {
+      font-size: 0.8125rem;
+      padding: 0.45rem 1rem;
+    }
+  }
+
+  /* ---------- image variant ---------- */
+  .ad-image {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ad-shell:hover .ad-image {
+    transform: scale(1.03);
+  }
+
+  /* ---------- "Ad" label over artwork ---------- */
+  /* Doubled class so this wins over the plain .ad-label in global.css without
+     depending on stylesheet order. The default chip is a light grey square
+     designed for the empty placeholder; on a coloured card it looks like a
+     rendering artefact. */
+  .ad-label.ad-label--on-media {
+    top: 0.5rem;
+    right: 0.5rem;
+    color: rgba(255, 255, 255, 0.82);
+    background: rgba(0, 0, 0, 0.28);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ad-glow,
+    .ad-cta,
+    .ad-cta-arrow,
+    .ad-image {
+      transition: none;
+    }
+    .ad-shine {
+      display: none;
+    }
+  }
+</style>

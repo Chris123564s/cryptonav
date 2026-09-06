@@ -33,8 +33,9 @@
      "有图就不加 border-dashed"因此完全失效（基础类已经先加上了，去掉无从谈起）。
      现在只有「Your Ad Here」占位会显式加 border-dashed，实线 = 这条位子是有内容的。 */
   .ad-container {
-    @apply relative overflow-hidden rounded-lg border border-surface-200 dark:border-surface-700
-           bg-surface-100 dark:bg-surface-800 flex items-center justify-center;
+    @apply relative overflow-hidden rounded-xl border border-surface-200 dark:border-surface-700
+           bg-surface-100 dark:bg-surface-800 flex items-center justify-center
+           shadow-sm transition-shadow duration-300 hover:shadow-lg;
   }
   .ad-label {
     @apply absolute top-1 right-1 text-[10px] font-medium text-surface-400 bg-surface-200/80 dark:bg-surface-700/80 
