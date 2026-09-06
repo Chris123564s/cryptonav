@@ -103,6 +103,12 @@ export async function onRequestPost(context) {
     const res = await upstream;
     // Mailchimp/Buttondown return 200 even for an address already on the list,
     // which is exactly what we want to show the visitor: a success message.
+    //
+    // ⚠️ 400-equals-success 是个陷阱，改动前务必知道：
+    // 任何返回 400 的上游错误（PostgREST 遇到表里不存在的列就返回 400）
+    // 都会被这里吞掉、给访客报"订阅成功" —— 实际上一条都没存进去。
+    // 2026-09-06 起上游是 Supabase，所以列名必须和 supabase/newsletter_subscribers.sql
+    // 逐字一致（尤其是带引号的 "subscribedAt"）。换供应商时第一个要验的就是这个。
     if (res.ok || res.status === 400) {
       return json({ ok: true });
     }

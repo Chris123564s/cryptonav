@@ -627,9 +627,20 @@ HTTP 状态码 **503**。
 | `mailchimp` | Mailchimp | 用 Basic 认证 |
 | `buttondown` | Buttondown | 用 Token 认证 |
 
-**我的建议：用 Buttondown。** 理由：专为 Newsletter 设计、有免费档（前 100 订阅者免费）、API 极简、不需要像 Mailchimp 那样配 Audience ID/Datacenter 前缀。
+**我们已经选了 Supabase（`generic` 模式）。** 理由：你已经有 Supabase 账号，不用再注册新服务、
+不用付月费，而且邮箱数据落在自己库里，随时能导出。
 
-Buttondown 注册：<https://buttondown.com/> → 注册 → Settings → API → 拿到 API Key，和你的接口地址。
+建表 SQL 在仓库里：**`supabase/newsletter_subscribers.sql`**
+（Supabase 后台 → SQL Editor → 整段粘贴执行）。
+
+> ⚠️ **这个 SQL 有两处是被 `functions/api/subscribe.js` 的行为逼出来的，不要随手改：**
+> 1. 列名必须和接口发出的字段逐字一致 `{email, source, subscribedAt, site}`。
+>    一旦对不上，PostgREST 返回 400，而接口**把上游 400 当成"已经在列表里"直接报成功** ——
+>    结果是静默失败：访客看到"订阅成功"，其实一条都没存。`subscribedAt` 必须加双引号建列，
+>    否则 Postgres 会折叠成 `subscribedat`。
+> 2. 重复邮箱必须被吞掉（SQL 里的 BEFORE INSERT 触发器）。
+>    接口只把 `ok` 和 `400` 当成功，**409 会变成"Subscription failed"抛给访客** ——
+>    老用户重新订阅反而报错，很伤。
 
 ### 第 2 步：在 Cloudflare 里填环境变量
 
@@ -640,14 +651,47 @@ Buttondown 注册：<https://buttondown.com/> → 注册 → Settings → API �
 
 | 变量名 | 值 | 类型 |
 |--------|-----|------|
-| `NEWSLETTER_PROVIDER` | `buttondown`（或 `generic` / `mailchimp`） | 普通文本 |
-| `NEWSLETTER_ENDPOINT` | 你的订阅接口 URL，**必填**，不填就一直是 503 | 普通文本 |
-| `NEWSLETTER_TOKEN` | 你的 API Key | ⚠️ **点 Encrypt 加密** |
+| `NEWSLETTER_PROVIDER` | `generic` | 普通文本 |
+| `NEWSLETTER_ENDPOINT` | `https://<你的项目>.supabase.co/rest/v1/newsletter_subscribers`<br>**必填**，不填就一直是 503 | 普通文本 |
+| `NEWSLETTER_TOKEN` | Supabase 的 **anon / public key** | ⚠️ **点 Encrypt 加密** |
 | `GITHUB_ISSUE_TOKEN` | 见下方说明，**不填则项目提交表单一直失败**。<br>✅ **2026-09-06 实测已配置生效** | ⚠️ **点 Encrypt 加密** |
 
 四条都要**同时勾选 "Production" 和 "Preview"**。
 
 > `NEWSLETTER_TOKEN` 和 `GITHUB_ISSUE_TOKEN` 一定要点 **Encrypt**。加密后 Cloudflare 界面上就再也看不到明文了，改不了也读不出来 —— 填之前先确认 Key 复制对了。
+
+#### Supabase 的两个 Key，别拿错
+
+Supabase 后台 → **Project Settings → API keys**：
+
+| Key | 能不能放进 `NEWSLETTER_TOKEN` |
+|---|---|
+| `anon` / `public` | ✅ **就用这个**。它本来就是设计成公开的，安全靠 RLS 兜底（上面那段 SQL 已经把 anon 限制成"只能插入、读不到"）。 |
+| `service_role` | ❌ **绝对不要**。它能绕过 RLS 读写全库，泄露等于数据库裸奔。 |
+
+项目 URL 就在同一页的 **Project URL**（形如 `https://abcdefgh.supabase.co`）。
+
+#### 填完先验一次，别等上线再发现
+
+```bash
+curl -i -X POST "https://<你的项目>.supabase.co/rest/v1/newsletter_subscribers" \
+  -H "Authorization: Bearer <anon key>" \
+  -H "Content-Type: application/json" \
+  -d '{"email":"probe@example.com","source":"probe","subscribedAt":"2026-09-06T00:00:00.000Z","site":"https://cryptonav.site"}'
+```
+
+| 返回 | 含义 |
+|---|---|
+| **201** | ✅ 通了。（什么都不返回也正常，表是空的话响应体可能是空的） |
+| **400** | ❌ 列名对不上 —— 回去确认 `"subscribedAt"` 是带引号建的 |
+| **401 / 403** | ❌ key 拿错了，或者建表后 RLS 策略没生效 |
+| **404** | ❌ 表名或项目 URL 写错了 |
+
+验完记得把探针那行删掉：
+`delete from public.newsletter_subscribers where email = 'probe@example.com';`
+
+⚠️ **改完环境变量必须重新部署一次才会生效。** CF 不一定自动触发，保险起见去
+**Deployments** 里对最新一条点 **Retry deployment**（或者把代码推上去触发一次构建）。
 
 #### 关于 `GITHUB_ISSUE_TOKEN`
 
@@ -1175,12 +1219,17 @@ Disallow: /
         [ ] Binance（先确认地区允许）[ ] Coinbase   [ ] Kraken
         [ ] 线上 /verify/binance/ 的链接里 ref= 不再是 Cryptonav
 
-[ ] P1  Newsletter
-        [ ] NEWSLETTER_PROVIDER / _ENDPOINT / _TOKEN 三条都填了
-        [ ] TOKEN 点了 Encrypt
+[ ] P1  Newsletter（接收端选了 Supabase）
+        [ ] supabase/newsletter_subscribers.sql 在 SQL Editor 里执行过
+        [ ] 用的是 anon key，不是 service_role
+        [ ] NEWSLETTER_PROVIDER = generic
+        [ ] NEWSLETTER_ENDPOINT = https://xxx.supabase.co/rest/v1/newsletter_subscribers
+        [ ] NEWSLETTER_TOKEN 点了 Encrypt
         [ ] Production + Preview 都勾了
-        [ ] 重新部署过
+        [ ] curl 探针返回 201，且探针数据已删
+        [ ] 重新部署过（Retry deployment）
         [ ] POST /api/subscribe 返回 ok:true
+        [ ] 日后群发：从表里导出邮箱，导进任意 ESP（Resend / Buttondown / Mailchimp 都可）
 
 [x] P1  GITHUB_ISSUE_TOKEN（项目提交表单，2026-09-06 发现手册此前完全没记过这条）
         [x] 2026-09-06 实测已配置生效 —— 提交真的写进了 projects.json
