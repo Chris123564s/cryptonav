@@ -135,6 +135,33 @@ CryptoNav 是一个面向**国际用户（老外）**的加密币综合导航站
 - 当前（9-04）：`home-banner` = Bybit TradFi 活动（ad-006，`affiliate_id=166214`）；
   原 Binance 占位（ad-001，纯官网无佣金）已停用。
 
+## ⚠️ 两个「看起来没卖出去」的渲染 bug（2026-09-05 修，容易复发）
+
+1. **渐变卡缺 `w-full`**：`.ad-container` 是 `flex items-center justify-center`，
+   内层 div 只写了 `h-full` 没写 `w-full` → flex 子项宽度按内容撑开，
+   渐变只到文字那么宽，两侧露出容器灰底 + 边框，**看着像空位**。
+   有 image 的分支是 `<img class="w-full h-full object-cover">`，所以只有无图的
+   渐变卡会中招 —— 而活动推广恰恰必须无图（填图就只剩 img，文案消失）。
+2. **`border-dashed` 曾写死在 `.ad-container` 基础类里**：所有广告位（含真素材的）
+   都套虚线；同时让组件里 `ad.image ? '' : 'border-dashed'` 这行彻底失效
+   （基础类先加上了，去掉无从谈起）。现已从基础类移除，
+   **虚线只留给 "Your Ad Here" 占位**，语义是「这个位子空着待售」。
+
+`AdConfig.image` 已改为可选（ad-006 从来就没有 image，类型却在断言必填）；
+新增可选 `cta` —— 之前直投渐变卡没有 CTA 按钮而 promo 卡有，**付钱的比免费的还空**。
+
+## 变现缺口实测（2026-09-06，129 处广告渲染）
+
+| 来源 | 渲染次数 | 是否赚钱 |
+|---|---|---|
+| ad-006 Bybit（home-banner） | 84 | ✅ 有佣金 |
+| ad-002/003/004/005 占位直投 | 24 | ❌ 指向 Ledger/Uniswap/CoinGecko/OpenSea **官网** |
+| promo（kraken / coinbase） | 11 | ❌ 码为空，填上立刻赚钱 |
+| promo（dexscreener） | 10 | ❌ 不在 affiliates 里，永远不赚钱 |
+
+→ **只有 65% 的广告位真在赚钱。** 缺口主要在「6 个联盟码没填」和
+「4 条占位直投 + dexscreener promo 无法变现」两处。
+
 ## 链接健康巡检（2026-09-04 上线）
 
 `.github/workflows/check-links.yml`，周二 04:00 UTC，两个 job：
