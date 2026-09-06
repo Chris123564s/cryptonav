@@ -1,4 +1,9 @@
-// Smoke-test the built output for the FAQ + newsletter work.
+// Smoke-test the built output for the FAQ page, and for the newsletter being off.
+//
+// The newsletter half of this file asserts ABSENCE. That is deliberate: it keeps
+// the feature from silently creeping back (a restored page file is enough to put
+// /newsletter in the sitemap again). If you bring the newsletter back, revert the
+// "take the newsletter off the site" commit -- these lines revert with it.
 import fs from 'node:fs';
 
 function read(p) {
@@ -12,11 +17,10 @@ const check = (name, got, want) => {
 };
 
 const faq = read('dist/faq/index.html');
-const news = read('dist/newsletter/index.html');
+const news = read('dist/newsletter/index.html'); // expected to be gone
 const home = read('dist/index.html');
 
 check('faq page built', !!faq, true);
-check('newsletter page built', !!news, true);
 
 // FAQ
 check('faq JSON-LD present', /application\/ld\+json/.test(faq), true);
@@ -44,27 +48,19 @@ check('faq question count', qCount, 24);
 check('faq uses details/summary', (faq.match(/<details/g) || []).length, 24);
 check('faq group anchors', (faq.match(/<section id="/g) || []).length, 5);
 
-// Newsletter
-check('newsletter has subscribe form', /class="subscribe-form/.test(news), true);
-check('newsletter honeypot present', /name="website"/.test(news), true);
-
-// The submit handler lives in the hoisted bundle, not inline in the HTML.
-const chunk = (news.match(/\/_astro\/hoisted\.[A-Za-z0-9_-]+\.js/) || [])[0];
-const chunkSrc = chunk ? read('dist' + chunk) : '';
-check('newsletter references a hoisted chunk', !!chunk, true);
-check('bundle posts to /api/subscribe', /\/api\/subscribe/.test(chunkSrc), true);
-check('bundle handles unconfigured fallback', /unconfigured/.test(chunkSrc), true);
-check('bundle handles honeypot', /name="website"|website/.test(chunkSrc), true);
+// Newsletter — off the site, so everything here asserts absence.
+check('newsletter page not built', !!news, false);
 
 // Footer placement (footer appears on every page)
 check('footer links to /faq', /href="\/faq"/.test(home), true);
-check('footer links to /newsletter', /href="\/newsletter"/.test(home), true);
-check('footer has compact subscribe form', /data-source="footer"/.test(home), true);
+check('footer has no /newsletter link', /href="\/newsletter"/.test(home), false);
+check('footer has no compact subscribe form', /data-source="footer"/.test(home), false);
+check('home has no subscribe-form markup', /class="subscribe-form/.test(home), false);
 
 // Sitemap
 const sm = read('dist/sitemap-0.xml');
 check('sitemap lists /faq', sm.includes('/faq/'), true);
-check('sitemap lists /newsletter', sm.includes('/newsletter/'), true);
+check('sitemap does not list /newsletter', sm.includes('/newsletter/'), false);
 
 let pass = 0;
 for (const c of checks) {

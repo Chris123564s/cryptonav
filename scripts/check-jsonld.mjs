@@ -124,7 +124,6 @@ const coverage = [
   { route: '/terms', expect: ['BreadcrumbList'] },
   { route: '/submit', expect: ['BreadcrumbList'] },
   { route: '/advertise', expect: ['BreadcrumbList'] },
-  { route: '/newsletter', expect: ['BreadcrumbList'] },
   { route: '/learn/what-is-staking-crypto', expect: ['Article', 'BreadcrumbList'] },
   { route: '/compare/binance-vs-coinbase', expect: ['Article', 'BreadcrumbList'] },
   { route: '/category/exchange', expect: ['CollectionPage', 'ItemList', 'BreadcrumbList'] },
