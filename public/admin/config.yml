@@ -1,5 +1,10 @@
 # Decap CMS 配置
 # 管理后台地址: https://cryptonav.site/admin
+#
+# ⚠️ 保存时会整份重写 JSON：凡是不在这里声明的字段，都会被静默丢弃。
+#    改数据结构（给 projects.json / ads.json 加字段）时，必须同步在这里加上，
+#    否则下次谁在 CMS 里点一下保存，那些字段就没了 —— 而且没有任何提示。
+#    2026-09-06 就踩过：metrics 的 4 个字段和 ads 的 cta 都没声明。
 
 backend:
   name: github
@@ -46,10 +51,14 @@ collections:
                   { label: "Discord", name: "discord", widget: "string", required: false },
                   { label: "GitHub", name: "github", widget: "string", required: false }
                 ] }
+              # 字段名必须和 projects.json 里完全一致，widget 必须是 number（数据里是数字，
+              # 用 string 会把类型改成字符串）。数据刷新 workflow 会重写这几个字段。
               - { label: "Metrics", name: "metrics", widget: "object", required: false, collapsed: true, fields: [
-                  { label: "Users", name: "users", widget: "string", required: false },
-                  { label: "Volume", name: "volume", widget: "string", required: false },
-                  { label: "TVL", name: "tvl", widget: "string", required: false }
+                  { label: "TVL", name: "tvl", widget: "number", required: false },
+                  { label: "24h Volume", name: "volume24h", widget: "number", required: false },
+                  { label: "Market Cap Rank", name: "marketCapRank", widget: "number", required: false },
+                  { label: "Twitter Followers", name: "twitterFollowers", widget: "number", required: false },
+                  { label: "GitHub Stars", name: "githubStars", widget: "number", required: false }
                 ] }
               - { label: "Verified", name: "verified", widget: "boolean", default: false }
               - { label: "Audited", name: "audited", widget: "boolean", default: false, required: false }
@@ -82,9 +91,10 @@ collections:
             required: true
             fields:
               - { label: "Ad ID", name: "id", widget: "string" }
-              - { label: "Slot", name: "slot", widget: "select", options: ["home-banner", "sidebar-top", "sidebar-bottom", "footer-banner", "inline-card"] }
+              - { label: "Slot", name: "slot", widget: "select", options: ["home-banner", "sidebar-top", "sidebar-bottom", "footer-banner", "inline-card", "article-top", "article-bottom", "learn-banner"] }
               - { label: "Title", name: "title", widget: "string" }
               - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - { label: "CTA Button", name: "cta", widget: "string", required: false, hint: "Button label on the gradient card. Ignored when Image is set." }
               - { label: "Image", name: "image", widget: "image", required: false }
               - { label: "Gradient", name: "gradient", widget: "string", required: false }
               - { label: "Link", name: "link", widget: "string" }
