@@ -643,10 +643,23 @@ Buttondown 注册：<https://buttondown.com/> → 注册 → Settings → API �
 | `NEWSLETTER_PROVIDER` | `buttondown`（或 `generic` / `mailchimp`） | 普通文本 |
 | `NEWSLETTER_ENDPOINT` | 你的订阅接口 URL，**必填**，不填就一直是 503 | 普通文本 |
 | `NEWSLETTER_TOKEN` | 你的 API Key | ⚠️ **点 Encrypt 加密** |
+| `GITHUB_ISSUE_TOKEN` | 见下方说明，**不填则项目提交表单一直失败** | ⚠️ **点 Encrypt 加密** |
 
-三条都要**同时勾选 "Production" 和 "Preview"**。
+四条都要**同时勾选 "Production" 和 "Preview"**。
 
-> `NEWSLETTER_TOKEN` 一定要点 **Encrypt**。加密后 Cloudflare 界面上就再也看不到明文了，改不了也读不出来 —— 填之前先确认 Key 复制对了。
+> `NEWSLETTER_TOKEN` 和 `GITHUB_ISSUE_TOKEN` 一定要点 **Encrypt**。加密后 Cloudflare 界面上就再也看不到明文了，改不了也读不出来 —— 填之前先确认 Key 复制对了。
+
+#### 关于 `GITHUB_ISSUE_TOKEN`
+
+`functions/api/submit.js` 用它调用 GitHub API，把访客提交的项目**直接写进 `src/data/projects.json`**（`status: 'pending'`）。
+
+- **必须单独开一个 token，不要复用推代码的 PAT。** 这个是长期存在 Cloudflare 里的，而推代码的 PAT 用完就该 revoke。
+- 用 **fine-grained token**：只勾 `Chris123564s/cryptonav` 一个仓库，权限只给 **Contents: Read and write**。
+  不要给 `workflow` 权限——它只需要读写 `projects.json` 这一个文件。
+- **不配的后果**：`/api/submit` 每次返回 500，项目方填完表单只会看到一句提交失败，
+  人就这么流失了。这是 BD 入口，漏的是潜在客户——比订阅那个更值钱。
+- 写入的条目标记为 `status: 'pending'`，而 `getActiveProjects()` 只取 `status === 'active'`，
+  所以**未审条目不会自动上线**，需要你人工把 status 改成 `active` 再部署。
 
 ### 第 3 步：重新部署
 
@@ -1126,6 +1139,14 @@ Disallow: /
         [ ] Production + Preview 都勾了
         [ ] 重新部署过
         [ ] POST /api/subscribe 返回 ok:true
+
+[ ] P1  GITHUB_ISSUE_TOKEN（项目提交表单，2026-09-06 发现手册此前完全没记过这条）
+        [ ] 单独开的 fine-grained token，只给 cryptonav 仓库 Contents: Read and write
+        [ ] 没有复用推代码的 PAT（那个用完要 revoke）
+        [ ] 点了 Encrypt + Production / Preview 都勾了
+        [ ] 重新部署过
+        [ ] 在 /submit 提交一条测试，确认不再返回 500
+        [ ] 测试条目（status: pending）已删除或已改为 active
 
 [ ] P1  SPF / DMARC（2026-09-04 实测：两条都完全没有）
         [ ] TXT @      = v=spf1 include:spf.mail.qq.com ~all

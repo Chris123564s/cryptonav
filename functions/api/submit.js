@@ -49,8 +49,15 @@ export async function onRequestPost(context) {
   const token = env.GITHUB_ISSUE_TOKEN;
   if (!token) {
     console.error('GITHUB_ISSUE_TOKEN not set');
+    // The frontend prints `error` verbatim, so this text is what a project
+    // team sees after filling in the form. A missing env var is our problem,
+    // not theirs, and "contact admin" gives them nothing to act on -- send
+    // them to the address that does work instead.
     return new Response(
-      JSON.stringify({ error: 'Server not configured. Please contact admin.' }),
+      JSON.stringify({
+        error:
+          'Automatic submission is unavailable right now. Email the project details to contact@cryptonav.site and we will add it.',
+      }),
       { status: 500, headers }
     );
   }
