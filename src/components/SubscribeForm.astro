@@ -62,7 +62,7 @@ const mailtoHref =
   ></p>
 
   <p class:list={['subscribe-fallback hidden text-surface-400', page ? 'text-xs' : 'text-[11px]']}>
-    Signup is still being set up. Email us instead:
+    Reach us at
     <a href={mailtoHref} class="text-brand-500 hover:text-brand-400 underline">contact@cryptonav.site</a>
   </p>
 </form>
@@ -111,7 +111,10 @@ const mailtoHref =
           show('Thanks — you are subscribed. Check your inbox for a confirmation.', true);
           input!.value = '';
         } else if (data.unconfigured) {
-          show('Online signup is not connected yet.', false);
+          // Neither line says the backend is missing. A visitor who wants to
+          // subscribe does not need to know that -- they need a way to do it,
+          // and "not connected yet" reads as an unfinished site.
+          show('Send us an email and we will add you to the list.', false);
           fallback?.classList.remove('hidden');
         } else {
           show(data.error || 'Something went wrong. Please try again.', false);
