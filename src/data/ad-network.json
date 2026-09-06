@@ -1,5 +1,5 @@
 {
-  "note": "Fallback fill for every ad slot. Instead of an ad-network tag, each slot promotes a mainstream crypto site already listed in projects.json. The link is built by getReferralUrl(): it uses the code in affiliates.json once you fill it in, otherwise it falls back to the project's plain website URL. So filling in your affiliate codes automatically turns all 8 slots into earning links. Priority is: ads.json (direct-sold) > this file's 'html' (a real Coinzilla/Bitmedia tag, if you add one later) > this file's promo > 'Your Ad Here' placeholder.",
+  "note": "Fallback fill for every ad slot. Instead of an ad-network tag, each slot promotes a project listed in projects.json. The link is built by getReferralUrl(): it uses the code in affiliates.json once you fill it in, otherwise it falls back to the project's plain website URL — so filling in an affiliate code automatically turns that slot into an earning link. Priority is: ads.json (direct-sold) > this file's 'html' (a real Coinzilla/Bitmedia tag, if you add one later) > this file's promo > 'Your Ad Here' placeholder.\n\nRULE: every projectId below must exist as a key in affiliates.json. A project that isn't in that file (Trezor, CoinMarketCap, DexScreener, Magic Eden — all four were here until 2026-09-06) renders a plain link to someone else's site and earns nothing, no matter what you later fill in. It looks identical to a working slot, which is what makes it expensive: those four were quietly eating 24 of 129 ad renders. Check with: node -e \"const a=require('./src/data/affiliates.json').exchanges, n=require('./src/data/ad-network.json').slots; for (const [s,v] of Object.entries(n)) console.log(s, v.projectId, v.projectId in a ? 'ok' : 'NEVER EARNS')\"\n\nThe 8 slots currently map to the 8 exchanges in affiliates.json, one each, so every slot has a path to revenue and no exchange is promoted twice. If you add a 9th exchange, prefer splitting an existing slot's weight over promoting the same brand in two places.",
   "slots": {
     "home-banner": {
       "projectId": "bybit",
@@ -10,11 +10,11 @@
       "html": ""
     },
     "sidebar-top": {
-      "projectId": "trezor",
-      "title": "Cold-Store Your Crypto with Trezor",
-      "subtitle": "Open-source hardware wallet — your keys never leave the device",
-      "cta": "Get a Trezor",
-      "gradient": "wallet",
+      "projectId": "binance",
+      "title": "Trade on Binance — the World's Largest Exchange",
+      "subtitle": "Spot, futures and earn products across 350+ coins",
+      "cta": "Start trading",
+      "gradient": "exchange",
       "html": ""
     },
     "sidebar-bottom": {
@@ -26,27 +26,27 @@
       "html": ""
     },
     "footer-banner": {
-      "projectId": "coinmarketcap",
-      "title": "Track Every Coin on CoinMarketCap",
-      "subtitle": "Live prices, rankings and historical data for 2M+ assets",
-      "cta": "View markets",
-      "gradient": "default",
+      "projectId": "coinbase",
+      "title": "Buy Your First Crypto on Coinbase",
+      "subtitle": "Beginner-friendly onboarding with earn-while-you-learn rewards",
+      "cta": "Get started",
+      "gradient": "wallet",
       "html": ""
     },
     "inline-card": {
-      "projectId": "magic-eden",
-      "title": "Trade NFTs Across Chains on Magic Eden",
-      "subtitle": "Multi-chain NFT marketplace — mint, buy and sell in one place",
-      "cta": "Explore NFTs",
-      "gradient": "nft",
+      "projectId": "bitget",
+      "title": "Copy the Top Traders on Bitget",
+      "subtitle": "Futures, spot and one-click copy trading on 800+ pairs",
+      "cta": "Try copy trading",
+      "gradient": "defi",
       "html": ""
     },
     "article-top": {
-      "projectId": "dexscreener",
-      "title": "Chart Any On-Chain Pair on DexScreener",
-      "subtitle": "Real-time DEX charts and new-pair discovery across 80+ chains",
-      "cta": "Open charts",
-      "gradient": "defi",
+      "projectId": "gate-io",
+      "title": "Find New Listings Early on Gate.io",
+      "subtitle": "3,800+ assets with deep altcoin liquidity and frequent listings",
+      "cta": "Explore markets",
+      "gradient": "eth",
       "html": ""
     },
     "article-bottom": {
@@ -58,11 +58,11 @@
       "html": ""
     },
     "learn-banner": {
-      "projectId": "coinbase",
-      "title": "Start Your Crypto Journey on Coinbase",
-      "subtitle": "Beginner-friendly onboarding with earn-on-learning rewards",
-      "cta": "Get started",
-      "gradient": "wallet",
+      "projectId": "mexc",
+      "title": "Trade 3,000+ Pairs on MEXC",
+      "subtitle": "Zero-fee spot campaigns and some of the earliest new listings",
+      "cta": "Start trading",
+      "gradient": "btc",
       "html": ""
     }
   }

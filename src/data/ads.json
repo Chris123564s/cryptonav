@@ -24,7 +24,7 @@
       "startAt": "2026-01-01T00:00:00Z",
       "endAt": "2026-12-31T23:59:59Z",
       "weight": 1,
-      "active": true
+      "active": false
     },
     {
       "id": "ad-003",
@@ -37,7 +37,7 @@
       "startAt": "2026-01-01T00:00:00Z",
       "endAt": "2026-12-31T23:59:59Z",
       "weight": 1,
-      "active": true
+      "active": false
     },
     {
       "id": "ad-004",
@@ -50,7 +50,7 @@
       "startAt": "2026-01-01T00:00:00Z",
       "endAt": "2026-12-31T23:59:59Z",
       "weight": 1,
-      "active": true
+      "active": false
     },
     {
       "id": "ad-005",
@@ -63,7 +63,7 @@
       "startAt": "2026-01-01T00:00:00Z",
       "endAt": "2026-12-31T23:59:59Z",
       "weight": 1,
-      "active": true
+      "active": false
     },
     {
       "id": "ad-006",
