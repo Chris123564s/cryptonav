@@ -166,6 +166,25 @@ Astro + Tailwind + JSON 数据 + Cloudflare Pages；仓库 `Chris123564s/crypton
 - 教训：前端**原样打印后端 `error` 字段**（`submit.astro` 就是 `data.error` 直出），
   所以后端文案 = 访客可见文案。写这类消息时按"给客户看"的标准写，不是按"给运维看"。
 
+## CMS / OAuth（2026-09-06 盘点环境变量时发现）
+
+`https://cryptonav.site/admin/` 是 **Decap CMS**，登录走 `/api/auth` → GitHub → `/api/callback`。
+**它不是死代码**——`public/admin/` 下有 `config.yml` + `decap-cms.js` + `index.html`。
+
+- ✅ **`GITHUB_CLIENT_SECRET` 已配置**（四个端点里唯一配好了的）。
+  探测方法（无副作用）：`curl -s https://cryptonav.site/api/callback`
+  → 返回 `missing code` = **已配置**（代码先查 secret 再查 code）；
+  → 返回 `GITHUB_CLIENT_SECRET ... is not set` = 没配。
+- ⚠️ 三个隐患（都是 Decap 通用写法，**我没有擅自改**，改错会把 CMS 弄挂）：
+  1. `state` 在 `auth.js` 生成（`crypto.randomUUID()`）但 `callback.js` **从不校验** → 无 CSRF 防护。
+     要修需 auth 写 cookie + callback 比对，**改完必须真跑一次登录**。
+  2. token 用 `window.opener.postMessage(..., message.origin)` 回传，**无 origin 白名单**。
+     （`"authorizing:github"` 那条是 `*` 但不含令牌。）
+  3. `client_id` 有**硬编码兜底**（`env.GITHUB_CLIENT_ID || "Ov23li..."`）→ 环境变量拼错时
+     **静默退回硬编码值**，然后在换 token 那步报看不懂的错。建议删掉兜底。
+- `/admin/` 与 `/api/` 已加进 `robots.txt` 的 `Disallow`（**只是不被索引，不是访问控制**，URL 仍可达）。
+- 手册此前**完全没把 CMS 当功能记录**（只在"文件大小"里顺带提过 `decap-cms.js`），已补。
+
 ## 已知未完成 / 待用户动作
 - **6 个联盟码**（决定 34 处 promo 能否变现）—— 发完整链接即可。
 - **Newsletter**：线上 `POST /api/subscribe` 返回 **503**，前端显示

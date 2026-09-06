@@ -661,6 +661,40 @@ Buttondown 注册：<https://buttondown.com/> → 注册 → Settings → API �
 - 写入的条目标记为 `status: 'pending'`，而 `getActiveProjects()` 只取 `status === 'active'`，
   所以**未审条目不会自动上线**，需要你人工把 status 改成 `active` 再部署。
 
+#### 关于 CMS（`/admin/`）——唯一已经配好了的功能
+
+站点自带 **Decap CMS**，入口是 `https://cryptonav.site/admin/`，登录走 GitHub OAuth：
+`/api/auth` → GitHub 授权 → `/api/callback` 换 token → `postMessage` 回传给 CMS。
+
+依赖两个变量（**2026-09-06 已实测配置生效**，是这四个端点里唯一配好了的）：
+
+| 变量 | 说明 |
+|---|---|
+| `GITHUB_CLIENT_ID` | GitHub OAuth App 的 Client ID |
+| `GITHUB_CLIENT_SECRET` | ⚠️ 必须 Encrypt。**不配就整个 CMS 登不进去** |
+
+**判断有没有配上的办法**（无副作用、不会真的触发授权）：
+
+```bash
+curl -s "https://cryptonav.site/api/callback"
+```
+
+- 返回 `missing code` → secret **已配置**（代码先检查 secret，通过了才检查 code）
+- 返回 `GITHUB_CLIENT_SECRET environment variable is not set` → 没配
+
+**已知的三个隐患（都是 Decap 通用写法带来的，不是配置错误，按需处理）：**
+
+1. **`state` 生成了但没校验。** `auth.js` 里设了 `crypto.randomUUID()` 作为 state，
+   `callback.js` 从头到尾没检查过——等于没有 CSRF 防护。要修的话得在 auth 阶段写 cookie、
+   callback 阶段比对，改完**必须真跑一次登录验证**，否则会把 CMS 弄挂，所以我没有擅自改。
+2. **token 用 `window.opener.postMessage(..., message.origin)` 回传，没有 origin 白名单。**
+   令牌本身不在 `"authorizing:github"` 那条广播里（那条是 `*`，但不含令牌），
+   风险主要看第 1 条能不能被利用。
+3. **`client_id` 在源码里有硬编码兜底**（`env.GITHUB_CLIENT_ID || "Ov23li..."`）。
+   client_id 本身不算机密，但意味着环境变量拼错时会**静默退回硬编码值**，
+   然后在换 token 那一步报个看不懂的错。建议把兜底删掉，让缺配置直接暴露。
+4. `/admin/` 已在 `robots.txt` 里 `Disallow`（**只是不被索引，不是访问控制**，URL 仍然可达）。
+
 ### 第 3 步：重新部署
 
 **环境变量改完不会自动生效，必须重新部署一次才会带上新变量。**
