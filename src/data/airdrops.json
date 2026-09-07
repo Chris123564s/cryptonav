@@ -23,7 +23,7 @@
       "distribution": "2026-08-09",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "nado",
@@ -31,7 +31,7 @@
       "slug": "nado",
       "status": "confirmed",
       "actions": "Deposit & Trade perps",
-      "votes": 229,
+      "votes": 228,
       "published": "2025-12-02",
       "claimUrl": "https://airdrops.io/visit/b783/",
       "sourceUrl": "https://airdrops.io/nado/",
@@ -43,12 +43,12 @@
       "website": "https://app.nado.xyz",
       "note": "",
       "eligibility": "for a potential Nado airdrop in 2026.",
-      "amount": "$1M",
+      "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-04",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "mint-io",
@@ -69,11 +69,11 @@
       "note": "",
       "eligibility": "depends on the campaign terms and the compliance requirements that apply in your region.",
       "amount": "$100,000",
-      "snapshot": "2026-09-05",
-      "distribution": "2026-09-05",
+      "snapshot": "2026-09-07",
+      "distribution": "2026-09-07",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "dow-protocol",
@@ -98,7 +98,32 @@
       "distribution": "2026-08-24",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "reels",
+      "project": "Reels",
+      "slug": "reels",
+      "status": "ongoing",
+      "actions": "Create Account, Play Across the Casino, Sportsbook, Refer Users",
+      "votes": 205,
+      "published": "2026-09-04",
+      "claimUrl": "https://airdrops.io/visit/dcb3/",
+      "sourceUrl": "https://airdrops.io/reels/",
+      "sourceType": "homepage",
+      "logo": "https://airdrops.io/wp-content/uploads/2026/09/Reels-logo.jpg.webp",
+      "category": "",
+      "symbol": "",
+      "chain": "Multi-chain",
+      "eligibility": "the Reels Bonus",
+      "amount": "$100,000",
+      "snapshot": "TBA",
+      "distribution": "2026-09-04",
+      "website": "https://click.trkreels.com",
+      "funding": "",
+      "note": "",
+      "phase": "ongoing",
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "axis-robotics",
@@ -106,7 +131,7 @@
       "slug": "axis-robotics",
       "status": "ongoing",
       "actions": "Complete Pre-Training Tasks, Sign Your Submissions & Refer to Earn",
-      "votes": 206,
+      "votes": 204,
       "published": "2026-08-07",
       "claimUrl": "https://airdrops.io/visit/fxa3/",
       "sourceUrl": "https://airdrops.io/axis-robotics/",
@@ -118,12 +143,12 @@
       "website": "https://hub.axisrobotics.ai",
       "note": "",
       "eligibility": ", allocation, and timing to be published before any claim event. Points themselves carry no claim right. Treat this like other potential retroactive airdrops : a live points program worth farming, with the token part still open. The Point System went live in early August 2026. Five factors set your total: how many valid tasks you complete, their difficulty tier, the quality score of each submission, how widely your tasks spread across scenarios and skills, and the output of contributors you invi",
-      "amount": "$1M",
-      "snapshot": "2026-09-04",
+      "amount": "$100,000",
+      "snapshot": "2026-09-06",
       "distribution": "2026-08-07",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "risex",
@@ -143,12 +168,12 @@
       "website": "https://rise.trade",
       "note": "",
       "eligibility": "in the RISEx Airdrop",
-      "amount": "$1M",
+      "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-04",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "nowa",
@@ -170,10 +195,10 @@
       "eligibility": "in the Nowa Airdrop",
       "amount": "$125,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-04",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "osero",
@@ -195,10 +220,10 @@
       "eligibility": "",
       "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-04",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "polymarket",
@@ -219,11 +244,11 @@
       "note": "",
       "eligibility": "criteria, allocation details, or distribution date have been disclosed. Key Parameters: Airdrop Allocation: Not disclosed Distribution Method: TBA — likely activity-based (trading volume, consistency, diversity) TGE Date: TBA — confirmed to follow the U.S. platform relaunch Community speculation points to trading volume, market diversity, reinvested winnings, and linked social accounts as potential eligibility signals. Polymarket has also encouraged users to link their X (Twitter) accounts, whic",
       "amount": "$100,000",
-      "snapshot": "2026-09-04",
-      "distribution": "2026-09-04",
+      "snapshot": "2026-09-06",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "push-chain",
@@ -243,12 +268,12 @@
       "website": "https://portal.push.org",
       "note": "",
       "eligibility": "in the Push Chain Airdrop",
-      "amount": "$1M",
+      "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-04",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "ondo-perps",
@@ -273,7 +298,7 @@
       "distribution": "2026-09-05",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "monetrix",
@@ -295,10 +320,10 @@
       "eligibility": "Telegram Twitter / X",
       "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-04",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "voice",
@@ -310,7 +335,7 @@
       "published": "2026-08-10",
       "claimUrl": "https://airdrops.io/visit/rxa3/",
       "sourceUrl": "https://airdrops.io/voice/",
-      "sourceType": "homepage",
+      "sourceType": "hot",
       "logo": "https://airdrops.io/wp-content/uploads/2026/08/VOICE-logo.jpg.webp",
       "category": "Socialfi",
       "symbol": "VOICE",
@@ -323,7 +348,7 @@
       "distribution": "2026-08-28",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "kinetiq",
@@ -348,7 +373,7 @@
       "distribution": "2026-09-05",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "sweep-finance",
@@ -368,12 +393,12 @@
       "website": "https://sweep.finance",
       "note": "",
       "eligibility": "in the Sweep Airdrop",
-      "amount": "$1M",
+      "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-04",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "tradoor0",
@@ -394,11 +419,11 @@
       "note": "",
       "eligibility": "for a potential 2026 airdrop.",
       "amount": "$100,000",
-      "snapshot": "2026-09-04",
-      "distribution": "2026-09-04",
+      "snapshot": "2026-09-06",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "tbook",
@@ -418,12 +443,12 @@
       "website": "https://engage.tbook.com",
       "note": "",
       "eligibility": "weights WISE score and verifiable contribution history over wallet count, so one well-built profile beats a spread of empty addresses. Key Parameters: Airdrop Allocation : 7.5% of total supply (750,000,000 $BOOK) Distribution Method : WISE Credit Score tiers, SBT holdings, Bookies NFT ownership and leaderboard placement TGE Date : Targeted for Q1 2026 in official documentation; not yet completed Vesting Schedule : Released in multiple phases, with the schedule set by community governance vote Th",
-      "amount": "$1M",
-      "snapshot": "2026-09-04",
-      "distribution": "2026-09-04",
+      "amount": "$100,000",
+      "snapshot": "2026-09-06",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "hypertrade",
@@ -443,12 +468,12 @@
       "website": "https://ht.xyz",
       "note": "",
       "eligibility": "in the Hypertrade Airdrop",
-      "amount": "$1M",
+      "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "2026-09-04",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "ink-chain",
@@ -456,7 +481,7 @@
       "slug": "ink-chain",
       "status": "confirmed",
       "actions": "Trade on Kraken Pro & Interact with Dapps",
-      "votes": 144,
+      "votes": 142,
       "published": "2024-11-05",
       "claimUrl": "https://airdrops.io/visit/mm93/",
       "sourceUrl": "https://airdrops.io/ink-chain/",
@@ -473,7 +498,7 @@
       "distribution": "2026-07-23",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "flop-labs",
@@ -481,7 +506,7 @@
       "slug": "flop-labs",
       "status": "confirmed",
       "actions": "Follow on X, Apply For a Network Role, Wait for Testnet",
-      "votes": 128,
+      "votes": 133,
       "published": "2026-08-25",
       "claimUrl": "https://airdrops.io/visit/49b3/",
       "sourceUrl": "https://airdrops.io/flop-labs/",
@@ -493,12 +518,12 @@
       "website": "https://flop.finance",
       "note": "",
       "eligibility": "rules and snapshot dates are unpublished. His 19 August essay put roughly 20% of supply with testnet participants, released across ten years. Key Parameters: Airdrop Allocation : Roughly 20% of total supply to testnet participants, distributed over ten years Distribution Method : Testnet participation, mining, validating and community contribution TGE Date : Airdrop targeted for Q4 2026, genesis block targeted for Q1 2027 The testnet is the center of it, and it is not live. Hayes has said it ope",
-      "amount": "$1M",
-      "snapshot": "2026-09-04",
-      "distribution": "2026-09-04",
+      "amount": "$100,000",
+      "snapshot": "2026-09-06",
+      "distribution": "2026-09-06",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "beldex-2",
@@ -519,11 +544,11 @@
       "note": "",
       "eligibility": "in the Beldex Airdrop",
       "amount": "$100,000",
-      "snapshot": "2026-09-05",
-      "distribution": "2026-09-05",
+      "snapshot": "2026-09-07",
+      "distribution": "2026-09-07",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "gyndore",
@@ -548,7 +573,7 @@
       "distribution": "2026-09-05",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "sight",
@@ -573,32 +598,7 @@
       "distribution": "2026-08-18",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
-    },
-    {
-      "id": "axis",
-      "project": "Axis",
-      "slug": "axis",
-      "status": "ongoing",
-      "actions": "Deposit and earn",
-      "votes": 53,
-      "published": "2025-12-10",
-      "claimUrl": "https://airdrops.io/visit/lta3/",
-      "sourceUrl": "https://airdrops.io/axis/",
-      "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2025/12/MaeCNBVH_400x400.jpg.webp",
-      "category": "Liquidity",
-      "symbol": "",
-      "chain": "Multi-chain",
-      "eligibility": "the Axis Origin Vault on Ethereum, earn Coordinates toward a potential Axis airdrop, and use referral code 8DSZVAVG for a 13% points boost.",
-      "amount": "$100,000",
-      "snapshot": "TBA",
-      "distribution": "2026-09-06",
-      "website": "https://axis.to",
-      "funding": "",
-      "note": "",
-      "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "startale",
@@ -619,61 +619,36 @@
       "note": "",
       "eligibility": "for future airdrops, exclusive rewards and other Startale App benefits. The points are in-app points that cannot be redeemed or exchanged with Startale for money. Points accrue through several channels at once. Daily GM check-ins pay 10 points per 10 check-ins, monthly mission campaigns are worth 100 to 150 points and reset each month, and liquidity earns 0.0025 points per dollar per day with a $10 minimum. Mini App campaigns carry their own point pools, and referrals pay 10% of what invited use",
       "amount": "$125,000",
-      "snapshot": "2026-09-04",
+      "snapshot": "2026-09-06",
       "distribution": "2026-08-19",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
-      "id": "reels",
-      "project": "Reels",
-      "slug": "reels",
+      "id": "axis",
+      "project": "Axis",
+      "slug": "axis",
       "status": "ongoing",
-      "actions": "Create Account, Play Across the Casino, Sportsbook, Refer Users",
-      "votes": 50,
-      "published": "2026-09-04",
-      "claimUrl": "https://airdrops.io/visit/dcb3/",
-      "sourceUrl": "https://airdrops.io/reels/",
+      "actions": "Deposit and earn",
+      "votes": 51,
+      "published": "2025-12-10",
+      "claimUrl": "https://airdrops.io/visit/lta3/",
+      "sourceUrl": "https://airdrops.io/axis/",
       "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2026/09/Reels-logo.jpg.webp",
-      "category": "",
+      "logo": "https://airdrops.io/wp-content/uploads/2025/12/MaeCNBVH_400x400.jpg.webp",
+      "category": "Liquidity",
       "symbol": "",
       "chain": "Multi-chain",
-      "eligibility": "the Reels Bonus",
-      "amount": "$100,000",
-      "snapshot": "TBA",
-      "distribution": "2026-09-04",
-      "website": "https://click.trkreels.com",
-      "funding": "",
-      "note": "",
-      "phase": "ongoing",
-      "updatedAt": "2026-09-06"
-    },
-    {
-      "id": "jupiter",
-      "project": "Jupiter",
-      "slug": "jupiter",
-      "status": "confirmed",
-      "actions": "Stake JUP to be Eligible for JUP Airdrops",
-      "votes": 32,
-      "published": "2022-12-01",
-      "claimUrl": "https://airdrops.io/visit/sga3/",
-      "sourceUrl": "https://airdrops.io/jupiter/",
-      "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2022/11/Jupiter-logo.jpg.webp",
-      "category": "Dex",
-      "symbol": "JUP",
-      "chain": "Multi-chain",
-      "eligibility": "details, official links and safety notes.",
+      "eligibility": "the Axis Origin Vault on Ethereum, earn Coordinates toward a potential Axis airdrop, and use referral code 8DSZVAVG for a 13% points boost.",
       "amount": "$100,000",
       "snapshot": "TBA",
       "distribution": "2026-09-06",
-      "website": "https://jup.ag",
+      "website": "https://axis.to",
       "funding": "",
       "note": "",
-      "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "phase": "ongoing",
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "dualmint",
@@ -698,7 +673,32 @@
       "distribution": "2026-09-02",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "jupiter",
+      "project": "Jupiter",
+      "slug": "jupiter",
+      "status": "confirmed",
+      "actions": "Stake JUP to be Eligible for JUP Airdrops",
+      "votes": 26,
+      "published": "2022-12-01",
+      "claimUrl": "https://airdrops.io/visit/sga3/",
+      "sourceUrl": "https://airdrops.io/jupiter/",
+      "sourceType": "homepage",
+      "logo": "https://airdrops.io/wp-content/uploads/2022/11/Jupiter-logo.jpg.webp",
+      "category": "Dex",
+      "symbol": "JUP",
+      "chain": "Multi-chain",
+      "eligibility": "details, official links and safety notes.",
+      "amount": "$100,000",
+      "snapshot": "TBA",
+      "distribution": "2026-09-06",
+      "website": "https://jup.ag",
+      "funding": "",
+      "note": "",
+      "phase": "confirmed",
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "entropy",
@@ -706,7 +706,7 @@
       "slug": "entropy",
       "status": "ongoing",
       "actions": "Sign Up, Deposit, Trade and Refer to Earn",
-      "votes": 13,
+      "votes": 19,
       "published": "2026-09-04",
       "claimUrl": "https://airdrops.io/visit/fcb3/",
       "sourceUrl": "https://airdrops.io/entropy/",
@@ -723,32 +723,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
-    },
-    {
-      "id": "tread-fi",
-      "project": "Tread fi",
-      "slug": "tread-fi",
-      "status": "confirmed",
-      "actions": "Submit Wallet & Register for Airdrop",
-      "votes": 13,
-      "published": "2025-11-10",
-      "claimUrl": "https://airdrops.io/visit/5773/",
-      "sourceUrl": "https://airdrops.io/tread-fi/",
-      "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2025/11/8k2xMeGv_400x400.jpg.webp",
-      "category": "Perpetual",
-      "symbol": "",
-      "chain": "Ink",
-      "website": "https://app.tread.fi",
-      "note": "",
-      "eligibility": "details, official links and safety notes.",
-      "amount": "$100,000",
-      "snapshot": "2026-09-05",
-      "distribution": "2026-09-05",
-      "funding": "",
-      "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "c8ntinuum",
@@ -763,30 +738,30 @@
       "sourceType": "homepage",
       "logo": "https://airdrops.io/wp-content/uploads/2026/09/C8ntinuum-logo.jpg.webp",
       "category": "Interoperability",
-      "symbol": "",
-      "chain": "Multi-chain",
-      "eligibility": "",
-      "amount": "TBA",
+      "symbol": "CTM",
+      "chain": "BNB Chain",
+      "eligibility": "in the C8ntinuum Airdrop",
+      "amount": "$100,000",
       "snapshot": "TBA",
-      "distribution": "TBA",
-      "website": "https://airdrops.io/c8ntinuum/",
+      "distribution": "2026-09-02",
+      "website": "https://app.c8ntinuum.com",
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
-      "id": "base",
-      "project": "Base",
-      "slug": "base",
+      "id": "amadeus-protocol",
+      "project": "Amadeus Protocol",
+      "slug": "amadeus-protocol",
       "status": "ongoing",
-      "actions": "Complete Onchain Tasks, Social Tasks, and Download App",
-      "votes": 7,
-      "published": "2023-09-22",
-      "claimUrl": "https://airdrops.io/visit/wa53/",
-      "sourceUrl": "https://airdrops.io/base/",
+      "actions": "Create Wallet, Complete Check-In, Finish Social Tasks",
+      "votes": 9,
+      "published": "2026-08-31",
+      "claimUrl": "https://airdrops.io/visit/fab3/",
+      "sourceUrl": "https://airdrops.io/amadeus-protocol/",
       "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2023/09/Base-logo.jpg.webp",
+      "logo": "https://airdrops.io/wp-content/uploads/2026/08/Amadeus-Protocol-logo.jpg.webp",
       "category": "L",
       "symbol": "",
       "chain": "Multi-chain",
@@ -794,11 +769,61 @@
       "amount": "TBA",
       "snapshot": "TBA",
       "distribution": "TBA",
-      "website": "https://airdrops.io/base/",
+      "website": "https://airdrops.io/amadeus-protocol/",
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "omega",
+      "project": "Omega",
+      "slug": "omega",
+      "status": "confirmed",
+      "actions": "Claim pOmega, Trade and Predict",
+      "votes": 7,
+      "published": "2026-08-24",
+      "claimUrl": "https://airdrops.io/visit/loa3/",
+      "sourceUrl": "https://airdrops.io/omega/",
+      "sourceType": "homepage",
+      "logo": "https://airdrops.io/wp-content/uploads/2026/07/Omega-logo.jpg.webp",
+      "category": "Dex",
+      "symbol": "",
+      "chain": "Multi-chain",
+      "eligibility": "",
+      "amount": "TBA",
+      "snapshot": "TBA",
+      "distribution": "TBA",
+      "website": "https://airdrops.io/omega/",
+      "funding": "",
+      "note": "",
+      "phase": "confirmed",
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "tread-fi",
+      "project": "Tread fi",
+      "slug": "tread-fi",
+      "status": "confirmed",
+      "actions": "Submit Wallet & Register for Airdrop",
+      "votes": 7,
+      "published": "2025-11-10",
+      "claimUrl": "https://airdrops.io/visit/5773/",
+      "sourceUrl": "https://airdrops.io/tread-fi/",
+      "sourceType": "homepage",
+      "logo": "https://airdrops.io/wp-content/uploads/2025/11/8k2xMeGv_400x400.jpg.webp",
+      "category": "Perpetual",
+      "symbol": "",
+      "chain": "Multi-chain",
+      "eligibility": "",
+      "amount": "TBA",
+      "snapshot": "TBA",
+      "distribution": "TBA",
+      "website": "https://airdrops.io/tread-fi/",
+      "funding": "",
+      "note": "",
+      "phase": "confirmed",
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "fortune-foes",
@@ -823,7 +848,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "neosoul",
@@ -848,7 +873,32 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
+    },
+    {
+      "id": "base",
+      "project": "Base",
+      "slug": "base",
+      "status": "ongoing",
+      "actions": "Complete Onchain Tasks, Social Tasks, and Download App",
+      "votes": 3,
+      "published": "2023-09-22",
+      "claimUrl": "https://airdrops.io/visit/wa53/",
+      "sourceUrl": "https://airdrops.io/base/",
+      "sourceType": "homepage",
+      "logo": "https://airdrops.io/wp-content/uploads/2023/09/Base-logo.jpg.webp",
+      "category": "L",
+      "symbol": "",
+      "chain": "Multi-chain",
+      "eligibility": "",
+      "amount": "TBA",
+      "snapshot": "TBA",
+      "distribution": "TBA",
+      "website": "https://airdrops.io/base/",
+      "funding": "",
+      "note": "",
+      "phase": "ongoing",
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "dac",
@@ -856,7 +906,7 @@
       "slug": "dac",
       "status": "confirmed",
       "actions": "Sign up & Complete Testnet tasks",
-      "votes": 4,
+      "votes": 2,
       "published": "2026-04-09",
       "claimUrl": "https://airdrops.io/visit/t493/",
       "sourceUrl": "https://airdrops.io/dac/",
@@ -873,7 +923,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "variational",
@@ -881,7 +931,7 @@
       "slug": "variational",
       "status": "ongoing",
       "actions": "Trade perps & refer friends",
-      "votes": 4,
+      "votes": 2,
       "published": "2024-10-25",
       "claimUrl": "https://airdrops.io/visit/to63/",
       "sourceUrl": "https://airdrops.io/variational/",
@@ -898,57 +948,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
-    },
-    {
-      "id": "amadeus-protocol",
-      "project": "Amadeus Protocol",
-      "slug": "amadeus-protocol",
-      "status": "ongoing",
-      "actions": "Create Wallet, Complete Check-In, Finish Social Tasks",
-      "votes": 3,
-      "published": "2026-08-31",
-      "claimUrl": "https://airdrops.io/visit/fab3/",
-      "sourceUrl": "https://airdrops.io/amadeus-protocol/",
-      "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2026/08/Amadeus-Protocol-logo.jpg.webp",
-      "category": "L",
-      "symbol": "",
-      "chain": "Multi-chain",
-      "eligibility": "",
-      "amount": "TBA",
-      "snapshot": "TBA",
-      "distribution": "TBA",
-      "website": "https://airdrops.io/amadeus-protocol/",
-      "funding": "",
-      "note": "",
-      "phase": "ongoing",
-      "updatedAt": "2026-09-06"
-    },
-    {
-      "id": "omega",
-      "project": "Omega",
-      "slug": "omega",
-      "status": "confirmed",
-      "actions": "Claim pOmega, Trade and Predict",
-      "votes": 3,
-      "published": "2026-08-24",
-      "claimUrl": "https://airdrops.io/visit/loa3/",
-      "sourceUrl": "https://airdrops.io/omega/",
-      "sourceType": "homepage",
-      "logo": "https://airdrops.io/wp-content/uploads/2026/07/Omega-logo.jpg.webp",
-      "category": "Dex",
-      "symbol": "",
-      "chain": "Multi-chain",
-      "eligibility": "",
-      "amount": "TBA",
-      "snapshot": "TBA",
-      "distribution": "TBA",
-      "website": "https://airdrops.io/omega/",
-      "funding": "",
-      "note": "",
-      "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "hertzflow",
@@ -973,7 +973,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "retium",
@@ -998,7 +998,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "drake",
@@ -1023,7 +1023,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "glider",
@@ -1048,7 +1048,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "outcome",
@@ -1073,7 +1073,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     },
     {
       "id": "rialo",
@@ -1098,10 +1098,10 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-06"
+      "updatedAt": "2026-09-07"
     }
   ],
-  "lastFetched": "2026-09-06T19:41:49.901412+00:00",
+  "lastFetched": "2026-09-07T10:54:00.359248+00:00",
   "source": "airdrops.io + CoinGecko",
   "totalTracked": 44
 }
