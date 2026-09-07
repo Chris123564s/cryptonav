@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T07:00:32.299Z",
+  "generatedAt": "2026-09-07T13:19:41.788Z",
   "method": "https://cryptonav.site/verify#method",
   "weights": {
     "longevity": 35,
@@ -7,13 +7,13 @@
     "contract": 25
   },
   "counts": {
-    "projects": 63,
+    "projects": 64,
     "withDomainAge": 62,
     "withFirstSeen": 0,
     "withIncidents": 22,
-    "withContract": 17,
+    "withContract": 10,
     "rated": 62,
-    "unrated": 1
+    "unrated": 2
   },
   "sources": {
     "domainAge": "RDAP (IANA bootstrap + registry endpoints)",
@@ -36,7 +36,7 @@
   "warnings": [],
   "notes": [
     "Internet Archive unreachable after 3 failed attempts — skipped for the rest of this run",
-    "RDAP unavailable for: theblock.co",
+    "RDAP unavailable for: theblock.co, t.co",
     "Internet Archive unreachable — longevity falls back to RDAP only"
   ],
   "raw": {
@@ -430,7 +430,7 @@
       "theblock.co": {
         "domain": "theblock.co",
         "error": "no-rdap-service",
-        "fetchedAt": 1788159613512
+        "fetchedAt": 1788787167392
       },
       "coindesk.com": {
         "domain": "coindesk.com",
@@ -544,6 +544,11 @@
         "expiresAt": "2032-02-05T14:36:10.786Z",
         "registrar": "GoDaddy.com, LLC",
         "source": "rdap.identitydigital.services"
+      },
+      "t.co": {
+        "domain": "t.co",
+        "error": "no-rdap-service",
+        "fetchedAt": 1788787167392
       }
     },
     "wayback": {
@@ -551,379 +556,385 @@
         "domain": "binance.com",
         "firstSeenAt": null,
         "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788159621522
+        "fetchedAt": 1788787175394
       },
       "okx.com": {
         "domain": "okx.com",
         "firstSeenAt": null,
         "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788159621525
+        "fetchedAt": 1788787175399
       },
       "bybit.com": {
         "domain": "bybit.com",
         "firstSeenAt": null,
         "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "coinbase.com": {
         "domain": "coinbase.com",
         "firstSeenAt": null,
-        "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788159629531
+        "error": "HTTP 503",
+        "fetchedAt": 1788787180488
       },
       "kraken.com": {
         "domain": "kraken.com",
         "firstSeenAt": null,
-        "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788159629531
+        "error": "HTTP 503",
+        "fetchedAt": 1788787180502
       },
       "gate.io": {
         "domain": "gate.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "bitget.com": {
         "domain": "bitget.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "mexc.com": {
         "domain": "mexc.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "uniswap.org": {
         "domain": "uniswap.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "pancakeswap.finance": {
         "domain": "pancakeswap.finance",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "curve.fi": {
         "domain": "curve.fi",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "sushi.com": {
         "domain": "sushi.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "1inch.io": {
         "domain": "1inch.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "dydx.exchange": {
         "domain": "dydx.exchange",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "metamask.io": {
         "domain": "metamask.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "phantom.app": {
         "domain": "phantom.app",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "rabby.io": {
         "domain": "rabby.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "trustwallet.com": {
         "domain": "trustwallet.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "ledger.com": {
         "domain": "ledger.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "trezor.io": {
         "domain": "trezor.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "safe.global": {
         "domain": "safe.global",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "coingecko.com": {
         "domain": "coingecko.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "coinmarketcap.com": {
         "domain": "coinmarketcap.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "dexscreener.com": {
         "domain": "dexscreener.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "dune.com": {
         "domain": "dune.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "defillama.com": {
         "domain": "defillama.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "etherscan.io": {
         "domain": "etherscan.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "solscan.io": {
         "domain": "solscan.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "aave.com": {
         "domain": "aave.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "compound.finance": {
         "domain": "compound.finance",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "makerdao.com": {
         "domain": "makerdao.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "lido.fi": {
         "domain": "lido.fi",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "yearn.fi": {
         "domain": "yearn.fi",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "stargate.finance": {
         "domain": "stargate.finance",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "across.to": {
         "domain": "across.to",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "opensea.io": {
         "domain": "opensea.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "blur.io": {
         "domain": "blur.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "magiceden.io": {
         "domain": "magiceden.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "ethereum.org": {
         "domain": "ethereum.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "solana.com": {
         "domain": "solana.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "bnbchain.org": {
         "domain": "bnbchain.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "arbitrum.io": {
         "domain": "arbitrum.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "optimism.io": {
         "domain": "optimism.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "base.org": {
         "domain": "base.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "openzeppelin.com": {
         "domain": "openzeppelin.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "certik.com": {
         "domain": "certik.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "rekt.news": {
         "domain": "rekt.news",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "cointelegraph.com": {
         "domain": "cointelegraph.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "theblock.co": {
         "domain": "theblock.co",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "coindesk.com": {
         "domain": "coindesk.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "tokeninsight.com": {
         "domain": "tokeninsight.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "coinmarketcal.com": {
         "domain": "coinmarketcal.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "koinly.io": {
         "domain": "koinly.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "zerion.io": {
         "domain": "zerion.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "debank.com": {
         "domain": "debank.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "airdrops.io": {
         "domain": "airdrops.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "ave.ai": {
         "domain": "ave.ai",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "gmgn.ai": {
         "domain": "gmgn.ai",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "dextools.io": {
         "domain": "dextools.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "arkhamintelligence.com": {
         "domain": "arkhamintelligence.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "nansen.ai": {
         "domain": "nansen.ai",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "bullx.io": {
         "domain": "bullx.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
       },
       "tinyastro.io": {
         "domain": "tinyastro.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788159621528
+        "fetchedAt": 1788787175401
+      },
+      "t.co": {
+        "domain": "t.co",
+        "firstSeenAt": null,
+        "error": "source skipped (unreachable)",
+        "fetchedAt": 1788787175401
       }
     },
     "tokens": {
@@ -937,9 +948,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 390975,
+        "holderCount": 384104,
         "ownerAddress": "0x1a9c8182c09f50c8318d769245bea52c32be35bc",
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "1inch": {
         "symbol": "1INCH",
@@ -951,9 +962,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 112379,
+        "holderCount": 112508,
         "ownerAddress": "0x0000000000000000000000000000000000000000",
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "aave": {
         "symbol": "AAVE",
@@ -965,9 +976,9 @@
         "canTakeBackOwnership": false,
         "isProxy": true,
         "isBlacklisted": false,
-        "holderCount": 201467,
+        "holderCount": 189200,
         "ownerAddress": null,
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "compound": {
         "symbol": "COMP",
@@ -979,9 +990,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 219853,
+        "holderCount": 219880,
         "ownerAddress": null,
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "makerdao": {
         "symbol": "MKR",
@@ -993,9 +1004,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 75362,
+        "holderCount": 75308,
         "ownerAddress": "0x0000000000000000000000000000000000000000",
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "lido": {
         "symbol": "LDO",
@@ -1007,9 +1018,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 63407,
+        "holderCount": 63496,
         "ownerAddress": "0xf73a1260d222f447210581ddf212d915c09a3249",
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "yearn": {
         "symbol": "YFI",
@@ -1021,9 +1032,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 52478,
+        "holderCount": 52577,
         "ownerAddress": "0x026d4b8d693f6c446782c2c61ee357ec561dfb61",
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "curve": {
         "symbol": "CRV",
@@ -1035,9 +1046,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 100748,
+        "holderCount": 100940,
         "ownerAddress": null,
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "sushiswap": {
         "symbol": "SUSHI",
@@ -1049,9 +1060,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 126878,
+        "holderCount": 126818,
         "ownerAddress": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd",
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "dydx": {
         "symbol": "DYDX",
@@ -1063,111 +1074,41 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 45257,
+        "holderCount": 45253,
         "ownerAddress": "0x64c7d40c07efabec2aafdc243bf59eaf2195c6dc",
-        "fetchedAt": 1788154484785
+        "fetchedAt": 1788787181786
       },
       "stargate": {
-        "symbol": "STG",
-        "chain": 1,
-        "address": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6",
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "canTakeBackOwnership": false,
-        "isProxy": false,
-        "isBlacklisted": false,
-        "holderCount": 39180,
-        "ownerAddress": "0xbe634b030feaab661300667eaf82510a3a025413",
-        "fetchedAt": 1788154540651
+        "error": "no-result",
+        "fetchedAt": 1788787181786
       },
       "across": {
-        "symbol": "ACX",
-        "chain": 1,
-        "address": "0x44108f0223A3C3028F5Fe7AEC7f9bb2E66beF82F",
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "canTakeBackOwnership": false,
-        "isProxy": false,
-        "isBlacklisted": false,
-        "holderCount": 7598,
-        "ownerAddress": "0x0000000000000000000000000000000000000000",
-        "fetchedAt": 1788154540651
+        "error": "no-result",
+        "fetchedAt": 1788787181786
       },
       "blur": {
-        "symbol": "BLUR",
-        "chain": 1,
-        "address": "0x5283D291DBCF85356A21bA090E6db59121208b44",
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "canTakeBackOwnership": false,
-        "isProxy": false,
-        "isBlacklisted": false,
-        "holderCount": 51347,
-        "ownerAddress": "0x6e596823a8c9c48eb6fa4ab2208f34b97453a327",
-        "fetchedAt": 1788154540651
+        "error": "no-result",
+        "fetchedAt": 1788787181786
       },
       "safe": {
-        "symbol": "SAFE",
-        "chain": 1,
-        "address": "0x5aFE3855358E112B5647B952709E6165e1c1eeEE",
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": false,
-        "canTakeBackOwnership": false,
-        "isProxy": false,
-        "isBlacklisted": false,
-        "holderCount": 11967,
-        "ownerAddress": "0x8cf60b289f8d31f737049b590b5e4285ff0bd1d1",
-        "fetchedAt": 1788154540651
+        "error": "no-result",
+        "fetchedAt": 1788787181786
       },
       "arbitrum": {
-        "symbol": "ARB",
-        "chain": 42161,
-        "address": "0x912CE59144191C1204E64559FE8253a0e49E6548",
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": false,
-        "canTakeBackOwnership": false,
-        "isProxy": true,
-        "isBlacklisted": false,
-        "holderCount": 2375665,
-        "ownerAddress": null,
-        "fetchedAt": 1788154540651
+        "error": "no-result",
+        "fetchedAt": 1788787181786
       },
       "optimism": {
-        "symbol": "OP",
-        "chain": 10,
-        "address": "0x4200000000000000000000000000000000000042",
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "canTakeBackOwnership": false,
-        "isProxy": false,
-        "isBlacklisted": false,
-        "holderCount": 1372034,
-        "ownerAddress": "0x5c4e7ba1e219e47948e6e3f55019a647ba501005",
-        "fetchedAt": 1788154540651
+        "error": "no-result",
+        "fetchedAt": 1788787181786
       },
       "pancakeswap": {
-        "symbol": "CAKE",
-        "chain": 56,
-        "address": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "canTakeBackOwnership": false,
-        "isProxy": false,
-        "isBlacklisted": false,
-        "holderCount": 1909508,
-        "ownerAddress": "0x73feaa1ee314f8c655e354234017be2193c9e24e",
-        "fetchedAt": 1788154540651
+        "error": "no-result",
+        "fetchedAt": 1788787181786
       },
       "arkham": {
         "error": "no-result",
-        "fetchedAt": 1788159632288
+        "fetchedAt": 1788787181786
       }
     },
     "hacks": [
@@ -2213,7 +2154,7 @@
       },
       {
         "date": 1773273600,
-        "name": "Stake DAO",
+        "name": "Stake DAO Yield",
         "amount": 176000,
         "technique": "Caller Impersonation",
         "targetType": "DeFi Protocol",
@@ -3372,6 +3313,14 @@
         "defillamaId": null
       },
       {
+        "date": 1788134400,
+        "name": "Aquifer",
+        "amount": 2469729,
+        "technique": "Arbitrary External Call",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "6884"
+      },
+      {
         "date": 1776643200,
         "name": "Thetanuts Finance",
         "amount": 50000,
@@ -3577,6 +3526,14 @@
         "amount": 6500000,
         "technique": "Private Key Compromised",
         "targetType": "Layer 1",
+        "defillamaId": null
+      },
+      {
+        "date": 1788566400,
+        "name": "Dream Health Chain",
+        "amount": 71800,
+        "technique": "Reward Logic Flaw",
+        "targetType": "DeFi Protocol",
         "defillamaId": null
       },
       {
@@ -5332,6 +5289,14 @@
         "defillamaId": null
       },
       {
+        "date": 1787961600,
+        "name": "Permapod",
+        "amount": null,
+        "technique": "Unknown",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "7205"
+      },
+      {
         "date": 1643760000,
         "name": "Portal",
         "amount": 326000000,
@@ -5666,6 +5631,14 @@
         "technique": "Reward Logic Flaw",
         "targetType": "DeFi Protocol",
         "defillamaId": "2395"
+      },
+      {
+        "date": 1788134400,
+        "name": "Ankr",
+        "amount": 410000,
+        "technique": "Unbacked Mint",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "278"
       },
       {
         "date": 1716854400,
@@ -7532,6 +7505,14 @@
         "defillamaId": null
       },
       {
+        "date": 1788566400,
+        "name": "Reddio RedSonic",
+        "amount": 22800,
+        "technique": "Incorrect Share Accounting",
+        "targetType": "DeFi Protocol",
+        "defillamaId": null
+      },
+      {
         "date": 1768608000,
         "name": "Meteora DAMM V2",
         "amount": 1500000,
@@ -7836,6 +7817,14 @@
         "defillamaId": null
       },
       {
+        "date": 1788134400,
+        "name": "Float Protocol",
+        "amount": 28000,
+        "technique": "Spot Price Manipulation",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "497"
+      },
+      {
         "date": 1592438400,
         "name": "Bancor V3",
         "amount": 544885,
@@ -7890,6 +7879,14 @@
         "technique": "Arbitrary External Call",
         "targetType": "DeFi Protocol",
         "defillamaId": null
+      },
+      {
+        "date": 1788048000,
+        "name": "Balancer V1",
+        "amount": 234000,
+        "technique": "Rounding Error",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "116"
       },
       {
         "date": 1541548800,
@@ -9884,6 +9881,14 @@
         "defillamaId": null
       },
       {
+        "date": 1787875200,
+        "name": "Fogo Foundation",
+        "amount": 3000000,
+        "technique": "Private Key Compromised",
+        "targetType": "Foundation",
+        "defillamaId": "chain#fogo"
+      },
+      {
         "date": 1574812800,
         "name": "Upbit",
         "amount": 49300000,
@@ -10020,6 +10025,14 @@
         "defillamaId": "3104"
       },
       {
+        "date": 1788480000,
+        "name": "Notional V2",
+        "amount": 1727782,
+        "technique": "Arithmetic Error",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "234"
+      },
+      {
         "date": 1787097600,
         "name": "Allbridge",
         "amount": 191000,
@@ -10073,6 +10086,14 @@
         "amount": 82000000,
         "technique": "Malware",
         "targetType": "CEX",
+        "defillamaId": null
+      },
+      {
+        "date": 1787356800,
+        "name": "KiiChain",
+        "amount": 9700000,
+        "technique": "Arithmetic Error",
+        "targetType": "Chain",
         "defillamaId": null
       },
       {
@@ -10181,7 +10202,7 @@
       },
       {
         "date": 1779840000,
-        "name": "Stake DAO",
+        "name": "Stake DAO Yield",
         "amount": 91000,
         "technique": "Deployer Key Compromised",
         "targetType": "DeFi Protocol",
@@ -11574,7 +11595,7 @@
         "symbol": "UNI",
         "chain": 1,
         "address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
-        "holderCount": 390975,
+        "holderCount": 384104,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": false,
@@ -11633,20 +11654,8 @@
       ],
       "incidentCount": 1,
       "incidentTotalUsd": 1800000,
-      "token": {
-        "symbol": "CAKE",
-        "chain": 56,
-        "address": "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",
-        "holderCount": 1909508,
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "isProxy": false,
-        "canTakeBackOwnership": false
-      },
-      "contractFlags": [
-        "supply is mintable"
-      ],
+      "token": null,
+      "contractFlags": [],
       "dimensions": {
         "longevity": {
           "score": 23,
@@ -11659,16 +11668,12 @@
           "weight": 40,
           "penalty": 3.6
         },
-        "contract": {
-          "score": 18,
-          "max": 20,
-          "weight": 25
-        }
+        "contract": null
       },
-      "score": 85,
-      "grade": "A",
-      "coverage": 100,
-      "verifiedChecks": 3,
+      "score": 75,
+      "grade": "B",
+      "coverage": 75,
+      "verifiedChecks": 2,
       "totalChecks": 3,
       "unratedReason": null
     },
@@ -11722,7 +11727,7 @@
         "symbol": "CRV",
         "chain": 1,
         "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
-        "holderCount": 100748,
+        "holderCount": 100940,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -11807,7 +11812,7 @@
         "symbol": "SUSHI",
         "chain": 1,
         "address": "0x6B3595068778DD592e39A122f4f5a5cF09C90fE2",
-        "holderCount": 126878,
+        "holderCount": 126818,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -11882,7 +11887,7 @@
         "symbol": "1INCH",
         "chain": 1,
         "address": "0x111111111117dC0aa78b770fA6A738034120C302",
-        "holderCount": 112379,
+        "holderCount": 112508,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -11926,7 +11931,7 @@
       "domainRegistrar": "Cloudflare, Inc",
       "firstSeenAt": null,
       "operatingSince": "2017-08-13",
-      "ageYears": 9,
+      "ageYears": 9.1,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [
@@ -11957,7 +11962,7 @@
         "symbol": "DYDX",
         "chain": 1,
         "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
-        "holderCount": 45257,
+        "holderCount": 45253,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -12267,17 +12272,7 @@
       "incidents": [],
       "incidentCount": 0,
       "incidentTotalUsd": 0,
-      "token": {
-        "symbol": "SAFE",
-        "chain": 1,
-        "address": "0x5aFE3855358E112B5647B952709E6165e1c1eeEE",
-        "holderCount": 11967,
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": false,
-        "isProxy": false,
-        "canTakeBackOwnership": false
-      },
+      "token": null,
       "contractFlags": [],
       "dimensions": {
         "longevity": {
@@ -12291,16 +12286,12 @@
           "weight": 40,
           "penalty": 0
         },
-        "contract": {
-          "score": 20,
-          "max": 20,
-          "weight": 25
-        }
+        "contract": null
       },
-      "score": 86,
-      "grade": "A",
-      "coverage": 100,
-      "verifiedChecks": 3,
+      "score": 73,
+      "grade": "B",
+      "coverage": 75,
+      "verifiedChecks": 2,
       "totalChecks": 3,
       "unratedReason": null
     },
@@ -12313,7 +12304,7 @@
       "domainRegistrar": "NameCheap, Inc.",
       "firstSeenAt": null,
       "operatingSince": "2014-03-26",
-      "ageYears": 12.4,
+      "ageYears": 12.5,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
@@ -12351,7 +12342,7 @@
       "domainRegistrar": "MarkMonitor Inc.",
       "firstSeenAt": null,
       "operatingSince": "2013-04-28",
-      "ageYears": 13.3,
+      "ageYears": 13.4,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
@@ -12465,7 +12456,7 @@
       "domainRegistrar": "Cloudflare, Inc.",
       "firstSeenAt": null,
       "operatingSince": "2020-10-26",
-      "ageYears": 5.8,
+      "ageYears": 5.9,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
@@ -12610,7 +12601,7 @@
         "symbol": "AAVE",
         "chain": 1,
         "address": "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
-        "holderCount": 201467,
+        "holderCount": 189200,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": false,
@@ -12654,7 +12645,7 @@
       "domainRegistrar": "Cloudflare, Inc",
       "firstSeenAt": null,
       "operatingSince": "2017-09-25",
-      "ageYears": 8.9,
+      "ageYears": 9,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [
@@ -12675,7 +12666,7 @@
         "symbol": "COMP",
         "chain": 1,
         "address": "0xc00e94Cb662C3520282E6f5717214004A7f26888",
-        "holderCount": 219853,
+        "holderCount": 219880,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": false,
@@ -12738,7 +12729,7 @@
         "symbol": "MKR",
         "chain": 1,
         "address": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
-        "holderCount": 75362,
+        "holderCount": 75308,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -12792,7 +12783,7 @@
         "symbol": "LDO",
         "chain": 1,
         "address": "0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32",
-        "holderCount": 63407,
+        "holderCount": 63496,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": false,
@@ -12875,7 +12866,7 @@
         "symbol": "YFI",
         "chain": 1,
         "address": "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e",
-        "holderCount": 52478,
+        "holderCount": 52577,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -12936,20 +12927,8 @@
       ],
       "incidentCount": 1,
       "incidentTotalUsd": 43000,
-      "token": {
-        "symbol": "STG",
-        "chain": 1,
-        "address": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6",
-        "holderCount": 39180,
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "isProxy": false,
-        "canTakeBackOwnership": false
-      },
-      "contractFlags": [
-        "supply is mintable"
-      ],
+      "token": null,
+      "contractFlags": [],
       "dimensions": {
         "longevity": {
           "score": 23,
@@ -12962,16 +12941,12 @@
           "weight": 40,
           "penalty": 2
         },
-        "contract": {
-          "score": 18,
-          "max": 20,
-          "weight": 25
-        }
+        "contract": null
       },
-      "score": 87,
-      "grade": "A",
-      "coverage": 100,
-      "verifiedChecks": 3,
+      "score": 77,
+      "grade": "B",
+      "coverage": 75,
+      "verifiedChecks": 2,
       "totalChecks": 3,
       "unratedReason": null
     },
@@ -13001,20 +12976,8 @@
       ],
       "incidentCount": 1,
       "incidentTotalUsd": 4500000,
-      "token": {
-        "symbol": "ACX",
-        "chain": 1,
-        "address": "0x44108f0223A3C3028F5Fe7AEC7f9bb2E66beF82F",
-        "holderCount": 7598,
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "isProxy": false,
-        "canTakeBackOwnership": false
-      },
-      "contractFlags": [
-        "supply is mintable"
-      ],
+      "token": null,
+      "contractFlags": [],
       "dimensions": {
         "longevity": {
           "score": 18,
@@ -13027,16 +12990,12 @@
           "weight": 40,
           "penalty": 3.6
         },
-        "contract": {
-          "score": 18,
-          "max": 20,
-          "weight": 25
-        }
+        "contract": null
       },
-      "score": 79,
-      "grade": "B",
-      "coverage": 100,
-      "verifiedChecks": 3,
+      "score": 69,
+      "grade": "C",
+      "coverage": 75,
+      "verifiedChecks": 2,
       "totalChecks": 3,
       "unratedReason": null
     },
@@ -13114,20 +13073,8 @@
       "incidents": [],
       "incidentCount": 0,
       "incidentTotalUsd": 0,
-      "token": {
-        "symbol": "BLUR",
-        "chain": 1,
-        "address": "0x5283D291DBCF85356A21bA090E6db59121208b44",
-        "holderCount": 51347,
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "isProxy": false,
-        "canTakeBackOwnership": false
-      },
-      "contractFlags": [
-        "supply is mintable"
-      ],
+      "token": null,
+      "contractFlags": [],
       "dimensions": {
         "longevity": {
           "score": 30,
@@ -13140,16 +13087,12 @@
           "weight": 40,
           "penalty": 0
         },
-        "contract": {
-          "score": 18,
-          "max": 20,
-          "weight": 25
-        }
+        "contract": null
       },
-      "score": 98,
+      "score": 88,
       "grade": "A",
-      "coverage": 100,
-      "verifiedChecks": 3,
+      "coverage": 75,
+      "verifiedChecks": 2,
       "totalChecks": 3,
       "unratedReason": null
     },
@@ -13172,7 +13115,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 18,
+          "score": 23,
           "max": 30,
           "weight": 35
         },
@@ -13184,7 +13127,7 @@
         },
         "contract": null
       },
-      "score": 73,
+      "score": 79,
       "grade": "B",
       "coverage": 75,
       "verifiedChecks": 2,
@@ -13276,7 +13219,7 @@
       "domainRegistrar": "GoDaddy.com, LLC",
       "firstSeenAt": null,
       "operatingSince": "2020-01-13",
-      "ageYears": 6.6,
+      "ageYears": 6.7,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
@@ -13320,20 +13263,8 @@
       "incidents": [],
       "incidentCount": 0,
       "incidentTotalUsd": 0,
-      "token": {
-        "symbol": "ARB",
-        "chain": 42161,
-        "address": "0x912CE59144191C1204E64559FE8253a0e49E6548",
-        "holderCount": 2375665,
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": false,
-        "isProxy": true,
-        "canTakeBackOwnership": false
-      },
-      "contractFlags": [
-        "upgradeable proxy"
-      ],
+      "token": null,
+      "contractFlags": [],
       "dimensions": {
         "longevity": {
           "score": 27,
@@ -13346,16 +13277,12 @@
           "weight": 40,
           "penalty": 0
         },
-        "contract": {
-          "score": 17,
-          "max": 20,
-          "weight": 25
-        }
+        "contract": null
       },
-      "score": 93,
-      "grade": "A",
-      "coverage": 100,
-      "verifiedChecks": 3,
+      "score": 84,
+      "grade": "B",
+      "coverage": 75,
+      "verifiedChecks": 2,
       "totalChecks": 3,
       "unratedReason": null
     },
@@ -13374,20 +13301,8 @@
       "incidents": [],
       "incidentCount": 0,
       "incidentTotalUsd": 0,
-      "token": {
-        "symbol": "OP",
-        "chain": 10,
-        "address": "0x4200000000000000000000000000000000000042",
-        "holderCount": 1372034,
-        "isOpenSource": true,
-        "isHoneypot": false,
-        "isMintable": true,
-        "isProxy": false,
-        "canTakeBackOwnership": false
-      },
-      "contractFlags": [
-        "supply is mintable"
-      ],
+      "token": null,
+      "contractFlags": [],
       "dimensions": {
         "longevity": {
           "score": 30,
@@ -13400,16 +13315,12 @@
           "weight": 40,
           "penalty": 0
         },
-        "contract": {
-          "score": 18,
-          "max": 20,
-          "weight": 25
-        }
+        "contract": null
       },
-      "score": 98,
+      "score": 88,
       "grade": "A",
-      "coverage": 100,
-      "verifiedChecks": 3,
+      "coverage": 75,
+      "verifiedChecks": 2,
       "totalChecks": 3,
       "unratedReason": null
     },
@@ -13684,7 +13595,7 @@
       "domainRegistrar": "Alibaba Cloud Computing (Beijing) Co., Ltd.",
       "firstSeenAt": null,
       "operatingSince": "2017-07-09",
-      "ageYears": 9.1,
+      "ageYears": 9.2,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
@@ -13961,7 +13872,7 @@
       "domainRegistrar": "GoDaddy.com, LLC",
       "firstSeenAt": null,
       "operatingSince": "2023-04-28",
-      "ageYears": 3.3,
+      "ageYears": 3.4,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
@@ -14179,6 +14090,40 @@
       "verifiedChecks": 2,
       "totalChecks": 3,
       "unratedReason": null
+    },
+    "t": {
+      "name": "t",
+      "category": "exchanges",
+      "domain": "t.co",
+      "website": "https://t.co",
+      "domainRegisteredAt": null,
+      "domainRegistrar": null,
+      "firstSeenAt": null,
+      "operatingSince": null,
+      "ageYears": null,
+      "ageConfidence": "unknown",
+      "ageNote": null,
+      "incidents": [],
+      "incidentCount": 0,
+      "incidentTotalUsd": 0,
+      "token": null,
+      "contractFlags": [],
+      "dimensions": {
+        "longevity": null,
+        "incidents": {
+          "score": 35,
+          "max": 35,
+          "weight": 40,
+          "penalty": 0
+        },
+        "contract": null
+      },
+      "score": null,
+      "grade": "unrated",
+      "coverage": 40,
+      "verifiedChecks": 1,
+      "totalChecks": 3,
+      "unratedReason": "only 1 of 3 checks produced data"
     }
   }
 }
