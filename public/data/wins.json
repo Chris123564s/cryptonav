@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "BELL",
-      "name": "Openbell",
-      "logo": "/logos/dex/0x218d0dC5.jpg",
-      "address": "0x218d0dC56476b05F131bD6CC82B80C7b052Fa9B1",
+      "symbol": "Nasduck",
+      "name": "Nasduck",
+      "logo": "/logos/dex/0x78fC7E13.jpg",
+      "address": "0x78fC7E13BCCab8a7aedc5b8465C3442d6D7D9d64",
       "chain": "robinhood",
-      "change6h": 145.0,
-      "price": 0.001871,
-      "date": "2026-09-06"
+      "change6h": 17680.0,
+      "price": 0.01793,
+      "date": "2026-09-07"
     },
     {
-      "symbol": "🅿️",
-      "name": "Pushin' 🅿️",
-      "logo": "/logos/dex/0x2Ff153bA.png",
-      "address": "0x2Ff153bA4591d1B134E1e2ef42Fd897d2E686cC3",
-      "chain": "robinhood",
-      "change6h": 117.0,
-      "price": 0.0001206,
-      "date": "2026-09-06"
+      "symbol": "NASDICK",
+      "name": "Nasdick",
+      "logo": "/logos/dex/G64WzsH9xb.jpg",
+      "address": "G64WzsH9xbgWnXwzWAhW7NDBkHiFYcEoexQqY9Kwpump",
+      "chain": "solana",
+      "change6h": 240.0,
+      "price": 0.0002178,
+      "date": "2026-09-07"
     },
     {
-      "symbol": "TrustCat",
-      "name": "TrustCat",
-      "logo": "/logos/dex/0x75B36491.jpg",
-      "address": "0x75B364916b65f1e8959fa0210A6922C2EE237777",
-      "chain": "bsc",
-      "change6h": 53.5,
-      "price": 0.001582,
-      "date": "2026-09-06"
+      "symbol": "cyberbeer",
+      "name": "cyberbeer",
+      "logo": "/logos/dex/0xD9746010.jpg",
+      "address": "0xD97460101c3aaD03a0E69E7A82587aA4CF1dACB8",
+      "chain": "robinhood",
+      "change6h": 234.0,
+      "price": 0.0001727,
+      "date": "2026-09-07"
     },
     {
-      "symbol": "PONINU",
-      "name": "PONS INU",
-      "logo": "/logos/dex/0x5Ec9cd90.jpg",
-      "address": "0x5Ec9cd905ff6695fC8b5943A5e1E83A23B610156",
+      "symbol": "$OSAI",
+      "name": "Open Secure AI Alliance",
+      "logo": "/logos/dex/0xb5379Df0.jpg",
+      "address": "0xb5379Df00F8DDf88209eae1a69eA37087e83647e",
       "chain": "robinhood",
-      "change6h": 34.9,
-      "price": 0.0004786,
-      "date": "2026-09-06"
+      "change6h": 180.0,
+      "price": 0.0005616,
+      "date": "2026-09-07"
     },
     {
-      "symbol": "WASTED",
-      "name": "WASTED",
-      "logo": "/logos/dex/0x2bBd69Fc.jpg",
-      "address": "0x2bBd69Fc69dC9922f9f76142251D2827fD46188C",
-      "chain": "robinhood",
-      "change6h": 20.6,
-      "price": 0.00014,
-      "date": "2026-09-06"
+      "symbol": "TRONK",
+      "name": "Trump Stock",
+      "logo": "/logos/dex/CTALnV64vd.jpg",
+      "address": "CTALnV64vd1dkMxvtsuBgoYVhzB8tZ1XyRQFNS3ppump",
+      "chain": "solana",
+      "change6h": 135.0,
+      "price": 0.0002328,
+      "date": "2026-09-07"
     },
     {
-      "symbol": "CUPCAKE",
-      "name": "Cupcake",
-      "logo": "/logos/dex/0x0Ae4CAB4.jpg",
-      "address": "0x0Ae4CAB49B6F048F9C589a522620BeBfC4edEdC6",
-      "chain": "robinhood",
-      "change6h": 12.5,
-      "price": 0.02006,
-      "date": "2026-09-06"
+      "symbol": "ULCAT",
+      "name": "Useless Cat",
+      "logo": "/logos/dex/Y8kyGRvobq.jpg",
+      "address": "Y8kyGRvobqkptmXPH2PLepA9cgYm7tsdeGuikRrpump",
+      "chain": "solana",
+      "change6h": 92.5,
+      "price": 0.0001345,
+      "date": "2026-09-07"
     },
     {
-      "symbol": "ORBIT",
-      "name": "EnginesCreation",
-      "logo": "/logos/dex/0x62F1F3cf.jpg",
-      "address": "0x62F1F3cf2c72bebdd4bc2C628ed1A03626761e18",
+      "symbol": "MARSCOIN",
+      "name": "MarsCoin",
+      "logo": "/logos/dex/0x56E82e94.jpg",
+      "address": "0x56E82e94B1354C771f5901E4Af7eE4F1b08d4011",
       "chain": "robinhood",
-      "change6h": 9.5,
-      "price": 0.0002556,
-      "date": "2026-09-06"
+      "change6h": 29.3,
+      "price": 9.945e-05,
+      "date": "2026-09-07"
     },
     {
-      "symbol": "SIRIUS",
-      "name": "The Dogestar",
-      "logo": "/logos/dex/0x3b4A0048.jpg",
-      "address": "0x3b4A0048a00787A644932cD648Faa043410C163e",
-      "chain": "robinhood",
-      "change6h": 6.5,
-      "price": 0.003699,
-      "date": "2026-09-06"
+      "symbol": "$HACHI",
+      "name": "Hachiko",
+      "logo": "/logos/dex/x95HN3DWvb.jpg",
+      "address": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
+      "chain": "solana",
+      "change6h": -0.0,
+      "price": 1.629e-09,
+      "date": "2026-09-07"
     }
   ]
 }
