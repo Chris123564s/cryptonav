@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "Nasduck",
-      "name": "Nasduck",
-      "logo": "/logos/dex/0x78fC7E13.jpg",
-      "address": "0x78fC7E13BCCab8a7aedc5b8465C3442d6D7D9d64",
-      "chain": "robinhood",
-      "change6h": 17680.0,
-      "price": 0.01793,
-      "date": "2026-09-07"
-    },
-    {
-      "symbol": "NASDICK",
-      "name": "Nasdick",
-      "logo": "/logos/dex/G64WzsH9xb.jpg",
-      "address": "G64WzsH9xbgWnXwzWAhW7NDBkHiFYcEoexQqY9Kwpump",
+      "symbol": "AGI",
+      "name": "Artificial Giga Inu",
+      "logo": "",
+      "address": "FjhTgMeDgSE2bfo9nHsPtvZanJrDGtVye78a1garpump",
       "chain": "solana",
-      "change6h": 240.0,
-      "price": 0.0002178,
-      "date": "2026-09-07"
+      "change6h": 137.0,
+      "price": 0.001098,
+      "date": "2026-09-08"
     },
     {
-      "symbol": "cyberbeer",
-      "name": "cyberbeer",
-      "logo": "/logos/dex/0xD9746010.jpg",
-      "address": "0xD97460101c3aaD03a0E69E7A82587aA4CF1dACB8",
+      "symbol": "ROBBY",
+      "name": "Robby",
+      "logo": "/logos/dex/0xF28f00d3.jpg",
+      "address": "0xF28f00d39C6aa5fF851978a70B6dD7340891FD5f",
       "chain": "robinhood",
-      "change6h": 234.0,
-      "price": 0.0001727,
-      "date": "2026-09-07"
+      "change6h": 48.9,
+      "price": 0.0002373,
+      "date": "2026-09-08"
     },
     {
-      "symbol": "$OSAI",
-      "name": "Open Secure AI Alliance",
-      "logo": "/logos/dex/0xb5379Df0.jpg",
-      "address": "0xb5379Df00F8DDf88209eae1a69eA37087e83647e",
+      "symbol": "ONLYPUMP",
+      "name": "OnlyPump",
+      "logo": "/logos/dex/8RDq8d3uD9.jpg",
+      "address": "8RDq8d3uD9mD5K75f1dEGyubN6jGArDMZaA8J4MNpump",
+      "chain": "solana",
+      "change6h": 37.1,
+      "price": 0.001209,
+      "date": "2026-09-08"
+    },
+    {
+      "symbol": "BTC",
+      "name": "Buy The Cat",
+      "logo": "/logos/dex/E4Ap4icMLw.jpg",
+      "address": "E4Ap4icMLwKot8rkkTbq5JkS5kZxt5XCE3yfxbzYBjHx",
+      "chain": "solana",
+      "change6h": 32.2,
+      "price": 0.003284,
+      "date": "2026-09-08"
+    },
+    {
+      "symbol": "HENTER",
+      "name": "henter boden laptop",
+      "logo": "/logos/dex/0xDC1bebBE.jpg",
+      "address": "0xDC1bebBE6699242e0fD33E5B8ce2D369e582466a",
       "chain": "robinhood",
-      "change6h": 180.0,
-      "price": 0.0005616,
-      "date": "2026-09-07"
+      "change6h": -2.9,
+      "price": 0.0001269,
+      "date": "2026-09-08"
     },
     {
-      "symbol": "TRONK",
-      "name": "Trump Stock",
-      "logo": "/logos/dex/CTALnV64vd.jpg",
-      "address": "CTALnV64vd1dkMxvtsuBgoYVhzB8tZ1XyRQFNS3ppump",
+      "symbol": "VC",
+      "name": "vc.fun",
+      "logo": "",
+      "address": "DRqXeQA5sKGeksnRTvhTGEwpaqNtHQo8bQqub7pjpump",
       "chain": "solana",
-      "change6h": 135.0,
-      "price": 0.0002328,
-      "date": "2026-09-07"
+      "change6h": -3.9,
+      "price": 0.001948,
+      "date": "2026-09-08"
     },
     {
-      "symbol": "ULCAT",
-      "name": "Useless Cat",
-      "logo": "/logos/dex/Y8kyGRvobq.jpg",
-      "address": "Y8kyGRvobqkptmXPH2PLepA9cgYm7tsdeGuikRrpump",
+      "symbol": "HONTER",
+      "name": "honter boden",
+      "logo": "/logos/dex/uuxWwFL6G9.jpg",
+      "address": "uuxWwFL6G9UjiYRZvWxJrSB18V1oKBgYrmueamREK57",
       "chain": "solana",
-      "change6h": 92.5,
-      "price": 0.0001345,
-      "date": "2026-09-07"
+      "change6h": -4.5,
+      "price": 0.0005565,
+      "date": "2026-09-08"
     },
     {
-      "symbol": "MARSCOIN",
-      "name": "MarsCoin",
-      "logo": "/logos/dex/0x56E82e94.jpg",
-      "address": "0x56E82e94B1354C771f5901E4Af7eE4F1b08d4011",
+      "symbol": "IF",
+      "name": "What If",
+      "logo": "",
+      "address": "0x232CDFc415D10b673845D83Dc02ba2eaBe7e30d1",
       "chain": "robinhood",
-      "change6h": 29.3,
-      "price": 9.945e-05,
-      "date": "2026-09-07"
-    },
-    {
-      "symbol": "$HACHI",
-      "name": "Hachiko",
-      "logo": "/logos/dex/x95HN3DWvb.jpg",
-      "address": "x95HN3DWvbfCBtTjGm587z8suK3ec6cwQwgZNLbWKyp",
-      "chain": "solana",
-      "change6h": -0.0,
-      "price": 1.629e-09,
-      "date": "2026-09-07"
+      "change6h": -14.3,
+      "price": 0.01083,
+      "date": "2026-09-08"
     }
   ]
 }
