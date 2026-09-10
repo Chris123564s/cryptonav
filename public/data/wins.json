@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "RECEIPT",
-      "name": "RECEIPT",
-      "logo": "/logos/dex/0xb97D9e5A.jpg",
-      "address": "0xb97D9e5Ad6244d27588Fe0A624A8C78E512934eE",
-      "chain": "robinhood",
-      "change6h": 628.0,
-      "price": 0.003426,
-      "date": "2026-09-09"
-    },
-    {
-      "symbol": "STONKSZN",
-      "name": "Stonk Season",
+      "symbol": "CARELESS",
+      "name": "CARELESS COIN",
       "logo": "",
-      "address": "HQSXsxD2BhpA8v21TwTjv6Tbkr8yYH3B8RkGS1Bspump",
+      "address": "GTUVAyrC5obw8X9gMygt4PeHop4UYCDzMVAYdnhQpump",
       "chain": "solana",
-      "change6h": 351.0,
-      "price": 0.0005305,
-      "date": "2026-09-09"
+      "change6h": 193.0,
+      "price": 0.0001269,
+      "date": "2026-09-10"
     },
     {
-      "symbol": "MEMELESS",
-      "name": "memes are useless",
-      "logo": "/logos/dex/3hyoQKfyQy.jpg",
-      "address": "3hyoQKfyQyg1HpxFkvqn5q1Sqt7LqmihF7c4UNBdpump",
+      "symbol": "SIH",
+      "name": "Stonks In Hood",
+      "logo": "/logos/dex/0x4d1A96b7.jpg",
+      "address": "0x4d1A96b7f567b0672a407683Fa6e8eCc448402DC",
+      "chain": "robinhood",
+      "change6h": 101.0,
+      "price": 0.0003244,
+      "date": "2026-09-10"
+    },
+    {
+      "symbol": "DESKTOP",
+      "name": "DESKTOP",
+      "logo": "/logos/dex/0xB2000000.jpg",
+      "address": "0xB200000000000000000000212Fb77f4B42c77E01",
+      "chain": "base",
+      "change6h": 71.8,
+      "price": 4.765e-05,
+      "date": "2026-09-10"
+    },
+    {
+      "symbol": "BAG",
+      "name": "Sir Bag",
+      "logo": "/logos/dex/0x792ff192.jpg",
+      "address": "0x792ff19204EF6C756b4D8Efe2441D050F5eCe818",
+      "chain": "robinhood",
+      "change6h": 38.7,
+      "price": 0.0007975,
+      "date": "2026-09-10"
+    },
+    {
+      "symbol": "ROBINHOOD",
+      "name": "Robinhood",
+      "logo": "/logos/dex/0x008Df4b3.jpg",
+      "address": "0x008Df4b3E857D06c4603Aeb11F267ccD32ce2005",
+      "chain": "robinhood",
+      "change6h": 19.2,
+      "price": 0.001901,
+      "date": "2026-09-10"
+    },
+    {
+      "symbol": "MM",
+      "name": "Meme Man",
+      "logo": "/logos/dex/zzjkh1hLbv.png",
+      "address": "zzjkh1hLbvsFJXWLfE6h4JNbcnRj4eteuKRw42PN2tC",
       "chain": "solana",
-      "change6h": 336.0,
-      "price": 0.000283,
-      "date": "2026-09-09"
+      "change6h": 4.5,
+      "price": 9.61e-05,
+      "date": "2026-09-10"
     },
     {
-      "symbol": "Jacob",
-      "name": "Be like Jacob",
-      "logo": "/logos/dex/0xaEE120c5.jpg",
-      "address": "0xaEE120c50a0A212b071D71483aea4B4a8e9179F3",
-      "chain": "robinhood",
-      "change6h": 202.0,
-      "price": 0.0001967,
-      "date": "2026-09-09"
+      "symbol": "CRACKTOP",
+      "name": "Cracktop",
+      "logo": "/logos/dex/DtXZNK8Fpf.jpg",
+      "address": "DtXZNK8FpfoX68UPFpRk7SuqFDDLXh59QjcM1ESfpump",
+      "chain": "solana",
+      "change6h": -0.3,
+      "price": 0.0001163,
+      "date": "2026-09-10"
     },
     {
-      "symbol": "ASHIBA",
-      "name": "Artificial Shiba",
-      "logo": "/logos/dex/0x25cd2901.jpg",
-      "address": "0x25cd2901B6d16cB33185E7667F984dbc35BcF354",
-      "chain": "robinhood",
-      "change6h": 86.4,
-      "price": 0.0005465,
-      "date": "2026-09-09"
-    },
-    {
-      "symbol": "StockPad",
-      "name": "StockPad",
+      "symbol": "PUPSY",
+      "name": "PUPSY",
       "logo": "",
-      "address": "uKGvgmqwwRbtMVu4WmwDNYGuXnYdfScNZ8FUVvXpump",
+      "address": "9efYkCp6XK1wMTBpbeQZeMvTAoZ3fYzfaqRxyN5ipump",
       "chain": "solana",
-      "change6h": 83.9,
-      "price": 9.984e-05,
-      "date": "2026-09-09"
-    },
-    {
-      "symbol": "CHUMP",
-      "name": "Chump Coin",
-      "logo": "",
-      "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
-      "chain": "robinhood",
-      "change6h": 0.8,
-      "price": 0.03689,
-      "date": "2026-09-09"
-    },
-    {
-      "symbol": "MAD",
-      "name": "MAD",
-      "logo": "/logos/dex/0xB818ddFA.jpg",
-      "address": "0xB818ddFA44aAd2157B0F7058AEbcb52D4733d4c4",
-      "chain": "robinhood",
-      "change6h": -0.2,
-      "price": 5.157e-05,
-      "date": "2026-09-09"
+      "change6h": -0.9,
+      "price": 0.0001001,
+      "date": "2026-09-10"
     }
   ]
 }
