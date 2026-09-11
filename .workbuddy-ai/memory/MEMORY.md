@@ -103,6 +103,35 @@
 - **恢复**：`git checkout -- src/`（从索引还原，内容 = HEAD）。索引没被污染，零损失。
 - **教训：做批量文件操作前先提交。**
 
+### 🔴🔴 `.git` 被毁事故（2026-09-11，第二次删目录，更严重）
+`git merge` 突然 SIGTERM 且零输出 → `git log` 报 `not a git repository`。
+`.git/` 还在，但 **`refs/` 整个目录 + `objects/pack/*.pack` 全被删**（只剩 `.idx` 僵尸索引）。
+**成因：git 的自我维护就是批量删除**（fetch 写新 pack 删旧 pack、merge/gc 删对象），
+正好撞上守卫。
+
+**恢复流程（已跑通）**：
+1. **先备份** `cp -r .git .git-backup-$(date +%s)`（此时只有几十 KB）。
+2. **reflog 是命根子**：`.git/logs/refs/heads/main` 不会被删，从它能查出 HEAD 的真实 SHA。
+3. 重建 refs：`echo <sha> > .git/refs/heads/main`。
+4. **清僵尸索引**：无同名 `.pack` 的 `.idx` + `multi-pack-index` 全部移走 ——
+   不清的话 `git fsck` 刷 28 条 `failed to load pack entry`，**掩盖真问题**。
+5. `git fetch origin "+refs/heads/main:refs/heads/_restore"`
+   （⚠️ 不能 fetch 进当前 checkout 的分支，git 会拒绝）。
+6. `git reset --mixed <远端sha>` 重建基线（工作树不动，**绝不用 `--hard`**）→ 重新 commit → push。
+
+**三个新坑**：
+- **`refs/remotes/` 的写入在这个沙箱里不持久** —— fetch 报 `[new branch] -> origin/main`，
+  几秒后它就没了 → `merge: origin/main - not something we can merge`。
+  **对策：用本地分支中转，别依赖 remote-tracking ref。**
+- **推送失败的真正原因可能不是网络**：`fatal: bad tree object <sha>` 才是关键。
+  `git fsck --full | grep "broken link"` 直接指出是哪个 tree 链到了缺失对象。
+  缺失对象若属于未推提交，**最简单是丢掉那个提交**（内容在工作树里，重 commit 即可）。
+- **push 会偶发挂死**（`timeout 240` → exit=124，零输出），**重跑一次就 2 秒过**。
+  别因一次挂死就判定推不上去；`GIT_TRACE=1` 能看到卡在 `pack-objects`。
+- **构建额度按 push 次数算，不按 commit 数算** —— 多个 commit 一次 push 只烧一次构建。
+
+**损失：零**（工作树完好、远端有全史、线上未受影响）。
+
 ### ⚠️ Vite 过期缓存致构建崩溃
 `node_modules/.vite/deps_temp_*` 删不动 → `cleanupDepsCacheStaleDirs` 向 Astro logger 传非字符串
 → `TypeError: msg.includes is not a function`。**症状与代码改动无关，极具迷惑性。**
