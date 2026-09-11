@@ -197,8 +197,11 @@ git -c credential.helper= -c credential.helper=manager \
 `printf 'protocol=https\nhost=github.com\n\n' | git -c credential.helper= -c credential.helper=manager credential fill`
 
 - ⚠️ **代理端口每次开机都变**（10265 → 29966 → 35372 → 10809），**先扫端口**。
-- **推之前先 `fetch` + `merge`**（数据工作流每几小时推一次，直接推会被 `fetch first` 拒掉）。
-  **用 merge，永不用 rebase。**
+- ⚠️ **`.git/refs/remotes/` 写入不持久** → `fetch` 看似成功（打印 `[new branch] main -> origin/main`），
+  但 `git branch -r` 为空、`git merge origin/main` 报 **"not something we can merge"**。
+  **别以为远端有问题**，改用本地分支中转：
+  `git fetch origin main:refs/heads/_remote_main` → `git merge _remote_main` → 用完 `git branch -D _remote_main`。
+- **推之前先拉一次**（数据工作流每几小时推一次，直接推会被 `fetch first` 拒掉）。**用 merge，永不用 rebase。**
 - ⚠️ **别再说"我推不了、请给 PAT"** —— 过期结论。
 
 ---
