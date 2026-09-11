@@ -60,9 +60,8 @@
 2. **`dist/sitemap-0.xml` 本地永远生不出来** → **读 `dist/sitemap-*.xml` 的测试在本地都不可信**
    （CI 干净 runner 仍严格）。
 3. **本地 `dist/` 不清空**，旧产物一直堆 → `grep -r ... dist/` 会读到上批旧文件，把"旧文案还在"
-   误判成改动没生效。**正确做法**：先取 HTML 实际引用的资源名再只查这些
-   （`grep -rho 'hoisted\.[A-Za-z0-9_]*\.js' dist --include=*.html | sort -u`）。
-   CSS 按页面分包（`grep -l 'ad-card' dist/_astro/*.css` 定位）；`dist/**/*.html` **不匹配嵌套目录**。
+   误判成改动没生效。**正确做法**：先取 HTML 实际引用的资源名再只查这些。
+   CSS 按页面分包；`dist/**/*.html` **不匹配嵌套目录**（用 `--include=*.html`）。
 4. **手动部署会把死文件传上去** —— 真要 `wrangler pages deploy` 先换干净目录。
 5. **`git` 的自我维护本身就是批量删除**（fetch 换 pack、merge/gc 删对象）→ 撞守卫 → **`.git` 被毁**。
 
@@ -117,9 +116,8 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
   被当噪音忽略 → 淹没真问题。
 - 脚本用 **`process.exitCode`，禁用 `process.exit()`**（后者撞 undici keep-alive 句柄，
   Node 24/Windows 退出码被污染成 127，成功失败都是）。每个 job **先跑自己的契约测试**。
-- ⚠️ **6 个跨域名重定向都不要改**（理由在 `scripts/known-redirects.json`）：Curve/1inch/dYdX/
-  Phantom/Arkham 改了会让 longevity 跳到 24-35 年，**制造 blur 式评分污染**；
-  **Magic Eden 的 `.io → .us/?gr` 是地理分流，必须保留 .io**。
+- ⚠️ **6 个跨域名重定向都不要改**（Curve/1inch/dYdX/Phantom/Arkham/Magic Eden，理由在
+  `scripts/known-redirects.json`）：改了会**制造 blur 式评分污染**；**Magic Eden 必须保留 .io**（地理分流）。
 
 ---
 
@@ -186,10 +184,22 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 
 ---
 
-## ✅ 推送不需要 PAT（2026-09-11 纠正）
-`git push` 直接能通（凭据已由 git-credential-manager 存好）。
-`git -c http.proxy=http://127.0.0.1:$PORT -c https.proxy=http://127.0.0.1:$PORT push origin main`
-- ⚠️ **代理端口每次开机都变**（见过 10265 → 29966 → 35372 → 10809），**先扫端口**。
+## ✅ 推送不需要 PAT，但必须绕过 helper-selector（2026-09-11）
+凭据由 git-credential-manager 存好，**不需要 PAT**。但 `push` 会**偶发挂死**（零输出、无报错）。
+`GIT_TRACE=1` 显示卡在 **`git-credential-helper-sel`** —— PortableGit 的**系统级**
+`credential.helper=helper-selector` 垫片。**不是网络，也不是 pack-objects**（旧归因是错的）。
+**修法：显式重置 helper 列表，只留 GCM**（重置后几秒就过）：
+
+```bash
+git -c credential.helper= -c credential.helper=manager \
+    -c http.proxy=http://127.0.0.1:$PORT -c https.proxy=http://127.0.0.1:$PORT \
+    push origin main
+```
+
+诊断一行（应**立刻**返回；卡住就是垫片的问题）：
+`printf 'protocol=https\nhost=github.com\n\n' | git -c credential.helper= -c credential.helper=manager credential fill`
+
+- ⚠️ **代理端口每次开机都变**（10265 → 29966 → 35372 → 10809），**先扫端口**。
 - **推之前先 `fetch` + `merge`**（数据工作流每几小时推一次，直接推会被 `fetch first` 拒掉）。
   **用 merge，永不用 rebase。**
 - ⚠️ **别再说"我推不了、请给 PAT"** —— 那是过期结论。
@@ -197,26 +207,17 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 ---
 
 ## 📊 SEO / 内容审计（2026-09-11）
-**完整报告与全部实测数字在 `CryptoNav-SEO审计-2026-09-11.md`**；复现：`node scripts/audit-content.mjs`。
+**全部实测数字在 `CryptoNav-SEO审计-2026-09-11.md`**；复现：`node scripts/audit-content.mjs`。
 110 个真实内容页（剔除 `/embed/*` 与 `/admin/`）。**结论：技术上干净，但结构上无法积累权重。**
 
-1. **商业页最薄**（投入与商业价值倒挂）：`/category/*` 中位 **371** 词（最薄 290）vs `/learn/*` **1378**。
-2. **第一方经验信号为 0**：`/category/*` 0/10、`/compare/*` 0/6、`/chain/*` 0/10、`/learn/*` 0/9
-   （唯一命中的 `/verify/*` 63/64 是功能 UI 模板句，不是内容）。YMYL 站点上这是最可行动的单项。
+1. **商业页最薄**：`/category/*` 中位 **371** 词（最薄 290）vs `/learn/*` **1378** —— 投入与商业价值倒挂。
+2. **第一方经验信号 = 0**：`/category/*` 0/10、`/compare/*` 0/6、`/chain/*` 0/10、`/learn/*` 0/9
+   （`/verify/*` 63/64 是功能 UI 模板句，不是内容）。YMYL 站点上这是最可行动的单项。
 3. **正文内链被导航淹没**：每页固定 **72** 条 chrome 内链；`/compare/binance-vs-coinbase` 正文仅 **2** 条
    （**97%** 是导航）→ 内链图扁平，商业页是死胡同。
-4. **`/chain/ton/` 是彻底孤儿页**（全站 0 入链），根因是**同一个 `slice(0, 8)` 写在两处**：
-   `Header.astro:5`（sui/ton 无导航入链）**和** `chain/[slug].astro:21`
-   （`filter(id!==self).slice(0,8)` 使 ton 不在任何页面列表里；sui 靠前 8 条链页的
-   "Explore Other Chains" 拿到 8 条入链）。**`chains.json` 有 10 条，尾部两项必然不可达。2 行可修。**
+4. **`/chain/ton/` 是彻底孤儿页**（全站 0 入链）。根因：**同一个 `slice(0, 8)` 写在两处** ——
+   `Header.astro:5`（sui/ton 无导航入链）与 `chain/[slug].astro:21`（`filter(id!==self).slice(0,8)`
+   使 ton 不在任何页面列表里）。**`chains.json` 有 10 条，尾部必然不可达。2 行可修。**
 
-⚠️ **报中位数前先确认分母**：我第一版把 64 个 `/embed/*` 徽章（17 词/2KB）算进去，
-得出"内容/标记比中位 8.9"和"66 个零入链页"两个**错误结论**。徽章是 noindex iframe，
-**本来就不该被链接**。`scripts/audit-content.mjs` 现在把 `/embed/*` 与 `/admin/` 作为显式常量排除。
-其余：链页 **328KB / 1372 词**（标签 295KB、正文 33KB，97 个 img 带 `width=` 的 **0** 个）·
-robots.txt 通配组出现 **2** 次、`Amazonbot` 一个 Disallow 一个 Allow。
-
-⚠️ **HTML 恒 `cf-cache-status: DYNAMIC` 不是 bug，也不建议修**：`_routes.json` 已把 Functions 限制在
-`/api/*`，请求**没进 compute**，只是没走边缘 HTML 缓存（CF 默认不缓存 HTML）。想变 `HIT` 要加
-Cache Rule，代价是按 `s-maxage=86400` 缓存 24h，而本站数据 **6 小时**刷新 → **会发布过期数据**。
-
+⚠️ **报中位数前先确认分母**：我第一版把 64 个 `/embed/*` 徽章（17 词/2KB）算进去，得出
+"内容/标记比中位 8.9""66 个零入链页"两个**错误结论**。徽章是 noindex iframe，本来就不该被链接。
