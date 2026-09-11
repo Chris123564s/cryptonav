@@ -27,11 +27,45 @@ export async function onRequestPost(context) {
     return new Response(JSON.stringify({ error: 'Invalid JSON body' }), { status: 400, headers });
   }
 
-  // Validate required fields
+  // ---- input hardening ------------------------------------------------------
+  // Everything here lands in a file that gets committed to the repo, and that
+  // commit triggers a production build. So a junk submission does not just cost
+  // a bad row: it costs one of the 500 builds/month the Pages free plan allows.
+  // Bounding the input is not rate limiting -- it just caps how much damage one
+  // request can do.
+  const MAX = { name: 80, website: 200, category: 40, logo: 200, description: 600, social: 100 };
+  // Control characters are stripped, not rejected: a newline in `name` would
+  // otherwise be interpolated straight into the commit message below.
+  const str = (v, max) =>
+    typeof v === 'string' ? v.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max) : '';
+
   const { name, website, category } = data;
-  if (!name || !website || !category) {
+  const cleanName = str(name, MAX.name);
+  const cleanWebsite = str(website, MAX.website);
+  const cleanCategory = str(category, MAX.category);
+
+  if (!cleanName || !cleanWebsite || !cleanCategory) {
     return new Response(
       JSON.stringify({ error: 'Missing required fields: name, website, category' }),
+      { status: 400, headers }
+    );
+  }
+
+  // http(s) only. Anything else -- "javascript:alert(1)" being the one that
+  // matters -- would be stored verbatim and turn into a clickable link the
+  // moment the entry is approved.
+  let parsedWebsite;
+  try {
+    parsedWebsite = new URL(cleanWebsite);
+  } catch {
+    return new Response(
+      JSON.stringify({ error: 'website must be a valid URL' }),
+      { status: 400, headers }
+    );
+  }
+  if (parsedWebsite.protocol !== 'http:' && parsedWebsite.protocol !== 'https:') {
+    return new Response(
+      JSON.stringify({ error: 'website must start with http:// or https://' }),
       { status: 400, headers }
     );
   }
@@ -90,20 +124,25 @@ export async function onRequestPost(context) {
 
     // 2. Build new project entry
     const now = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-    const slugName = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');    const newProject = {
+    const slugName = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+    const newProject = {
       id: slugName,
-      name: name,
-      logo: data.logo || '',
-      category: category,
+      name: cleanName,
+      logo: str(data.logo, MAX.logo),
+      category: cleanCategory,
       tags: [],
-      description: data.description || '',
-      website: website,
-      chains: Array.isArray(data.chains) ? data.chains : [],
+      description: str(data.description, MAX.description),
+      website: cleanWebsite,
+      chains: (Array.isArray(data.chains) ? data.chains : [])
+        .filter((c) => typeof c === 'string')
+        .slice(0, 10)
+        .map((c) => c.trim().slice(0, 40)),
       social: {
-        twitter: data.twitter || '',
-        telegram: data.telegram || '',
-        discord: data.discord || '',
-        github: data.github || '',
+        twitter: str(data.twitter, MAX.social),
+        telegram: str(data.telegram, MAX.social),
+        discord: str(data.discord, MAX.social),
+        github: str(data.github, MAX.social),
       },
       metrics: {},
       verified: false,
@@ -123,7 +162,7 @@ export async function onRequestPost(context) {
 
     // Check for duplicate (by website or name)
     const exists = content.projects.some(
-      p => p.website === website || p.id === slugName
+      p => p.website === cleanWebsite || p.id === slugName
     );
     if (exists) {
       return new Response(
@@ -143,7 +182,7 @@ export async function onRequestPost(context) {
         method: 'PUT',
         headers: ghHeaders,
         body: JSON.stringify({
-          message: `feat: add pending project "${name}" via community submit`,
+          message: `feat: add pending project "${cleanName}" via community submit`,
           content: encoded,
           sha: sha,
           branch: 'main',
