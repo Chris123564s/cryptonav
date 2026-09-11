@@ -7,13 +7,13 @@
     "contract": 25
   },
   "counts": {
-    "projects": 64,
+    "projects": 63,
     "withDomainAge": 62,
     "withFirstSeen": 0,
     "withIncidents": 22,
     "withContract": 10,
     "rated": 62,
-    "unrated": 2
+    "unrated": 1
   },
   "sources": {
     "domainAge": "RDAP (IANA bootstrap + registry endpoints)",
@@ -14090,40 +14090,6 @@
       "verifiedChecks": 2,
       "totalChecks": 3,
       "unratedReason": null
-    },
-    "t": {
-      "name": "t",
-      "category": "exchanges",
-      "domain": "t.co",
-      "website": "https://t.co",
-      "domainRegisteredAt": null,
-      "domainRegistrar": null,
-      "firstSeenAt": null,
-      "operatingSince": null,
-      "ageYears": null,
-      "ageConfidence": "unknown",
-      "ageNote": null,
-      "incidents": [],
-      "incidentCount": 0,
-      "incidentTotalUsd": 0,
-      "token": null,
-      "contractFlags": [],
-      "dimensions": {
-        "longevity": null,
-        "incidents": {
-          "score": 35,
-          "max": 35,
-          "weight": 40,
-          "penalty": 0
-        },
-        "contract": null
-      },
-      "score": null,
-      "grade": "unrated",
-      "coverage": 40,
-      "verifiedChecks": 1,
-      "totalChecks": 3,
-      "unratedReason": "only 1 of 3 checks produced data"
     }
   }
 }

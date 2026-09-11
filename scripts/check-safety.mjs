@@ -131,7 +131,33 @@ ok(Array.isArray(report.warnings), 'warnings array is present');
 ok(Object.keys(report.rejectedMatches).length > 0, 'rejected matches are documented');
 
 /* --- the report must not silently regress --- */
-ok(report.counts.rated + report.counts.unrated === projects.length, 'rated + unrated equals project count');
+// The usual cause of a failure here is an orphan: the report was generated while
+// a project existed that has since been removed (or a project was added and the
+// report has not been refreshed yet). Name the offenders, so nobody has to diff
+// two JSON files by hand to find out which one it is.
+// Compare the key sets rather than trusting counts. The generator keeps counts in
+// sync with whatever it just wrote, so a counts check can only ever catch drift
+// between the report and projects.json -- which is the same thing, but stated one
+// step further away from the truth. Key sets say it directly, in both directions.
+{
+  const reportIds = Object.keys(report.projects || {});
+  const projectIds = projects.map((p) => p.id);
+  const orphaned = reportIds.filter((id) => !projectIds.includes(id));
+  const missing = projectIds.filter((id) => !reportIds.includes(id));
+
+  ok(
+    orphaned.length === 0 && missing.length === 0,
+    'the report covers exactly the current projects' +
+      ` (report=${reportIds.length}, projects=${projectIds.length}` +
+      (orphaned.length ? `; orphaned in report: ${orphaned.join(', ')}` : '') +
+      (missing.length ? `; missing from report: ${missing.join(', ')}` : '') +
+      ')'
+  );
+  ok(
+    report.counts.rated + report.counts.unrated === projectIds.length,
+    `rated + unrated equals project count (${report.counts.rated + report.counts.unrated} vs ${projectIds.length})`
+  );
+}
 ok(report.counts.withDomainAge >= Math.floor(projects.length * 0.8),
   `domain age covers at least 80% of projects (got ${report.counts.withDomainAge}/${projects.length})`);
 ok(report.counts.rated >= Math.floor(projects.length * 0.8),
