@@ -22,6 +22,13 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const report = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/safety.json'), 'utf8'));
 const projects = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/projects.json'), 'utf8')).projects;
 
+// Only ACTIVE projects are required to have a safety record, because only they
+// get a /verify page -- see getStaticPaths in src/pages/verify/[slug].astro.
+// POST /api/submit appends 'pending' entries that legitimately have no record
+// until the report is refreshed, and those must not fail this check. Anything
+// asserted below about "every project" therefore means "every active project".
+const activeProjects = projects.filter((p) => p.status === 'active');
+
 let pass = 0;
 const fails = [];
 function ok(cond, label) {
@@ -33,8 +40,8 @@ const P = report.projects;
 const all = Object.entries(P);
 
 /* --- coverage against the directory --- */
-for (const p of projects) {
-  ok(P[p.id], `every directory project has a safety record: ${p.id}`);
+for (const p of activeProjects) {
+  ok(P[p.id], `every active directory project has a safety record: ${p.id}`);
   if (P[p.id]) {
     ok(P[p.id].name === p.name, `name matches directory: ${p.id}`);
     ok(P[p.id].domain === new URL(p.website).hostname.replace(/^www\./, '').split('.').slice(-2).join('.'),
@@ -141,27 +148,48 @@ ok(Object.keys(report.rejectedMatches).length > 0, 'rejected matches are documen
 // step further away from the truth. Key sets say it directly, in both directions.
 {
   const reportIds = Object.keys(report.projects || {});
-  const projectIds = projects.map((p) => p.id);
+  const projectIds = activeProjects.map((p) => p.id);
   const orphaned = reportIds.filter((id) => !projectIds.includes(id));
   const missing = projectIds.filter((id) => !reportIds.includes(id));
 
   ok(
     orphaned.length === 0 && missing.length === 0,
-    'the report covers exactly the current projects' +
-      ` (report=${reportIds.length}, projects=${projectIds.length}` +
+    'the report covers exactly the active projects' +
+      ` (report=${reportIds.length}, active=${projectIds.length}` +
       (orphaned.length ? `; orphaned in report: ${orphaned.join(', ')}` : '') +
       (missing.length ? `; missing from report: ${missing.join(', ')}` : '') +
       ')'
   );
   ok(
     report.counts.rated + report.counts.unrated === projectIds.length,
-    `rated + unrated equals project count (${report.counts.rated + report.counts.unrated} vs ${projectIds.length})`
+    `rated + unrated equals active project count (${report.counts.rated + report.counts.unrated} vs ${projectIds.length})`
   );
 }
-ok(report.counts.withDomainAge >= Math.floor(projects.length * 0.8),
-  `domain age covers at least 80% of projects (got ${report.counts.withDomainAge}/${projects.length})`);
-ok(report.counts.rated >= Math.floor(projects.length * 0.8),
-  `at least 80% of projects are rated (got ${report.counts.rated}/${projects.length})`);
+ok(report.counts.withDomainAge >= Math.floor(activeProjects.length * 0.8),
+  `domain age covers at least 80% of active projects (got ${report.counts.withDomainAge}/${activeProjects.length})`);
+ok(report.counts.rated >= Math.floor(activeProjects.length * 0.8),
+  `at least 80% of active projects are rated (got ${report.counts.rated}/${activeProjects.length})`);
+
+/* --- an unreviewed submission must never be able to break the build --- */
+// /api/submit is public and unauthenticated, and it appends a project with no
+// safety record. Both of these pages used to map the raw `projects` array, so
+// that one submission made getStaticPaths emit an id with no record and the
+// throw below it fail the whole build -- on every push afterwards, until the
+// report was refreshed. It happened on 2026-09-06.
+//
+// A comment asking people not to do that is not a guard, so read the source and
+// assert it: getStaticPaths in these two files must not touch the raw array.
+for (const rel of ['src/pages/verify/[slug].astro', 'src/pages/embed/[slug].astro']) {
+  const src = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+  const start = src.indexOf('getStaticPaths');
+  const end = src.indexOf('interface Props');
+  const block = start >= 0 && end > start ? src.slice(start, end) : '';
+  ok(
+    block.includes('getActiveProjects()') && !/\bprojects\s*\.\s*map\b/.test(block),
+    `${rel}: getStaticPaths must build pages from getActiveProjects(), not the raw projects array` +
+      ' — otherwise one anonymous /api/submit can fail every future build'
+  );
+}
 
 /*
  * A score that cannot tell two projects apart is not measuring anything. When

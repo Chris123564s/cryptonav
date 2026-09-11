@@ -10,10 +10,14 @@
  * It is deliberately dependency-free and renders in ~1KB: a badge nobody
  * embeds because it is heavy is worth nothing.
  */
-import { projects, getSafety, gradeColor } from '../../utils/data';
+import { projects, getActiveProjects, getSafety, gradeColor } from '../../utils/data';
 
 export function getStaticPaths() {
-  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+  // Active only, for the same reason as src/pages/verify/[slug].astro: pending
+  // community submissions must not reach a page that assumes a safety record.
+  // There is also a content reason -- an unreviewed submission should not get a
+  // badge on our domain carrying our name.
+  return getActiveProjects().map((project) => ({ params: { slug: project.id }, props: { project } }));
 }
 
 interface Props {

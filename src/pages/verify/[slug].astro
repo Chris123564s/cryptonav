@@ -2,13 +2,27 @@
 import Layout from '../../layouts/Layout.astro';
 import SafetyBadge from '../../components/SafetyBadge.astro';
 import AdBanner from '../../components/AdBanner.astro';
-import { projects, getSafety, getReferralUrl, formatUsd, gradeColor, getSubCategoryById, safety } from '../../utils/data';
+import { projects, getActiveProjects, getSafety, getReferralUrl, formatUsd, gradeColor, getSubCategoryById, safety } from '../../utils/data';
 import { article, faqPage, type Crumb } from '../../utils/schema';
 import { fitTitle, fitDescription } from '../../utils/seo';
 import type { SafetyProject } from '../../types';
 
 export function getStaticPaths() {
-  return projects.map((project) => ({
+  // Only ACTIVE projects get a page, and that is load-bearing.
+  //
+  // This used to map over every project in projects.json. POST /api/submit is
+  // public and unauthenticated, and it appends an entry with status 'pending',
+  // for which no safety record exists yet because the report is rebuilt on a
+  // schedule. The guard below would then throw -- and since the bad entry stays
+  // in projects.json, EVERY subsequent build failed too. One anonymous request
+  // froze all deploys until the next safety refresh, and could re-freeze them
+  // at will. That is exactly what happened on 2026-09-06.
+  //
+  // Filtering to active closes it: submissions are always written as
+  // 'pending', so they can never reach this loop. The guard below stays fatal
+  // on purpose -- an active project missing its record is a real mistake that
+  // is worth failing the build over.
+  return getActiveProjects().map((project) => ({
     params: { slug: project.id },
     props: { project },
   }));
