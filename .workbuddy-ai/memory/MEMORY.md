@@ -197,6 +197,39 @@
 - `/api/subscribe` 后端**保留未删**（Supabase 建表 SQL 也还在 `supabase/`），
   重新上线只要 revert + 填三个环境变量 + 重新部署。
 
+## 🔥 部署额度：500 次构建/月，已用掉约一半（2026-09-11 实测）
+
+Cloudflare Pages **免费版 = 500 次构建/月**（已联网核实）。`deploy-pages.yml` 是
+**push 到 main 就构建**，所以"main 上的提交数 ≈ 构建数"。实测 **过去 30 天 236 次提交 = 47%**：
+
+| 来源 | 次数/30 天 |
+|---|---|
+| **我（author=CryptoNav）** | **141** ← 最大头，占 60% |
+| github-actions[bot]（数据刷新） | 93 |
+| 用户本人 | 2 |
+
+- ⚠️ **我的提交粒度是主要消耗源**（一次会话拆成 5-6 个 commit，还有专门的 memory/docs commit）。
+  **改进：同一轮工作合并成更少的提交，别每个小步骤推一次。**
+- 数据工作流其实很克制 —— 它们**有变化才推**（`if git diff --cached --quiet; then ... else push`），
+  所以 93 次低于理论值（理论 244/月）。
+- ⚠️ **若 Pages 的 Git 集成仍连着，每次 push 会构建两次 → 实际已用 ~94%**，
+  逼近上限。**这就是"断开 Git 集成"必须尽快做的原因**（`Workers & Pages > cryptonav >
+  Settings > Builds & Deployments > Disconnect`）。
+- **风险**：`/api/submit` 每次提交都会 commit → 触发一次构建。**匿名访客可以拿它烧你的构建额度**：
+  剩余额度被烧完，**包括数据刷新在内的所有部署都会失败**，站点停止更新直到下月重置。
+
+## `/api/submit` 安全加固（2026-09-11，含 33 个单元测试）
+
+`scripts/test-submit.mjs`（`npm run test:submit`，已接入 `npm test`）。加固内容：
+- **所有字段加长度上限**（name 80 / website 200 / description 600 / chains ≤10 等）——
+  单次请求无法再把数据文件撑爆。
+- **website 必须是 http(s)**：`javascript:alert(1)` 会被原样存下来，
+  一旦条目被批准渲染成 `<a href>` 就是可点击的 XSS。已拦。
+- **控制字符剥离**：`name` 里的换行会原样插进 commit message（已修）。
+- ✅ **原本的字段白名单是好的**：访客**无法**设置 `status/sponsored/verified/featured/riskLevel/source`
+  —— 这些是服务端写死的。**已有测试锁死这条**（`caller cannot set status` 等 6 条）。
+- 顺手修了第 93 行两条语句挤在同一行的编辑残留。
+
 ## 统计代码（2026-09-11）
 
 站上现在**两套并存**，隐私姿态完全不同，别混为一谈：
