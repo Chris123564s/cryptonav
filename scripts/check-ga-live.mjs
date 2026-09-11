@@ -12,6 +12,13 @@
 // net::ERR_SSL_PROTOCOL_ERROR -> 0 collect requests -> the tag silently does nothing.
 // A healthy run shows: gtagJsRequests>=1, collectRequests>=1, and both _ga cookies.
 //
+// READ `verdict` FIRST. A proxy can block the GA domains while still allowing the
+// rest of Google, which makes a perfectly good tag look broken. The control probe
+// (fonts.googleapis.com vs googletagmanager.com) detects that and says INCONCLUSIVE
+// instead of letting you report a false failure. Verified 2026-09-11: this machine's
+// proxy returns 200 for fonts.googleapis.com and 000 for both GA domains, so no
+// run from here can confirm or deny the tag.
+//
 // Chrome path is Windows-specific; adjust CHROME when running elsewhere.
 import { spawn } from 'node:child_process';
 import { mkdtempSync } from 'node:fs';
@@ -127,7 +134,53 @@ try {
     return r?.result?.value;
   };
 
+  // Control probe. A "0 collect requests" result has two very different causes and
+  // the raw numbers cannot tell them apart:
+  //   (a) the tag is broken, or
+  //   (b) this machine's network blocks Google's tracking domains.
+  // Case (b) is common on proxied/corporate networks and produces a false alarm that
+  // reads exactly like a real failure. fonts.googleapis.com is the control: it is a
+  // Google domain that such rules usually leave alone, so fonts=200 + gtm/ga!=200
+  // means the block is a local rule, not a site problem.
+  const curlCode = (url) =>
+    new Promise((resolve) => {
+      const args = ['-s', '-o', '/dev/null', '--max-time', '15', '-w', '%{http_code}'];
+      if (process.env.GA_PROBE_PROXY) args.push('-x', process.env.GA_PROBE_PROXY);
+      args.push(url);
+      const p = spawn('curl', args, { stdio: ['ignore', 'pipe', 'ignore'] });
+      let out = '';
+      p.stdout.on('data', (d) => (out += d));
+      p.on('close', () => resolve(out.trim() || '000'));
+    });
+
+  const network = {
+    control_fonts_googleapis: await curlCode('https://fonts.googleapis.com/css2?family=Inter'),
+    googletagmanager: await curlCode('https://www.googletagmanager.com/gtag/js?id=G-MD66BHJN9Y'),
+    google_analytics_collect: await curlCode(
+      'https://www.google-analytics.com/g/collect?v=2&tid=G-MD66BHJN9Y'
+    ),
+  };
+
+  let verdict;
+  if (hits.collect.length >= 1) {
+    verdict = 'TAG WORKS — gtag.js loaded and the /g/collect beacon fired.';
+  } else if (network.control_fonts_googleapis === '200' && network.googletagmanager !== '200') {
+    verdict =
+      'INCONCLUSIVE — this machine BLOCKS googletagmanager.com (control fonts.googleapis.com ' +
+      'is reachable, so there is internet; the GA domains are blocked by a local proxy/firewall ' +
+      'rule). The 0 collect requests below are an artifact of this network, NOT evidence that ' +
+      'the tag is broken. Re-run from an unblocked network.';
+  } else if (network.control_fonts_googleapis !== '200') {
+    verdict = 'INCONCLUSIVE — no working outbound path at all (proxy down or offline).';
+  } else {
+    verdict =
+      'TAG PRESENT BUT DID NOT FIRE — the network reaches Google, yet no /g/collect beacon was ' +
+      'sent. This one is real; inspect the console and the snippet.';
+  }
+
   const report = {
+    verdict,
+    networkControl: network,
     target: TARGET,
     gtagJsRequests: hits.gtagJs.length,
     collectRequests: hits.collect.length,

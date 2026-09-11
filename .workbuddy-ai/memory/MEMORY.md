@@ -43,15 +43,13 @@
 - **RULE**：promo 的 `projectId` **必须是 affiliates.json 的 key**，否则 `getReferralUrl()` 无码可拼、
   只渲染他人官网，**永远不赚钱且页面上看不出区别**。
 - ⚠️ **判断"有没有码"要看 `code` 的值，不能只看 key 在不在**：8 家全是 key，只有 2 家 `code` 非空。
-- 统计用 `scripts/check-ad-slots.mjs`，口径是 `data-ad-id=` / `data-promo-project=`。
-  ⚠️ 按"官网 URL 出现次数"统计会**被项目卡片链接污染**（曾虚高到 27/28）。- 视觉：渐变**不用 Tailwind 类**，用行内 CSS 变量 `--ad-1 / --ad-2 / --ad-glow`（配色表在
-  `AdBanner.astro`）。**改 `.ad-container` / `.ad-label` 必须用更高特异性** —— 它们在
-  `@layer components`（**Tailwind 的处理层，不是原生 cascade layer**），覆盖**不能靠加载顺序**。
+- 统计用 `scripts/check-ad-slots.mjs`（口径 `data-ad-id=`/`data-promo-project=`）；按"官网 URL 出现
+  次数"统计会**被项目卡片链接污染**（曾虚高到 27/28）。
+- 视觉：渐变用行内 CSS 变量 `--ad-1 / --ad-2 / --ad-glow`（配色表在 `AdBanner.astro`）。
+  **改 `.ad-container` / `.ad-label` 必须用更高特异性** —— 它们在 `@layer components`
+  （**Tailwind 的处理层，不是原生 cascade layer**），覆盖**不能靠加载顺序**。
 - 现状：129 处渲染，**95/129 已能赚（74%）**，剩余 34 处全卡在 6 个联盟码上。
-  ad-006（Bybit, home-banner）`endAt: 2026-10-04`，到期回落到 promo（正是 bybit，有码），**不会掉成不赚钱的位子**。
-
----
-
+  ad-006（Bybit）`endAt: 2026-10-04`，到期回落到 promo（正是 bybit，有码），**不会掉成不赚钱的位子**。
 ## ⚠️ 沙箱 safe-delete 守卫：一个根因，五个后果
 阈值 **50 个文件**、`scope:"turn"`。触发后**该轮内一切删除都失败**（`rm`、`rm -rf`、
 换 `--outDir` 建新目录都一样）。**`mv` 不算删除，可正常用。**
@@ -60,10 +58,9 @@
 2. **`dist/sitemap-0.xml` 本地永远生不出来** → **读 `dist/sitemap-*.xml` 的测试在本地都不可信**
    （CI 干净 runner 仍严格）。
 3. **本地 `dist/` 不清空**，旧产物一直堆 → `grep -r ... dist/` 会读到上批旧文件，把"旧文案还在"
-   误判成改动没生效。**正确做法**：先取 HTML 实际引用的资源名再只查这些。
-   CSS 按页面分包；`dist/**/*.html` **不匹配嵌套目录**（用 `--include=*.html`）。
-4. **手动部署会把死文件传上去** —— 真要 `wrangler pages deploy` 先换干净目录。
-5. **`git` 的自我维护本身就是批量删除**（fetch 换 pack、merge/gc 删对象）→ 撞守卫 → **`.git` 被毁**。
+   误判成改动没生效。**先取 HTML 实际引用的资源名再只查这些**（`dist/**/*.html` 不匹配嵌套目录）。
+4. **手动部署会把死文件传上去**（真要 `wrangler pages deploy` 先换干净目录）。
+5. **`git` 的自我维护本身就是批量删除** → 撞守卫 → **`.git` 被毁**。
 
 **不影响线上**（CI 每次干净 runner）。**两次目录消失事故**：① `src/`（60 文件）→ `git checkout -- src/` 恢复；
 ② **`.git/refs/` + `objects/pack/*.pack` 全被删** → 恢复流程已固化为技能
@@ -79,11 +76,7 @@
 ## 实时行情架构
 浏览器组件统一走 `src/utils/coingecko.ts` 的 `cgFetch()`：① 优先 `/api/cg/*`（Pages Function，
 Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访客 IP 直连。
-✅ 压测：14/14 HTTP 200 零 429，`X-CG-Cache` HIT 率 7/8。
-⚠️ **看缓存看 `X-CG-Cache`，不要看 `cf-cache-status`**。回归：`npm run test:cg`。
-
----
-
+⚠️ **看缓存看 `X-CG-Cache`，不要看 `cf-cache-status`**（后者恒 DYNAMIC）。回归：`npm run test:cg`。
 ## 部署与 CI
 - ✅ **保留 Wrangler，push 到 main 自动部署**（`deploy-pages.yml` + `workflow_dispatch`）。
   concurrency 串行排队。故意**不加 `paths-ignore`** —— 过滤会新增"推了却没部署"的静默失败类型。
@@ -111,16 +104,12 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 
 ## 链接健康巡检
 `.github/workflows/check-links.yml`（周二 04:00 UTC，crawl + outbound 合并在一个文件 ——
-推 `.github/workflows/` 需 PAT 的 `workflow` scope）。crawl：110 URL / **0 死链**。outbound：63 个官网。
+推 `.github/workflows/` 需 PAT 的 `workflow` scope）。crawl：110 URL / **0 死链**；outbound：63 个官网。
 - **只有「确认失效」才让 job 变红**。63 个里 18 个会挡数据中心 IP 返 403，算失效就每周报红 →
   被当噪音忽略 → 淹没真问题。
-- 脚本用 **`process.exitCode`，禁用 `process.exit()`**（后者撞 undici keep-alive 句柄，
-  Node 24/Windows 退出码被污染成 127，成功失败都是）。每个 job **先跑自己的契约测试**。
-- ⚠️ **6 个跨域名重定向都不要改**（Curve/1inch/dYdX/Phantom/Arkham/Magic Eden，理由在
-  `scripts/known-redirects.json`）：改了会**制造 blur 式评分污染**；**Magic Eden 必须保留 .io**（地理分流）。
-
----
-
+- 脚本用 **`process.exitCode`，禁用 `process.exit()`**（后者污染 Node/Windows 退出码）。
+- ⚠️ **6 个跨域名重定向都不要改**（理由见 `scripts/known-redirects.json`）：改了会制造 blur 式评分污染；
+  Magic Eden 必须保留 `.io`。
 ## 写入端点 `/api/submit`（BD 入口）
 - 调 GitHub API 把提交**直接写进 `src/data/projects.json`**（`status: 'pending'`）。
   `GITHUB_ISSUE_TOKEN` ✅ 已配置。
@@ -156,22 +145,25 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 ## 统计代码
 两套并存：**GA4 `G-MD66BHJN9Y`**（`Layout.astro` head，`import.meta.env.PROD` 包裹，设 `_ga` cookie）
 + **Cloudflare Web Analytics**（body 末尾，无 cookie）。
-- ⚠️ **改任何一个都要同步 `src/pages/privacy.astro`**（原文"we do not use advertising-tracking
-  cookies"在加了 GA4 后就是假的）。`check-meta.mjs` 断言**非 noindex 页面必须带 GA4 标签**。
+- ⚠️ **改任何一个都要同步 `src/pages/privacy.astro`**；`check-meta.mjs` 断言非 noindex 页必须带 GA4 标签。
+- ⚠️ **合规缺口（未解决）**：GA4 在欧盟属需事先同意，站上**没有同意弹窗**。
+### ⭐ 「GA4 检测不到」：三件独立的事，别混为一谈（2026-09-11）
 
-### ⭐ 「GA4 检测不到」的真相（实测，别再重复排查）
-**代码没问题，标签真的在上报。是"看的人"的网络到不了 Google。**
-- ✅ 端到端实证（`scripts/check-ga-live.mjs`，真实 Chrome 走 CDP）：挂代理时 `gtag.js → 200`、
-  `/g/collect → 204`、`_ga` + `_ga_MD66BHJN9Y` 已种下。❌ 不挂代理：`net::ERR_SSL_PROTOCOL_ERROR`、
-  `collectRequests: 0`、无 `_ga`。
-- ⚠️ **`window.gtag` 和 `dataLayer.length` 证明不了任何事** —— 它们由**我们自己的内联片段**定义，
-  gtag.js 完全没加载也照样是 `function` / 有长度。**只有 `collectRequests` 和 `_ga` cookie 是真信号。**
-- ⚠️ **Chrome 不读 `https_proxy`**，必须 `--proxy-server=` 显式传。**curl 走代理能通 ≠ 浏览器能通。**
-- 验证姿势：用能通 Google 的浏览器看 GA4 **实时报表**（标准报表有 24-48h 延迟）+ DebugView。
-  排查顺序：浏览器插件（uBlock/AdGuard 默认拦 GA）→ 代理分流规则 → 报表延迟 → 数据只从部署后产生。
-
----
-
+- **后台报"未检测到 Google 代码"** → **标签只活了 1~1.5 小时**（11:09 提交、11:16-11:49 上线）。
+  GA4 的检测是**周期性爬虫**，Google 说最多 48h 才更新 → **先等，再用实时报表验证**。
+- **用户自己看不到数据** → 网络到不了 Google（见下）。
+- **标签本身 100% 正确**：在 `<head>`、文档 4.3% 处、抽查 6 个页面族全在、canonical 指向 apex。
+- 🔴 **本机代理主动屏蔽 GA 域名**：`fonts.googleapis.com` → 200，但 `googletagmanager.com` /
+  `google-analytics.com` → **000**。→ **这台机器上跑任何 GA 探针都得不出结论**；
+  `collectRequests: 0` 是本机网络的产物，**不是标签坏了**。
+  **上一轮"挂代理 collect=204"不可复现，已作废。** `check-ga-live.mjs` 已加对照探测，
+  直接输出 `verdict: INCONCLUSIVE`，不再误导。
+- ⚠️ **`window.gtag` / `dataLayer.length` 证明不了任何事**（由我们自己的内联片段定义）。
+  **只有 `collectRequests` 和 `_ga` cookie 是真信号。** Chrome 不读 `https_proxy`，必须 `--proxy-server=`。
+- 🔴 **`www.cryptonav.site` 返回 522**（DNS 有记录但没挂到 Pages）→ 若 GA4 数据流 URL 填的是带 www 的，
+  检测器抓到的就是错误页。**修：CF 后台 Redirect Rule，`www.cryptonav.site/*` → `https://cryptonav.site/$1`（301）。**
+- ⚠️ `cryptonav.pages.dev` 是**别人的中文站**，不是我们的项目。验证姿势：用能通 Google 的浏览器
+  打开站点 → GA4 **实时报表** + DebugView。
 ## CMS / OAuth（Decap）
 `/admin/` 是 **Decap CMS**（`public/admin/`，静态托管不走 Astro 路由），登录 `/api/auth` → `/api/callback`。
 ✅ `GITHUB_CLIENT_SECRET` 已配置。✅ 常驻校验 `npm run test:cms`。
