@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "CARELESS",
-      "name": "CARELESS COIN",
+      "symbol": "SEXFLY",
+      "name": "SEX FLY",
+      "logo": "/logos/dex/0xA0F46f38.jpg",
+      "address": "0xA0F46f3868c7F4F8cb2a2A6C929310Af4a879d90",
+      "chain": "robinhood",
+      "change6h": 1515.0,
+      "price": 0.0006389,
+      "date": "2026-09-11"
+    },
+    {
+      "symbol": "ZFORGE",
+      "name": "ZECFORGE.tech",
+      "logo": "/logos/dex/0x1cA1e4Ff.jpg",
+      "address": "0x1cA1e4Ff0228466656c1fdA40C3a65B700490a2D",
+      "chain": "robinhood",
+      "change6h": 125.0,
+      "price": 0.0001414,
+      "date": "2026-09-11"
+    },
+    {
+      "symbol": "PEPENOM",
+      "name": "PEPE BROCK",
+      "logo": "/logos/dex/EpEfnZxQyi.jpg",
+      "address": "EpEfnZxQyiBXppSKi8sncc8w4corn1UJbF9G91fQpump",
+      "chain": "solana",
+      "change6h": 81.6,
+      "price": 5.847e-05,
+      "date": "2026-09-11"
+    },
+    {
+      "symbol": "DARK",
+      "name": "DarkRoute",
+      "logo": "/logos/dex/0xebB4C5B9.jpg",
+      "address": "0xebB4C5B97E4117e30EC82ce025E6f21dded05436",
+      "chain": "robinhood",
+      "change6h": 63.5,
+      "price": 0.0004788,
+      "date": "2026-09-11"
+    },
+    {
+      "symbol": "牛梦",
+      "name": "牛梦",
+      "logo": "/logos/dex/0xEe22fCE5.jpg",
+      "address": "0xEe22fCE582Dc4120f07e13e42B55Ee75246e7777",
+      "chain": "bsc",
+      "change6h": 19.4,
+      "price": 0.0005157,
+      "date": "2026-09-11"
+    },
+    {
+      "symbol": "LPAD",
+      "name": "Launchpad.meme",
+      "logo": "/logos/dex/0x3C68382e.jpg",
+      "address": "0x3C68382e757193f6DDd12A72DCF0ADF93c961769",
+      "chain": "robinhood",
+      "change6h": 9.6,
+      "price": 0.000397,
+      "date": "2026-09-11"
+    },
+    {
+      "symbol": "CAT",
+      "name": "The Black Cat",
+      "logo": "/logos/dex/2YhZUBBVxo.jpg",
+      "address": "2YhZUBBVxoDAEtXMhkRjHvAHvkDibyxN3ABHQ9Sspump",
+      "chain": "solana",
+      "change6h": -4.5,
+      "price": 4.437e-05,
+      "date": "2026-09-11"
+    },
+    {
+      "symbol": "CHUMP",
+      "name": "Chump Coin",
       "logo": "",
-      "address": "GTUVAyrC5obw8X9gMygt4PeHop4UYCDzMVAYdnhQpump",
-      "chain": "solana",
-      "change6h": 193.0,
-      "price": 0.0001269,
-      "date": "2026-09-10"
-    },
-    {
-      "symbol": "SIH",
-      "name": "Stonks In Hood",
-      "logo": "/logos/dex/0x4d1A96b7.jpg",
-      "address": "0x4d1A96b7f567b0672a407683Fa6e8eCc448402DC",
+      "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
       "chain": "robinhood",
-      "change6h": 101.0,
-      "price": 0.0003244,
-      "date": "2026-09-10"
-    },
-    {
-      "symbol": "DESKTOP",
-      "name": "DESKTOP",
-      "logo": "/logos/dex/0xB2000000.jpg",
-      "address": "0xB200000000000000000000212Fb77f4B42c77E01",
-      "chain": "base",
-      "change6h": 71.8,
-      "price": 4.765e-05,
-      "date": "2026-09-10"
-    },
-    {
-      "symbol": "BAG",
-      "name": "Sir Bag",
-      "logo": "/logos/dex/0x792ff192.jpg",
-      "address": "0x792ff19204EF6C756b4D8Efe2441D050F5eCe818",
-      "chain": "robinhood",
-      "change6h": 38.7,
-      "price": 0.0007975,
-      "date": "2026-09-10"
-    },
-    {
-      "symbol": "ROBINHOOD",
-      "name": "Robinhood",
-      "logo": "/logos/dex/0x008Df4b3.jpg",
-      "address": "0x008Df4b3E857D06c4603Aeb11F267ccD32ce2005",
-      "chain": "robinhood",
-      "change6h": 19.2,
-      "price": 0.001901,
-      "date": "2026-09-10"
-    },
-    {
-      "symbol": "MM",
-      "name": "Meme Man",
-      "logo": "/logos/dex/zzjkh1hLbv.png",
-      "address": "zzjkh1hLbvsFJXWLfE6h4JNbcnRj4eteuKRw42PN2tC",
-      "chain": "solana",
-      "change6h": 4.5,
-      "price": 9.61e-05,
-      "date": "2026-09-10"
-    },
-    {
-      "symbol": "CRACKTOP",
-      "name": "Cracktop",
-      "logo": "/logos/dex/DtXZNK8Fpf.jpg",
-      "address": "DtXZNK8FpfoX68UPFpRk7SuqFDDLXh59QjcM1ESfpump",
-      "chain": "solana",
-      "change6h": -0.3,
-      "price": 0.0001163,
-      "date": "2026-09-10"
-    },
-    {
-      "symbol": "PUPSY",
-      "name": "PUPSY",
-      "logo": "",
-      "address": "9efYkCp6XK1wMTBpbeQZeMvTAoZ3fYzfaqRxyN5ipump",
-      "chain": "solana",
-      "change6h": -0.9,
-      "price": 0.0001001,
-      "date": "2026-09-10"
+      "change6h": -9.3,
+      "price": 0.04434,
+      "date": "2026-09-11"
     }
   ]
 }
