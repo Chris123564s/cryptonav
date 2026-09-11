@@ -23,6 +23,17 @@
 
 ---
 
+## 📁 数据文件：哪些会被机器人覆盖（手改前必看）
+- **安全手改**：`affiliates.json`（联盟码填这里）、`ad-network.json`、`ads.json`、`categories.json`、
+  `chains.json`、`comparisons.json`、`faq.json`、`featured.json`、`learn.json`、
+  `recommended.json`、`ticker.json`。
+- ⚠️ **每几小时被 `refresh-*.yml` 整份重写，手改必丢**：`airdrops.json`、`safety.json`、
+  `chain-tokens.json`、`unlocks.json`、`wins.json`。
+- `projects.json` 无工作流覆盖，但 `/api/submit` 会往里追加 `pending`。
+- **"服务器上没有可改的文件夹"**：CF Pages 只存构建产物；源文件在 GitHub `main`。
+
+---
+
 ## 联盟码写入原则
 - **唯一边界：访客只接触官方域名。** 码的来源不影响访客安全。
 - ✅ **可写**：用户给什么链接，就把 `template` 的**域名换成那个链接的域名**，`code` 填链接里的 ID。
@@ -61,13 +72,13 @@
    （CI 干净 runner 仍严格）。
 3. **本地 `dist/` 不清空** → `grep -r ... dist/` 会读到上批旧文件，把"旧文案还在"误判成改动没生效。
    **先取 HTML 实际引用的资源名再只查这些**（`dist/**/*.html` 不匹配嵌套目录）。
-4. **手动部署会把死文件传上去**（真要 `wrangler pages deploy` 先换干净目录）。
+4. **手动 `wrangler pages deploy` 会把死文件传上去**（真要做先换干净目录）。
 5. **`git` 自我维护本身就是批量删除** → 撞守卫 → **`.git` 被毁**。
 
 **不影响线上**（CI 每次干净 runner）。**两次目录消失事故**：① `src/`（60 文件）→ `git checkout -- src/`；
 ② **`.git/refs/` + `objects/pack/*.pack` 全被删** → 恢复流程已固化为技能 **`recover-destroyed-git-repo`**
-（reflog 是命根子；`refs/remotes/` 写入**不持久**，要用本地分支中转；`git fsck` 刷
-`failed to load pack entry` = 僵尸 `.idx`，先移走）。**教训：做批量文件操作前先提交。**
+（reflog 是命根子；`refs/remotes/` 写入**不持久**；`git fsck` 刷 `failed to load pack entry` =
+僵尸 `.idx`，先移走）。**教训：做批量文件操作前先提交。**
 
 ⚠️ **Vite 过期缓存致构建崩溃**：`node_modules/.vite/deps_temp_*` 删不动 →
 `TypeError: msg.includes is not a function`。**症状与代码改动无关，极具迷惑性。** 修复：`mv` 走。
@@ -104,13 +115,13 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 ---
 
 ## 链接健康巡检
-`.github/workflows/check-links.yml`（周二 04:00 UTC，crawl + outbound 合并在一个文件 ——
-推 `.github/workflows/` 需 PAT 的 `workflow` scope）。crawl：110 URL / **0 死链**；outbound：63 个官网。
+`.github/workflows/check-links.yml`（周二 04:00 UTC，crawl + outbound 合在一个文件 ——
+推 `.github/workflows/` 需 PAT 的 `workflow` scope）。crawl 110 URL / **0 死链**；outbound 63 个官网。
 - **只有「确认失效」才让 job 变红**。63 个里 18 个会挡数据中心 IP 返 403，算失效就每周报红 →
   被当噪音忽略 → 淹没真问题。
 - 脚本用 **`process.exitCode`，禁用 `process.exit()`**（后者污染 Node/Windows 退出码）。
-- ⚠️ **6 个跨域名重定向都不要改**（理由见 `scripts/known-redirects.json`）：改了会制造 blur 式评分污染；
-  Magic Eden 必须保留 `.io`。
+- ⚠️ **6 个跨域名重定向都不要改**（理由见 `scripts/known-redirects.json`）：改了会制造 blur 式评分
+  污染；Magic Eden 必须保留 `.io`。
 
 ---
 
@@ -138,7 +149,7 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 
 ## 🔕 Newsletter 已整块下线（用户拍板）
 订阅框、页脚链接、`/newsletter`、`SubscribeForm`、advertise 页 Sponsor 位全移除。
-**恢复：`git revert` 那两个提交**；`/api/subscribe` 后端保留，Supabase SQL 在 `supabase/`。
+**恢复：`git revert` 那两个提交**；`/api/subscribe` 后端保留，SQL 在 `supabase/`。
 ⚠️ 若重启用：列名与 payload **逐字一致** `{email, source, subscribedAt, site}`（`subscribedAt`
 **必须带双引号建列**），**重复邮箱不能返回 409** —— 两条都是 `subscribe.js` 把**上游 400 当成功**
 逼出来的，违反任一条就**静默丢数据**。
@@ -173,10 +184,10 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 ## CMS / OAuth（Decap）
 `/admin/` 是 **Decap CMS**（`public/admin/`，静态托管不走 Astro 路由），`/api/auth` → `/api/callback`。
 ✅ `GITHUB_CLIENT_SECRET` 已配置。✅ 常驻校验 `npm run test:cms`。
-- ⚠️ **Decap 保存时整份重写 JSON：未在 `config.yml` 声明的字段被静默丢弃**（曾抹掉 4 个 metrics）。
-  **改 config.yml 前先对照真实 JSON 字段。**
+- ⚠️ **Decap 保存时整份重写 JSON：未在 `config.yml` 声明的字段被静默丢弃**（曾抹掉 4 个 metrics）
+  → **改 config.yml 前先对照真实 JSON 字段**。
 - ⚠️ 校验脚本的坑：**file collection 的根字段只是包裹层**，名字**不属于** item 字段路径
-  （算成 `projects.name` 会让 64 个字段全误报）。**根字段有嵌套时，子字段用空前缀递归。**
+  （算成 `projects.name` 会让 64 个字段全误报）→ **根字段有嵌套时，子字段用空前缀递归**。
 - ⚠️ 三个隐患（**我没擅自改**，改错会弄挂 CMS）：`state` **从不校验**（无 CSRF）、
   `postMessage` **无 origin 白名单**、`client_id` 有**硬编码兜底**。
 
@@ -211,12 +222,11 @@ git -c credential.helper= -c credential.helper=manager \
 110 个真实内容页（剔除 `/embed/*` 与 `/admin/`）。**结论：技术上干净，但结构上无法积累权重。**
 1. **商业页最薄**：`/category/*` 中位 **371** 词（最薄 290）vs `/learn/*` **1378** —— 投入与商业价值倒挂。
 2. **第一方经验信号 = 0**：`/category/*` 0/10、`/compare/*` 0/6、`/chain/*` 0/10、`/learn/*` 0/9
-   （`/verify/*` 63/64 是功能 UI 模板句，不是内容）。YMYL 站点上这是最可行动的单项。
+   （`/verify/*` 63/64 是功能 UI 模板句，不算内容）。YMYL 站点上这是最可行动的单项。
 3. **正文内链被导航淹没**：每页固定 **72** 条 chrome 内链；`/compare/binance-vs-coinbase` 正文仅 **2** 条
    （**97%** 是导航）→ 内链图扁平，商业页是死胡同。
 4. **`/chain/ton/` 是彻底孤儿页**（全站 0 入链）。根因：**同一个 `slice(0, 8)` 写在两处** ——
-   `Header.astro:5` 与 `chain/[slug].astro:21`（`filter(id!==self).slice(0,8)`）。
-   **`chains.json` 有 10 条，尾部必然不可达。2 行可修。**
+   `Header.astro:5` 与 `chain/[slug].astro:21`。**`chains.json` 有 10 条，尾部必然不可达。2 行可修。**
 
-⚠️ **报中位数前先确认分母**：我第一版把 64 个 `/embed/*` 徽章（17 词/2KB）算进去，得出
+⚠️ **报中位数前先确认分母**：第一版把 64 个 `/embed/*` 徽章（17 词/2KB）算进去，得出
 "内容/标记比中位 8.9""66 个零入链页"两个**错误结论**。徽章是 noindex iframe，本就不该被链接。
