@@ -4,22 +4,21 @@
 仓库 `Chris123564s/cryptonav`（main）。工作目录 `C:\Users\a\WorkBuddy AI\2026-08-27-10-59-43`。
 
 ## 联系邮箱
-- 全站唯一对外邮箱 `contact@cryptonav.site`（腾讯企业邮）。例外：`SubscribeForm.astro`
-  的 `placeholder="you@example.com"` **故意保留**（改了 = 预填站长邮箱的怪 UI）。
+- 全站唯一对外邮箱 `contact@cryptonav.site`（腾讯企业邮）。
 - ⚠️ 该域开了 catch-all → SMTP RCPT 探测**完全不可信**（不存在地址也 250）。
 - ⚠️ 缺 SPF/DMARC，用 contact@ 外发进垃圾箱。需用户在 CF 后台手动加
   `v=spf1 include:spf.mail.qq.com ~all`（现有 token 无 DNS 权限）。
 - **验证线上邮箱必须解码，不能 grep**：CF Email Obfuscation 把邮箱加密成
-  `/cdn-cgi/l/email-protection#<hex>`，HTML 无明文 → grep 新旧地址都返回 0，
-  极易误判"部署没生效"。解码器 `scripts/check-cf-email.py`（`--expect`，exit 0/1，可挂 CI）。
+  `/cdn-cgi/l/email-protection#<hex>`，HTML 无明文 → grep 新旧地址都返回 0，极易误判
+  "部署没生效"。解码器 `scripts/check-cf-email.py`（`--expect`，exit 0/1，可挂 CI）。
 
 ## 联盟码写入原则
 - **唯一边界：访客只接触官方域名。** 码的来源不影响访客安全。
 - ✅ **可写**：用户给什么链接，就把 `template` 的**域名换成那个链接的域名**，`code` 填链接里的 ID。
 - ❌ **不写**：来源不明、用户无法确认归属的野鸡域名（`bsmkweb.cc` 等）。
-- ⚠️ **"域名必须官方" ≠ "必须是主域"**。曾把 bybit 联盟短链 `partner.bybit.com/b/166214`
-  卡在"模板不兼容"上反复验证，被用户 **"不要去参考模板了，以我的为准"** 点破：
-  `template` 只是拼接壳子，域名由用户给的链接决定。**别家长式拦阻** —— 剩余风险只涉返佣归属。
+- ⚠️ **"域名必须官方" ≠ "必须是主域"**。曾把 bybit 短链 `partner.bybit.com/b/166214` 卡在
+  "模板不兼容"上反复验证，被用户 **"不要去参考模板了，以我的为准"** 点破：`template` 只是
+  拼接壳子，域名由用户给的链接决定。**别家长式拦阻** —— 剩余风险只涉返佣归属。
 - 现状：binance `GRO_28502_B2R17` ✅、bybit `166214` ✅（已上线）；
   **okx / coinbase / kraken / gate-io / bitget / mexc 6 家待填（发完整链接即可）**。
 
@@ -39,11 +38,11 @@
 - 渐变**不用 Tailwind 类**，改三个 CSS 变量 `--ad-1 / --ad-2 / --ad-glow` 写在行内 style
   （需要两端色 + 第三个更亮高光色，只有 CSS 能一次带全）。配色表在 `AdBanner.astro`。
 - 层次：基础渐变 + 两个模糊光斑 + 网格纹理(mask 渐隐) + 内描边 + 暗角。
-  宽 banner 在 md+ 左右分栏，sidebar / inline 居中堆叠。**描述在 <640px 隐藏**（装不下会拦腰截断）。
+  宽 banner 在 md+ 左右分栏，sidebar / inline 居中堆叠。**描述在 <640px 隐藏**。
 - **直投与 promo 已合并为一条渲染路径**（原本两段重复代码，正是"CTA 只有 promo 有"的成因）。
 - **改 `.ad-container` / `.ad-label` 必须用更高特异性**：它们在 `@layer components` ——
   那是 **Tailwind 的处理层，不是原生 cascade layer**，覆盖**不能靠加载顺序**。
-  示例：`.ad-label.ad-label--on-media`（Astro 编译成 `.ad-label[data-astro-cid-x].ad-label--on-media`
+  示例：`.ad-label.ad-label--on-media`（编译成 `.ad-label[data-astro-cid-x].ad-label--on-media`
   = 0,3,0）＞ 全局 `.ad-label`（0,1,0）。
 - **同页槽位不要用同一个 gradient**（首页曾有 3 个都是金色，上下相邻像同一条广告重复）。
 
@@ -60,55 +59,54 @@
 | ad-006 Bybit（home-banner） | 84 | ✅ 有佣金 |
 | promo binance（sidebar-top） | 11 | ✅ 有佣金 |
 | promo okx/gate-io/kraken/bitget/coinbase/mexc | 34 | ⏳ **只等 6 个码** |
+
 - **95/129 已能赚（74%），剩余 34 处全部卡在 6 个联盟码上** —— 填码即变现，无需改代码。
-- **ad-006（Bybit，home-banner）设了 `endAt: 2026-10-04`（这个日期是我猜的，待用户确认）**。
-  到期后 home-banner 会回落到 promo —— 而 home-banner 的 promo 正是 **bybit（有码）**，
-  所以**到期不会掉成不赚钱的位子**，只是换成另一套 bybit 素材。
 - ⚠️ **判断"有没有码"要看 `code` 的值，不能只看 key 在不在 affiliates.json**：
-  8 家**全都是 key**，但只有 binance / bybit 的 `code` 非空 ——
-  6 家（okx / coinbase / kraken / gate-io / bitget / mexc）是**空字符串**。
+  8 家**全都是 key**，但只有 binance / bybit 的 `code` 非空 —— 6 家是**空字符串**。
+- **ad-006（Bybit，home-banner）设了 `endAt: 2026-10-04`（我猜的日期，待用户确认）**。到期后
+  home-banner 回落到 promo —— 而它的 promo 正是 **bybit（有码）**，所以**不会掉成不赚钱的位子**。
 - 同日停用 ad-002~005（Ledger/Uniswap/CoinGecko/OpenSea 官网直投，24 处白送流量，
   且**优先级高于 promo，等于占着会赚钱的位子**）；5 个 promo 换成联盟表内交易所。
   8 个槽位现在 1:1 对应 8 家交易所。
 
-## ⚠️ 本地构建到不了 astro:build:done（2026-09-06，比"dist 不清空"更严重）
+## ⚠️ 沙箱 safe-delete 守卫：一个根因，四个后果（2026-09-06）
 
-同一个 safe-delete 守卫（本轮删除计数到 50 就拦），**Astro 在 `cleanServerOutput`
-（`static-build.js:320`，清 `dist/pages/*.mjs`）被抛异常中断** → 结果：
+守卫阈值 **50 个文件**、`scope:"turn"`。触发后**该轮内一切删除都失败**（`rm`、`rm -rf`、
+换 `--outDir` 建新目录都一样 —— 它删的是自己刚生成的 `pages/*.mjs`）。**`mv` 不算删除，可正常用。**
+后果：
 
-- `npm run build` 的 **exit=1 是假失败**（页面其实都生成了，用 `grep -E "Complete"` 确认）。
-- ⚠️ **`dist/sitemap-0.xml` 永远生不出来** —— sitemap 是在更后面的 `astro:build:done`
-  钩子写的，**根本跑不到**。dist 里那份是守卫还没触发时留下的（曾误导我一次：
-  页面已删 `/newsletter`，sitemap 里却还有，测试因此报红）。
-  → 任何读 `dist/sitemap-*.xml` 的测试在本地都不可信。`check-faq-newsletter.mjs`
-  已改成"文件缺失就 SKIP 并打印原因"，CI（干净 runner）仍然严格。
-- 守卫是 **scope:"turn"**，本轮触发后本轮内一切删除都失败（`rm`、`rm -rf`、
-  换 `--outDir` 建新目录都一样 —— 它删的是自己刚生成的 `pages/*.mjs`）。
-  **`mv` 不算删除，可以正常用**（曾靠 `mv dist/sitemap-0.xml` 绕过）。
-  真要干净的 dist，得等新的一轮。
-- **不影响线上**：GitHub Actions 每次干净 runner，构建完整、sitemap 正常。
+1. **本地构建到不了 `astro:build:done`**：Astro 在 `cleanServerOutput`
+   （`node_modules/astro/dist/core/build/static-build.js:320`）被抛异常中断 →
+   `npm run build` 的 **exit=1 是假失败**（页面其实都生成了，用 `grep -E "Complete"` 确认）。
+2. **`dist/sitemap-0.xml` 本地永远生不出来** —— sitemap 在更后面的 `astro:build:done` 钩子写，
+   根本跑不到。dist 里那份是守卫未触发时残留的（曾误导我：页面已删 `/newsletter`，sitemap 里还有）。
+   → **任何读 `dist/sitemap-*.xml` 的测试在本地都不可信**。`check-faq-newsletter.mjs` 已改成
+   "文件缺失就 SKIP 并打印原因"，CI（干净 runner）仍然严格。
+3. **本地 `dist/` 不清空**，旧产物一直堆（实测混着三批的 10 个 `hoisted.*.js` + 3 个 `Layout_*.mjs`）
+   → `grep -r ... dist/` 会读到上批旧文件，把"旧文案还在"误判成改动没生效。
+   **正确做法**：先取 HTML 实际引用的资源名再只查这些：
+   ```bash
+   refs=$(grep -rho 'hoisted\.[A-Za-z0-9_]*\.js' dist --include=*.html | sort -u)
+   for h in $refs; do echo "$h 旧=$(grep -c '旧文案' dist/_astro/$h)"; done
+   ```
+   另：CSS 按页面分包，`ls dist/_astro/*.css | head -1` 可能不含目标类，用
+   `grep -l 'ad-card' dist/_astro/*.css` 定位；`dist/**/*.html` 不匹配嵌套目录，用
+   `grep -rho ... dist --include=*.html`。
+4. **手动部署会把死文件传上去** —— 真要 `wrangler pages deploy` 先换干净目录。
+
+**不影响线上**：GitHub Actions 每次干净 runner，构建完整、sitemap 正常。
+**真要干净的 dist，得等新的一轮。**
 
 ### ⚠️ 一次 `src/` 整个消失的事故（2026-09-06）
-`git rm` 删两个文件之后，**整个 `src/`（60 个文件）从工作树消失**（未 staged，
-索引里还在）。原因不明（疑似沙箱对批量删除的连带反应）。
-- **恢复**：`git checkout -- src/`（从索引还原，内容 = HEAD）。索引没被污染，所以零损失。
-- **教训：做批量文件操作前先提交。** 我那次刚好前一步已 commit，只丢了页脚的 3 处未提交编辑。
+`git rm` 删两个文件之后，**整个 `src/`（60 个文件）从工作树消失**（未 staged，索引里还在）。
+原因不明（疑似沙箱对批量删除的连带反应）。
+- **恢复**：`git checkout -- src/`（从索引还原，内容 = HEAD）。索引没被污染，零损失。
+- **教训：做批量文件操作前先提交。**
 
-## ⚠️ 本地 dist 不会被清理（2026-09-06）
-本机 `dist/` 每次构建都不清空，旧产物一直堆积（实测混着三批的 10 个 `hoisted.*.js` +
-3 个 `Layout_*.mjs`）。原因：沙箱 safe-delete 守卫（阈值 50 文件）拦掉了 Astro 的
-`emptyOutDir` —— 也就是 `npm run build` 那个 **exit=1 是假失败**（改用 `grep -E "Complete"` 确认成功）。
-- **后果**：`grep -r ... dist/` 会读到上批旧文件 → 我因此把"旧文案还在"误判成改动没生效。
-- **正确做法**：先取 HTML 实际引用的资源名再只查这些：
-  ```bash
-  refs=$(grep -rho 'hoisted\.[A-Za-z0-9_]*\.js' dist --include=*.html | sort -u)
-  for h in $refs; do echo "$h 旧=$(grep -c '旧文案' dist/_astro/$h)"; done
-  ```
-- **不影响线上**（CI 每次干净 runner）。只有本地手动 `wrangler pages deploy dist`
-  才会把死文件传上去 —— 真要手动部署先换干净目录。
-- 另：CSS 按页面分包，`ls dist/_astro/*.css | head -1` 拿到的可能不含目标类，
-  用 `grep -l 'ad-card' dist/_astro/*.css` 定位；`dist/**/*.html` 不匹配嵌套目录，用
-  `grep -rho ... dist --include=*.html`。
+### ⚠️ Vite 过期缓存致构建崩溃
+`node_modules/.vite/deps_temp_*` 删不动 → `cleanupDepsCacheStaleDirs` 向 Astro logger 传非字符串
+→ `TypeError: msg.includes is not a function`。**症状与代码改动无关，极具迷惑性。**
+修复：`mv` 那个目录到 `_local_stale/`。
 
 ## 实时行情架构
 浏览器组件统一走 `src/utils/coingecko.ts` 的 `cgFetch()`：
@@ -131,11 +129,29 @@
 - `_routes.json` 必须同时有 `include` **和** `exclude` 两个数组（云文档说 exclude 可选，
   Wrangler 源码 `isRoutesJSONSpec()` 要求都是数组）。缺 exclude 曾让所有部署发布阶段被拒一整天；
   Pages 自带构建器只报 `Failed to publish assets`，Wrangler 才直说 `Invalid _routes.json`。
-  常驻校验 `scripts/check-routes-json.mjs`（规则抄自 Wrangler 4.127.1 源码，**注释里写了为什么不能照文档"简化"**）。
+  常驻校验 `scripts/check-routes-json.mjs`（规则抄自 Wrangler 4.127.1 源码，
+  **注释里写了为什么不能照文档"简化"**）。
 - **CI 警告纪律：健康流水线必须零警告。** 无法判断的检查只输出普通日志（`note()`），
   `::warning::` 只留给可行动项。已用 `scripts/test-cloudflare-token.mjs`（12 用例，
   断言**精确警告数**）锁死 —— 反例：account 级 dashboard token 的 `/user/tokens/verify`
   返回空 permission_groups，「有没有 Pages 权限」每次都响，成功部署看着像坏的。
+
+### 🔥 部署额度：500 次构建/月，已用约一半（2026-09-11 实测）
+Cloudflare Pages **免费版 = 500 次构建/月**（已联网核实）。`deploy-pages.yml` 是
+**push 到 main 就构建**，所以"main 上的提交数 ≈ 构建数"。实测 **过去 30 天 236 次 = 47%**：
+
+| 来源 | 次数/30 天 |
+|---|---|
+| **我（author=CryptoNav）** | **141** ← 最大头，占 60% |
+| github-actions[bot]（数据刷新） | 93 |
+| 用户本人 | 2 |
+
+- ⚠️ **我的提交粒度是主要消耗源**（一次会话拆 5-6 个 commit，还有专门的 memory/docs commit）。
+  **改进：同一轮工作合并成更少的提交。**
+- 数据工作流其实很克制 —— **有变化才推**（`if git diff --cached --quiet`），所以 93 < 理论值 244。
+- ⚠️ **若 Pages 的 Git 集成仍连着，每次 push 构建两次 → 实际 ~94%**，逼近上限。
+- **风险**：`/api/submit` 每次提交都 commit → 触发构建。**匿名访客能拿它烧你的额度**，
+  烧完后**包括数据刷新在内的所有部署都失败**，站点停止更新直到下月重置。
 
 ## 链接健康巡检（2026-09-04 上线）
 `.github/workflows/check-links.yml`，周二 04:00 UTC，**crawl + outbound 合并在一个文件**
@@ -166,18 +182,17 @@
 - **Magic Eden 是另一回事**：`?gr` = geo redirect，Actions 跑在美国才每次看到。
   本站面向国际用户，**必须保留 .io**，改成 .us 会把非美访客送进美国实体站点。
 
-## 两个写入端点（都曾把"我们没配好"直接说给访客听）
+## 写入端点 `/api/submit`（BD 入口，比订阅更值钱）
 
 | 端点 | 需要的环境变量 | 现状 |
 |---|---|---|
-| `POST /api/subscribe` | `NEWSLETTER_PROVIDER` / `_ENDPOINT` / `_TOKEN` | 方案已定（Supabase），**变量待用户填** → 线上 503 |
 | `POST /api/submit` | `GITHUB_ISSUE_TOKEN` | ✅ **2026-09-06 实测已配置生效**（此前记成"未配 500"，是错的） |
+| `POST /api/subscribe` | `NEWSLETTER_PROVIDER` / `_ENDPOINT` / `_TOKEN` | 后端保留未删，但**功能已整块下线**（见下节） |
 
-- **`/api/submit` 是 BD 入口**（项目方自荐），比订阅更值钱。它调 GitHub API 把提交
-  **直接写进 `src/data/projects.json`**（`status: 'pending'`）。
-- ⚠️ **探测它有副作用**：真 POST 一次会**在 main 上创建一个提交**（`feat: add pending project "x" via
-  community submit`）并**触发一次部署**，且条目会留在数据里。我 2026-09-06 打探针就留下一条
-  `id:"t"`，已用提交 `6b5ac3c` 删掉。**别把它当无副作用的健康检查。**
+- `/api/submit` 调 GitHub API 把提交**直接写进 `src/data/projects.json`**（`status: 'pending'`）。
+- ⚠️ **探测它有副作用**：真 POST 一次会**在 main 上创建一个提交**并**触发一次部署**，
+  且条目会留在数据里。我 2026-09-06 打探针就留下一条 `id:"t"`，已用提交 `6b5ac3c` 删掉。
+  **别把它当无副作用的健康检查。**
 - ⚠️ **每条提交都会触发部署** → `projects.json` 会累积 pending 条目，需定期清。
 - ✅ **安全**：写入条目是 `status: 'pending'`，`getActiveProjects()` 只取 `status === 'active'`
   → **未审条目不会自动上线**。
@@ -185,6 +200,15 @@
   所以后端文案 = 访客可见文案，要按"给客户看"的标准写。
 - ⚠️ **别用"线上返回什么"去推断变量配没配**：subscribe 返回 503 是**旧文案**（新文案还没部署），
   很容易把"代码没上线"误读成"变量没配"。**先确认部署版本，再判断配置。**
+
+### `/api/submit` 安全加固（2026-09-11，含 33 个单元测试）
+`scripts/test-submit.mjs`（`npm run test:submit`，已接入 `npm test`）。加固内容：
+- **所有字段加长度上限**（name 80 / website 200 / description 600 / chains ≤10 等）。
+- **website 必须是 http(s)**：`javascript:alert(1)` 会被原样存下来，
+  一旦条目被批准渲染成 `<a href>` 就是可点击的 XSS。已拦。
+- **控制字符剥离**：`name` 里的换行会原样插进 commit message（已修）。
+- ✅ **原本的字段白名单是好的**：访客**无法**设置 `status/sponsored/verified/featured/riskLevel/source`
+  —— 服务端写死。**已有测试锁死这条**（`caller cannot set status` 等 6 条）。
 
 ## 🔕 Newsletter 已整块下线（2026-09-06，用户拍板）
 
@@ -194,41 +218,27 @@
 `drop the newsletter sponsor slot and flip the smoke tests`）—— 连测试断言一起回来。
 - `check-faq-newsletter.mjs` 里 newsletter 那半段现在**断言"不存在"**（页面没构建、
   页脚没链接、sitemap 没条目），防止它偷偷回来；revert 时这些行一起回滚。
-- `/api/subscribe` 后端**保留未删**（Supabase 建表 SQL 也还在 `supabase/`），
+- `/api/subscribe` 后端**保留未删**（Supabase 建表 SQL 还在 `supabase/`），
   重新上线只要 revert + 填三个环境变量 + 重新部署。
 
-## 🔥 部署额度：500 次构建/月，已用掉约一半（2026-09-11 实测）
+### Newsletter → Supabase 方案（已备好，未启用）
+选 `generic` provider 直写 Supabase 表，**不接第三方 ESP**（用户已有 Supabase 账号，零月费）。
+建表 SQL：`supabase/newsletter_subscribers.sql`。三个变量：`NEWSLETTER_PROVIDER=generic`、
+`NEWSLETTER_ENDPOINT=https://<proj>.supabase.co/rest/v1/newsletter_subscribers`、
+`NEWSLETTER_TOKEN=anon key`（**绝不能是 service_role**；anon 本来就公开，安全靠 RLS）。
 
-Cloudflare Pages **免费版 = 500 次构建/月**（已联网核实）。`deploy-pages.yml` 是
-**push 到 main 就构建**，所以"main 上的提交数 ≈ 构建数"。实测 **过去 30 天 236 次提交 = 47%**：
-
-| 来源 | 次数/30 天 |
-|---|---|
-| **我（author=CryptoNav）** | **141** ← 最大头，占 60% |
-| github-actions[bot]（数据刷新） | 93 |
-| 用户本人 | 2 |
-
-- ⚠️ **我的提交粒度是主要消耗源**（一次会话拆成 5-6 个 commit，还有专门的 memory/docs commit）。
-  **改进：同一轮工作合并成更少的提交，别每个小步骤推一次。**
-- 数据工作流其实很克制 —— 它们**有变化才推**（`if git diff --cached --quiet; then ... else push`），
-  所以 93 次低于理论值（理论 244/月）。
-- ⚠️ **若 Pages 的 Git 集成仍连着，每次 push 会构建两次 → 实际已用 ~94%**，
-  逼近上限。**这就是"断开 Git 集成"必须尽快做的原因**（`Workers & Pages > cryptonav >
-  Settings > Builds & Deployments > Disconnect`）。
-- **风险**：`/api/submit` 每次提交都会 commit → 触发一次构建。**匿名访客可以拿它烧你的构建额度**：
-  剩余额度被烧完，**包括数据刷新在内的所有部署都会失败**，站点停止更新直到下月重置。
-
-## `/api/submit` 安全加固（2026-09-11，含 33 个单元测试）
-
-`scripts/test-submit.mjs`（`npm run test:submit`，已接入 `npm test`）。加固内容：
-- **所有字段加长度上限**（name 80 / website 200 / description 600 / chains ≤10 等）——
-  单次请求无法再把数据文件撑爆。
-- **website 必须是 http(s)**：`javascript:alert(1)` 会被原样存下来，
-  一旦条目被批准渲染成 `<a href>` 就是可点击的 XSS。已拦。
-- **控制字符剥离**：`name` 里的换行会原样插进 commit message（已修）。
-- ✅ **原本的字段白名单是好的**：访客**无法**设置 `status/sponsored/verified/featured/riskLevel/source`
-  —— 这些是服务端写死的。**已有测试锁死这条**（`caller cannot set status` 等 6 条）。
-- 顺手修了第 93 行两条语句挤在同一行的编辑残留。
+⚠️ **两条硬约束都是 `subscribe.js` 的行为逼出来的**（改 schema 前必读）：
+1. **列名必须与 payload 逐字一致** `{email, source, subscribedAt, site}`。接口把**上游 400 当成功**
+   （本意兼容 Buttondown/Mailchimp 的"已在列表"），而 PostgREST 遇到不存在的列返回 400
+   → **静默失败：访客看到成功，一条没存**。`subscribedAt` **必须带双引号建列**
+   （不加引号 Postgres 折成 `subscribedat`）。
+2. **重复邮箱不能返回 409**（409 不在 ok/400 里 → 抛 "Subscription failed" 给访客，
+   老用户重订反而报错）。SQL 用 **BEFORE INSERT 触发器返回 NULL** 吞掉重复 → 回 201。
+- RLS：只给 anon `for insert` 策略，**无 select 策略 = 读不到**。
+- **不用新建 Supabase project**（免费版只有 3 个，用户已满）：一张表放进现有项目即可。
+  ⚠️ 要挑**有真实流量的那个项目** —— **免费版会把 7 天不活跃的项目自动 Pause**，
+  一暂停订阅接口就 502，而没人会主动发现。
+- 改完环境变量**必须重新部署**才生效（CF 不一定自动触发，去 Deployments 点 Retry）。
 
 ## 统计代码（2026-09-11）
 
@@ -241,35 +251,33 @@ Cloudflare Pages **免费版 = 500 次构建/月**（已联网核实）。`deplo
 
 - ⚠️ **改任何一个都要同步 `src/pages/privacy.astro`**：原文写的是
   "we do not use advertising-tracking cookies or build user profiles"，
-  加了 GA4 后这句话就是假的 —— 已改成如实描述两套 + Google 的 opt-out 插件链接。
+  加了 GA4 后这句话就是假的 —— 已改成如实描述两套 + Google opt-out 插件链接。
 - **只生产构建注入**（`import.meta.env.PROD`）→ `astro dev` 不会污染数据。
 - `check-meta.mjs` 新增断言：**非 noindex 页面必须带 GA4 标签**，
-  已做负向验证（抽掉首页那行 → 440 通过 + 1 失败）。`/embed/*` 与 `/admin` 走豁免，本就没有。
+  已做负向验证（抽掉首页那行 → 440 通过 + 1 失败）。`/embed/*` 与 `/admin` 走豁免。
 - ⚠️ **合规缺口（未解决，需用户决策）**：GA4 在欧盟属于需要**事先同意**的追踪 cookie，
-  而站上**没有同意弹窗**（访问即加载）。要么加一个轻量同意门（`Layout.astro` 里那段
-  就是这个门的落点），要么接受这个风险。**已向用户明说，等其拍板。**
+  而站上**没有同意弹窗**（访问即加载）。要么加轻量同意门（落点就是 `Layout.astro` 那段），
+  要么接受风险。**已向用户明说，等其拍板。**
 
-## Newsletter → Supabase（2026-09-06 定，commit 内含建表 SQL）
+### ⭐ 「GA4 检测不到」的真相（2026-09-11 实测，别再重复排查）
 
-选 `generic` provider 直写 Supabase 表，**不接第三方 ESP**（用户已有 Supabase 账号，零月费）。
-建表 SQL：`supabase/newsletter_subscribers.sql`。三个变量：
-`NEWSLETTER_PROVIDER=generic`、`NEWSLETTER_ENDPOINT=https://<proj>.supabase.co/rest/v1/newsletter_subscribers`、
-`NEWSLETTER_TOKEN=anon key`（**绝不能是 service_role**；anon 本来就是公开的，安全靠 RLS）。
+**结论：代码没问题，标签真的在上报。是"看的人"的网络到不了 Google。**
 
-⚠️ **两条硬约束都是 `subscribe.js` 的行为逼出来的**（改 schema 前必读）：
-1. **列名必须与 payload 逐字一致** `{email, source, subscribedAt, site}`。
-   接口把**上游 400 当成功**（本意是兼容 Buttondown/Mailchimp 的"已在列表"），
-   而 PostgREST 遇到表里没有的列就返回 400 → **静默失败：访客看到成功，一条没存**。
-   `subscribedAt` **必须带双引号建列**（不加引号 Postgres 折成 `subscribedat`）。
-2. **重复邮箱不能返回 409**（409 不在 ok/400 里 → 抛"Subscription failed"给访客，
-   老用户重订反而报错）。SQL 用 **BEFORE INSERT 触发器返回 NULL** 吞掉重复 → 回 201。
-- RLS：只给 anon `for insert` 策略，**无 select 策略 = 读不到**，邮箱列表不会泄露。
-- 后端没配时表单本来就降级成 mailto，所以**不是"功能坏了"，是"话难听 + 收不到地址"**。
-- **不用新建 Supabase project**（免费版只有 3 个）：一张表放进现有项目即可，
-  只是 ENDPOINT 的 ref 换掉。⚠️ 要挑**有真实流量的那个项目** ——
-  **免费版会把 7 天不活跃的项目自动 Pause，一暂停订阅接口就 502**，
-  而没人会主动发现（平时本来也没人订阅）。
-- 改完环境变量**必须重新部署**才生效（CF 不一定自动触发，去 Deployments 点 Retry）。
+- ✅ **端到端实证**（`scripts/check-ga-live.mjs`，驱动真实 Chrome 抓网络）：
+  挂代理时 `gtag.js → 200 application/javascript`、`/g/collect → 204`、
+  cookie `_ga` + `_ga_MD66BHJN9Y` 已种下、事件含 `en=page_view&dl=https://cryptonav.site/`。
+- ❌ **不挂代理时**：`googletagmanager.com` 报 **`net::ERR_SSL_PROTOCOL_ERROR`**（被拦）
+  → `collectRequests: 0`、**无 `_ga` cookie** → 标签静默什么都不做。
+- ⚠️ **`window.gtag` 和 `dataLayer.length` 证明不了任何事** —— 它们由我们**自己的内联片段**
+  定义，gtag.js 就算完全没加载也照样是 `function` / 有长度。**只有 `collectRequests`
+  和 `_ga` cookie 是真信号。**
+- ⚠️ **Chrome 不读 `https_proxy` 环境变量**，必须 `--proxy-server=` 显式传（探针支持
+  `GA_PROBE_PROXY`）。**curl 走代理能通 ≠ 浏览器能通** —— 我一开始就被这个骗了。
+- **验证的正确姿势**：用能通 Google 的浏览器打开站点，看 GA4 **实时报表**（不是标准报表，
+  标准报表有 24-48h 延迟）+ Tag Assistant / DebugView。
+- 排查顺序：① 浏览器插件（uBlock/AdGuard 默认拦 GA）→ ② 代理规则把
+  `google-analytics.com` / `googletagmanager.com` 分流到 REJECT 或 DIRECT →
+  ③ 标准报表延迟 → ④ 数据只从部署成功后开始产生。
 
 ## CMS / OAuth（2026-09-06 盘点环境变量时挖出）
 `https://cryptonav.site/admin/` 是 **Decap CMS**，登录 `/api/auth` → GitHub → `/api/callback`。
@@ -280,33 +288,42 @@ Cloudflare Pages **免费版 = 500 次构建/月**（已联网核实）。`deplo
   与实际 JSON，**"数据里有但没声明"就失败**（那是会被静默删掉的），
   "声明了但数据里没有"只提示（无害）。已接进 `npm test` 链。当前 **6 个 collection 全清**。
   ⚠️ 写这个脚本时踩的坑：**file collection 的根字段只是包裹层**
-  （`fields: [{name:"projects", widget:"list", fields:[id,name,...]}]`），
-  它的名字**不属于** item 的字段路径 —— 一开始把声明路径算成 `projects.name`，
-  导致 64 个字段全部误报。**根字段有嵌套时，子字段用空前缀递归。**
+  （`fields: [{name:"projects", widget:"list", fields:[id,name,...]}]`），它的名字
+  **不属于** item 的字段路径 —— 一开始把声明路径算成 `projects.name`，导致 64 个字段全部误报。
+  **根字段有嵌套时，子字段用空前缀递归。**
 - ⚠️ **Decap 保存时会整份重写 JSON：未在 `config.yml` 声明的字段被静默丢弃。**
   已修（commit 7834718）：metrics 原只声明 `users/volume/tvl`(string)，实际数据是
-  `tvl/volume24h/marketCapRank/twitterFollowers/githubStars`(number) → **保存任一项目会抹掉 4 个指标、
-  塞入无人读的 `users`、并把幸存值改成 string**；且数据 workflow 下次会把数字写回来，极难察觉。
-  另补了 ads 的 `cta` 字段和 slot 下拉缺的 3 个槽位。**改 config.yml 前先对照真实 JSON 字段。**
+  `tvl/volume24h/marketCapRank/twitterFollowers/githubStars`(number) → **保存任一项目会抹掉
+  4 个指标、塞入无人读的 `users`、并把幸存值改成 string**；且数据 workflow 下次会把数字
+  写回来，极难察觉。另补了 ads 的 `cta` 字段和 slot 下拉缺的 3 个槽位。
+  **改 config.yml 前先对照真实 JSON 字段。**
 - ⚠️ 三个隐患（Decap 通用写法，**我没擅自改**，改错会把 CMS 弄挂）：
   1. `state` 在 `auth.js` 生成但 `callback.js` **从不校验** → 无 CSRF 防护。修需 cookie 比对 + 真跑登录。
   2. token 用 `window.opener.postMessage(..., message.origin)` 回传，**无 origin 白名单**。
   3. `client_id` 有**硬编码兜底** → 环境变量拼错时静默退回硬编码值，报看不懂的错。建议删兜底。
 - `/admin/` 与 `/api/` 已进 `robots.txt` 的 `Disallow`（**只是不被索引，不是访问控制**）。
 
-## 待用户动作（阻塞项）
-1. **🔴 推 12 个提交到 main** —— 本机无任何 GitHub 凭据（无 GCM / 无 SSH 私钥 / 无 `_netrc` /
-   无 gh CLI / 无环境变量 token），必须用户提供 PAT。用户已选"给 PAT"但**尚未粘贴**。
-   推送命令（可用代理端口 10809 / 10808，10265 已死）：
-   ```
-   git -c credential.helper= -c http.proxy=http://127.0.0.1:10809 -c https.proxy=http://127.0.0.1:10809 \
-       push https://Chris123564s:<PAT>@github.com/Chris123564s/cryptonav.git main
-   ```
-2. **6 个联盟码**（决定 34 处 promo 变现）—— 发完整链接即可，可与 PAT 一起给。
-3. **Newsletter 三变量** + 配完必须重新部署。
-   （`GITHUB_ISSUE_TOKEN` 不用管了 —— 2026-09-06 实测已配置生效。）
+## ✅ 推送不需要 PAT（2026-09-11 纠正，推翻此前结论）
+
+**`git push` 现在直接能通** —— 凭据已由 git-credential-manager 存好。
+2026-09-06 那次报 `could not read Username` 是**当时的**状态，已失效。
+
+```bash
+export GIT_TERMINAL_PROMPT=0
+git -c http.proxy=http://127.0.0.1:$PORT -c https.proxy=http://127.0.0.1:$PORT push origin main
+```
+- ⚠️ **代理端口每次开机都变**（见过 10265 → 29966 → **35372**），旧记录一律不可信，先扫端口。
+- **推之前先 `fetch` + `merge`**：数据工作流每几小时推一次，直接推会被 `fetch first` 拒掉。
+  **用 merge，永不用 rebase。**
+- ⚠️ **别再说"我推不了、请给 PAT"** —— 那是过期结论。先试一次再说。
+
+## 待用户动作
+1. **断开 CF Pages Git 集成**（否则构建额度 ~94%，逼近 500/月上限）。
+2. **6 个联盟码**（决定 34 处 promo 变现）—— 发完整链接即可。
+3. **`/api/submit` 是否改成建 GitHub Issue** —— 已两次询问未答复（现状：匿名可烧构建额度）。
+4. **GA4 欧盟同意弹窗** —— 已明说，等拍板。
 5. **Bitmedia/Coinzilla 广告位代码**：8 个槽位全空，建议先贴 `article-top` / `article-bottom`。
-6. **SPF/DMARC**（后台手动）。
+6. **SPF/DMARC**（后台手动加 `v=spf1 include:spf.mail.qq.com ~all`）。
 7. Bybit 活动截止日暂设 2026-10-04 待确认；两套 Bybit 链接是否统一
    （卡片 `partner.bybit.com/b/166214` vs 广告 `bybit.com/en/sign-up?affiliate_id=166214`）。
 

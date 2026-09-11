@@ -47,3 +47,10 @@ __pycache__/
 /_local_stale/
 /_build*.log
 /_b.log
+
+# Recovery scaffolding. The sandbox has twice deleted directories out from under
+# git (the whole of src/ once, and .git/refs/ + .git/objects/pack/ another time),
+# so a .git snapshot is kept around after any repair. Never commit these.
+/.git-backup-*/
+/_refs_broken/
+/_restore-scratch/
