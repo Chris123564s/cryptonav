@@ -58,15 +58,33 @@ name: Deploy to Cloudflare Pages (Wrangler)
 # DECISION 2026-08-31: option A. The `push:` trigger below is live, so this
 # workflow now deploys every push to main.
 #
-#   !! ONE REMAINING MANUAL STEP, NOT DONE FROM HERE !!
-#   The Pages Git integration is still connected, so until it is disconnected
-#   in the Cloudflare dashboard every push is built and published TWICE -- once
-#   by Pages and once here. Disconnect it:
-#       Cloudflare dashboard > Workers & Pages > cryptonav
-#       > Settings > Builds & deployments > Disconnect
-#   Publishing the same commit from two places is not harmful but it doubles
-#   the build minutes and, worse, gives two places to look when a deploy looks
-#   wrong. Disconnecting does not delete the project or the custom domain.
+#   !! DO NOT DISCONNECT THE PAGES GIT INTEGRATION (corrected 2026-09-11) !!
+#   This block used to say the opposite: that the Git integration should be
+#   disconnected so each push is built once. That advice was wrong and would
+#   have silently broken every data update.
+#
+#   GitHub does not run workflows for pushes made with the repository's own
+#   GITHUB_TOKEN -- a deliberate anti-recursion rule. All five data-refresh
+#   workflows check out with `token: ${{ secrets.GITHUB_TOKEN }}`, so:
+#
+#     push by a human credential      -> this workflow runs, AND Pages builds
+#     push by github-actions[bot]     -> this workflow does NOT run;
+#                                        Pages' Git integration is the only builder
+#
+#   Measured over the last 12 days (11 of 12 days match): on 9-03 and again
+#   from 9-07 to 9-10 every commit was from the bot and this workflow produced
+#   exactly ZERO runs, while the site kept updating. Disconnecting the Git
+#   integration would therefore stop prices, safety reports, airdrops and
+#   unlocks from ever reaching production -- with no error anywhere.
+#
+#   To make this workflow the single path, first switch the data workflows to a
+#   PAT (fine-grained, contents:write + actions:write). Disconnecting the Git
+#   integration without that change is the silent-failure case.
+#
+#   What is left of the original reasoning still holds: publishing the same
+#   commit from two places is not harmful, it just doubles the build count for
+#   human pushes (~46 extra runs in 30 days) and gives two places to look when
+#   a deploy looks wrong.
 #
 # No `paths-ignore` on purpose. Docs and .workbuddy-ai/** memory notes do not
 # affect the site, so filtering them would save build minutes -- but it also

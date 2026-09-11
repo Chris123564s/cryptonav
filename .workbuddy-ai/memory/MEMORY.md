@@ -153,8 +153,8 @@
   5 个数据 workflow 每天多次 push 到 main 各触发一次部署；concurrency 组串行排队
   （`cancel-in-progress: false`，避免上传中途被砍留半成品）。
   故意**不加 `paths-ignore`**：过滤会新增"推了却没部署"的静默失败类型。规则：push 到 main 就部署。
-- ⚠️ **用户尚未执行**：CF 后台**断开 Pages Git 集成**（否则每次 push 构建两次）。
-  `Workers & Pages > cryptonav > Settings > Builds & deployments > Disconnect`（不会删项目/域名）。
+- 🔴 **用户千万别去断开 Pages Git 集成**（2026-09-11 推翻）—— 那会让数据更新静默停更。
+  详见下文「部署额度与谁来构建」一节。**这条是"以前让他做、现在必须拦住"的反转项。**
 - `_routes.json` 必须同时有 `include` **和** `exclude` 两个数组（云文档说 exclude 可选，
   Wrangler 源码 `isRoutesJSONSpec()` 要求都是数组）。缺 exclude 曾让所有部署发布阶段被拒一整天；
   Pages 自带构建器只报 `Failed to publish assets`，Wrangler 才直说 `Invalid _routes.json`。
@@ -165,22 +165,50 @@
   断言**精确警告数**）锁死 —— 反例：account 级 dashboard token 的 `/user/tokens/verify`
   返回空 permission_groups，「有没有 Pages 权限」每次都响，成功部署看着像坏的。
 
-### 🔥 部署额度：500 次构建/月，已用约一半（2026-09-11 实测）
-Cloudflare Pages **免费版 = 500 次构建/月**（已联网核实）。`deploy-pages.yml` 是
-**push 到 main 就构建**，所以"main 上的提交数 ≈ 构建数"。实测 **过去 30 天 236 次 = 47%**：
+### 🔥 部署额度与「谁来构建」：一条被推翻的结论（2026-09-11 实测）
 
-| 来源 | 次数/30 天 |
-|---|---|
-| **我（author=CryptoNav）** | **141** ← 最大头，占 60% |
-| github-actions[bot]（数据刷新） | 93 |
-| 用户本人 | 2 |
+Cloudflare Pages **免费版 = 500 次构建/月**。但**真实消耗远低于早先的估算** ——
+早先按"main 上的提交数 ≈ 构建数"算成 236/30 天（47%），**那个算法是错的**。
 
-- ⚠️ **我的提交粒度是主要消耗源**（一次会话拆 5-6 个 commit，还有专门的 memory/docs commit）。
-  **改进：同一轮工作合并成更少的提交。**
-- 数据工作流其实很克制 —— **有变化才推**（`if git diff --cached --quiet`），所以 93 < 理论值 244。
-- ⚠️ **若 Pages 的 Git 集成仍连着，每次 push 构建两次 → 实际 ~94%**，逼近上限。
-- **风险**：`/api/submit` 每次提交都 commit → 触发构建。**匿名访客能拿它烧你的额度**，
-  烧完后**包括数据刷新在内的所有部署都失败**，站点停止更新直到下月重置。
+**实测（GitHub Actions API，公开仓库可直接读）：过去 30 天本 workflow 只跑了 46 次 = 9.2%。**
+
+#### ⭐ 关键机制：**`GITHUB_TOKEN` 推送不会触发其他工作流**
+GitHub 的官方设计（防递归）。5 个数据刷新工作流**全部**用
+`token: ${{ secrets.GITHUB_TOKEN }}` 推送，所以：
+
+| 谁推的 | 触发 `deploy-pages.yml`？ | 谁来构建 |
+|---|---|---|
+| 真人凭据（我 / 用户） | ✅ 会 | 本 workflow **＋** CF Git 集成 = **两遍** |
+| `github-actions[bot]`（数据刷新） | ❌ **不会** | **只有 CF Git 集成** |
+
+**证据**（近 12 天逐日比对，11/12 天吻合）：9-03（机器人 7 / 真人 0）→ 部署 0 次；
+**9-07~9-10（机器人 29 / 真人 0）→ 部署 0 次**；9-05/9-06/9-11 有真人推送 → 有部署运行。
+
+#### 🔴 由此推翻的结论：**绝对不要断开 CF Pages 的 Git 集成**
+原结论是"断开 Git 集成，避免构建两遍"。**照做会让所有数据更新静默停止上线** ——
+因为断掉之后，机器人推送既不触发 workflow、又没了 Git 集成，**没有任何东西会构建它**，
+而且**不报错**，站点看着正常、数据一天天变旧（最难发现的一类故障）。
+
+**正确的两条路**：
+- **省事（推荐）**：Git 集成保持不动。想省掉真人推送的两遍构建，就删掉
+  `deploy-pages.yml` 或去掉其 `push:` 触发只留 `workflow_dispatch`。
+- **要 Wrangler 当唯一通道**：先把 5 个数据工作流的 checkout token 换成 PAT
+  （fine-grained，`contents:write` + `actions:write`），**此时才可以**断开 Git 集成。
+
+#### 额度现状（估算）
+CF 侧构建 ≈ 每次 push 一次 ≈ 200~236/30 天（**约 40-47%**），
+加上真人推送被 workflow 重复构建的 46 次 → **合计约 50-56%**。
+**远没有到 94%，"逼近上限"那条结论作废。** 但"合并推送以减少构建"仍是好习惯。
+
+- 数据工作流很克制 —— **有变化才推**（`if git diff --cached --quiet`）。
+- **风险仍在**：`/api/submit` 每次提交都 commit → 触发构建。匿名访客能拿它烧额度。
+
+#### ⚠️ 另一条线索：9-06 那次部署**在 Build 步骤失败**（`86f8ee6`，我探针写的 `t` 条目）
+`ProjectCard.astro` 有 `project.metrics &&` 保护、`pending` 条目也不参与渲染，
+**但我没有复现出失败原因**，也未取到日志（Actions 日志需鉴权）。
+**待查**：`/api/submit` 写入的畸形条目是否能让整站构建挂掉 —— 若成立，
+匿名访客一发请求即可让**后续所有部署永久失败**（坏条目留在 `projects.json` 里，
+CF 会一直用上一个好版本，站点不挂但**彻底停止更新**）。**优先级高于 6 个联盟码。**
 
 ## 链接健康巡检（2026-09-04 上线）
 `.github/workflows/check-links.yml`，周二 04:00 UTC，**crawl + outbound 合并在一个文件**
@@ -347,9 +375,11 @@ git -c http.proxy=http://127.0.0.1:$PORT -c https.proxy=http://127.0.0.1:$PORT p
 - ⚠️ **别再说"我推不了、请给 PAT"** —— 那是过期结论。先试一次再说。
 
 ## 待用户动作
-1. **断开 CF Pages Git 集成**（否则构建额度 ~94%，逼近 500/月上限）。
-2. **6 个联盟码**（决定 34 处 promo 变现）—— 发完整链接即可。
-3. **`/api/submit` 是否改成建 GitHub Issue** —— 已两次询问未答复（现状：匿名可烧构建额度）。
+1. 🔴 **不要断开 CF Pages Git 集成**（原第 1 条待办已作废并反转，理由见上）。
+   想省掉重复构建，就删掉 `deploy-pages.yml` 或去掉其 `push:` 触发 —— 见上文两条路。
+2. **`/api/submit` 写入的畸形条目能否让整站构建挂掉**（9-06 实测失败过一次，未定位）
+   —— 若成立则是"一发请求永久停更"，**优先级最高**，已两次询问未答复。
+3. **6 个联盟码**（决定 34 处 promo 变现）—— 发完整链接即可。
 4. **GA4 欧盟同意弹窗** —— 已明说，等拍板。
 5. **Bitmedia/Coinzilla 广告位代码**：8 个槽位全空，建议先贴 `article-top` / `article-bottom`。
 6. **SPF/DMARC**（后台手动加 `v=spf1 include:spf.mail.qq.com ~all`）。
