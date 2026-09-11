@@ -30,7 +30,8 @@
     "links:outbound": "node scripts/check-outbound-links.mjs",
     "test:outbound": "node scripts/test-outbound-checker.mjs",
     "test:cms": "node scripts/check-cms-fields.mjs",
-    "test:submit": "node scripts/test-submit.mjs"
+    "test:submit": "node scripts/test-submit.mjs",
+    "audit:content": "node scripts/audit-content.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.2.1",
