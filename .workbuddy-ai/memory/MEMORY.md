@@ -197,6 +197,25 @@
 - `/api/subscribe` 后端**保留未删**（Supabase 建表 SQL 也还在 `supabase/`），
   重新上线只要 revert + 填三个环境变量 + 重新部署。
 
+## 统计代码（2026-09-11）
+
+站上现在**两套并存**，隐私姿态完全不同，别混为一谈：
+
+| | 位置 | 特性 |
+|---|---|---|
+| **GA4** `G-MD66BHJN9Y` | `Layout.astro` head，`{import.meta.env.PROD && (...)}` 包裹 | 设 first-party cookie `_ga` / `_ga_*`，客户端 ID 跨访问持久，数据给 Google |
+| **Cloudflare Web Analytics** | `Layout.astro` body 末尾（token 拆三段拼） | 无 cookie、无标识符 |
+
+- ⚠️ **改任何一个都要同步 `src/pages/privacy.astro`**：原文写的是
+  "we do not use advertising-tracking cookies or build user profiles"，
+  加了 GA4 后这句话就是假的 —— 已改成如实描述两套 + Google 的 opt-out 插件链接。
+- **只生产构建注入**（`import.meta.env.PROD`）→ `astro dev` 不会污染数据。
+- `check-meta.mjs` 新增断言：**非 noindex 页面必须带 GA4 标签**，
+  已做负向验证（抽掉首页那行 → 440 通过 + 1 失败）。`/embed/*` 与 `/admin` 走豁免，本就没有。
+- ⚠️ **合规缺口（未解决，需用户决策）**：GA4 在欧盟属于需要**事先同意**的追踪 cookie，
+  而站上**没有同意弹窗**（访问即加载）。要么加一个轻量同意门（`Layout.astro` 里那段
+  就是这个门的落点），要么接受这个风险。**已向用户明说，等其拍板。**
+
 ## Newsletter → Supabase（2026-09-06 定，commit 内含建表 SQL）
 
 选 `generic` provider 直写 Supabase 表，**不接第三方 ESP**（用户已有 Supabase 账号，零月费）。
