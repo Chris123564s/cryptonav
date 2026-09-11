@@ -78,6 +78,7 @@ function readMeta(html) {
     desc: decode(descRaw).trim(),
     hasDescTag: Boolean(tag),
     noindex: /noindex/i.test(robots),
+    hasGa: html.includes('googletagmanager.com/gtag/js?id=G-MD66BHJN9Y'),
   };
 }
 
@@ -113,6 +114,14 @@ for (const p of pages) {
   if (p.title.includes('CryptoNav') && p.route !== '/' && p.title.length > TITLE_MAX) {
     fail(p.route, 'brand suffix pushes an already-long title past the limit — shorten the page-specific part');
   } else ok();
+
+  // Not strictly "meta", but this loop already visits every page and it is the
+  // cheapest place to catch this. Losing the GA4 tag fails silently: the site
+  // keeps working, you just stop seeing traffic, and nobody notices for weeks.
+  // /embed/* and /admin are filtered out above and have no Layout, so no GA.
+  if (p.noindex) ok();
+  else if (p.hasGa) ok();
+  else fail(p.route, 'missing the GA4 tag — Layout.astro is supposed to inject it');
 }
 
 // Duplicate metadata across pages means two pages are competing for the same query.

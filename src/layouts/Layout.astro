@@ -78,6 +78,30 @@ if (schema) ldNodes.push(...(Array.isArray(schema) ? schema : [schema]));
     <!-- Structured data (JSON-LD) -->
     <JsonLd schema={ldNodes} />
 
+    <!-- Google Analytics 4 (gtag.js) -->
+    <!--
+      GA4 sets first-party cookies (_ga, _ga_*) holding a randomly generated
+      client id, and sends them to Google. That is a different privacy posture
+      from the cookieless Cloudflare beacon at the end of <body>, so
+      src/pages/privacy.astro documents both — keep the two in sync.
+
+      PROD-only so local `astro dev` and test builds never report into the
+      property. A static build has no way to gate on the visitor's region; if a
+      consent banner is ever added, this is the block it should control.
+    -->
+    {import.meta.env.PROD && (
+      <>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MD66BHJN9Y"></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-MD66BHJN9Y');
+        </script>
+      </>
+    )}
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
