@@ -1,74 +1,64 @@
 {
   "wins": [
     {
-      "symbol": "SEXFLY",
-      "name": "SEX FLY",
-      "logo": "/logos/dex/0xA0F46f38.jpg",
-      "address": "0xA0F46f3868c7F4F8cb2a2A6C929310Af4a879d90",
+      "symbol": "ANTHROPIG",
+      "name": "Anthropig",
+      "logo": "/logos/dex/0x04d6AAa3.png",
+      "address": "0x04d6AAa3147B9f5b5dB255d3151561c07019BDC6",
       "chain": "robinhood",
-      "change6h": 1515.0,
-      "price": 0.0006389,
-      "date": "2026-09-11"
+      "change6h": 1459.0,
+      "price": 0.006332,
+      "date": "2026-09-12"
     },
     {
-      "symbol": "ZFORGE",
-      "name": "ZECFORGE.tech",
-      "logo": "/logos/dex/0x1cA1e4Ff.jpg",
-      "address": "0x1cA1e4Ff0228466656c1fdA40C3a65B700490a2D",
-      "chain": "robinhood",
-      "change6h": 125.0,
-      "price": 0.0001414,
-      "date": "2026-09-11"
-    },
-    {
-      "symbol": "PEPENOM",
-      "name": "PEPE BROCK",
-      "logo": "/logos/dex/EpEfnZxQyi.jpg",
-      "address": "EpEfnZxQyiBXppSKi8sncc8w4corn1UJbF9G91fQpump",
+      "symbol": "MM",
+      "name": "Meme Man",
+      "logo": "/logos/dex/zzjkh1hLbv.png",
+      "address": "zzjkh1hLbvsFJXWLfE6h4JNbcnRj4eteuKRw42PN2tC",
       "chain": "solana",
-      "change6h": 81.6,
-      "price": 5.847e-05,
-      "date": "2026-09-11"
+      "change6h": 40.1,
+      "price": 0.0009319,
+      "date": "2026-09-12"
     },
     {
-      "symbol": "DARK",
-      "name": "DarkRoute",
-      "logo": "/logos/dex/0xebB4C5B9.jpg",
-      "address": "0xebB4C5B97E4117e30EC82ce025E6f21dded05436",
-      "chain": "robinhood",
-      "change6h": 63.5,
-      "price": 0.0004788,
-      "date": "2026-09-11"
-    },
-    {
-      "symbol": "牛梦",
-      "name": "牛梦",
-      "logo": "/logos/dex/0xEe22fCE5.jpg",
-      "address": "0xEe22fCE582Dc4120f07e13e42B55Ee75246e7777",
-      "chain": "bsc",
-      "change6h": 19.4,
-      "price": 0.0005157,
-      "date": "2026-09-11"
-    },
-    {
-      "symbol": "LPAD",
-      "name": "Launchpad.meme",
-      "logo": "/logos/dex/0x3C68382e.jpg",
-      "address": "0x3C68382e757193f6DDd12A72DCF0ADF93c961769",
-      "chain": "robinhood",
-      "change6h": 9.6,
-      "price": 0.000397,
-      "date": "2026-09-11"
-    },
-    {
-      "symbol": "CAT",
-      "name": "The Black Cat",
-      "logo": "/logos/dex/2YhZUBBVxo.jpg",
-      "address": "2YhZUBBVxoDAEtXMhkRjHvAHvkDibyxN3ABHQ9Sspump",
+      "symbol": "CATAI",
+      "name": "Artificial Cat INU",
+      "logo": "",
+      "address": "BGU4TfDLpV1JeJGXVgSbZkLSRxgAzcsQci1vEbaWJVcm",
       "chain": "solana",
-      "change6h": -4.5,
-      "price": 4.437e-05,
-      "date": "2026-09-11"
+      "change6h": 31.8,
+      "price": 0.000663,
+      "date": "2026-09-12"
+    },
+    {
+      "symbol": "LOOP",
+      "name": "Loop",
+      "logo": "/logos/dex/HunmXDXMNQ.jpg",
+      "address": "HunmXDXMNQYVoDnUL6PNnSYEtFaTZA2WzGh1HJTW7aoV",
+      "chain": "solana",
+      "change6h": 14.7,
+      "price": 0.001836,
+      "date": "2026-09-12"
+    },
+    {
+      "symbol": "SATu",
+      "name": "Satu Wallet Token",
+      "logo": "/logos/dex/EWnSZW86xh.jpg",
+      "address": "EWnSZW86xhJ91nvxPjdZD3g1SqhHj7q8eqY6DEUKpump",
+      "chain": "solana",
+      "change6h": 1.1,
+      "price": 6.954e-05,
+      "date": "2026-09-12"
+    },
+    {
+      "symbol": "Stunk",
+      "name": "Stunk",
+      "logo": "/logos/dex/FLk6FKAN26.jpg",
+      "address": "FLk6FKAN26m1FT4ucguwy3uHBMzLKcEu8KMTYD2Zpump",
+      "chain": "solana",
+      "change6h": 1.0,
+      "price": 0.00199,
+      "date": "2026-09-12"
     },
     {
       "symbol": "CHUMP",
@@ -76,9 +66,19 @@
       "logo": "",
       "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
       "chain": "robinhood",
-      "change6h": -9.3,
-      "price": 0.04434,
-      "date": "2026-09-11"
+      "change6h": -1.8,
+      "price": 0.04226,
+      "date": "2026-09-12"
+    },
+    {
+      "symbol": "PENGUIN",
+      "name": "Nietzschean Penguin",
+      "logo": "/logos/dex/0xe2Ec718D.jpg",
+      "address": "0xe2Ec718DbBB81D0a50bDf0D21342e34162B11415",
+      "chain": "robinhood",
+      "change6h": -2.0,
+      "price": 0.0002303,
+      "date": "2026-09-12"
     }
   ]
 }
