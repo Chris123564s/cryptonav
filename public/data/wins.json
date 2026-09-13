@@ -1,24 +1,14 @@
 {
   "wins": [
     {
-      "symbol": "ANTHROPIG",
-      "name": "Anthropig",
-      "logo": "/logos/dex/0x04d6AAa3.png",
-      "address": "0x04d6AAa3147B9f5b5dB255d3151561c07019BDC6",
+      "symbol": "BLAST",
+      "name": "BLAST",
+      "logo": "/logos/dex/0x724a163f.jpg",
+      "address": "0x724a163f0081fA1771590Dda9b55eDDe2c5B823a",
       "chain": "robinhood",
-      "change6h": 1459.0,
-      "price": 0.006332,
-      "date": "2026-09-12"
-    },
-    {
-      "symbol": "MM",
-      "name": "Meme Man",
-      "logo": "/logos/dex/zzjkh1hLbv.png",
-      "address": "zzjkh1hLbvsFJXWLfE6h4JNbcnRj4eteuKRw42PN2tC",
-      "chain": "solana",
-      "change6h": 40.1,
-      "price": 0.0009319,
-      "date": "2026-09-12"
+      "change6h": 1184.0,
+      "price": 0.0006739,
+      "date": "2026-09-13"
     },
     {
       "symbol": "CATAI",
@@ -26,29 +16,49 @@
       "logo": "",
       "address": "BGU4TfDLpV1JeJGXVgSbZkLSRxgAzcsQci1vEbaWJVcm",
       "chain": "solana",
-      "change6h": 31.8,
-      "price": 0.000663,
-      "date": "2026-09-12"
+      "change6h": 24.8,
+      "price": 0.0001087,
+      "date": "2026-09-13"
     },
     {
-      "symbol": "LOOP",
-      "name": "Loop",
-      "logo": "/logos/dex/HunmXDXMNQ.jpg",
-      "address": "HunmXDXMNQYVoDnUL6PNnSYEtFaTZA2WzGh1HJTW7aoV",
+      "symbol": "MM",
+      "name": "Meme Man",
+      "logo": "/logos/dex/zzjkh1hLbv.png",
+      "address": "zzjkh1hLbvsFJXWLfE6h4JNbcnRj4eteuKRw42PN2tC",
       "chain": "solana",
-      "change6h": 14.7,
-      "price": 0.001836,
-      "date": "2026-09-12"
+      "change6h": 13.9,
+      "price": 0.0003133,
+      "date": "2026-09-13"
     },
     {
-      "symbol": "SATu",
-      "name": "Satu Wallet Token",
-      "logo": "/logos/dex/EWnSZW86xh.jpg",
-      "address": "EWnSZW86xhJ91nvxPjdZD3g1SqhHj7q8eqY6DEUKpump",
-      "chain": "solana",
-      "change6h": 1.1,
-      "price": 6.954e-05,
-      "date": "2026-09-12"
+      "symbol": "AC",
+      "name": "Artificial Cat",
+      "logo": "/logos/dex/0xfaD40755.jpg",
+      "address": "0xfaD40755de679B262337f8D964D75CAc51F8C643",
+      "chain": "robinhood",
+      "change6h": 12.8,
+      "price": 9.849e-05,
+      "date": "2026-09-13"
+    },
+    {
+      "symbol": "牛梦",
+      "name": "牛梦",
+      "logo": "/logos/dex/0xEe22fCE5.jpg",
+      "address": "0xEe22fCE582Dc4120f07e13e42B55Ee75246e7777",
+      "chain": "bsc",
+      "change6h": -1.7,
+      "price": 0.0006743,
+      "date": "2026-09-13"
+    },
+    {
+      "symbol": "LPAD",
+      "name": "Launchpad.meme",
+      "logo": "/logos/dex/0x3C68382e.jpg",
+      "address": "0x3C68382e757193f6DDd12A72DCF0ADF93c961769",
+      "chain": "robinhood",
+      "change6h": -7.0,
+      "price": 0.0005411,
+      "date": "2026-09-13"
     },
     {
       "symbol": "Stunk",
@@ -56,29 +66,19 @@
       "logo": "/logos/dex/FLk6FKAN26.jpg",
       "address": "FLk6FKAN26m1FT4ucguwy3uHBMzLKcEu8KMTYD2Zpump",
       "chain": "solana",
-      "change6h": 1.0,
-      "price": 0.00199,
-      "date": "2026-09-12"
+      "change6h": -7.5,
+      "price": 0.0008841,
+      "date": "2026-09-13"
     },
     {
-      "symbol": "CHUMP",
-      "name": "Chump Coin",
-      "logo": "",
-      "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
+      "symbol": "RUFUS",
+      "name": "RUFUS",
+      "logo": "/logos/dex/0x46B6995b.jpg",
+      "address": "0x46B6995b02B1e3Afa39033243999e00d739615F1",
       "chain": "robinhood",
-      "change6h": -1.8,
-      "price": 0.04226,
-      "date": "2026-09-12"
-    },
-    {
-      "symbol": "PENGUIN",
-      "name": "Nietzschean Penguin",
-      "logo": "/logos/dex/0xe2Ec718D.jpg",
-      "address": "0xe2Ec718DbBB81D0a50bDf0D21342e34162B11415",
-      "chain": "robinhood",
-      "change6h": -2.0,
-      "price": 0.0002303,
-      "date": "2026-09-12"
+      "change6h": -7.8,
+      "price": 0.0003814,
+      "date": "2026-09-13"
     }
   ]
 }
