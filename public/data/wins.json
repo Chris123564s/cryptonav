@@ -1,34 +1,44 @@
 {
   "wins": [
     {
-      "symbol": "BLAST",
-      "name": "BLAST",
-      "logo": "/logos/dex/0x724a163f.jpg",
-      "address": "0x724a163f0081fA1771590Dda9b55eDDe2c5B823a",
+      "symbol": "Butterflys",
+      "name": "The Butterfly Brain",
+      "logo": "/logos/dex/0x02e91400.jpg",
+      "address": "0x02e91400E9e26e97ff0F8D72d544427E7c1311FC",
       "chain": "robinhood",
-      "change6h": 1184.0,
-      "price": 0.0006739,
-      "date": "2026-09-13"
+      "change6h": 1042.0,
+      "price": 0.0006065,
+      "date": "2026-09-14"
     },
     {
-      "symbol": "CATAI",
-      "name": "Artificial Cat INU",
+      "symbol": "bikecate",
+      "name": "BIKE CATE",
+      "logo": "/logos/dex/3nkVw4JwdD.jpg",
+      "address": "3nkVw4JwdDLGM23Wzqpy2ptAPV5YgMnokEBgijDBpump",
+      "chain": "solana",
+      "change6h": 747.0,
+      "price": 0.001011,
+      "date": "2026-09-14"
+    },
+    {
+      "symbol": "uncle",
+      "name": "uncle stonk",
       "logo": "",
-      "address": "BGU4TfDLpV1JeJGXVgSbZkLSRxgAzcsQci1vEbaWJVcm",
+      "address": "4JiyyzzVFpkXgmTnggFdjuibMZ42ovozoneZU4xVpump",
       "chain": "solana",
-      "change6h": 24.8,
-      "price": 0.0001087,
-      "date": "2026-09-13"
+      "change6h": 328.0,
+      "price": 0.0001805,
+      "date": "2026-09-14"
     },
     {
-      "symbol": "MM",
-      "name": "Meme Man",
-      "logo": "/logos/dex/zzjkh1hLbv.png",
-      "address": "zzjkh1hLbvsFJXWLfE6h4JNbcnRj4eteuKRw42PN2tC",
-      "chain": "solana",
-      "change6h": 13.9,
-      "price": 0.0003133,
-      "date": "2026-09-13"
+      "symbol": "CROSSRATE",
+      "name": "Crossrate Markets",
+      "logo": "/logos/dex/0x4Ed2692F.jpg",
+      "address": "0x4Ed2692F5e108724A919De5FCbf267f231D5e333",
+      "chain": "robinhood",
+      "change6h": 34.7,
+      "price": 0.0002056,
+      "date": "2026-09-14"
     },
     {
       "symbol": "AC",
@@ -36,49 +46,39 @@
       "logo": "/logos/dex/0xfaD40755.jpg",
       "address": "0xfaD40755de679B262337f8D964D75CAc51F8C643",
       "chain": "robinhood",
-      "change6h": 12.8,
-      "price": 9.849e-05,
-      "date": "2026-09-13"
+      "change6h": 8.0,
+      "price": 8.563e-05,
+      "date": "2026-09-14"
     },
     {
-      "symbol": "牛梦",
-      "name": "牛梦",
-      "logo": "/logos/dex/0xEe22fCE5.jpg",
-      "address": "0xEe22fCE582Dc4120f07e13e42B55Ee75246e7777",
-      "chain": "bsc",
-      "change6h": -1.7,
-      "price": 0.0006743,
-      "date": "2026-09-13"
-    },
-    {
-      "symbol": "LPAD",
-      "name": "Launchpad.meme",
-      "logo": "/logos/dex/0x3C68382e.jpg",
-      "address": "0x3C68382e757193f6DDd12A72DCF0ADF93c961769",
+      "symbol": "scpinu",
+      "name": "stupid chubby pudgy inu",
+      "logo": "/logos/dex/0x8EDDB5eE.jpg",
+      "address": "0x8EDDB5eE9E39FC895357d20e03c7De2be4E60cF3",
       "chain": "robinhood",
-      "change6h": -7.0,
-      "price": 0.0005411,
-      "date": "2026-09-13"
+      "change6h": -0.8,
+      "price": 9.425e-05,
+      "date": "2026-09-14"
     },
     {
-      "symbol": "Stunk",
-      "name": "Stunk",
-      "logo": "/logos/dex/FLk6FKAN26.jpg",
-      "address": "FLk6FKAN26m1FT4ucguwy3uHBMzLKcEu8KMTYD2Zpump",
+      "symbol": "AMC",
+      "name": "a meme cat",
+      "logo": "",
+      "address": "GpTEmPGmgx9HDThCR44xMyJoXZkDYtzTkPs5zAY7YDcY",
       "chain": "solana",
-      "change6h": -7.5,
-      "price": 0.0008841,
-      "date": "2026-09-13"
+      "change6h": -6.5,
+      "price": 0.000132,
+      "date": "2026-09-14"
     },
     {
-      "symbol": "RUFUS",
-      "name": "RUFUS",
-      "logo": "/logos/dex/0x46B6995b.jpg",
-      "address": "0x46B6995b02B1e3Afa39033243999e00d739615F1",
-      "chain": "robinhood",
-      "change6h": -7.8,
-      "price": 0.0003814,
-      "date": "2026-09-13"
+      "symbol": "HACHIMI",
+      "name": "Earless Hachimi",
+      "logo": "/logos/dex/CYSx8M2ZRK.jpg",
+      "address": "CYSx8M2ZRKoRcfswcJnDjHYz139erQwwCpHRd7Zbpump",
+      "chain": "solana",
+      "change6h": -6.9,
+      "price": 9.8e-05,
+      "date": "2026-09-14"
     }
   ]
 }
