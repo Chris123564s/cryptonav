@@ -23,7 +23,7 @@
       "distribution": "2026-08-09",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "nado",
@@ -48,7 +48,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "mint-io",
@@ -69,11 +69,11 @@
       "note": "",
       "eligibility": "depends on the campaign terms and the compliance requirements that apply in your region.",
       "amount": "$125,000",
-      "snapshot": "2026-09-11",
+      "snapshot": "2026-09-13",
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "axis-robotics",
@@ -98,7 +98,7 @@
       "distribution": "2026-08-07",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "risex",
@@ -123,7 +123,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "flop-labs",
@@ -148,7 +148,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "dow-protocol",
@@ -173,7 +173,7 @@
       "distribution": "2026-09-07",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "voice",
@@ -198,7 +198,7 @@
       "distribution": "2026-08-28",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "ondo-perps",
@@ -223,7 +223,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "xstocks",
@@ -248,7 +248,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "nowa",
@@ -273,7 +273,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "osero",
@@ -298,7 +298,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "push-chain",
@@ -323,7 +323,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "monetrix",
@@ -348,7 +348,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "bulk",
@@ -373,7 +373,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "laptop",
@@ -398,7 +398,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "kinetiq",
@@ -423,7 +423,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "sweep-finance",
@@ -448,7 +448,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "amadeus-protocol",
@@ -473,7 +473,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "polymarket",
@@ -498,7 +498,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "tbook",
@@ -523,7 +523,7 @@
       "distribution": "2026-09-21",
       "funding": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "dualmint",
@@ -548,7 +548,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "reels",
@@ -573,7 +573,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "yakkamon",
@@ -598,7 +598,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "arc",
@@ -623,7 +623,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "worldie",
@@ -648,7 +648,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "blackboard",
@@ -673,7 +673,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "rep",
@@ -698,7 +698,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "ammora",
@@ -723,7 +723,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "beldex",
@@ -748,7 +748,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "gyndore",
@@ -773,7 +773,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "entropy",
@@ -798,7 +798,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "vangrid",
@@ -823,7 +823,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "base",
@@ -848,7 +848,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "c8ntinuum",
@@ -873,7 +873,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "extended",
@@ -898,7 +898,7 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "variational",
@@ -923,7 +923,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "neosoul",
@@ -948,7 +948,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "noise",
@@ -973,7 +973,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "beezie",
@@ -998,7 +998,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "cashmere",
@@ -1023,7 +1023,7 @@
       "funding": "",
       "note": "",
       "phase": "ongoing",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     },
     {
       "id": "omega",
@@ -1048,10 +1048,10 @@
       "funding": "",
       "note": "",
       "phase": "confirmed",
-      "updatedAt": "2026-09-13"
+      "updatedAt": "2026-09-14"
     }
   ],
-  "lastFetched": "2026-09-13T19:57:46.818463+00:00",
+  "lastFetched": "2026-09-14T11:06:53.383513+00:00",
   "source": "airdrops.io + CoinGecko",
   "totalTracked": 42
 }
