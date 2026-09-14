@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-07T13:19:41.788Z",
+  "generatedAt": "2026-09-14T13:42:28.687Z",
   "method": "https://cryptonav.site/verify#method",
   "weights": {
     "longevity": 35,
@@ -9,7 +9,7 @@
   "counts": {
     "projects": 63,
     "withDomainAge": 62,
-    "withFirstSeen": 0,
+    "withFirstSeen": 1,
     "withIncidents": 22,
     "withContract": 10,
     "rated": 62,
@@ -36,8 +36,7 @@
   "warnings": [],
   "notes": [
     "Internet Archive unreachable after 3 failed attempts — skipped for the rest of this run",
-    "RDAP unavailable for: theblock.co, t.co",
-    "Internet Archive unreachable — longevity falls back to RDAP only"
+    "RDAP unavailable for: theblock.co"
   ],
   "raw": {
     "rdap": {
@@ -430,7 +429,7 @@
       "theblock.co": {
         "domain": "theblock.co",
         "error": "no-rdap-service",
-        "fetchedAt": 1788787167392
+        "fetchedAt": 1789393320034
       },
       "coindesk.com": {
         "domain": "coindesk.com",
@@ -555,380 +554,379 @@
       "binance.com": {
         "domain": "binance.com",
         "firstSeenAt": null,
-        "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788787175394
+        "error": "HTTP 503",
+        "fetchedAt": 1789393325328
       },
       "okx.com": {
         "domain": "okx.com",
         "firstSeenAt": null,
-        "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788787175399
+        "error": "HTTP 503",
+        "fetchedAt": 1789393325319
       },
       "bybit.com": {
         "domain": "bybit.com",
         "firstSeenAt": null,
         "error": "The operation was aborted due to timeout",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393328039
       },
       "coinbase.com": {
         "domain": "coinbase.com",
         "firstSeenAt": null,
         "error": "HTTP 503",
-        "fetchedAt": 1788787180488
+        "fetchedAt": 1789393330596
       },
       "kraken.com": {
         "domain": "kraken.com",
         "firstSeenAt": null,
-        "error": "HTTP 503",
-        "fetchedAt": 1788787180502
+        "error": "The operation was aborted due to timeout",
+        "fetchedAt": 1789393333330
       },
       "gate.io": {
         "domain": "gate.io",
-        "firstSeenAt": null,
-        "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "firstSeenAt": "2013-06-10",
+        "fetchedAt": 1789393334220
       },
       "bitget.com": {
         "domain": "bitget.com",
         "firstSeenAt": null,
-        "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "error": "HTTP 503",
+        "fetchedAt": 1789393335668
       },
       "mexc.com": {
         "domain": "mexc.com",
         "firstSeenAt": null,
-        "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "error": "The operation was aborted due to timeout",
+        "fetchedAt": 1789393341330
       },
       "uniswap.org": {
         "domain": "uniswap.org",
         "firstSeenAt": null,
-        "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "error": "The operation was aborted due to timeout",
+        "fetchedAt": 1789393342221
       },
       "pancakeswap.finance": {
         "domain": "pancakeswap.finance",
         "firstSeenAt": null,
-        "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "error": "The operation was aborted due to timeout",
+        "fetchedAt": 1789393343669
       },
       "curve.fi": {
         "domain": "curve.fi",
         "firstSeenAt": null,
-        "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "error": "HTTP 503",
+        "fetchedAt": 1789393346539
       },
       "sushi.com": {
         "domain": "sushi.com",
         "firstSeenAt": null,
-        "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "error": "HTTP 503",
+        "fetchedAt": 1789393347291
       },
       "1inch.io": {
         "domain": "1inch.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "dydx.exchange": {
         "domain": "dydx.exchange",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "metamask.io": {
         "domain": "metamask.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "phantom.app": {
         "domain": "phantom.app",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "rabby.io": {
         "domain": "rabby.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "trustwallet.com": {
         "domain": "trustwallet.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "ledger.com": {
         "domain": "ledger.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "trezor.io": {
         "domain": "trezor.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "safe.global": {
         "domain": "safe.global",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "coingecko.com": {
         "domain": "coingecko.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "coinmarketcap.com": {
         "domain": "coinmarketcap.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "dexscreener.com": {
         "domain": "dexscreener.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "dune.com": {
         "domain": "dune.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "defillama.com": {
         "domain": "defillama.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "etherscan.io": {
         "domain": "etherscan.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "solscan.io": {
         "domain": "solscan.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "aave.com": {
         "domain": "aave.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "compound.finance": {
         "domain": "compound.finance",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "makerdao.com": {
         "domain": "makerdao.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "lido.fi": {
         "domain": "lido.fi",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "yearn.fi": {
         "domain": "yearn.fi",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "stargate.finance": {
         "domain": "stargate.finance",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "across.to": {
         "domain": "across.to",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "opensea.io": {
         "domain": "opensea.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "blur.io": {
         "domain": "blur.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "magiceden.io": {
         "domain": "magiceden.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "ethereum.org": {
         "domain": "ethereum.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "solana.com": {
         "domain": "solana.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "bnbchain.org": {
         "domain": "bnbchain.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "arbitrum.io": {
         "domain": "arbitrum.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "optimism.io": {
         "domain": "optimism.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "base.org": {
         "domain": "base.org",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "openzeppelin.com": {
         "domain": "openzeppelin.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "certik.com": {
         "domain": "certik.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "rekt.news": {
         "domain": "rekt.news",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "cointelegraph.com": {
         "domain": "cointelegraph.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "theblock.co": {
         "domain": "theblock.co",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "coindesk.com": {
         "domain": "coindesk.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "tokeninsight.com": {
         "domain": "tokeninsight.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "coinmarketcal.com": {
         "domain": "coinmarketcal.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "koinly.io": {
         "domain": "koinly.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "zerion.io": {
         "domain": "zerion.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "debank.com": {
         "domain": "debank.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "airdrops.io": {
         "domain": "airdrops.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "ave.ai": {
         "domain": "ave.ai",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "gmgn.ai": {
         "domain": "gmgn.ai",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "dextools.io": {
         "domain": "dextools.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "arkhamintelligence.com": {
         "domain": "arkhamintelligence.com",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "nansen.ai": {
         "domain": "nansen.ai",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "bullx.io": {
         "domain": "bullx.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "tinyastro.io": {
         "domain": "tinyastro.io",
         "firstSeenAt": null,
         "error": "source skipped (unreachable)",
-        "fetchedAt": 1788787175401
+        "fetchedAt": 1789393343669
       },
       "t.co": {
         "domain": "t.co",
@@ -948,9 +946,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 384104,
+        "holderCount": 383885,
         "ownerAddress": "0x1a9c8182c09f50c8318d769245bea52c32be35bc",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "1inch": {
         "symbol": "1INCH",
@@ -962,9 +960,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 112508,
+        "holderCount": 112547,
         "ownerAddress": "0x0000000000000000000000000000000000000000",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "aave": {
         "symbol": "AAVE",
@@ -976,9 +974,9 @@
         "canTakeBackOwnership": false,
         "isProxy": true,
         "isBlacklisted": false,
-        "holderCount": 189200,
+        "holderCount": 189622,
         "ownerAddress": null,
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "compound": {
         "symbol": "COMP",
@@ -990,9 +988,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 219880,
+        "holderCount": 219986,
         "ownerAddress": null,
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "makerdao": {
         "symbol": "MKR",
@@ -1004,9 +1002,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 75308,
+        "holderCount": 75288,
         "ownerAddress": "0x0000000000000000000000000000000000000000",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "lido": {
         "symbol": "LDO",
@@ -1018,9 +1016,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 63496,
+        "holderCount": 63629,
         "ownerAddress": "0xf73a1260d222f447210581ddf212d915c09a3249",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "yearn": {
         "symbol": "YFI",
@@ -1032,9 +1030,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 52577,
+        "holderCount": 52625,
         "ownerAddress": "0x026d4b8d693f6c446782c2c61ee357ec561dfb61",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "curve": {
         "symbol": "CRV",
@@ -1046,9 +1044,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 100940,
+        "holderCount": 101082,
         "ownerAddress": null,
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "sushiswap": {
         "symbol": "SUSHI",
@@ -1060,9 +1058,9 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 126818,
+        "holderCount": 126891,
         "ownerAddress": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "dydx": {
         "symbol": "DYDX",
@@ -1074,41 +1072,41 @@
         "canTakeBackOwnership": false,
         "isProxy": false,
         "isBlacklisted": false,
-        "holderCount": 45253,
+        "holderCount": 45240,
         "ownerAddress": "0x64c7d40c07efabec2aafdc243bf59eaf2195c6dc",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "stargate": {
         "error": "no-result",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "across": {
         "error": "no-result",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "blur": {
         "error": "no-result",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "safe": {
         "error": "no-result",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "arbitrum": {
         "error": "no-result",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "optimism": {
         "error": "no-result",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "pancakeswap": {
         "error": "no-result",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       },
       "arkham": {
         "error": "no-result",
-        "fetchedAt": 1788787181786
+        "fetchedAt": 1789393348685
       }
     },
     "hacks": [
@@ -1647,6 +1645,14 @@
         "technique": "Unknown",
         "targetType": "DeFi Protocol",
         "defillamaId": null
+      },
+      {
+        "date": 1788048000,
+        "name": "Weft V2",
+        "amount": 47200,
+        "technique": "Spot Price Manipulation",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "5411"
       },
       {
         "date": 1761004800,
@@ -2993,6 +2999,14 @@
         "defillamaId": "286"
       },
       {
+        "date": 1788652800,
+        "name": "Liquid Network",
+        "amount": 320000000,
+        "technique": "Unbacked Cross-Chain Mint",
+        "targetType": "Chain",
+        "defillamaId": null
+      },
+      {
         "date": 1710115200,
         "name": "Blastoff",
         "amount": 600000,
@@ -3247,6 +3261,14 @@
         "technique": "Private Key Compromised",
         "targetType": "DeFi Protocol",
         "defillamaId": "5769"
+      },
+      {
+        "date": 1788566400,
+        "name": "Secured Finance Lending",
+        "amount": 104000,
+        "technique": "Spot Price Manipulation",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "4197"
       },
       {
         "date": 1587772800,
@@ -4177,6 +4199,14 @@
         "defillamaId": "355"
       },
       {
+        "date": 1789084800,
+        "name": "ether.fi Liquid",
+        "amount": 43260,
+        "technique": "Arbitrary External Call",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "4429"
+      },
+      {
         "date": 1690329600,
         "name": "AlphaPo",
         "amount": 60000000,
@@ -5041,6 +5071,14 @@
         "defillamaId": null
       },
       {
+        "date": 1788912000,
+        "name": "Nomic",
+        "amount": 3150000,
+        "technique": "Unbacked Cross-Chain Mint",
+        "targetType": "DeFi Protocol",
+        "defillamaId": null
+      },
+      {
         "date": 1701302400,
         "name": "Florence Finance",
         "amount": 1450000,
@@ -5095,6 +5133,14 @@
         "technique": "Spot Price Manipulation",
         "targetType": "DeFi Protocol",
         "defillamaId": null
+      },
+      {
+        "date": 1788912000,
+        "name": "Zentra Finance",
+        "amount": 140030,
+        "technique": "Rounding Error",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "7419"
       },
       {
         "date": 1710979200,
@@ -6369,6 +6415,14 @@
         "defillamaId": null
       },
       {
+        "date": 1788998400,
+        "name": "Dominion",
+        "amount": null,
+        "technique": "Private Key Compromised",
+        "targetType": "DeFi Protocol",
+        "defillamaId": null
+      },
+      {
         "date": 1705363200,
         "name": "Bungee",
         "amount": 3300000,
@@ -6410,11 +6464,11 @@
       },
       {
         "date": 1777334400,
-        "name": "YieldCore",
+        "name": "YieldCore-3rd-deal",
         "amount": 398764,
         "technique": "Improper Access Control",
         "targetType": "DeFi Protocol",
-        "defillamaId": "7456"
+        "defillamaId": null
       },
       {
         "date": 1773705600,
@@ -7569,6 +7623,14 @@
         "defillamaId": "4107"
       },
       {
+        "date": 1788134400,
+        "name": "Radix",
+        "amount": 1249946,
+        "technique": "Improper Access Control",
+        "targetType": "Chain",
+        "defillamaId": "chain#radix"
+      },
+      {
         "date": 1710892800,
         "name": "ParaSwap",
         "amount": 300000,
@@ -7967,6 +8029,14 @@
         "technique": "Signature Verification Flaw",
         "targetType": "DeFi Protocol",
         "defillamaId": "591"
+      },
+      {
+        "date": 1788912000,
+        "name": "BeatXswap",
+        "amount": 77512,
+        "technique": "Spot Price Manipulation",
+        "targetType": "DeFi Protocol",
+        "defillamaId": null
       },
       {
         "date": 1772236800,
@@ -9113,6 +9183,14 @@
         "defillamaId": null
       },
       {
+        "date": 1766707200,
+        "name": "FilDA",
+        "amount": 166800,
+        "technique": "Spot Price Manipulation",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "348"
+      },
+      {
         "date": 1780099200,
         "name": "AFI Protocol",
         "amount": 480000,
@@ -9625,6 +9703,14 @@
         "defillamaId": null
       },
       {
+        "date": 1787529600,
+        "name": "Nesa",
+        "amount": 50000000,
+        "technique": "Arithmetic Error",
+        "targetType": "Chain",
+        "defillamaId": null
+      },
+      {
         "date": 1721692800,
         "name": "DeltaPrime",
         "amount": 1000000,
@@ -9647,14 +9733,6 @@
         "technique": "Withdrawal Logic Flaw",
         "targetType": "Chain",
         "defillamaId": null
-      },
-      {
-        "date": 1787616000,
-        "name": "Steakhouse Financial",
-        "amount": 920000,
-        "technique": "Risk Parameter Abuse",
-        "targetType": "DeFi Protocol",
-        "defillamaId": "6212"
       },
       {
         "date": 1709596800,
@@ -9961,6 +10039,14 @@
         "defillamaId": "2761"
       },
       {
+        "date": 1788825600,
+        "name": "WealthManagementV2",
+        "amount": 26414,
+        "technique": "Private Key Compromised",
+        "targetType": "DeFi Protocol",
+        "defillamaId": null
+      },
+      {
         "date": 1711929600,
         "name": "OpenLeverage",
         "amount": 236000,
@@ -10243,8 +10329,8 @@
       {
         "date": 1788048000,
         "name": "Tectonic",
-        "amount": 75000000,
-        "technique": "Spot Price Manipulation",
+        "amount": 124470000,
+        "technique": "Donation Attack",
         "targetType": "DeFi Protocol",
         "defillamaId": "1115"
       },
@@ -10729,6 +10815,14 @@
         "defillamaId": null
       },
       {
+        "date": 1788739200,
+        "name": "Cozy V2",
+        "amount": 163326,
+        "technique": "Unknown",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "2964"
+      },
+      {
         "date": 1711843200,
         "name": "FixedFloat",
         "amount": 3000000,
@@ -11049,6 +11143,14 @@
         "defillamaId": "2167"
       },
       {
+        "date": 1788998400,
+        "name": "Symbiosis",
+        "amount": 336000,
+        "technique": "Unbacked Cross-Chain Mint",
+        "targetType": "DeFi Protocol",
+        "defillamaId": "1594"
+      },
+      {
         "date": 1626912000,
         "name": "THORChain DEX",
         "amount": 8000000,
@@ -11164,7 +11266,7 @@
       "domainRegistrar": "MarkMonitor Inc.",
       "firstSeenAt": null,
       "operatingSince": "2017-04-01",
-      "ageYears": 9.4,
+      "ageYears": 9.5,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [
@@ -11437,9 +11539,9 @@
       "website": "https://www.gate.io",
       "domainRegisteredAt": "2017-07-21",
       "domainRegistrar": "Gandi SAS",
-      "firstSeenAt": null,
-      "operatingSince": "2017-07-21",
-      "ageYears": 9.1,
+      "firstSeenAt": "2013-06-10",
+      "operatingSince": "2013-06-10",
+      "ageYears": 13.3,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
@@ -11449,7 +11551,7 @@
       "contractFlags": [],
       "dimensions": {
         "longevity": {
-          "score": 27,
+          "score": 30,
           "max": 30,
           "weight": 35
         },
@@ -11461,8 +11563,8 @@
         },
         "contract": null
       },
-      "score": 84,
-      "grade": "B",
+      "score": 88,
+      "grade": "A",
       "coverage": 75,
       "verifiedChecks": 2,
       "totalChecks": 3,
@@ -11595,7 +11697,7 @@
         "symbol": "UNI",
         "chain": 1,
         "address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
-        "holderCount": 384104,
+        "holderCount": 383885,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": false,
@@ -11727,7 +11829,7 @@
         "symbol": "CRV",
         "chain": 1,
         "address": "0xD533a949740bb3306d119CC777fa900bA034cd52",
-        "holderCount": 100940,
+        "holderCount": 101082,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -11812,7 +11914,7 @@
         "symbol": "SUSHI",
         "chain": 1,
         "address": "0x6B3595068778DD592e39A122f4f5a5cF09C90fE2",
-        "holderCount": 126818,
+        "holderCount": 126891,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -11887,7 +11989,7 @@
         "symbol": "1INCH",
         "chain": 1,
         "address": "0x111111111117dC0aa78b770fA6A738034120C302",
-        "holderCount": 112508,
+        "holderCount": 112547,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -11962,7 +12064,7 @@
         "symbol": "DYDX",
         "chain": 1,
         "address": "0x92D6C1e31e14520e676a687F0a93788B716BEff5",
-        "holderCount": 45253,
+        "holderCount": 45240,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -12228,7 +12330,7 @@
       "domainRegistrar": "Cloudflare, Inc",
       "firstSeenAt": null,
       "operatingSince": "2014-07-21",
-      "ageYears": 12.1,
+      "ageYears": 12.2,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
@@ -12380,7 +12482,7 @@
       "domainRegistrar": "NameCheap, Inc.",
       "firstSeenAt": null,
       "operatingSince": "2021-06-11",
-      "ageYears": 5.2,
+      "ageYears": 5.3,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
@@ -12601,7 +12703,7 @@
         "symbol": "AAVE",
         "chain": 1,
         "address": "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
-        "holderCount": 189200,
+        "holderCount": 189622,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": false,
@@ -12666,7 +12768,7 @@
         "symbol": "COMP",
         "chain": 1,
         "address": "0xc00e94Cb662C3520282E6f5717214004A7f26888",
-        "holderCount": 219880,
+        "holderCount": 219986,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": false,
@@ -12729,7 +12831,7 @@
         "symbol": "MKR",
         "chain": 1,
         "address": "0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2",
-        "holderCount": 75308,
+        "holderCount": 75288,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -12783,7 +12885,7 @@
         "symbol": "LDO",
         "chain": 1,
         "address": "0x5A98FcBEA516Cf06857215779Fd812CA3beF1B32",
-        "holderCount": 63496,
+        "holderCount": 63629,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": false,
@@ -12866,7 +12968,7 @@
         "symbol": "YFI",
         "chain": 1,
         "address": "0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e",
-        "holderCount": 52577,
+        "holderCount": 52625,
         "isOpenSource": true,
         "isHoneypot": false,
         "isMintable": true,
@@ -12910,7 +13012,7 @@
       "domainRegistrar": "NameCheap, Inc.",
       "firstSeenAt": null,
       "operatingSince": "2021-04-01",
-      "ageYears": 5.4,
+      "ageYears": 5.5,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [
@@ -13986,7 +14088,7 @@
       "domainRegistrar": "NameCheap, Inc.",
       "firstSeenAt": null,
       "operatingSince": "2020-05-07",
-      "ageYears": 6.3,
+      "ageYears": 6.4,
       "ageConfidence": "medium",
       "ageNote": null,
       "incidents": [],
