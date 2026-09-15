@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdBanner from '../../components/AdBanner.astro';
+import { chains, getTokensByChain } from '../../utils/data';
+import { collectionPage, itemList } from '../../utils/schema';
+
+// The chains hub. This page exists for two reasons:
+//
+//  1. The chain pages' breadcrumb pointed at `/#chains`, and the homepage has no
+//     such anchor and no chains section — so the trail (and the BreadcrumbList
+//     JSON-LD) led nowhere. This is a real, crawlable target.
+//  2. It is the one place that links to EVERY chain, unconditionally. The header
+//     dropdown and the chain pages' "Explore Other Chains" list are layout-bound
+//     and can be capped; a cap silently orphans whichever chain sorts last
+//     (/chain/ton/ sat with zero inbound links until 2026-09-15). A hub that
+//     maps over `chains` cannot do that.
+//
+// Chains are listed by TVL rank rather than by JSON order, so the page stays
+// meaningful when chains.json is reordered.
+const ranked = [...chains].sort((a, b) => a.tvlRank - b.tvlRank);
+const withCounts = ranked.map((chain) => ({
+  chain,
+  tokenCount: getTokensByChain(chain.id).length,
+}));
+const totalTokens = withCounts.reduce((sum, c) => sum + c.tokenCount, 0);
+
+const chainsHubSchema = [
+  collectionPage({
+    name: 'Crypto Blockchains & Networks',
+    description:
+      'Every blockchain covered by CryptoNav, with live token prices, TVL rank and the best projects on each network.',
+    url: '/chains',
+  }),
+  itemList({
+    name: 'Blockchains covered by CryptoNav',
+    url: '/chains',
+    items: withCounts.map(({ chain, tokenCount }) => ({
+      name: `${chain.name} (${chain.symbol})`,
+      url: `/chain/${chain.slug}`,
+      description: `${tokenCount} tokens on ${chain.name} — TVL rank #${chain.tvlRank}. ${chain.description}`,
+    })),
+  }),
+];
+---
+
+<Layout
+  title="Crypto Blockchains & Networks - CryptoNav"
+  description="Explore every blockchain CryptoNav covers — live token prices, TVL rank, and the best projects and tools on each network."
+  canonical="https://cryptonav.site/chains"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Chains' }]}
+  schema={chainsHubSchema}
+>
+  <!-- Breadcrumb -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <nav class="flex items-center gap-2 text-xs text-surface-400">
+      <a href="/" class="hover:text-brand-500">Home</a>
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <span class="text-surface-600 dark:text-surface-300">Chains</span>
+    </nav>
+  </div>
+
+  <!-- Header -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <h1 class="text-2xl md:text-3xl font-bold text-surface-800 dark:text-surface-100">Blockchains &amp; Networks</h1>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-2 max-w-2xl">
+      Every chain CryptoNav tracks — {chains.length} networks and {totalTokens.toLocaleString('en-US')} tokens.
+      Each chain page lists its tokens by market cap, volume and 24h change, plus the exchanges, wallets and
+      DeFi protocols from our directory that run on it.
+    </p>
+  </section>
+
+  <!-- Ad -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <AdBanner slot="home-banner" format="banner" />
+  </div>
+
+  <!-- Chain Grid -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {withCounts.map(({ chain, tokenCount }) => (
+        <a
+          href={`/chain/${chain.slug}`}
+          class="group block p-5 rounded-2xl bg-white dark:bg-surface-800 border border-surface-200 dark:border-surface-700 hover:border-brand-400 dark:hover:border-brand-600 transition-colors"
+        >
+          <div class="flex items-center gap-3 mb-3">
+            <!-- Colored symbol tile: the chain pages render the same thing, and
+                 chains.json's `logo` field points at /logos/chains/, which is an
+                 empty directory (404). Keep the tile until real logos ship. -->
+            <span
+              class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold"
+              style={`background: ${chain.color}15; border: 1px solid ${chain.color}30; color: ${chain.color}`}
+            >
+              {chain.symbol.slice(0, 2)}
+            </span>
+            <div class="min-w-0">
+              <h2 class="text-base font-bold text-surface-800 dark:text-surface-100 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                {chain.name}
+              </h2>
+              <p class="text-xs text-surface-400">{chain.symbol} · TVL rank #{chain.tvlRank}</p>
+            </div>
+          </div>
+          <p class="text-xs text-surface-500 dark:text-surface-400 line-clamp-2">{chain.description}</p>
+          <p class="text-xs font-medium text-brand-600 dark:text-brand-400 mt-3">
+            {tokenCount} tokens
+            <span class="text-surface-400 font-normal group-hover:text-brand-500 transition-colors">— view all →</span>
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

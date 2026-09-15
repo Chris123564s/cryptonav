@@ -68,7 +68,7 @@ const chainSchema = [
 <Layout
   title={`${chain.name} Tokens & Prices - CryptoNav`}
   description={`Live prices, market cap, volume, and 24h change for the top tokens on ${chain.name}. Browse ${tokens.length}+ ${chain.name} cryptocurrencies ranked by market cap.`}
-  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Chains', url: '/#chains' }, { name: chain.name }]}
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Chains', url: '/chains/' }, { name: chain.name }]}
   schema={chainSchema}
 >
   <!-- Breadcrumb -->
@@ -76,7 +76,7 @@ const chainSchema = [
     <nav class="flex items-center gap-2 text-xs text-surface-400">
       <a href="/" class="hover:text-brand-500">Home</a>
       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      <a href="/#chains" class="hover:text-brand-500">Chains</a>
+      <a href="/chains/" class="hover:text-brand-500">Chains</a>
       <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       <span class="text-surface-600 dark:text-surface-300">{chain.name}</span>
     </nav>
