@@ -2,7 +2,12 @@
 import { categories, chains } from '../utils/data';
 
 const navCategories = categories;
-const navChains = chains.slice(0, 8);
+// Do NOT cap this list. It used to be `chains.slice(0, 8)`, which silently made
+// the 9th and 10th chains (sui, ton) unreachable from every page on the site —
+// /chain/ton/ ended up with zero inbound links because this was the ONLY place
+// the homepage linked to a chain page. The dropdown is a 2-column grid and grows
+// fine; if it ever needs a limit, add a "View all chains" link rather than a cap.
+const navChains = chains;
 ---
 
 <header class="sticky top-0 z-50 bg-white/80 dark:bg-surface-900/80 backdrop-blur-lg border-b border-surface-200 dark:border-surface-700">

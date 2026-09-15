@@ -30,7 +30,7 @@ function getCategorySlug(categoryId: string): string {
     <!-- Logo -->
     <div class="shrink-0">
       {project.logo ? (
-        <img src={project.logo} alt={project.name} class="w-10 h-10 rounded-lg object-cover" loading="lazy" />
+        <img src={project.logo} alt={project.name} width="40" height="40" class="w-10 h-10 rounded-lg object-cover" loading="lazy" />
       ) : (
         <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-100 to-brand-200 dark:from-brand-900 dark:to-brand-800 flex items-center justify-center text-sm font-bold text-brand-600 dark:text-brand-400">
           {project.name.charAt(0)}

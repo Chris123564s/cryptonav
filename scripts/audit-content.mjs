@@ -189,14 +189,27 @@ if (!fs.existsSync(DIST)) {
     const tagBytes = [...h.matchAll(/<[^>]+>/g)].reduce((s, m) => s + m[0].length, 0);
     const clsBytes = [...h.matchAll(/\sclass="[^"]*"/g)].reduce((s, m) => s + m[0].length, 0);
     const imgs = [...h.matchAll(/<img[\s>]/g)].length;
-    const imgsWithDims = [...h.matchAll(/<img[^>]*\bwidth=/g)].length;
+    // An <img> only causes CLS if the browser cannot know its box before the
+    // bytes arrive. Two things can tell it: a width/height attribute, OR a CSS
+    // class that fixes both axes (Tailwind `w-7 h-7`). Counting only the
+    // attribute made this report "97 img, 0 with width= <-- CLS" on pages where
+    // every single image sits in a fixed-size box and nothing actually shifts.
+    // Count the images that have NEITHER before calling it a CLS problem.
+    const imgTags = [...h.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
+    const hasDims = (t) =>
+      /\bwidth=/.test(t) || /class="[^"]*\bw-\d/.test(t) && /class="[^"]*\bh-\d/.test(t);
+    const imgsWithDims = imgTags.filter(hasDims).length;
+    const imgsAtRisk = imgs - imgsWithDims;
     const totalKb = KB(h);
     const tagKb = tagBytes / 1024;
     console.log(
       `  ${pad(p.route, 26)} ${num(totalKb.toFixed(0), 4)}KB | tags ${num(tagKb.toFixed(0), 4)}KB` +
         ` | class= ${num((clsBytes / 1024).toFixed(0), 3)}KB | prose ${num((totalKb - tagKb).toFixed(0), 4)}KB`
     );
-    console.log(`      <img> ${imgs}, with width= ${imgsWithDims}${imgs && !imgsWithDims ? '  <-- CLS' : ''}`);
+    console.log(
+      `      <img> ${imgs}, box known up front ${imgsWithDims}` +
+        `${imgsAtRisk ? `  <-- ${imgsAtRisk} unsized, real CLS risk` : ''}`
+    );
   }
 
   // 6. Meta hygiene.
