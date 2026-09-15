@@ -10,7 +10,11 @@
 ## 🔴 待用户动作
 1. **6 个联盟码**：okx / coinbase / kraken / gate-io / bitget / mexc —— `code` 是**空字符串**，
    发完整链接即可，34 处 promo 立刻变现。
-2. **确认 GA4 数据流 URL 是否带 www**；并**修 `www.cryptonav.site` 的 522**（Redirect Rule）。
+2. **确认 GA4 数据流 URL 是否带 www**；并**修 `www.cryptonav.site` 的 522**（9-15 仍是，第 4 次确认）。
+   DNS：www → `172.66.44.64`/`172.66.47.192`，apex → `104.21.28.195`/`172.67.147.106`
+   → **两条记录指向不同源，www 那条没挂到 Pages**。www 在 CF 上**已是代理状态** →
+   **Redirect Rule 一定生效**（别碰 DNS，也别加成第二个自定义域名 → 重复内容）。
+   修：CF Redirect Rule，`http.host eq "www.cryptonav.site"` → `https://cryptonav.site/$1`（301，保留 query）。
 3. **关掉 Cloudflare Managed robots.txt**（后台开关）—— 平台层注入 `Amazonbot: Disallow: /`
    覆盖仓库里明确的 `Allow: /`；通配组 `Content-Signal` 有两套矛盾值。
 4. **GA4 欧盟同意弹窗**（落点 `Layout.astro`）；5. **Bitmedia/Coinzilla 广告代码**（8 槽全空）；
@@ -24,12 +28,10 @@
 ---
 
 ## 📁 数据文件：哪些会被机器人覆盖（手改前必看）
-- **安全手改**：`affiliates.json`（联盟码填这里）、`ad-network.json`、`ads.json`、`categories.json`、
-  `chains.json`、`comparisons.json`、`faq.json`、`featured.json`、`learn.json`、
-  `recommended.json`、`ticker.json`。
+- **安全手改**：`affiliates.json`、`ad-network.json`、`ads.json`、`categories.json`、`chains.json`、
+  `comparisons.json`、`faq.json`、`featured.json`、`learn.json`、`recommended.json`、`ticker.json`。
 - ⚠️ **每几小时被 `refresh-*.yml` 整份重写，手改必丢**：`airdrops.json`、`safety.json`、
-  `chain-tokens.json`、`unlocks.json`、`wins.json`。
-- `projects.json` 无工作流覆盖，但 `/api/submit` 会往里追加 `pending`。
+  `chain-tokens.json`、`unlocks.json`、`wins.json`。（`projects.json` 无覆盖，但 `/api/submit` 会追加 `pending`。）
 - **"服务器上没有可改的文件夹"**：CF Pages 只存构建产物；源文件在 GitHub `main`。
 
 ---
@@ -52,33 +54,33 @@
   **活动推广必须留空 image。**
 - **RULE**：promo 的 `projectId` **必须是 affiliates.json 的 key**，否则 `getReferralUrl()` 无码可拼、
   只渲染他人官网，**永远不赚钱且页面上看不出区别**。
-- ⚠️ **判断"有没有码"看 `code` 的值，不能只看 key 在不在**：8 家全是 key，只有 2 家 `code` 非空。
-- 统计用 `scripts/check-ad-slots.mjs`（口径 `data-ad-id=`/`data-promo-project=`）；按"官网 URL 出现
+- ⚠️ **判断"有没有码"看 `code` 的值，不能只看 key 在不在**。
+- 统计用 `scripts/check-ad-slots.mjs`；口径 `data-ad-id=`/`data-promo-project=`。按"官网 URL 出现
   次数"统计**会被项目卡片链接污染**（曾虚高到 27/28）。
 - 视觉：渐变用行内 CSS 变量 `--ad-1 / --ad-2 / --ad-glow`（配色表在 `AdBanner.astro`）。
   **改 `.ad-container` / `.ad-label` 必须用更高特异性** —— 它们在 `@layer components`
   （**Tailwind 的处理层，不是原生 cascade layer**），覆盖**不能靠加载顺序**。
-- 现状：129 处渲染，**95/129 已能赚（74%）**。ad-006（Bybit）`endAt: 2026-10-04`，
-  到期回落到 promo（正是 bybit，有码）→ **不会掉成不赚钱的位子**。
+- 现状（9-15 实测）：**127 处渲染，95 能赚（75%），32 处纯导流** —— binance 11 ✅ / bybit 直投 84 ✅；
+  **okx 11、kraken 9、gate-io 9、coinbase 1、bitget 1、mexc 1 全卡在空码上**。
+  ad-006（Bybit）`endAt: 2026-10-04`，到期回落到 promo，而 `ad-network.json` 的 home-banner
+  projectId **正是 bybit** 且有码 → **不会掉成不赚钱的位子**（已验证）。
 
 ---
 
 ## ⚠️ 沙箱 safe-delete 守卫：一个根因，五个后果
-阈值 **50 个文件**、`scope:"turn"`。触发后**该轮内一切删除都失败**（`rm`、`rm -rf`、
-换 `--outDir` 建新目录都一样）。**`mv` 不算删除，可正常用。**
-1. **本地构建到不了 `astro:build:done`**（在 `cleanServerOutput` 被抛异常中断）→
-   `npm run build` 的 **exit=1 是假失败**（用 `grep -E "Complete"` 确认）。
-2. **`dist/sitemap-0.xml` 本地永远生不出来** → **读 `dist/sitemap-*.xml` 的测试在本地都不可信**
-   （CI 干净 runner 仍严格）。
-3. **本地 `dist/` 不清空** → `grep -r ... dist/` 会读到上批旧文件，把"旧文案还在"误判成改动没生效。
-   **先取 HTML 实际引用的资源名再只查这些**（`dist/**/*.html` 不匹配嵌套目录）。
-4. **手动 `wrangler pages deploy` 会把死文件传上去**（真要做先换干净目录）。
-5. **`git` 自我维护本身就是批量删除** → 撞守卫 → **`.git` 被毁**。
+阈值 **50 个文件**、`scope:"turn"`。触发后**该轮内一切删除都失败**（`rm`、`rm -rf`、换 `--outDir`
+建新目录都一样）。**`mv` 不算删除，可正常用。**
+1. 本地构建到不了 `astro:build:done` → **`npm run build` 的 exit=1 是假失败**（`grep -E "Complete"` 确认）。
+2. `dist/sitemap-0.xml` 本地永远生不出来 → 读它的测试本地不可信（CI 仍严格）。
+3. `dist/` 不清空 → `grep -r ... dist/` 读到上批旧文件，把"旧文案还在"误判成改动没生效。
+   先取 HTML 实际引用的资源名再只查这些（`dist/**/*.html` 不匹配嵌套目录）。
+4. 手动 `wrangler pages deploy` 会把死文件传上去（先换干净目录）。
+5. `git` 自我维护本身就是批量删除 → 撞守卫 → **`.git` 被毁**。
 
 **不影响线上**（CI 每次干净 runner）。**两次目录消失事故**：① `src/`（60 文件）→ `git checkout -- src/`；
-② **`.git/refs/` + `objects/pack/*.pack` 全被删** → 恢复流程已固化为技能 **`recover-destroyed-git-repo`**
-（reflog 是命根子；`refs/remotes/` 写入**不持久**；`git fsck` 刷 `failed to load pack entry` =
-僵尸 `.idx`，先移走）。**教训：做批量文件操作前先提交。**
+② **`.git/refs/` + `objects/pack/*.pack` 全被删** → 流程固化为技能 **`recover-destroyed-git-repo`**
+（reflog 是命根子；`refs/remotes/` 写入**不持久**；`git fsck` 刷 `failed to load pack entry` = 僵尸 `.idx`，
+先移走）。**教训：做批量文件操作前先提交。**
 
 ⚠️ **Vite 过期缓存致构建崩溃**：`node_modules/.vite/deps_temp_*` 删不动 →
 `TypeError: msg.includes is not a function`。**症状与代码改动无关，极具迷惑性。** 修复：`mv` 走。
@@ -87,8 +89,8 @@
 
 ## 实时行情架构
 浏览器组件统一走 `src/utils/coingecko.ts` 的 `cgFetch()`：① 优先 `/api/cg/*`（Pages Function，
-Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访客 IP 直连。
-⚠️ **看缓存看 `X-CG-Cache`，不要看 `cf-cache-status`**（后者恒 DYNAMIC）。回归：`npm run test:cg`。
+Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 回退访客 IP 直连。
+⚠️ **看缓存看 `X-CG-Cache`，不看 `cf-cache-status`**（后者恒 DYNAMIC）。回归：`npm run test:cg`。
 
 ---
 
@@ -104,24 +106,32 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 - ⭐ **`GITHUB_TOKEN` 推送不触发其他工作流**（GitHub 防递归）。5 个数据工作流全用
   `secrets.GITHUB_TOKEN` → **它们推的提交不跑 `deploy-pages.yml`**，只有 CF Git 集成在构建。
   真人推送 → workflow **＋** Git 集成（**两遍**）；机器人推送 → **只有 Git 集成**。
-  （证据：近 12 天逐日比对 11/12 吻合；9-07~9-10 机器人 29 / 真人 0 → 部署 **0** 次。）
 - 🔴 **绝对不要断开 CF Pages Git 集成** —— 断掉后机器人推送既不触发 workflow、又没了 Git 集成，
   **没有任何东西会构建它，而且不报错**（站点看着正常、数据一天天变旧，最难发现的故障）。
   **推荐**：Git 集成不动；想省真人推送的两遍构建，就删 `deploy-pages.yml` 或去掉其 `push:` 触发。
   要 Wrangler 当唯一通道：先把 5 个数据工作流的 checkout token 换成 PAT。
-- **额度**：近 30 天本 workflow 只跑 **46 次（9.2%）**，含 Git 集成合计约 **50-56%** →
-  **"逼近上限"作废**。构建额度**按 push 次数算，不按 commit 数**。
+- **额度**：近 30 天本 workflow 只跑 **46 次（9.2%）** → **"逼近上限"作废**。
+  构建额度**按 push 次数算，不按 commit 数**。
+
+---
+
+## 🔧 线上配置缺口（9-15 复核，都是后台开关）
+- **Managed robots.txt 仍开着** → 线上有两套块。⚠️ **别夸大**：按 RFC 9309 同长度冲突 **Allow 胜出**，
+  `Amazonbot` 实际没被挡；真问题是**两个 `Content-Signal` 值不同 → AI 引用政策模糊**。
+- **无 `Strict-Transport-Security`**（`nosniff`/`referrer-policy` 都有）。有 `/admin/` 登录，建议开；
+  HSTS 不可逆，开前确认所有子域支持 HTTPS。
+- HTML 声明 `s-maxage=86400` 但 `cf-cache-status: DYNAMIC` → 边缘**实际不缓存 HTML**，**保持现状**。
 
 ---
 
 ## 链接健康巡检
 `.github/workflows/check-links.yml`（周二 04:00 UTC，crawl + outbound 合在一个文件 ——
 推 `.github/workflows/` 需 PAT 的 `workflow` scope）。crawl 110 URL / **0 死链**；outbound 63 个官网。
-- **只有「确认失效」才让 job 变红**。63 个里 18 个会挡数据中心 IP 返 403，算失效就每周报红 →
+- **只有「确认失效」才让 job 变红** —— 63 个里 18 个会挡数据中心 IP 返 403，算失效就每周报红 →
   被当噪音忽略 → 淹没真问题。
 - 脚本用 **`process.exitCode`，禁用 `process.exit()`**（后者污染 Node/Windows 退出码）。
-- ⚠️ **6 个跨域名重定向都不要改**（理由见 `scripts/known-redirects.json`）：改了会制造 blur 式评分
-  污染；Magic Eden 必须保留 `.io`。
+- ⚠️ **6 个跨域名重定向都不要改**（见 `scripts/known-redirects.json`）：改了会制造 blur 式评分污染；
+  Magic Eden 必须保留 `.io`。
 
 ---
 
@@ -132,18 +142,17 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
   → 提交必然是 `pending`，`getActiveProjects()` 只取 `active`。
 - 教训：前端**原样打印后端 `error` 字段** → 后端文案 = 访客可见文案。
   ⚠️ **别用"线上返回什么"推断变量配没配** —— 容易把"代码没上线"误读成"变量没配"。
-- 加固（`scripts/test-submit.mjs`）：字段长度上限；website 必须 http(s)（否则 `javascript:`
-  会存下来，批准后渲染成 `<a href>` 就是可点击 XSS）；控制字符剥离。
+- 加固（`scripts/test-submit.mjs`）：字段长度上限；website 必须 http(s)（否则 `javascript:` 存下来、
+  批准后渲染成 `<a href>` 就是可点击 XSS）；控制字符剥离。
 
 ### 🔴🔴 曾存在的构建 DoS（已修，2026-09-11）
-`src/pages/verify/[slug].astro` 的 `getStaticPaths` 原本遍历**全部** projects + `if (!s) throw`；
-而 `/api/submit` 追加的 `pending` 条目**没有**安全记录 → 构建中断，**坏条目留在 JSON 里 →
-之后每一次构建都失败**，CF 继续服务上一个好版本 → **站点不挂、不报错、静默停更**。
-**一发匿名请求即可让后续所有部署永久失败。** 这是 2026-09-06 部署失败（`86f8ee6`）的真因。
-**修复**：`verify/[slug].astro` 与 `embed/[slug].astro` 改用 `getActiveProjects()`；
-**那个 `throw` 故意保留**。`check-safety.mjs` 断言口径同步改 active，并**新增源码级守卫**
-（读两个 `.astro` 的 `getStaticPaths` 块，要求含 `getActiveProjects()` 且不含 `projects.map`）
-——**注释拦不住人，测试可以**。
+`verify/[slug].astro` 的 `getStaticPaths` 原本遍历**全部** projects + `if (!s) throw`；而 `/api/submit`
+追加的 `pending` 条目**没有**安全记录 → 构建中断，**坏条目留在 JSON 里 → 之后每一次构建都失败**，
+CF 继续服务上一个好版本 → **站点不挂、不报错、静默停更**。**一发匿名请求即可让后续所有部署永久失败。**
+这是 2026-09-06 部署失败（`86f8ee6`）的真因。
+**修复**：`verify/[slug].astro` 与 `embed/[slug].astro` 改用 `getActiveProjects()`（**`throw` 故意保留**）；
+`check-safety.mjs` 断言口径同步改 active，并**新增源码级守卫**（读两个 `.astro` 的 `getStaticPaths` 块，
+要求含 `getActiveProjects()` 且不含 `projects.map`）——**注释拦不住人，测试可以**。
 
 ---
 
@@ -163,21 +172,16 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 - ⚠️ **合规缺口（未解决）**：GA4 在欧盟属需事先同意，站上**没有同意弹窗**。
 
 ### ⭐ 「GA4 检测不到」：三件独立的事，别混为一谈（2026-09-11）
-- **后台报"未检测到 Google 代码"** → **标签只活了 1~1.5 小时**（11:09 提交、11:16-11:49 上线）。
-  GA4 检测是**周期性爬虫**，Google 说最多 48h 才更新 → **先等，再用实时报表验证**。
-- **用户自己看不到数据** → 网络到不了 Google（见下）。
+- **后台报"未检测到"** → **标签只活了 1~1.5 小时**。GA4 检测是**周期性爬虫**，Google 说最多 48h 更新
+  → **先等，再用实时报表验证**。
 - **标签本身 100% 正确**：在 `<head>`、文档 4.3% 处、抽查 6 个页面族全在、canonical 指向 apex。
 - 🔴 **本机代理主动屏蔽 GA 域名**：`fonts.googleapis.com` → 200，但 `googletagmanager.com` /
-  `google-analytics.com` → **000**。→ **这台机器上跑任何 GA 探针都得不出结论**；
-  `collectRequests: 0` 是本机网络的产物，**不是标签坏了**。
-  **上一轮"挂代理 collect=204"不可复现，已作废。** `check-ga-live.mjs` 已加对照探测输出
-  `verdict: INCONCLUSIVE`，不再误导。
-- ⚠️ **`window.gtag` / `dataLayer.length` 证明不了任何事**（由我们自己的内联片段定义）。
+  `google-analytics.com` → **000** → **这台机器上跑任何 GA 探针都得不出结论**；
+  `collectRequests: 0` 是本机网络的产物，**不是标签坏了**。**上一轮"挂代理 collect=204"已作废。**
+  `check-ga-live.mjs` 已加对照探测输出 `verdict: INCONCLUSIVE`。
+- ⚠️ **`window.gtag` / `dataLayer.length` 证明不了任何事**（我们自己内联片段定义的）。
   **只有 `collectRequests` 和 `_ga` cookie 是真信号。** Chrome 不读 `https_proxy`，必须 `--proxy-server=`。
-- 🔴 **`www.cryptonav.site` 返回 522**（DNS 有记录但没挂到 Pages）→ 若 GA4 数据流 URL 填的是带 www 的，
-  检测器抓到的就是错误页。**修：CF Redirect Rule，`www.cryptonav.site/*` → `https://cryptonav.site/$1`（301）。**
-- ⚠️ `cryptonav.pages.dev` 是**别人的中文站**。验证姿势：用能通 Google 的浏览器打开站点 →
-  GA4 **实时报表** + DebugView。
+- ⚠️ `cryptonav.pages.dev` 是**别人的中文站**。
 
 ---
 
@@ -187,9 +191,9 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 时回退访
 - ⚠️ **Decap 保存时整份重写 JSON：未在 `config.yml` 声明的字段被静默丢弃**（曾抹掉 4 个 metrics）
   → **改 config.yml 前先对照真实 JSON 字段**。
 - ⚠️ 校验脚本的坑：**file collection 的根字段只是包裹层**，名字**不属于** item 字段路径
-  （算成 `projects.name` 会让 64 个字段全误报）→ **根字段有嵌套时，子字段用空前缀递归**。
-- ⚠️ 三个隐患（**我没擅自改**，改错会弄挂 CMS）：`state` **从不校验**（无 CSRF）、
-  `postMessage` **无 origin 白名单**、`client_id` 有**硬编码兜底**。
+  （算成 `projects.name` 会让 64 个字段全误报）→ 根字段有嵌套时，子字段用空前缀递归。
+- ⚠️ 三个隐患（**我没擅自改**，改错会弄挂 CMS）：`state` 无 CSRF 校验、`postMessage` 无 origin 白名单、
+  `client_id` 有硬编码兜底。
 
 ---
 
@@ -204,15 +208,12 @@ git -c credential.helper= -c credential.helper=manager \
     push origin main
 ```
 
-诊断一行（应**立刻**返回；卡住就是垫片的问题）：
-`printf 'protocol=https\nhost=github.com\n\n' | git -c credential.helper= -c credential.helper=manager credential fill`
-
 - ⚠️ **代理端口每次开机都变**（10265 → 29966 → 35372 → 10809），**先扫端口**。
 - ⚠️ **`.git/refs/remotes/` 写入不持久** → `fetch` 看似成功（打印 `[new branch] main -> origin/main`），
   但 `git branch -r` 为空、`git merge origin/main` 报 **"not something we can merge"**。
-  **别以为远端有问题**，改用本地分支中转：
-  `git fetch origin main:refs/heads/_remote_main` → `git merge _remote_main` → 用完 `git branch -D _remote_main`。
-- **推之前先拉一次**（数据工作流每几小时推一次，直接推会被 `fetch first` 拒掉）。**用 merge，永不用 rebase。**
+  **别以为远端有问题**，用本地分支中转：`git fetch origin main:refs/heads/_remote_main` →
+  `git merge _remote_main` → 用完 `git branch -D _remote_main`。
+- **推之前先拉一次**（机器人每几小时推一次，直接推会被 `fetch first` 拒）。**用 merge，永不用 rebase。**
 - ⚠️ **别再说"我推不了、请给 PAT"** —— 过期结论。
 
 ---

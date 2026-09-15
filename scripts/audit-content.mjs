@@ -200,8 +200,13 @@ if (!fs.existsSync(DIST)) {
   }
 
   // 6. Meta hygiene.
+  // NOTE: this must iterate `real`, not `all`. Iterating `all` folds in the 64
+  // /embed/* badge iframes, which are 17-word noindex documents with no <h1> —
+  // they made "no H1" and "description <70" read as 64 site-wide problems when
+  // the real answer is 0. Same class of mistake as the median-vs-denominator
+  // bug this script was written to replace: check the denominator first.
   console.log('\n--- 6. meta hygiene ---');
-  const meta = all.map((p) => {
+  const meta = real.map((p) => {
     const t = p.html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '';
     const d = p.html.match(/<meta[^>]+name="description"[^>]+content="([^"]*)"/i)?.[1] || '';
     const h1 = (p.html.match(/<h1[\s>]/g) || []).length;
