@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "Butterflys",
-      "name": "The Butterfly Brain",
-      "logo": "/logos/dex/0x02e91400.jpg",
-      "address": "0x02e91400E9e26e97ff0F8D72d544427E7c1311FC",
-      "chain": "robinhood",
-      "change6h": 1042.0,
-      "price": 0.0006065,
-      "date": "2026-09-14"
-    },
-    {
-      "symbol": "bikecate",
-      "name": "BIKE CATE",
-      "logo": "/logos/dex/3nkVw4JwdD.jpg",
-      "address": "3nkVw4JwdDLGM23Wzqpy2ptAPV5YgMnokEBgijDBpump",
-      "chain": "solana",
-      "change6h": 747.0,
-      "price": 0.001011,
-      "date": "2026-09-14"
-    },
-    {
-      "symbol": "uncle",
-      "name": "uncle stonk",
+      "symbol": "LELD",
+      "name": "Lil Eldritch",
       "logo": "",
-      "address": "4JiyyzzVFpkXgmTnggFdjuibMZ42ovozoneZU4xVpump",
+      "address": "gxPoy3LioMo8FxrXHuqzFwg2R2JafQRe5tAsgPQpump",
       "chain": "solana",
-      "change6h": 328.0,
-      "price": 0.0001805,
-      "date": "2026-09-14"
+      "change6h": 1773.0,
+      "price": 0.0007809,
+      "date": "2026-09-15"
     },
     {
-      "symbol": "CROSSRATE",
-      "name": "Crossrate Markets",
-      "logo": "/logos/dex/0x4Ed2692F.jpg",
-      "address": "0x4Ed2692F5e108724A919De5FCbf267f231D5e333",
-      "chain": "robinhood",
-      "change6h": 34.7,
-      "price": 0.0002056,
-      "date": "2026-09-14"
-    },
-    {
-      "symbol": "AC",
-      "name": "Artificial Cat",
-      "logo": "/logos/dex/0xfaD40755.jpg",
-      "address": "0xfaD40755de679B262337f8D964D75CAc51F8C643",
-      "chain": "robinhood",
-      "change6h": 8.0,
-      "price": 8.563e-05,
-      "date": "2026-09-14"
-    },
-    {
-      "symbol": "scpinu",
-      "name": "stupid chubby pudgy inu",
-      "logo": "/logos/dex/0x8EDDB5eE.jpg",
-      "address": "0x8EDDB5eE9E39FC895357d20e03c7De2be4E60cF3",
-      "chain": "robinhood",
-      "change6h": -0.8,
-      "price": 9.425e-05,
-      "date": "2026-09-14"
-    },
-    {
-      "symbol": "AMC",
-      "name": "a meme cat",
+      "symbol": "BIKE MJ",
+      "name": "BIKE MJ",
       "logo": "",
-      "address": "GpTEmPGmgx9HDThCR44xMyJoXZkDYtzTkPs5zAY7YDcY",
+      "address": "2hoRABojpn3SSJ6ReUuCNuKRvsHDuPn7kFHH7J8Fpump",
       "chain": "solana",
-      "change6h": -6.5,
-      "price": 0.000132,
-      "date": "2026-09-14"
+      "change6h": 493.0,
+      "price": 0.0002484,
+      "date": "2026-09-15"
     },
     {
-      "symbol": "HACHIMI",
-      "name": "Earless Hachimi",
-      "logo": "/logos/dex/CYSx8M2ZRK.jpg",
-      "address": "CYSx8M2ZRKoRcfswcJnDjHYz139erQwwCpHRd7Zbpump",
+      "symbol": "STRAWDOG",
+      "name": "STRAWDOG",
+      "logo": "",
+      "address": "Gyt8ifzVc1DnWKGpanfuvNnNyyxsWAFXJ8y38A79pump",
       "chain": "solana",
-      "change6h": -6.9,
-      "price": 9.8e-05,
-      "date": "2026-09-14"
+      "change6h": 342.0,
+      "price": 0.0002323,
+      "date": "2026-09-15"
+    },
+    {
+      "symbol": "RECORD",
+      "name": "OnRecord",
+      "logo": "/logos/dex/0xA78735ba.jpg",
+      "address": "0xA78735baDAAd80Fca7AC7C03bdd029160d45Ce68",
+      "chain": "robinhood",
+      "change6h": 148.0,
+      "price": 0.0002344,
+      "date": "2026-09-15"
+    },
+    {
+      "symbol": "clarity",
+      "name": "clarity cat",
+      "logo": "",
+      "address": "GPrTuSgAXVVJ67bAU4xe3UFD5aDDmVj7bZy73vTQpump",
+      "chain": "solana",
+      "change6h": 43.7,
+      "price": 0.0001218,
+      "date": "2026-09-15"
+    },
+    {
+      "symbol": "WAIFU",
+      "name": "Waifu",
+      "logo": "/logos/dex/0x948647a0.jpg",
+      "address": "0x948647a06a6422DceEA3711297F82AeF68Ec641C",
+      "chain": "robinhood",
+      "change6h": -2.0,
+      "price": 0.001434,
+      "date": "2026-09-15"
+    },
+    {
+      "symbol": "CHUMP",
+      "name": "Chump Coin",
+      "logo": "",
+      "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
+      "chain": "robinhood",
+      "change6h": -5.5,
+      "price": 0.03963,
+      "date": "2026-09-15"
+    },
+    {
+      "symbol": "NOTE",
+      "name": "Note Systems",
+      "logo": "",
+      "address": "0xc4f730335Fb9e439ca5552f7b52B8E638c4245B0",
+      "chain": "robinhood",
+      "change6h": -12.6,
+      "price": 0.09589,
+      "date": "2026-09-15"
     }
   ]
 }
