@@ -4,6 +4,7 @@
 仓库 `Chris123564s/cryptonav`（main）。工作目录 `C:\Users\a\WorkBuddy AI\2026-08-27-10-59-43`。
 **只放"必须遵守的规则与结论"**；过程在 `memory/YYYY-MM-DD.md`，可复用流程在 `~/.workbuddy-ai/skills/`。
 最后整理 2026-09-15。⚠️ **注入上限约 17.5 KB，超出静默截断** —— 增补前先删旧的。
+🔴 **本仓库公开，且 `memory/` 被 git 跟踪 → 记忆文件里永不写凭据**（token/key 的任何片段）。
 
 ---
 
@@ -11,9 +12,8 @@
 1. **6 个联盟码**：okx / coinbase / kraken / gate-io / bitget / mexc —— `code` 是**空字符串**，
    发完整链接即可，**32 处 promo 立刻变现**（okx 11 / kraken 9 / gate-io 9 / coinbase 1 / bitget 1 / mexc 1）。
 2. **修 `www.cryptonav.site` 的 522**（9-15 仍是，第 4 次确认）；顺带**确认 GA4 数据流 URL 不带 www**。
-   DNS：www → `172.66.44.64`/`172.66.47.192`，apex → `104.21.28.195`/`172.67.147.106`
-   → **两条记录指向不同源**。www 在 CF 上**已是代理状态** → Redirect Rule 一定生效
-   （别碰 DNS，也别加成第二个自定义域名 → 重复内容）。
+   ⚠️ **别碰 DNS、也别把 www 加成第二个自定义域名**（→ 重复内容）；www 在 CF 上**已是代理状态** →
+   Redirect Rule 一定生效（边缘求值先于回源，**源站 522 不影响它**）。
    **修**：CF → **Rules → Redirect Rules** → 表达式 `http.host eq "www.cryptonav.site"` →
    Static redirect 到 `https://cryptonav.site/$1`，**301**，保留 query。
 3. **关掉 Managed robots.txt**：CF → **Security Settings** → 按 **"Bot traffic"** 过滤 →
@@ -22,15 +22,15 @@
    **两个 `Content-Signal` 值不同 → AI 引用政策模糊**。（zone **Overview → Control AI Crawlers**
    里可单独取消 **Display Content Signals Policy**。官方文档确认 CF 是**前置拼接、不合并**。）
 4. **GA4 欧盟同意弹窗**（落点 `Layout.astro`）；5. **Bitmedia/Coinzilla 广告代码**（8 槽全空）；
-   6. **SPF**：后台加 `v=spf1 include:spf.mail.qq.com ~all`（token 无 DNS 权限）。
-   7. **开 HSTS**：CF → SSL/TLS → Edge Certificates。⚠️ 不可逆，开前确认所有子域支持 HTTPS。
-8. Bybit 活动截止 `2026-10-04`（我猜的，待确认）。
-9. **战略拍板**：商业页是否重写到 1200+ 词并加第一方经验（5 倍投入）。
-10. ⚪ 观察项，**保持现状别动**：HTML 声明 `s-maxage=86400` 但 `cf-cache-status: DYNAMIC`
-   （边缘实际不缓存 HTML；数据每几小时刷新，不缓存反而保新鲜）。
+   6. **SPF**：加 `v=spf1 include:spf.mail.qq.com ~all`；7. **HSTS**：CF → SSL/TLS → Edge
+   Certificates。⚠️ 不可逆。
+8. Bybit 活动截止 `2026-10-04`（我猜的，待确认）；9. **战略拍板**：商业页是否重写到 1200+ 词。
+10. ⚪ 观察项，**保持现状别动**：HTML 声明 `s-maxage=86400` 但 `cf-cache-status: DYNAMIC`（边缘
+   实际不缓存 HTML；数据每几小时刷新，不缓存反而保新鲜）。
 
 **已修复、无需再跟**：`/api/submit` 构建 DoS；`/newsletter` 已下线；
-**`/chain/ton/` 孤儿页 + 链页图片尺寸（9-15，`06e7b60`）**。
+**`/chain/ton/` 孤儿页 + 链页图片尺寸（9-15，`06e7b60`）**；
+**新建 `/chains/` 总览页 + 修死锚点（9-15，`a13f00c`，已上线验证）**。
 **⚠️ 反转项**：**不要断开 CF Pages Git 集成**（旧待办，照做会静默停更 —— 见「部署」）。
 **⚠️ 我的 token 做不了 2 和 3**：本地无 CF token、GitHub secret 读不到，既有 token 只有
 `zone_settings:edit/read`、`worker:edit/read`、`zone:read` —— **无 DNS、无 rulesets 权限** → 只能人工点。
@@ -47,9 +47,8 @@
 ---
 
 ## 联盟码写入原则
-- **唯一边界：访客只接触官方域名。** 码的来源不影响访客安全。
-- ✅ **可写**：用户给什么链接，就把 `template` 的**域名换成那个链接的域名**，`code` 填链接里的 ID。
-- ❌ **不写**：来源不明、无法确认归属的野鸡域名（`bsmkweb.cc` 等）。
+- **唯一边界：访客只接触官方域名**，码的来源不影响访客安全。✅ **可写**：用户给什么链接，就把
+  `template` 的**域名换成那个链接的域名**，`code` 填链接里的 ID。❌ **不写**来源不明的野鸡域名。
 - ⚠️ **"域名必须官方" ≠ "必须是主域"**：`template` 只是拼接壳子，域名由用户给的链接决定。
   用户已明说 **"不要去参考模板了，以我的为准"** → **别家长式拦阻**，剩余风险只涉返佣归属。
 - 已有码：binance `GRO_28502_B2R17` ✅、bybit `166214` ✅。
@@ -70,8 +69,8 @@
 - 视觉：渐变用行内 CSS 变量 `--ad-1 / --ad-2 / --ad-glow`（配色表在 `AdBanner.astro`）。
   **改 `.ad-container` / `.ad-label` 要用更高特异性** —— 它们在 `@layer components`
   （**Tailwind 的处理层，不是原生 cascade layer**），覆盖**不能靠加载顺序**。
-- 现状（9-15）：**127 处渲染，95 能赚（75%）**。ad-006（Bybit）`endAt: 2026-10-04`，到期回落到 promo，
-  而 home-banner 的 projectId **正是 bybit** 且有码 → **不会掉成不赚钱的位子**（已验证）。
+- 现状（9-15）：**128 处渲染，96 能赚（75%），32 处纯导流**。ad-006（Bybit）`endAt: 2026-10-04`，
+  到期回落到 promo，而 home-banner 的 projectId **正是 bybit** 且有码 → **不会掉成不赚钱的位子**。
 
 ---
 
@@ -85,10 +84,9 @@
 4. 手动 `wrangler pages deploy` 会把死文件传上去（先换干净目录）。
 5. `git` 自我维护本身就是批量删除 → 撞守卫 → **`.git` 被毁**。
 
-**不影响线上**（CI 每次干净 runner）。**两次目录消失事故**：① `src/`（60 文件）→ `git checkout -- src/` 可恢复；
-② **`.git/refs/` + `objects/pack/*.pack` 全被删** → 流程固化为技能 **`recover-destroyed-git-repo`**
-（reflog 是命根子；`git fsck` 刷 `failed to load pack entry` = 僵尸 `.idx`，先移走）。
-**教训：做批量文件操作前先提交。**
+**不影响线上**（CI 干净 runner）。**两次目录消失事故**：① `src/` → `git checkout -- src/`；
+② **`.git/refs/` + `objects/pack/*.pack` 全被删** → 恢复流程见技能 **`recover-destroyed-git-repo`**。
+**教训：批量文件操作前先提交。**
 
 ⚠️ **Vite 过期缓存致构建崩溃**：`node_modules/.vite/deps_temp_*` 删不动 →
 `TypeError: msg.includes is not a function`。**症状与代码改动无关，极具迷惑性。** 修复：`mv` 走，构建前先查。
@@ -108,7 +106,7 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 回退访客
 - **CI 只跑 `npm ci && npm run build`，不跑 `npm test`** → 能阻断 CI 的只有**构建期**报错。
 - `_routes.json` 必须同时有 `include` **和** `exclude` 两个数组（Wrangler 源码 `isRoutesJSONSpec()`
   要求都是数组；**云文档说 exclude 可选是错的**）。缺 exclude 曾让所有部署发布阶段被拒一整天，
-  且 Pages 构建器只报含糊的 `Failed to publish assets`。校验 `scripts/check-routes-json.mjs`。
+  Pages 构建器只报含糊的 `Failed to publish assets`。校验 `scripts/check-routes-json.mjs`。
 - **CI 警告纪律：健康流水线必须零警告。** 无法判断的检查只输出普通日志（`note()`），
   `::warning::` 只留给可行动项（`test-cloudflare-token.mjs` 断言**精确警告数**）。
 - ⭐ **`GITHUB_TOKEN` 推送不触发其他工作流**（GitHub 防递归）。5 个数据工作流全用
@@ -116,10 +114,8 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 回退访客
   真人推送 → workflow **＋** Git 集成（**两遍**）；机器人推送 → **只有 Git 集成**。
 - 🔴 **绝对不要断开 CF Pages Git 集成** —— 断掉后机器人推送既不触发 workflow、又没了 Git 集成，
   **没有任何东西会构建它，而且不报错**（站点看着正常、数据一天天变旧，最难发现的故障）。
-  **推荐**：Git 集成不动；想省真人推送的两遍构建，就删 `deploy-pages.yml` 或去掉其 `push:` 触发。
-  要 Wrangler 当唯一通道：先把 5 个数据工作流的 checkout token 换成 PAT。
-- **额度**：近 30 天本 workflow 只跑 **46 次（9.2%）** → **"逼近上限"作废**。
-  构建额度**按 push 次数算，不按 commit 数**。
+  **推荐**：Git 集成不动；想省真人推送的两遍构建，就删 `deploy-pages.yml` 的 `push:` 触发。
+- **额度**：近 30 天本 workflow 只跑 **46 次（9.2%）** → **"逼近上限"作废**；额度**按 push 次数算**。
 
 ---
 
@@ -132,7 +128,7 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 回退访客
 
 ## 写入端点 `/api/submit`（BD 入口）
 - 调 GitHub API 把提交**直接写进 `src/data/projects.json`**（`status: 'pending'`）。`GITHUB_ISSUE_TOKEN` ✅。
-- ⚠️ **探测它有副作用**：真 POST 一次会**在 main 上创建提交**并**触发一次部署**。**别当无副作用的健康检查。**
+- ⚠️ **探测它有副作用**：真 POST 一次会在 main 上创建提交并**触发一次部署** —— 别当无副作用的健康检查。
 - ✅ **安全**：字段白名单让访客**无法**设置 `status/sponsored/verified/featured/riskLevel/source`
   → 提交必然是 `pending`，`getActiveProjects()` 只取 `active`。
 - 教训：前端**原样打印后端 `error` 字段** → 后端文案 = 访客可见文案。
@@ -145,8 +141,8 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 回退访客
 追加的 `pending` 条目没有安全记录 → 构建中断且**坏条目留在 JSON 里 → 之后每次构建都失败**，
 CF 继续服务旧版本 → **站点不挂、不报错、静默停更**。**一发匿名请求即可让后续所有部署永久失败。**
 **修复**：`verify/` 与 `embed/[slug].astro` 改用 `getActiveProjects()`（`throw` 故意保留）；
-`check-safety.mjs` 同步改口径，并**新增源码级守卫**（读两个 `.astro` 的 `getStaticPaths` 块，
-要求含 `getActiveProjects()` 且不含 `projects.map`）——**注释拦不住人，测试可以**。
+`check-safety.mjs` 同步改口径并**新增源码级守卫**（读两个 `.astro` 的 `getStaticPaths` 块，要求含
+`getActiveProjects()` 且不含 `projects.map`）——**注释拦不住人，测试可以**。
 
 ---
 
@@ -168,11 +164,11 @@ CF 继续服务旧版本 → **站点不挂、不报错、静默停更**。**一
 ### ⭐ 「GA4 检测不到」：三件独立的事，别混为一谈
 - **后台报"未检测到"** → **标签只活了 1~1.5 小时**。GA4 检测是**周期性爬虫**，Google 说最多 48h 更新
   → **先等，再用实时报表验证**。
-- **标签本身 100% 正确**：在 `<head>`、文档 4.3% 处、抽查 6 个页面族全在、canonical 指向 apex。
+- **标签本身 100% 正确**（`<head>` 内、6 个页面族抽查全在、canonical 指向 apex）。
 - 🔴 **本机代理主动屏蔽 GA 域名**：`fonts.googleapis.com` → 200，但 `googletagmanager.com` /
   `google-analytics.com` → **000** → **这台机器上跑任何 GA 探针都得不出结论**；
-  `collectRequests: 0` 是本机网络的产物，**不是标签坏了**。`check-ga-live.mjs` 已加对照探测输出
-  `verdict: INCONCLUSIVE`。
+  `collectRequests: 0` 是本机网络的产物，**不是标签坏了**；`check-ga-live.mjs` 已输出
+  `verdict: INCONCLUSIVE`，不再误导。
 - ⚠️ **`window.gtag` / `dataLayer.length` 证明不了任何事**（我们自己内联片段定义的）。
   **只有 `collectRequests` 和 `_ga` cookie 是真信号。** Chrome 不读 `https_proxy`，必须 `--proxy-server=`。
 - ⚠️ `cryptonav.pages.dev` 是**别人的中文站**。
@@ -213,18 +209,23 @@ git -c credential.helper= -c credential.helper=manager \
 
 ## 📊 SEO / 内容审计
 **全部实测数字在 `CryptoNav-SEO审计-2026-09-11.md`**；复现：`node scripts/audit-content.mjs`
-（110 个内容页，剔除 `/embed/*` 与 `/admin/`）。**结论：技术上干净，但结构上无法积累权重。**
-三个核心数字：`/category/*` 中位 **371** 词 vs `/learn/*` **1378**（商业页最薄）；**第一方经验信号全站 0**；
-每页固定 **72** 条导航内链，`/compare/binance-vs-coinbase` 正文仅 **2** 条（**97%** 是导航）。
-- ✅ **`/chain/ton/` 孤儿页 + 链页图片尺寸已于 9-15 修复**（见「待用户动作」末尾）。根因：`Header.astro`
-  与 `chain/[slug].astro` 都写了 `slice(0, 8)` 而 `chains.json` 有 10 条，且**首页唯一的链页链接
-  就来自那个导航**。**去掉两处 cap**（不是改成 `slice(0,10)` —— 任何硬上限都会再次孤立最后一条）。
-  实测：首页链链接 8→10、含 `/chain/ton` 的页面 110、零入链页 2→1（只剩 `/404.html`）。
+（111 个内容页，剔除 `/embed/*` 与 `/admin/`）。**结论：技术上干净，但结构上无法积累权重。**
+三个核心数字：`/category/*` 中位 **383** 词 vs `/learn/*` **1390**（商业页最薄）；**第一方经验信号全站 0**；
+每页固定 **78** 条导航内链，`/compare/binance-vs-coinbase` 正文仅 **2** 条（**98%** 是导航）。
+- ✅ **孤儿页已修（9-15）**。根因：`Header.astro` 与 `chain/[slug].astro` 都写了 `slice(0, 8)` 而
+  `chains.json` 有 10 条，且**首页唯一的链页链接就来自那个导航**。**去掉两处 cap**（不是改成
+  `slice(0,10)` —— 任何硬上限都会再次孤立最后一条）。实测：首页链链接 8→10、含 `/chain/ton` 的页面
+  110、零入链页 2→1（只剩 `/404.html`）。
+- ✅ **新建 `/chains/` 总览页（`a13f00c`，已上线验证）**：链页面包屑与 BreadcrumbList 原本指向
+  `/#chains`，而**首页既无该锚点也无 chains 区块** → 面包屑连结构化数据一起指向空处。新页按
+  `tvlRank` 排序、`map()` 整个 `chains` 数组 → **不可能再孤立任何一条**（布局类列表会被 cap，
+  这个不会）。导航桌面 + 移动端各加 "View all chains →"。**往 `chains.json` 加链只需加数据。**
+  ⚠️ `chains.json` 的 `logo` 指向 `/logos/chains/`，是**空目录（全 404）**；当前无页面渲染它，
+  线上没坏图 —— 要么删字段要么补图，**别留个像能用的坏字段**。
 - ⚠️ **图片尺寸那次我说错了**：那些 img 本来就在固定尺寸盒子里（`w-7 h-7` / `w-10 h-10` +
   `shrink-0 overflow-hidden`），**本来就没有 CLS**；加 `width/height` 只是正确写法 + 消除
   Lighthouse 告警。**别再把"没有 width 属性"直接说成 CLS。**
 
-⚠️ **报中位数前先确认分母**（同一个错误犯过两次）：第一版把 64 个 `/embed/*` 徽章（17 词/2KB）
-算进去 → 得出"内容/标记比中位 8.9""66 个零入链页"；后来 meta 段又遍历 `all` 而非 `real` →
-误报"64 页无 H1 / description 过短"（真答案全 0）。
-**任何计数恰好等于被排除集大小 = 分母 bug，不是发现。**
+⚠️ **报中位数前先确认分母**（同一错误犯过两次）：第一版把 64 个 `/embed/*` 徽章（17 词/2KB）算进去
+→ 得出"内容/标记比中位 8.9""66 个零入链页"；meta 段又遍历 `all` 而非 `real` → 误报"64 页无 H1"
+（真答案 0）。**任何计数恰好等于被排除集大小 = 分母 bug，不是发现。**
