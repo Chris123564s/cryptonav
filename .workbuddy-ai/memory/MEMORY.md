@@ -11,16 +11,16 @@
 ## 🔴 待用户动作
 1. **6 个联盟码**：okx / coinbase / kraken / gate-io / bitget / mexc —— `code` 是**空字符串**，
    发完整链接即可，**32 处 promo 立刻变现**（okx 11 / kraken 9 / gate-io 9 / coinbase 1 / bitget 1 / mexc 1）。
-2. **修 `www.cryptonav.site` 的 522**（9-15 仍是，第 4 次确认）；顺带**确认 GA4 数据流 URL 不带 www**。
+2. **修 `www.cryptonav.site` 的 522**（9-15 仍是）；顺带**确认 GA4 数据流 URL 不带 www**。
    ⚠️ **别碰 DNS、也别把 www 加成第二个自定义域名**（→ 重复内容）；www 在 CF 上**已是代理状态** →
    Redirect Rule 一定生效（边缘求值先于回源，**源站 522 不影响它**）。
    **修**：CF → **Rules → Redirect Rules** → 表达式 `http.host eq "www.cryptonav.site"` →
    Static redirect 到 `https://cryptonav.site/$1`，**301**，保留 query。
-3. **关掉 Managed robots.txt**：CF → **Security Settings** → 按 **"Bot traffic"** 过滤 →
-   关掉 **"Set your preference to block training in robots.txt"**。
+3. **关掉 Managed robots.txt**：CF → **Security Settings** → 按 **"Bot traffic"** 过滤 → 关掉
+   **"Set your preference to block training in robots.txt"**（zone **Overview → Control AI Crawlers**
+   可单独取消 **Display Content Signals Policy**）。
    ⚠️ **别夸大**：按 RFC 9309 同长度冲突 **Allow 胜出**，`Amazonbot` 实际没被挡；真问题是
-   **两个 `Content-Signal` 值不同 → AI 引用政策模糊**。（zone **Overview → Control AI Crawlers**
-   里可单独取消 **Display Content Signals Policy**。官方文档确认 CF 是**前置拼接、不合并**。）
+   **两个 `Content-Signal` 值不同 → AI 引用政策模糊**。CF 官方确认是**前置拼接、不合并**。
 4. **GA4 欧盟同意弹窗**（落点 `Layout.astro`）；5. **Bitmedia/Coinzilla 广告代码**（8 槽全空）；
    6. **SPF**：加 `v=spf1 include:spf.mail.qq.com ~all`；7. **HSTS**：CF → SSL/TLS → Edge
    Certificates。⚠️ 不可逆。
@@ -57,8 +57,8 @@
 
 ## 广告位机制
 - 优先级：`ads.json 直投（active + 时间窗）> ad-network.json 的 html > promo > "Your Ad Here"`。
-- ⚠️ **`weight` = "构建时被选中的概率"，不是展示概率**（Astro 静态生成，每页构建 `Math.random()`
-  抽一次就固定）。要稳定展示某条，就让它成为该 slot 唯一候选。
+- ⚠️ **`weight` = "构建时被选中的概率"，不是展示概率**（静态生成，每页构建抽一次就固定）。
+  要稳定展示某条，就让它成为该 slot 唯一候选。
 - **`image` 填不填决定看不看得见文案**：填了只渲染 `<img>`（文字进 alt）；不填才走渐变+文字。
   **活动推广必须留空 image。**
 - **RULE**：promo 的 `projectId` **必须是 affiliates.json 的 key**，否则 `getReferralUrl()` 无码可拼、
@@ -79,8 +79,8 @@
 建新目录都一样）。**`mv` 不算删除，可正常用。**
 1. 本地构建到不了 `astro:build:done` → **`npm run build` 的 exit=1 是假失败**（`grep -E "Complete"` 确认）。
 2. `dist/sitemap-0.xml` 本地永远生不出来 → 读它的测试本地不可信（CI 仍严格）。
-3. `dist/` 不清空 → `grep -r ... dist/` 读到上批旧文件，把"旧文案还在"误判成改动没生效。
-   先取 HTML 实际引用的资源名再只查这些（`dist/**/*.html` 不匹配嵌套目录）。
+3. `dist/` 不清空 → `grep -r dist/` 读到上批旧文件，把"旧文案还在"误判成改动没生效；先取 HTML
+   实际引用的资源名再只查这些（`dist/**/*.html` 不匹配嵌套目录）。
 4. 手动 `wrangler pages deploy` 会把死文件传上去（先换干净目录）。
 5. `git` 自我维护本身就是批量删除 → 撞守卫 → **`.git` 被毁**。
 
@@ -101,8 +101,8 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 回退访客
 ---
 
 ## 部署与 CI
-- ✅ **保留 Wrangler，push 到 main 自动部署**（`deploy-pages.yml` + `workflow_dispatch`，
-  concurrency 串行）。故意**不加 `paths-ignore`** —— 过滤会新增"推了却没部署"的静默失败类型。
+- ✅ **保留 Wrangler，push 到 main 自动部署**（`deploy-pages.yml`，concurrency 串行）。
+  故意**不加 `paths-ignore`** —— 过滤会新增"推了却没部署"的静默失败类型。
 - **CI 只跑 `npm ci && npm run build`，不跑 `npm test`** → 能阻断 CI 的只有**构建期**报错。
 - `_routes.json` 必须同时有 `include` **和** `exclude` 两个数组（Wrangler 源码 `isRoutesJSONSpec()`
   要求都是数组；**云文档说 exclude 可选是错的**）。缺 exclude 曾让所有部署发布阶段被拒一整天，
@@ -116,13 +116,16 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 回退访客
   **没有任何东西会构建它，而且不报错**（站点看着正常、数据一天天变旧，最难发现的故障）。
   **推荐**：Git 集成不动；想省真人推送的两遍构建，就删 `deploy-pages.yml` 的 `push:` 触发。
 - **额度**：近 30 天本 workflow 只跑 **46 次（9.2%）** → **"逼近上限"作废**；额度**按 push 次数算**。
+- ⚠️ **`public/_headers` 不是唯一权威**：CF zone 级设置会覆盖/合并它 —— 线上 `referrer-policy`
+  实际是 `same-origin`，而文件里写的是 `strict-origin-when-cross-origin`；`expect-ct` /
+  `x-frame-options` / `Access-Control-Allow-Origin: *` 也不在文件里（账号级注入）。
 
 ---
 
 ## 链接健康巡检
-`.github/workflows/check-links.yml`（周二 04:00 UTC，110 URL / **0 死链**）。
-**只有「确认失效」才让 job 变红**（63 个官网里 18 个会挡数据中心 IP 返 403，算失效就每周报红）；
-脚本用 **`process.exitCode`，禁用 `process.exit()`**；⚠️ **`known-redirects.json` 里 6 个跨域名重定向都不要改**。
+`.github/workflows/check-links.yml`（周二 04:00 UTC，110 URL / **0 死链**）。**只有「确认失效」才让
+job 变红**（63 个官网里 18 个挡数据中心 IP 返 403，算失效就每周报红）；脚本用 **`process.exitCode`，
+禁用 `process.exit()`**；⚠️ **`known-redirects.json` 里 6 个跨域名重定向都不要改**。
 
 ---
 
@@ -140,9 +143,9 @@ Cache API + 并发去重 + 24h 陈旧兜底）；② 边缘 429/5xx 回退访客
 `verify/[slug].astro` 的 `getStaticPaths` 原本遍历**全部** projects + `if (!s) throw`，而 `/api/submit`
 追加的 `pending` 条目没有安全记录 → 构建中断且**坏条目留在 JSON 里 → 之后每次构建都失败**，
 CF 继续服务旧版本 → **站点不挂、不报错、静默停更**。**一发匿名请求即可让后续所有部署永久失败。**
-**修复**：`verify/` 与 `embed/[slug].astro` 改用 `getActiveProjects()`（`throw` 故意保留）；
-`check-safety.mjs` 同步改口径并**新增源码级守卫**（读两个 `.astro` 的 `getStaticPaths` 块，要求含
-`getActiveProjects()` 且不含 `projects.map`）——**注释拦不住人，测试可以**。
+**修复**：`verify/` 与 `embed/` 改用 `getActiveProjects()`（`throw` 故意保留）；`check-safety.mjs`
+同步改口径并**新增源码级守卫**（断言两个 `.astro` 的 `getStaticPaths` 块含 `getActiveProjects()`
+且不含 `projects.map`）——**注释拦不住人，测试可以**。
 
 ---
 
@@ -162,16 +165,16 @@ CF 继续服务旧版本 → **站点不挂、不报错、静默停更**。**一
 - ⚠️ **合规缺口（未解决）**：GA4 在欧盟属需事先同意，站上**没有同意弹窗**。
 
 ### ⭐ 「GA4 检测不到」：三件独立的事，别混为一谈
-- **后台报"未检测到"** → **标签只活了 1~1.5 小时**。GA4 检测是**周期性爬虫**，Google 说最多 48h 更新
+- **后台报"未检测到"** → **标签只活了 1~1.5 小时**；GA4 检测是**周期性爬虫**，最多 48h 更新
   → **先等，再用实时报表验证**。
 - **标签本身 100% 正确**（`<head>` 内、6 个页面族抽查全在、canonical 指向 apex）。
-- 🔴 **本机代理主动屏蔽 GA 域名**：`fonts.googleapis.com` → 200，但 `googletagmanager.com` /
-  `google-analytics.com` → **000** → **这台机器上跑任何 GA 探针都得不出结论**；
-  `collectRequests: 0` 是本机网络的产物，**不是标签坏了**；`check-ga-live.mjs` 已输出
-  `verdict: INCONCLUSIVE`，不再误导。
-- ⚠️ **`window.gtag` / `dataLayer.length` 证明不了任何事**（我们自己内联片段定义的）。
-  **只有 `collectRequests` 和 `_ga` cookie 是真信号。** Chrome 不读 `https_proxy`，必须 `--proxy-server=`。
-- ⚠️ `cryptonav.pages.dev` 是**别人的中文站**。
+- 🔴 **本机代理主动屏蔽 GA 域名**（`fonts.googleapis.com` 200，但 `googletagmanager.com` /
+  `google-analytics.com` 000）→ **这台机器上跑任何 GA 探针都得不出结论**；`collectRequests: 0`
+  是本机网络的产物，**不是标签坏了**。
+- ⚠️ `window.gtag` / `dataLayer.length` 证明不了任何事；**只有 `collectRequests` 和 `_ga` cookie
+  是真信号**。Chrome 不读 `https_proxy`，必须 `--proxy-server=`。
+  ⚠️ `cryptonav.pages.dev` 是**别人的站**。
+- 排查流程见技能 **`ga4-tag-not-detected`**。
 
 ---
 
@@ -223,8 +226,8 @@ git -c credential.helper= -c credential.helper=manager \
   ⚠️ `chains.json` 的 `logo` 指向 `/logos/chains/`，是**空目录（全 404）**；当前无页面渲染它，
   线上没坏图 —— 要么删字段要么补图，**别留个像能用的坏字段**。
 - ⚠️ **图片尺寸那次我说错了**：那些 img 本来就在固定尺寸盒子里（`w-7 h-7` / `w-10 h-10` +
-  `shrink-0 overflow-hidden`），**本来就没有 CLS**；加 `width/height` 只是正确写法 + 消除
-  Lighthouse 告警。**别再把"没有 width 属性"直接说成 CLS。**
+  `shrink-0 overflow-hidden`），**本来就没有 CLS**；加 `width/height` 只是正确写法。
+  **别再把"没有 width 属性"直接说成 CLS。**
 
 ⚠️ **报中位数前先确认分母**（同一错误犯过两次）：第一版把 64 个 `/embed/*` 徽章（17 词/2KB）算进去
 → 得出"内容/标记比中位 8.9""66 个零入链页"；meta 段又遍历 `all` 而非 `real` → 误报"64 页无 H1"
