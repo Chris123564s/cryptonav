@@ -172,7 +172,7 @@ const homeSchema = [
         <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Latest Verified Listings</h2>
         <a href="/verify" class="text-sm text-brand-600 dark:text-brand-400 hover:underline">View All</a>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 gap-4">
         {latestProjects.map(project => (
           <ProjectCard project={project} href={`/verify/${project.id}`} />
         ))}
