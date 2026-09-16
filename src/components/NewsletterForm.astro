@@ -85,7 +85,7 @@ const sourceId = source;
           });
           const data = await res.json().catch(() => ({}));
           if (res.ok && data.ok) {
-            if (msg) { msg.textContent = 'Subscribed — check your inbox to confirm.'; msg.className = 'newsletter-msg mt-2 text-[12px] text-green-600 dark:text-green-400'; msg.classList.remove('hidden'); }
+            if (msg) { msg.textContent = "Thanks — you're on the list. We'll email you our next digest."; msg.className = 'newsletter-msg mt-2 text-[12px] text-green-600 dark:text-green-400'; msg.classList.remove('hidden'); }
             form.reset();
           } else if (data.unconfigured) {
             if (msg) { msg.textContent = 'Subscriptions are temporarily paused. Please try again later.'; msg.className = 'newsletter-msg mt-2 text-[12px] text-amber-600 dark:text-amber-400'; msg.classList.remove('hidden'); }
