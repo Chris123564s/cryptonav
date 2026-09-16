@@ -106,10 +106,27 @@ def fetch_top(limit=8, min_liq=20000):
                     ext = image_ext(img)
                     # 只收真正是图片、且体积正常的。超限的一律丢弃，
                     # 页面会退回首字母兜底，比拖垮整个部署划算得多。
+                    # 下载后统一归一成 96px 的 WebP（按 2x 留余量给最大 48px 槽位），
+                    # 既压住体积，也避免动画 GIF/超高分辨率图进 dist。
                     if ext and 200 < len(img) <= MAX_LOGO_BYTES:
+                        # 归一成 96px WebP 压体积；若环境无 Pillow（如 CI 未装），
+                        # 退回到直接落盘原图，行为不变，绝不中断采集。
                         fname = f"{addr[:10]}.{ext}"
-                        with open(os.path.join(logo_dir, fname), 'wb') as f:
-                            f.write(img)
+                        try:
+                            from io import BytesIO
+                            from PIL import Image
+                            im = Image.open(BytesIO(img))
+                            im = im.convert('RGBA' if im.mode in ('P', 'LA', 'RGBA') else 'RGB')
+                            w, h = im.size
+                            if max(w, h) > 96:
+                                s = 96 / max(w, h)
+                                im = im.resize((max(1, int(w * s)), max(1, int(h * s))),
+                                              Image.Resampling.LANCZOS)
+                            fname = f"{addr[:10]}.webp"
+                            im.save(os.path.join(logo_dir, fname), 'WEBP', quality=82, method=4)
+                        except ImportError:
+                            with open(os.path.join(logo_dir, fname), 'wb') as f:
+                                f.write(img)
                         logo = f'/logos/dex/{fname}'
                 except Exception:
                     logo = ''
