@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "LELD",
-      "name": "Lil Eldritch",
-      "logo": "",
-      "address": "gxPoy3LioMo8FxrXHuqzFwg2R2JafQRe5tAsgPQpump",
-      "chain": "solana",
-      "change6h": 1773.0,
-      "price": 0.0007809,
-      "date": "2026-09-15"
+      "symbol": "ARCT",
+      "name": "ArcTools",
+      "logo": "/logos/dex/0x1EA1e4f9.jpg",
+      "address": "0x1EA1e4f9A9975F1f6e9c0a9f6e8Ada7a66E6de52",
+      "chain": "arc",
+      "change6h": 904.0,
+      "price": 0.0001382,
+      "date": "2026-09-16"
     },
     {
-      "symbol": "BIKE MJ",
-      "name": "BIKE MJ",
-      "logo": "",
-      "address": "2hoRABojpn3SSJ6ReUuCNuKRvsHDuPn7kFHH7J8Fpump",
-      "chain": "solana",
-      "change6h": 493.0,
-      "price": 0.0002484,
-      "date": "2026-09-15"
+      "symbol": "MALA",
+      "name": "Malachite",
+      "logo": "/logos/dex/0x4F7DC89d.jpg",
+      "address": "0x4F7DC89dc44aD08c20d9680d2Ee9cfad69BFDa55",
+      "chain": "arc",
+      "change6h": 453.0,
+      "price": 7.449e-05,
+      "date": "2026-09-16"
     },
     {
-      "symbol": "STRAWDOG",
-      "name": "STRAWDOG",
-      "logo": "",
-      "address": "Gyt8ifzVc1DnWKGpanfuvNnNyyxsWAFXJ8y38A79pump",
-      "chain": "solana",
-      "change6h": 342.0,
-      "price": 0.0002323,
-      "date": "2026-09-15"
+      "symbol": "ARGOS",
+      "name": "Argos Bot",
+      "logo": "/logos/dex/0xe8668853.jpg",
+      "address": "0xe86688530C456E099732f953ed7aA7C583026680",
+      "chain": "arc",
+      "change6h": 101.0,
+      "price": 0.0001209,
+      "date": "2026-09-16"
     },
     {
-      "symbol": "RECORD",
-      "name": "OnRecord",
-      "logo": "/logos/dex/0xA78735ba.jpg",
-      "address": "0xA78735baDAAd80Fca7AC7C03bdd029160d45Ce68",
+      "symbol": "ARCL",
+      "name": "Arcl AI",
+      "logo": "/logos/dex/0xBF335c10.jpg",
+      "address": "0xBF335c10c222097a4358231F6377c71eaE107777",
+      "chain": "bsc",
+      "change6h": 72.5,
+      "price": 7.315e-05,
+      "date": "2026-09-16"
+    },
+    {
+      "symbol": "BUILDOG",
+      "name": "BUILDOG",
+      "logo": "/logos/dex/0x4cb8382b.jpg",
+      "address": "0x4cb8382b9dAF7992d3b27D32f7dB650C57881DaA",
+      "chain": "arc",
+      "change6h": 47.9,
+      "price": 0.0003162,
+      "date": "2026-09-16"
+    },
+    {
+      "symbol": "CYBERINU",
+      "name": "Cyber Inu",
+      "logo": "/logos/dex/0xC2703284.jpg",
+      "address": "0xC2703284E399a9778DcE9734e69dD6aB0dC71E18",
       "chain": "robinhood",
-      "change6h": 148.0,
-      "price": 0.0002344,
-      "date": "2026-09-15"
+      "change6h": 16.4,
+      "price": 7.991e-05,
+      "date": "2026-09-16"
     },
     {
-      "symbol": "clarity",
-      "name": "clarity cat",
+      "symbol": "GOOD",
+      "name": "Good In The Hood",
       "logo": "",
-      "address": "GPrTuSgAXVVJ67bAU4xe3UFD5aDDmVj7bZy73vTQpump",
-      "chain": "solana",
-      "change6h": 43.7,
-      "price": 0.0001218,
-      "date": "2026-09-15"
+      "address": "0x5f62C57e5C537887117EeF828b7E3Ad41C009FEb",
+      "chain": "robinhood",
+      "change6h": 1.0,
+      "price": 0.002105,
+      "date": "2026-09-16"
     },
     {
-      "symbol": "WAIFU",
-      "name": "Waifu",
-      "logo": "/logos/dex/0x948647a0.jpg",
-      "address": "0x948647a06a6422DceEA3711297F82AeF68Ec641C",
+      "symbol": "SANTACOIN",
+      "name": "SANTAHOOD",
+      "logo": "/logos/dex/0x38bb87Cf.jpg",
+      "address": "0x38bb87Cf3E7344A82be7CD671c191f015b97eEe6",
       "chain": "robinhood",
-      "change6h": -2.0,
-      "price": 0.001434,
-      "date": "2026-09-15"
-    },
-    {
-      "symbol": "CHUMP",
-      "name": "Chump Coin",
-      "logo": "",
-      "address": "0x0E0d2C89a5a019FE1cF762e5e33187631DACC21B",
-      "chain": "robinhood",
-      "change6h": -5.5,
-      "price": 0.03963,
-      "date": "2026-09-15"
-    },
-    {
-      "symbol": "NOTE",
-      "name": "Note Systems",
-      "logo": "",
-      "address": "0xc4f730335Fb9e439ca5552f7b52B8E638c4245B0",
-      "chain": "robinhood",
-      "change6h": -12.6,
-      "price": 0.09589,
-      "date": "2026-09-15"
+      "change6h": -0.0,
+      "price": 0.000521,
+      "date": "2026-09-16"
     }
   ]
 }
