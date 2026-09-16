@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { chains, getTokensByChain, getProjectsByChain, getReferralUrl, formatTokenPrice, formatMarketCap } from '../../utils/data';
-import { collectionPage, itemList } from '../../utils/schema';
+import { collectionPage, itemList, faqPage } from '../../utils/schema';
 
 export async function getStaticPaths() {
   return chains.map(chain => ({
@@ -37,6 +37,32 @@ const chainUrl = `/chain/${chain.slug}`;
 // hundreds of near-identical nodes is noise and bloats the HTML.
 const topTokens = tokens.slice(0, 30);
 
+// Data-driven FAQ: answers quote this chain's own stats (token count, TVL
+// rank, totals), so every chain page carries unique FAQ text rather than a
+// boilerplate block repeated ten times.
+const topToken = topTokens[0];
+const chainFaqs = [
+  {
+    q: `What are the top tokens on ${chain.name}?`,
+    a: `${chain.name} has ${tokens.length} tokens tracked on CryptoNav.`
+      + (topToken
+        ? ` The largest by market cap is currently ${topToken.name} (${topToken.symbol.toUpperCase()}), at ${formatTokenPrice(topToken.price)} and a market cap of ${formatMarketCap(topToken.marketCap)}.`
+        : '')
+      + ` Combined market cap across listed tokens is ${formatMarketCap(totalMarketCap)}, with ${formatMarketCap(totalVolume)} in 24h volume.`,
+  },
+  {
+    q: `How much value is locked on ${chain.name}?`,
+    a: `CryptoNav tracks ${formatMarketCap(totalTvl)} in total value locked (TVL) across tokens on ${chain.name}, which ranks #${chain.tvlRank} among tracked chains.`,
+  },
+  {
+    q: `Where can I swap or hold tokens on ${chain.name}?`,
+    a: `Our directory lists exchanges, wallets and DeFi protocols that support ${chain.name}`
+      + (chainProjects.length
+        ? ` — ${chainProjects.map((p) => p.name).slice(0, 4).join(', ')} among them. Check each project's verification page before depositing funds.`
+        : `. Browse the directory to find a verified option.`),
+  },
+];
+
 const chainSchema = [
   collectionPage({
     name: `${chain.name} Tokens & Prices`,
@@ -62,6 +88,7 @@ const chainSchema = [
       description: p.description,
     })),
   }),
+  faqPage([{ items: chainFaqs }]),
 ].filter((node: any) => node['@type'] !== 'ItemList' || node.numberOfItems > 0);
 ---
 
@@ -258,6 +285,19 @@ const chainSchema = [
           {c.name}
           <span class="text-xs text-surface-400">#{c.tvlRank}</span>
         </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- FAQ (long-tail capture; mirror of the FAQPage JSON-LD above) -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3">Frequently Asked Questions</h2>
+    <div class="space-y-3">
+      {chainFaqs.map((f) => (
+        <div class="rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+          <h3 class="text-sm font-semibold text-surface-800 dark:text-surface-100">{f.q}</h3>
+          <p class="text-sm text-surface-600 dark:text-surface-300 mt-1 leading-relaxed">{f.a}</p>
+        </div>
       ))}
     </div>
   </div>

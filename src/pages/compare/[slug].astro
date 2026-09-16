@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import AdBanner from '../../components/AdBanner.astro';
 import comparisonsData from '../../data/comparisons.json';
-import { article as articleSchema } from '../../utils/schema';
+import { article as articleSchema, faqPage } from '../../utils/schema';
 
 export async function getStaticPaths() {
   const comparisons = (comparisonsData as any).comparisons ?? comparisonsData;
@@ -28,6 +28,30 @@ const compareSchema = articleSchema({
   dateModified: comp.updatedAt || comp.publishedAt,
   keywords: [comp.keyword],
 });
+
+// Data-driven FAQ: long-tail capture for "X vs Y which is better / safer /
+// cheaper" queries. Questions are composed from the two contender names so each
+// page is unique (no thin/duplicate FAQ across the comparison set).
+const aName = comp.contenders[0]?.name || 'the first option';
+const bName = comp.contenders[1]?.name || 'the second option';
+const pairLabel = `${aName} vs ${bName}`;
+const compareFaqs = [
+  {
+    q: `Which is better, ${pairLabel}?`,
+    a: comp.verdict
+      ? `${pairLabel}: ${comp.verdict}`
+      : `The better choice between ${aName} and ${bName} depends on what you prioritize — fees, supported assets, regulation, or staking. Compare the feature table above, then read each project's full verification on CryptoNav before deciding.`,
+  },
+  {
+    q: `Is ${aName} or ${bName} safer?`,
+    a: `Safety depends on each platform's track record, custody model, and incident history. CryptoNav scores both on automated checks — open the individual ${aName} and ${bName} verification pages to see domain age, incident count, and risk flags before depositing funds.`,
+  },
+  {
+    q: `Which has lower fees, ${aName} or ${bName}?`,
+    a: `Fee structures change often. The Feature Comparison table above shows the latest published fees for ${aName} and ${bName}; always confirm on the official site, since maker/taker, withdrawal, and network fees differ by asset.`,
+  },
+];
+const compareFaqSchema = faqPage([{ items: compareFaqs }]);
 ---
 
 <Layout
@@ -39,7 +63,7 @@ const compareSchema = articleSchema({
     { name: 'Compare', url: '/compare' },
     { name: comp.title },
   ]}
-  schema={compareSchema}
+  schema={[compareSchema, compareFaqSchema]}
 >
   <!-- Breadcrumb -->
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
@@ -179,6 +203,19 @@ const compareSchema = articleSchema({
            class="flex-1 text-center py-3 rounded-xl border-2 border-surface-200 dark:border-surface-700 hover:border-brand-400 dark:hover:border-brand-600 text-sm font-semibold text-surface-700 dark:text-surface-200 transition-colors">
           Try {c.name} →
         </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ (long-tail capture; mirror of the FAQPage JSON-LD above) -->
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100 mb-4">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      {compareFaqs.map((f: any) => (
+        <div class="rounded-xl border border-surface-200 dark:border-surface-700 p-4">
+          <h3 class="text-sm font-semibold text-surface-800 dark:text-surface-100">{f.q}</h3>
+          <p class="text-sm text-surface-600 dark:text-surface-300 mt-1 leading-relaxed">{f.a}</p>
+        </div>
       ))}
     </div>
   </section>
