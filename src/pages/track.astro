@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AdBanner from '../components/AdBanner.astro';
+import unlocksData from '../data/unlocks.json';
+import winsData from '../data/wins.json';
+import airdropsData from '../data/airdrops.json';
+import { collectionPage } from '../utils/schema';
+
+const unlocks = (unlocksData as any).unlocks ?? unlocksData;
+const wins = (winsData as any).wins ?? winsData ?? [];
+const air = (airdropsData as any).airdrops ?? [];
+const airFetched = (airdropsData as any).lastFetched || '';
+const winDate = (wins[0] && wins[0].date) || '';
+
+// Upcoming unlocks, soonest first
+const now = new Date();
+const upcoming = [...unlocks]
+  .filter((u: any) => new Date(u.date) >= now)
+  .sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  .slice(0, 8);
+
+// Top DEX movers by 6h change
+const movers = [...wins].sort((a: any, b: any) => (b.change6h || 0) - (a.change6h || 0)).slice(0, 8);
+
+// Hottest airdrops by votes
+const hot = [...air].sort((a: any, b: any) => (b.votes || 0) - (a.votes || 0)).slice(0, 8);
+
+function daysUntil(dateStr: string): number {
+  return Math.ceil((new Date(dateStr).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+}
+function fmtChange(v: number): string {
+  return `${v >= 0 ? '+' : ''}${v.toFixed(1)}%`;
+}
+function fmtPrice(v: number): string {
+  if (v >= 1) return `$${v.toLocaleString('en-US', { maximumFractionDigits: 4 })}`;
+  if (v >= 0.01) return `$${v.toFixed(4)}`;
+  return `$${v.toPrecision(3)}`;
+}
+
+const fetchedLabel = airFetched
+  ? new Date(airFetched).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC'
+  : '';
+
+const schema = collectionPage({
+  name: 'Track Crypto — Unlocks, Movers & Airdrops',
+  description: 'A single dashboard of auto-refreshed crypto events: upcoming token unlocks, top DEX 6h movers, and hottest airdrops. Updated daily.',
+  url: '/track',
+});
+---
+
+<Layout
+  title="Track Crypto — Unlocks, Movers & Airdrops (Daily)"
+  description="One dashboard for auto-refreshed crypto events: upcoming token unlocks, top DEX 6h movers, and the hottest airdrops. Market data only — not investment advice."
+  canonical="https://cryptonav.site/track/"
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Track' }]}
+  schema={schema}
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="inline-block px-2 py-0.5 text-[10px] font-bold rounded bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 uppercase tracking-wide">Auto-updated daily</span>
+      {fetchedLabel && <span class="text-[11px] text-surface-400 dark:text-surface-500">Airdrop data refreshed {fetchedLabel}</span>}
+    </div>
+    <h1 class="text-2xl md:text-3xl font-bold text-surface-800 dark:text-surface-100">Track Crypto</h1>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-2 max-w-2xl leading-relaxed">
+      Three auto-refreshed feeds in one place. Bookmark it and check back daily — the numbers move on their own.
+      Market data only, never investment advice.
+    </p>
+
+    <!-- Ad -->
+    <div class="my-6"><AdBanner slot="home-banner" format="banner" /></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Upcoming unlocks -->
+      <section class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-bold text-surface-800 dark:text-surface-100">Upcoming Unlocks</h2>
+          <a href="/unlocks" class="text-xs text-brand-600 dark:text-brand-400 hover:underline">All →</a>
+        </div>
+        <ul class="space-y-2">
+          {upcoming.map((u: any) => (
+            <li class="flex items-center justify-between text-sm">
+              <a href={`/chain/${String(u.chain || '').toLowerCase()}`} class="font-medium text-surface-700 dark:text-surface-200 hover:text-brand-600 truncate">{u.token}</a>
+              <span class="text-[11px] text-surface-400 whitespace-nowrap ml-2">{daysUntil(u.date)}d · {u.date}</span>
+            </li>
+          ))}
+          {upcoming.length === 0 && <li class="text-xs text-surface-400">No upcoming unlocks tracked.</li>}
+        </ul>
+      </section>
+
+      <!-- DEX movers -->
+      <section class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-bold text-surface-800 dark:text-surface-100">Top 6h Movers</h2>
+          <a href="/wins" class="text-xs text-brand-600 dark:text-brand-400 hover:underline">All →</a>
+        </div>
+        <ul class="space-y-2">
+          {movers.map((m: any) => (
+            <li class="flex items-center justify-between text-sm">
+              <a href={`https://dexscreener.com/${m.chain}/${m.address}`} target="_blank" rel="noopener nofollow" class="font-medium text-surface-700 dark:text-surface-200 hover:text-brand-600 truncate">{m.symbol}</a>
+              <span class="text-[11px] text-green-500 font-semibold whitespace-nowrap ml-2">{fmtChange(m.change6h)} · {fmtPrice(Number(m.price) || 0)}</span>
+            </li>
+          ))}
+          {movers.length === 0 && <li class="text-xs text-surface-400">No movers tracked.</li>}
+        </ul>
+        {winDate && <p class="text-[10px] text-surface-400 mt-3">Snapshot {winDate} · DexScreener</p>}
+      </section>
+
+      <!-- Hot airdrops -->
+      <section class="bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-bold text-surface-800 dark:text-surface-100">Hottest Airdrops</h2>
+          <a href="/airdrops" class="text-xs text-brand-600 dark:text-brand-400 hover:underline">All →</a>
+        </div>
+        <ul class="space-y-2">
+          {hot.map((a: any) => (
+            <li class="flex items-center justify-between text-sm">
+              <a href={a.sourceUrl || a.claimUrl || '/airdrops'} target="_blank" rel="noopener nofollow" class="font-medium text-surface-700 dark:text-surface-200 hover:text-brand-600 truncate">{a.project}</a>
+              <span class="text-[11px] text-surface-400 whitespace-nowrap ml-2">{a.votes || 0} votes</span>
+            </li>
+          ))}
+          {hot.length === 0 && <li class="text-xs text-surface-400">No airdrops tracked.</li>}
+        </ul>
+      </section>
+    </div>
+
+    <p class="text-xs text-surface-400 mt-6 text-center">
+      All feeds refresh automatically from public sources. Bookmark this page and return daily — CryptoNav updates the data so you don't have to.
+      Verify any token before interacting.
+    </p>
+  </div>
+</Layout>

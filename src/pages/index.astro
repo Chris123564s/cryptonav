@@ -172,6 +172,10 @@ const homeSchema = [
         <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Latest Verified Listings</h2>
         <a href="/verify" class="text-sm text-brand-600 dark:text-brand-400 hover:underline">View All</a>
       </div>
+      <p class="text-[11px] text-surface-400 dark:text-surface-500 mb-4 flex items-center gap-1.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+        Directory &amp; market data auto-refreshed daily — come back for the latest
+      </p>
       <div class="grid grid-cols-1 gap-4">
         {latestProjects.map(project => (
           <ProjectCard project={project} href={`/verify/${project.id}`} />

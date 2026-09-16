@@ -75,6 +75,9 @@ if (schema) ldNodes.push(...(Array.isArray(schema) ? schema : [schema]));
     <!-- Canonical -->
     <link rel="canonical" href={canonicalUrl} />
 
+    <!-- RSS feed: aggregates the site's auto-refreshed data (DEX momentum, guides, airdrops) -->
+    <link rel="alternate" type="application/rss+xml" title="CryptoNav" href="https://cryptonav.site/rss.xml" />
+
     <!-- Structured data (JSON-LD) -->
     <JsonLd schema={ldNodes} />
 
