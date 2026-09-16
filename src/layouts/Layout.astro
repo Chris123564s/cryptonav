@@ -34,6 +34,15 @@ const siteUrl = 'https://cryptonav.site';
 const canonicalUrl = canonical || siteUrl + Astro.url.pathname;
 const ogImage = `${siteUrl}/og-image.png`;
 
+// Canonical-host enforcement: redirect any www.cryptonav.site request to the
+// apex. Cloudflare Pages custom-domain redirect rules don't reliably fire for
+// Pages-served hosts, so we do it at the app layer where it is deterministic
+// and testable. Idempotent with the zone-level redirect rule (same target).
+if (Astro.url.host.toLowerCase().startsWith('www.')) {
+  const target = siteUrl + Astro.url.pathname + Astro.url.search;
+  return Astro.redirect(target, 301);
+}
+
 // Breadcrumbs are optional; anything passed gets a BreadcrumbList node.
 const ldNodes: unknown[] = [];
 if (breadcrumbs.length > 0) ldNodes.push(breadcrumbList(breadcrumbs));
