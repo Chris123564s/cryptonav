@@ -20,6 +20,14 @@ const totalProjects = getActiveProjects().length;
 // also the least misleading way to summarise a safety dataset.
 const topVerified = getVerifiedProjects().slice(0, 6);
 
+// SEO depth: surface the most-linked guides and comparisons on the homepage so
+// authority flows from the strongest page to the content pages (which were the
+// weakest in the internal-link graph).
+import learnData from '../data/learn.json';
+import comparisonsData from '../data/comparisons.json';
+const homeGuides = ((learnData as any).articles ?? learnData).slice(0, 6);
+const homeCompares = ((comparisonsData as any).comparisons ?? comparisonsData).slice(0, 5);
+
 // Structured data: site identity + the newest directory entries.
 // NOTE: directory items intentionally point at the external site — there is no
 // /project/* detail page, so emitting one here would create a dead URL.
@@ -117,6 +125,42 @@ const homeSchema = [
           </div>
         </a>
       ))}
+    </div>
+  </div>
+
+  <!-- Popular Guides & Comparisons (internal-link depth from homepage) -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <section>
+        <div class="flex items-baseline justify-between mb-3">
+          <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Crypto Guides</h2>
+          <a href="/learn" class="text-sm text-brand-500 hover:underline">All guides →</a>
+        </div>
+        <ul class="space-y-2">
+          {homeGuides.map((a: any) => (
+            <li>
+              <a href={`/learn/${a.slug}`} class="text-sm text-surface-600 dark:text-surface-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                {a.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section>
+        <div class="flex items-baseline justify-between mb-3">
+          <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Head-to-Head Comparisons</h2>
+          <a href="/compare" class="text-sm text-brand-500 hover:underline">All comparisons →</a>
+        </div>
+        <ul class="space-y-2">
+          {homeCompares.map((c: any) => (
+            <li>
+              <a href={`/compare/${c.slug}`} class="text-sm text-surface-600 dark:text-surface-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                {c.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   </div>
 

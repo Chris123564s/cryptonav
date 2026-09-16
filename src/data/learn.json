@@ -12,16 +12,46 @@
       "keyword": "what is staking crypto",
       "keywordVolume": "7700",
       "keywordDifficulty": 70,
-      "tags": ["staking", "pos", "passive income", "ethereum", "cardano"],
+      "tags": [
+        "staking",
+        "pos",
+        "passive income",
+        "ethereum",
+        "cardano"
+      ],
       "toc": [
-        { "id": "what-is-staking", "title": "What Is Staking?" },
-        { "id": "how-staking-works", "title": "How Staking Works" },
-        { "id": "proof-of-stake", "title": "Proof of Stake Explained" },
-        { "id": "what-coins-to-stake", "title": "What Coins Can You Stake?" },
-        { "id": "staking-rewards", "title": "Expected Staking Rewards" },
-        { "id": "risks", "title": "Risks of Staking" },
-        { "id": "how-to-start", "title": "How to Start Staking" },
-        { "id": "faq", "title": "Frequently Asked Questions" }
+        {
+          "id": "what-is-staking",
+          "title": "What Is Staking?"
+        },
+        {
+          "id": "how-staking-works",
+          "title": "How Staking Works"
+        },
+        {
+          "id": "proof-of-stake",
+          "title": "Proof of Stake Explained"
+        },
+        {
+          "id": "what-coins-to-stake",
+          "title": "What Coins Can You Stake?"
+        },
+        {
+          "id": "staking-rewards",
+          "title": "Expected Staking Rewards"
+        },
+        {
+          "id": "risks",
+          "title": "Risks of Staking"
+        },
+        {
+          "id": "how-to-start",
+          "title": "How to Start Staking"
+        },
+        {
+          "id": "faq",
+          "title": "Frequently Asked Questions"
+        }
       ],
       "sections": [
         {
@@ -78,16 +108,46 @@
       "keyword": "what is a stablecoin",
       "keywordVolume": "13000",
       "keywordDifficulty": 61,
-      "tags": ["stablecoins", "usdt", "usdc", "dai", "defi"],
+      "tags": [
+        "stablecoins",
+        "usdt",
+        "usdc",
+        "dai",
+        "defi"
+      ],
       "toc": [
-        { "id": "what-is-a-stablecoin", "title": "What Is a Stablecoin?" },
-        { "id": "types-of-stablecoins", "title": "Types of Stablecoins" },
-        { "id": "major-stablecoins", "title": "Major Stablecoins Compared" },
-        { "id": "how-peg-works", "title": "How the Peg Works" },
-        { "id": "use-cases", "title": "Stablecoin Use Cases" },
-        { "id": "risks", "title": "Risks and Past Failures" },
-        { "id": "regulation", "title": "Regulatory Landscape" },
-        { "id": "faq", "title": "FAQ" }
+        {
+          "id": "what-is-a-stablecoin",
+          "title": "What Is a Stablecoin?"
+        },
+        {
+          "id": "types-of-stablecoins",
+          "title": "Types of Stablecoins"
+        },
+        {
+          "id": "major-stablecoins",
+          "title": "Major Stablecoins Compared"
+        },
+        {
+          "id": "how-peg-works",
+          "title": "How the Peg Works"
+        },
+        {
+          "id": "use-cases",
+          "title": "Stablecoin Use Cases"
+        },
+        {
+          "id": "risks",
+          "title": "Risks and Past Failures"
+        },
+        {
+          "id": "regulation",
+          "title": "Regulatory Landscape"
+        },
+        {
+          "id": "faq",
+          "title": "FAQ"
+        }
       ],
       "sections": [
         {
@@ -144,16 +204,46 @@
       "keyword": "what is defi",
       "keywordVolume": "2300",
       "keywordDifficulty": 61,
-      "tags": ["defi", "uniswap", "aave", "lending", "dex"],
+      "tags": [
+        "defi",
+        "uniswap",
+        "aave",
+        "lending",
+        "dex"
+      ],
       "toc": [
-        { "id": "what-is-defi", "title": "What Is DeFi?" },
-        { "id": "how-defi-works", "title": "How DeFi Works" },
-        { "id": "defi-categories", "title": "Major DeFi Categories" },
-        { "id": "key-protocols", "title": "Key DeFi Protocols" },
-        { "id": "defi-vs-tradfi", "title": "DeFi vs Traditional Finance" },
-        { "id": "getting-started", "title": "Getting Started with DeFi" },
-        { "id": "risks", "title": "DeFi Risks" },
-        { "id": "faq", "title": "FAQ" }
+        {
+          "id": "what-is-defi",
+          "title": "What Is DeFi?"
+        },
+        {
+          "id": "how-defi-works",
+          "title": "How DeFi Works"
+        },
+        {
+          "id": "defi-categories",
+          "title": "Major DeFi Categories"
+        },
+        {
+          "id": "key-protocols",
+          "title": "Key DeFi Protocols"
+        },
+        {
+          "id": "defi-vs-tradfi",
+          "title": "DeFi vs Traditional Finance"
+        },
+        {
+          "id": "getting-started",
+          "title": "Getting Started with DeFi"
+        },
+        {
+          "id": "risks",
+          "title": "DeFi Risks"
+        },
+        {
+          "id": "faq",
+          "title": "FAQ"
+        }
       ],
       "sections": [
         {
@@ -210,16 +300,46 @@
       "keyword": "how to read crypto charts",
       "keywordVolume": "300",
       "keywordDifficulty": 29,
-      "tags": ["trading", "technical analysis", "candlesticks", "rsi", "macd"],
+      "tags": [
+        "trading",
+        "technical analysis",
+        "candlesticks",
+        "rsi",
+        "macd"
+      ],
       "toc": [
-        { "id": "chart-basics", "title": "Chart Types" },
-        { "id": "candlesticks", "title": "Reading Candlesticks" },
-        { "id": "support-resistance", "title": "Support & Resistance" },
-        { "id": "trend-lines", "title": "Trend Lines & Channels" },
-        { "id": "volume", "title": "Understanding Volume" },
-        { "id": "indicators", "title": "Key Technical Indicators" },
-        { "id": "patterns", "title": "Common Chart Patterns" },
-        { "id": "trading-plan", "title": "Building a Trading Plan" }
+        {
+          "id": "chart-basics",
+          "title": "Chart Types"
+        },
+        {
+          "id": "candlesticks",
+          "title": "Reading Candlesticks"
+        },
+        {
+          "id": "support-resistance",
+          "title": "Support & Resistance"
+        },
+        {
+          "id": "trend-lines",
+          "title": "Trend Lines & Channels"
+        },
+        {
+          "id": "volume",
+          "title": "Understanding Volume"
+        },
+        {
+          "id": "indicators",
+          "title": "Key Technical Indicators"
+        },
+        {
+          "id": "patterns",
+          "title": "Common Chart Patterns"
+        },
+        {
+          "id": "trading-plan",
+          "title": "Building a Trading Plan"
+        }
       ],
       "sections": [
         {
@@ -276,16 +396,46 @@
       "keyword": "what is web3",
       "keywordVolume": "6700",
       "keywordDifficulty": 78,
-      "tags": ["web3", "blockchain", "decentralization", "dapps", "dao"],
+      "tags": [
+        "web3",
+        "blockchain",
+        "decentralization",
+        "dapps",
+        "dao"
+      ],
       "toc": [
-        { "id": "what-is-web3", "title": "What Is Web3?" },
-        { "id": "web1-web2-web3", "title": "Web1, Web2, and Web3" },
-        { "id": "key-concepts", "title": "Key Web3 Concepts" },
-        { "id": "dapps", "title": "Decentralized Applications" },
-        { "id": "daos", "title": "Decentralized Organizations" },
-        { "id": "web3-challenges", "title": "Web3 Challenges" },
-        { "id": "future", "title": "The Future of Web3" },
-        { "id": "faq", "title": "FAQ" }
+        {
+          "id": "what-is-web3",
+          "title": "What Is Web3?"
+        },
+        {
+          "id": "web1-web2-web3",
+          "title": "Web1, Web2, and Web3"
+        },
+        {
+          "id": "key-concepts",
+          "title": "Key Web3 Concepts"
+        },
+        {
+          "id": "dapps",
+          "title": "Decentralized Applications"
+        },
+        {
+          "id": "daos",
+          "title": "Decentralized Organizations"
+        },
+        {
+          "id": "web3-challenges",
+          "title": "Web3 Challenges"
+        },
+        {
+          "id": "future",
+          "title": "The Future of Web3"
+        },
+        {
+          "id": "faq",
+          "title": "FAQ"
+        }
       ],
       "sections": [
         {
@@ -342,16 +492,48 @@
       "keyword": "ethereum layer 2 scaling solutions",
       "keywordVolume": "250",
       "keywordDifficulty": 40,
-      "tags": ["ethereum", "layer2", "arbitrum", "optimism", "base", "zksync", "scaling"],
+      "tags": [
+        "ethereum",
+        "layer2",
+        "arbitrum",
+        "optimism",
+        "base",
+        "zksync",
+        "scaling"
+      ],
       "toc": [
-        { "id": "scaling-problem", "title": "The Scaling Problem" },
-        { "id": "what-is-layer2", "title": "What Is Layer 2?" },
-        { "id": "rollups", "title": "How Rollups Work" },
-        { "id": "optimistic-vs-zk", "title": "Optimistic vs ZK Rollups" },
-        { "id": "major-l2s", "title": "Major Layer 2 Networks" },
-        { "id": "choosing-l2", "title": "Which L2 Should You Use?" },
-        { "id": "risks", "title": "L2 Risks" },
-        { "id": "faq", "title": "FAQ" }
+        {
+          "id": "scaling-problem",
+          "title": "The Scaling Problem"
+        },
+        {
+          "id": "what-is-layer2",
+          "title": "What Is Layer 2?"
+        },
+        {
+          "id": "rollups",
+          "title": "How Rollups Work"
+        },
+        {
+          "id": "optimistic-vs-zk",
+          "title": "Optimistic vs ZK Rollups"
+        },
+        {
+          "id": "major-l2s",
+          "title": "Major Layer 2 Networks"
+        },
+        {
+          "id": "choosing-l2",
+          "title": "Which L2 Should You Use?"
+        },
+        {
+          "id": "risks",
+          "title": "L2 Risks"
+        },
+        {
+          "id": "faq",
+          "title": "FAQ"
+        }
       ],
       "sections": [
         {
@@ -408,16 +590,46 @@
       "keyword": "difference between bitcoin and ethereum",
       "keywordVolume": "350",
       "keywordDifficulty": 43,
-      "tags": ["bitcoin", "ethereum", "comparison", "btc", "eth"],
+      "tags": [
+        "bitcoin",
+        "ethereum",
+        "comparison",
+        "btc",
+        "eth"
+      ],
       "toc": [
-        { "id": "overview", "title": "Quick Overview" },
-        { "id": "purpose", "title": "Different Purposes" },
-        { "id": "technology", "title": "Technology Differences" },
-        { "id": "consensus", "title": "Consensus Mechanism" },
-        { "id": "supply", "title": "Token Supply" },
-        { "id": "use-cases", "title": "Use Cases" },
-        { "id": "investment", "title": "Investment Perspective" },
-        { "id": "faq", "title": "FAQ" }
+        {
+          "id": "overview",
+          "title": "Quick Overview"
+        },
+        {
+          "id": "purpose",
+          "title": "Different Purposes"
+        },
+        {
+          "id": "technology",
+          "title": "Technology Differences"
+        },
+        {
+          "id": "consensus",
+          "title": "Consensus Mechanism"
+        },
+        {
+          "id": "supply",
+          "title": "Token Supply"
+        },
+        {
+          "id": "use-cases",
+          "title": "Use Cases"
+        },
+        {
+          "id": "investment",
+          "title": "Investment Perspective"
+        },
+        {
+          "id": "faq",
+          "title": "FAQ"
+        }
       ],
       "sections": [
         {
@@ -474,15 +686,41 @@
       "keyword": "what does market cap mean in crypto",
       "keywordVolume": "450",
       "keywordDifficulty": 54,
-      "tags": ["market cap", "fdv", "valuation", "investing"],
+      "tags": [
+        "market cap",
+        "fdv",
+        "valuation",
+        "investing"
+      ],
       "toc": [
-        { "id": "what-is-market-cap", "title": "What Is Market Cap?" },
-        { "id": "how-calculated", "title": "How It's Calculated" },
-        { "id": "market-cap-tiers", "title": "Market Cap Tiers" },
-        { "id": "fdv", "title": "Market Cap vs FDV" },
-        { "id": "limitations", "title": "Limitations of Market Cap" },
-        { "id": "using-market-cap", "title": "Using Market Cap for Decisions" },
-        { "id": "faq", "title": "FAQ" }
+        {
+          "id": "what-is-market-cap",
+          "title": "What Is Market Cap?"
+        },
+        {
+          "id": "how-calculated",
+          "title": "How It's Calculated"
+        },
+        {
+          "id": "market-cap-tiers",
+          "title": "Market Cap Tiers"
+        },
+        {
+          "id": "fdv",
+          "title": "Market Cap vs FDV"
+        },
+        {
+          "id": "limitations",
+          "title": "Limitations of Market Cap"
+        },
+        {
+          "id": "using-market-cap",
+          "title": "Using Market Cap for Decisions"
+        },
+        {
+          "id": "faq",
+          "title": "FAQ"
+        }
       ],
       "sections": [
         {
@@ -519,6 +757,894 @@
           "id": "faq",
           "heading": "Frequently Asked Questions",
           "body": "**Is a higher market cap better?**\nNot necessarily. A high market cap means the project is large and relatively established, but it doesn't mean the token is a good investment. Always consider fundamentals, not just size.\n\n**Why does market cap matter?**\nIt's the quickest way to compare the relative size of cryptocurrencies and assess risk tiers. It also affects which exchanges list a token and institutional interest.\n\n**What's a good FDV/market cap ratio?**\nIdeally, FDV should be less than 2-3x the market cap. Higher ratios mean significant token unlocks ahead, creating selling pressure.\n\n**Can market cap be manipulated?**\nYes. Low-liquidity tokens can have their prices (and thus market caps) inflated with relatively small amounts of capital. Always check trading volume and liquidity alongside market cap.\n\n**Where can I check crypto market caps?**\nCoinMarketCap, CoinGecko, and our [dashboard page](/dashboard) all show real-time market cap data. CoinGecko tends to list more tokens and provides FDV data."
+        }
+      ]
+    },
+    {
+      "slug": "how-to-buy-bitcoin",
+      "directoryCategory": "exchange",
+      "title": "How to Buy Bitcoin in 2026: A Step-by-Step Guide",
+      "description": "A practical walkthrough of buying your first Bitcoin — choosing an exchange, verifying identity, paying fees, and moving coins to safe storage.",
+      "category": "Education",
+      "readTime": 9,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "how to buy bitcoin",
+      "keywordVolume": "74000",
+      "keywordDifficulty": 62,
+      "tags": [
+        "bitcoin",
+        "exchange",
+        "kyc",
+        "beginners"
+      ],
+      "toc": [
+        {
+          "id": "choose-exchange",
+          "title": "Step 1 — Choose an Exchange"
+        },
+        {
+          "id": "verify-identity",
+          "title": "Step 2 — Verify Your Identity"
+        },
+        {
+          "id": "place-order",
+          "title": "Step 3 — Fund and Place Your Order"
+        },
+        {
+          "id": "fees",
+          "title": "Step 4 — Understand What You Actually Pay"
+        },
+        {
+          "id": "self-custody",
+          "title": "Step 5 — Move It to Self-Custody"
+        },
+        {
+          "id": "common-mistakes",
+          "title": "Common First-Time Mistakes"
+        }
+      ],
+      "sections": [
+        {
+          "id": "choose-exchange",
+          "heading": "Step 1 — Choose an Exchange",
+          "body": "The exchange is where fiat money meets Bitcoin. Three things separate a good one from a bad one:\n\n1. Regulation. A licensed exchange in your jurisdiction gives you a complaints process and, in most countries, segregated customer funds. Unlicensed offshore venues are cheaper until they are not.\n2. Liquidity. Deep order books mean your buy executes close to the quoted price. A thin book can cost you 1-2% in slippage on a large order.\n3. Withdrawal reliability. Search the exchange's name plus \"withdrawal delay\" before you deposit anything. Fast deposits and slow withdrawals is the oldest pattern in the industry.\n\nOur directory lists exchanges with the fee structure, supported chains and safety record of each one side by side, so you can compare before creating an account."
+        },
+        {
+          "id": "verify-identity",
+          "heading": "Step 2 — Verify Your Identity",
+          "body": "Almost every regulated exchange requires Know Your Customer (KYC) checks before you can trade. Expect to provide a government ID, a selfie, and sometimes proof of address.\n\nThis is a legal requirement, not a choice the exchange made. The upside is that a KYC-verified account is far harder for someone else to hijack into a cash-out route. Once verified, most exchanges allow card or bank transfers within minutes."
+        },
+        {
+          "id": "place-order",
+          "heading": "Step 3 — Fund and Place Your Order",
+          "body": "You can usually buy in three ways:\n\n- Card payment — instant, but the fee is the highest, often 2-5%.\n- Bank transfer — slower (same day to a few days), typically the cheapest at 0-1%.\n- Peer-to-peer — you buy directly from another person through an escrow system. Cheap and private, but you are trusting the escrow and the counterparty's payment method.\n\nFor a first purchase, a market order is fine. Once you are buying meaningful amounts, a limit order lets you name your price and avoid paying more than you intended."
+        },
+        {
+          "id": "fees",
+          "heading": "Step 4 — Understand What You Actually Pay",
+          "body": "The quoted price is not the full cost. Add up:\n\n- Trading fee — the exchange's commission (0.1% to 0.6% is typical).\n- Spread — the gap between buy and sell price. This is often the largest hidden cost.\n- Deposit or withdrawal fee — varies by payment method and network.\n- Network fee — paid to the Bitcoin miners when you move coins off the exchange.\n\nA 0.1% trading fee with a 2% spread costs you twenty times more than a 0.5% fee with a 0.05% spread. Compare the total, not the headline."
+        },
+        {
+          "id": "self-custody",
+          "heading": "Step 5 — Move It to Self-Custody",
+          "body": "Coins left on an exchange are an IOU from that company. \"Not your keys, not your coins\" is the single most repeated lesson in crypto for a reason: exchanges have failed, been hacked, and frozen withdrawals.\n\nFor anything you do not intend to trade this week, withdraw to a wallet where you control the private key. A hardware wallet keeps that key offline and is the standard answer for meaningful amounts. See our hardware wallet comparison to pick one."
+        },
+        {
+          "id": "common-mistakes",
+          "heading": "Common First-Time Mistakes",
+          "body": "- Buying more than you can afford to lose. Bitcoin can fall 50% in a month and has done so repeatedly.\n- Leaving everything on the exchange \"just for now\".\n- Sending a test transaction of the full amount instead of a small one first.\n- Screenshotting the seed phrase or storing it in cloud notes. Write it on paper or metal, offline.\n- Confusing the fee-free \"convert\" button with an actual order. The spread is the fee."
+        }
+      ]
+    },
+    {
+      "slug": "best-crypto-wallets",
+      "directoryCategory": "wallet",
+      "title": "Best Crypto Wallets in 2026: Hot vs Cold Compared",
+      "description": "How to choose a crypto wallet in 2026 — the difference between hot and cold storage, what to look for in each, and which type fits your usage.",
+      "category": "Education",
+      "readTime": 10,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "best crypto wallet",
+      "keywordVolume": "60000",
+      "keywordDifficulty": 68,
+      "tags": [
+        "wallet",
+        "hardware wallet",
+        "self custody",
+        "security"
+      ],
+      "toc": [
+        {
+          "id": "two-families",
+          "title": "Two Families of Wallet"
+        },
+        {
+          "id": "what-to-look-for",
+          "title": "What Actually Matters When Choosing"
+        },
+        {
+          "id": "hot-wallets",
+          "title": "Hot Wallets: Convenience With Rules"
+        },
+        {
+          "id": "cold-wallets",
+          "title": "Cold Wallets: Where Savings Belong"
+        },
+        {
+          "id": "seed-phrase",
+          "title": "Your Seed Phrase Is the Wallet"
+        },
+        {
+          "id": "picking",
+          "title": "Picking One"
+        }
+      ],
+      "sections": [
+        {
+          "id": "two-families",
+          "heading": "Two Families of Wallet",
+          "body": "Every crypto wallet is one of two things:\n\n- A hot wallet lives on a device that touches the internet — a phone app, a browser extension, or a desktop program. Convenient, and exposed.\n- A cold wallet keeps the private key on hardware that never connects directly. Slower to use, far harder to steal from.\n\nThe right answer is usually both: a hot wallet for daily spending and a cold wallet for savings."
+        },
+        {
+          "id": "what-to-look-for",
+          "heading": "What Actually Matters When Choosing",
+          "body": "- Who controls the key. If the provider can recover your funds without your key, you have a custodial account, not a wallet. Read the fine print.\n- Open source and audited. Code that can be inspected and has been audited is a materially lower risk than code that cannot.\n- Chain support. A wallet that supports the chains you actually use beats one that claims hundreds.\n- Recovery model. A 12 or 24 word seed phrase is standard. Social recovery and multi-signature are alternatives worth understanding.\n- Track record. How long has it existed, and has it ever lost user funds?"
+        },
+        {
+          "id": "hot-wallets",
+          "heading": "Hot Wallets: Convenience With Rules",
+          "body": "Hot wallets are the right tool for interacting with DeFi, NFTs and day-to-day transfers. They are the wrong place for savings.\n\nTreat a hot wallet as a spending account. Keep a small balance, use a dedicated browser profile, and revoke token approvals you no longer need — an unlimited approval left open is a standing invitation."
+        },
+        {
+          "id": "cold-wallets",
+          "heading": "Cold Wallets: Where Savings Belong",
+          "body": "A hardware wallet stores the private key in a secure element and signs transactions only after you physically confirm them. Malware on your computer cannot extract a key it never sees.\n\nThe trade-off is cost (typically $50-200) and friction. For a balance you would be upset to lose, that friction is the point."
+        },
+        {
+          "id": "seed-phrase",
+          "heading": "Your Seed Phrase Is the Wallet",
+          "body": "The device is disposable; the seed phrase is not. Anyone who reads those 12 or 24 words controls the funds, on any device, forever.\n\n- Write it on paper or stamped metal. Never a photo, never a cloud note, never a password manager you would lose access to.\n- Never type it into a website. No legitimate support agent will ask for it. Every request for it is theft in progress.\n- Store it somewhere that survives a house fire and is not obvious to a visitor."
+        },
+        {
+          "id": "picking",
+          "heading": "Picking One",
+          "body": "Match the wallet to the job: a phone wallet for spending, a hardware wallet for savings, and a multi-signature setup if you are holding funds for a group or an organisation. Our wallet directory compares self-custody and custodial options on key control, chain support and audit history."
+        }
+      ]
+    },
+    {
+      "slug": "how-to-stake-ethereum",
+      "directoryCategory": "defi",
+      "title": "How to Stake Ethereum in 2026: Solo, Pooled or Liquid",
+      "description": "The three ways to stake ETH — running a validator, joining a staking pool, or using liquid staking tokens — and what each costs you in control.",
+      "category": "DeFi",
+      "readTime": 9,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "how to stake ethereum",
+      "keywordVolume": "33000",
+      "keywordDifficulty": 65,
+      "tags": [
+        "ethereum",
+        "staking",
+        "validators",
+        "liquid staking"
+      ],
+      "toc": [
+        {
+          "id": "three-routes",
+          "title": "Three Routes to Staking Rewards"
+        },
+        {
+          "id": "solo",
+          "title": "Solo Staking: Maximum Control, Real Work"
+        },
+        {
+          "id": "pooled",
+          "title": "Pooled Staking: Lower Entry, Counterparty Risk"
+        },
+        {
+          "id": "liquid",
+          "title": "Liquid Staking: Rewards You Can Still Use"
+        },
+        {
+          "id": "risks",
+          "title": "Risks to Weigh"
+        },
+        {
+          "id": "which-route",
+          "title": "Which Route Fits You?"
+        }
+      ],
+      "sections": [
+        {
+          "id": "three-routes",
+          "heading": "Three Routes to Staking Rewards",
+          "body": "Ethereum pays you for helping secure the network. There are three ways in, and they differ mostly in how much ETH you need and how much control you keep:\n\n1. Solo staking — run your own validator. Highest rewards, most responsibility.\n2. Pooled staking — join with others through a service that runs the validator for you.\n3. Liquid staking — stake through a protocol and receive a token representing your stake, which you can use elsewhere.\n\nAll three currently earn in the region of 3-4% a year, before fees."
+        },
+        {
+          "id": "solo",
+          "heading": "Solo Staking: Maximum Control, Real Work",
+          "body": "Solo staking requires 32 ETH and a machine that stays online. You are responsible for uptime: downtime costs you roughly the rewards you would have earned, and prolonged downtime in a coordinated event can cost more.\n\nThe appeal is that no third party ever holds your key, and you keep the full reward. The cost is that you are now running production infrastructure with money at stake."
+        },
+        {
+          "id": "pooled",
+          "heading": "Pooled Staking: Lower Entry, Counterparty Risk",
+          "body": "Pooled services let you stake any amount by combining funds. They run the validator and take a cut — typically 10-15% of the rewards.\n\nThe trade-off is explicit: you are trusting an operator with your ETH and their own uptime. A well-run pool is reliable; an unlisted operator is a risk you cannot audit."
+        },
+        {
+          "id": "liquid",
+          "heading": "Liquid Staking: Rewards You Can Still Use",
+          "body": "Liquid staking gives you a token (a \"liquid staking token\") that tracks your staked ETH plus rewards, and can be used in DeFi while the underlying ETH stays bonded.\n\nThe extra yield comes with extra risk, because now you hold a derivative rather than ETH itself. If the protocol is exploited or the token depegs, you can lose more than staking would have gained."
+        },
+        {
+          "id": "risks",
+          "heading": "Risks to Weigh",
+          "body": "- Slashing — penalties for validator misbehaviour. Only affects solo stakers and their pool operators.\n- Smart contract risk — every pooled and liquid route adds contract exposure.\n- Token risk — a liquid staking token is only worth what the market says it is worth.\n- Lock-up — withdrawals from the beacon chain have queue limits; you cannot always exit instantly.\n- Regulatory — some jurisdictions treat staking rewards as income at the moment they are received."
+        },
+        {
+          "id": "which-route",
+          "heading": "Which Route Fits You?",
+          "body": "Under 32 ETH and want simplicity: pooled or liquid. At or above 32 ETH, technical, and want to eliminate counterparties: solo. Using DeFi actively, liquid staking frees capital but means holding a derivative.\n\nCompare the staking and yield protocols in our DeFi directory, each listed with its audit history and any recorded incidents."
+        }
+      ]
+    },
+    {
+      "slug": "crypto-tax-guide",
+      "directoryCategory": "tools",
+      "title": "Crypto Tax Guide 2026: What You Owe and How to Track It",
+      "description": "When crypto becomes taxable, how capital gains and income are treated differently, and how to keep records that survive an audit.",
+      "category": "Education",
+      "readTime": 10,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "crypto tax",
+      "keywordVolume": "27000",
+      "keywordDifficulty": 58,
+      "tags": [
+        "tax",
+        "capital gains",
+        "reporting",
+        "portfolio"
+      ],
+      "toc": [
+        {
+          "id": "taxable-events",
+          "title": "What Counts as a Taxable Event"
+        },
+        {
+          "id": "gains-vs-income",
+          "title": "Capital Gains vs Income: Two Different Taxes"
+        },
+        {
+          "id": "cost-basis",
+          "title": "Cost Basis Is Everything"
+        },
+        {
+          "id": "records",
+          "title": "Records Worth Keeping"
+        },
+        {
+          "id": "tools",
+          "title": "What Tools Do"
+        },
+        {
+          "id": "caveat",
+          "title": "This Is Not Tax Advice"
+        }
+      ],
+      "sections": [
+        {
+          "id": "taxable-events",
+          "heading": "What Counts as a Taxable Event",
+          "body": "Most jurisdictions tax crypto when you dispose of it, not when you hold it. Disposals include:\n\n- Selling crypto for fiat currency.\n- Swapping one crypto for another.\n- Paying for goods or services with crypto.\n- Receiving staking, mining or airdrop rewards as income.\n\nSimply buying and holding is not a taxable event almost anywhere. This surprises people who assume moving coins between their own wallets is reportable — it usually is not, because you did not change what you own."
+        },
+        {
+          "id": "gains-vs-income",
+          "heading": "Capital Gains vs Income: Two Different Taxes",
+          "body": "These are the two treatments, and mixing them up is the most common filing error:\n\n- Capital gains. You dispose of an asset for more than you paid. Tax applies to the profit, and holding longer than a year often attracts a lower rate.\n- Income. You receive new coins — staking rewards, mining, airdrops, salary paid in crypto. Tax applies to the full value at the moment you receive it, at your income rate.\n\nCoins received as income then get a cost basis equal to that value, so you are not taxed twice on the same money."
+        },
+        {
+          "id": "cost-basis",
+          "heading": "Cost Basis Is Everything",
+          "body": "Your gain is the sale price minus your cost basis — what you originally paid, including fees. Without a cost basis record, a tax authority may treat the entire sale proceeds as profit.\n\nThis is why tracking from day one matters. A messy spreadsheet built years later costs more in tax than any tool costs to run."
+        },
+        {
+          "id": "records",
+          "heading": "Records Worth Keeping",
+          "body": "- Every acquisition: date, amount, price, fee, exchange.\n- Every disposal: date, amount, price, fee.\n- Every income receipt: date, amount, value at receipt.\n- Transfer records between your own wallets, to prove they were not sales.\n\nExport transaction history from each exchange at least annually — exchanges close, and a dead exchange is a missing cost basis."
+        },
+        {
+          "id": "tools",
+          "heading": "What Tools Do",
+          "body": "Portfolio and tax tools import your exchange and wallet history, apply the cost-basis method your jurisdiction requires, and produce a report. They do not replace advice, but they replace weeks of manual reconstruction.\n\nOur utilities directory lists portfolio trackers and tax calculators, with the chains each one supports."
+        },
+        {
+          "id": "caveat",
+          "heading": "This Is Not Tax Advice",
+          "body": "Rules differ by country and change often, and nothing here is a substitute for a qualified adviser in your jurisdiction. Treat this as the map of what to ask about, not the answer."
+        }
+      ]
+    },
+    {
+      "slug": "how-to-spot-crypto-scams",
+      "directoryCategory": "security",
+      "title": "How to Spot a Crypto Scam: 10 Red Flags",
+      "description": "The warning signs that separate a legitimate crypto project from a scam — from fake audits and paid reviews to honeypot tokens and phishing sites.",
+      "category": "Security",
+      "readTime": 9,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "how to spot crypto scams",
+      "keywordVolume": "18000",
+      "keywordDifficulty": 55,
+      "tags": [
+        "scam",
+        "security",
+        "phishing",
+        "rug pull"
+      ],
+      "toc": [
+        {
+          "id": "why-hard",
+          "title": "Why Crypto Scams Are So Effective"
+        },
+        {
+          "id": "red-flags",
+          "title": "Ten Red Flags"
+        },
+        {
+          "id": "phishing",
+          "title": "Phishing Is Still the Number One Threat"
+        },
+        {
+          "id": "research",
+          "title": "How to Vet a Project Before You Connect"
+        },
+        {
+          "id": "directory",
+          "title": "Use the Safety Records"
+        }
+      ],
+      "sections": [
+        {
+          "id": "why-hard",
+          "heading": "Why Crypto Scams Are So Effective",
+          "body": "In traditional finance, a scam has to defeat a bank, a regulator and a chargeback process. In crypto, a transfer is final. There is no reversal, no fraud department, and often no legal entity to sue.\n\nThe result is that the same few patterns get reused, because they keep working. Learning to recognise them is more valuable than any single security tool."
+        },
+        {
+          "id": "red-flags",
+          "heading": "Ten Red Flags",
+          "body": "1. **Guaranteed returns.** Nothing in crypto is guaranteed. A stated percentage return is the single strongest scam signal there is.\n2. **A paid \"audit\".** Verify the auditor, not the badge. Many audits are purchased and published without the report behind them.\n3. **Artificial urgency.** Countdown timers, \"last chance\" pricing, and limited whitelists exist to stop you checking.\n4. **Anonymous team with no history.** Not automatically disqualifying, but combined with the above it is decisive.\n5. **Honeypot contracts.** You can buy but not sell. Check whether other holders have successfully sold before you buy.\n6. **Unlimited token approvals.** A contract that asks to spend your entire balance of a token, forever, is asking for everything.\n7. **Off-platform contact.** Being moved from a public channel to Telegram or WhatsApp is the standard grooming step.\n8. **Fake support.** Nobody legitimate DMs you first. Every \"helpful agent\" in your inbox is attempting theft.\n9. **Lookalike domains.** One character changed, or a hyphen added. Bookmark the real site once and never search for it again.\n10. **Pressure to move fast with size.** Real opportunities survive being slept on."
+        },
+        {
+          "id": "phishing",
+          "heading": "Phishing Is Still the Number One Threat",
+          "body": "Most losses do not come from clever contract exploits. They come from a person signing something they should not have, on a site that imitated one they trust.\n\n- Reach sites from your own bookmarks, never from an email, ad or DM link.\n- Read what a wallet popup actually says before approving. The \"confirm\" dialog is where the theft happens.\n- Never enter a seed phrase anywhere. No wallet, exchange or support desk needs it, ever.\n- Consider a hardware wallet so that a malicious signature still requires your physical confirmation."
+        },
+        {
+          "id": "research",
+          "heading": "How to Vet a Project Before You Connect",
+          "body": "Before you deposit anything, spend ten minutes:\n\n- Check the domain's registration date. A project claiming years of history with a domain registered last month is lying.\n- Search the project name plus \"scam\" and \"exploit\". Absence of reports is weak evidence, but presence of them is strong.\n- Look for a documented security incident history. Serious projects have one; pretending to have no incidents is not the same as having none.\n- Check whether the token's holders can actually sell."
+        },
+        {
+          "id": "directory",
+          "heading": "Use the Safety Records",
+          "body": "Our verification pages collect what is checkable — domain registration date, first appearance in the Internet Archive, and recorded losses from the DefiLlama incident database — with a source beside every figure. That is deliberately narrow. It tells you a domain's age, not that a project is honest.\n\nUse it to rule things out quickly, then do the reading that no automated score can replace."
+        }
+      ]
+    },
+    {
+      "slug": "what-is-a-smart-contract",
+      "directoryCategory": "infra",
+      "title": "What Is a Smart Contract? How Code Becomes Money",
+      "description": "Smart contracts are programs that hold and move value on a blockchain. Learn how they work, what makes them different, and where they fail.",
+      "category": "Technology",
+      "readTime": 8,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "what is a smart contract",
+      "keywordVolume": "22000",
+      "keywordDifficulty": 60,
+      "tags": [
+        "smart contract",
+        "ethereum",
+        "solidity",
+        "audit"
+      ],
+      "toc": [
+        {
+          "id": "definition",
+          "title": "What a Smart Contract Is"
+        },
+        {
+          "id": "how-they-run",
+          "title": "How They Actually Run"
+        },
+        {
+          "id": "what-they-enable",
+          "title": "What They Make Possible"
+        },
+        {
+          "id": "failure-modes",
+          "title": "Where They Fail"
+        },
+        {
+          "id": "audits",
+          "title": "What Audits Do and Do Not Do"
+        },
+        {
+          "id": "using-safely",
+          "title": "Using Contracts Safely"
+        }
+      ],
+      "sections": [
+        {
+          "id": "definition",
+          "heading": "What a Smart Contract Is",
+          "body": "A smart contract is a program deployed to a blockchain that can hold assets and move them according to rules written in code. Once deployed, it runs as written — no operator can quietly change the terms, and no counterparty can refuse to perform.\n\nThe important part is the \"holds assets\" clause. A conventional program that crashes loses uptime. A smart contract that crashes can lose everything it holds, permanently."
+        },
+        {
+          "id": "how-they-run",
+          "heading": "How They Actually Run",
+          "body": "You send a transaction to the contract's address. Every node in the network executes the same code against the same inputs and must reach the same result. If they disagree, the network has failed.\n\nThis is why execution costs money: every node does the work, and the fee (gas) pays for that. It is also why contracts are small and simple compared to ordinary software — complexity is expensive and dangerous at every node simultaneously."
+        },
+        {
+          "id": "what-they-enable",
+          "heading": "What They Make Possible",
+          "body": "- Decentralised exchanges — swap two assets with no counterparty.\n- Lending markets — deposit collateral, borrow against it.\n- Stablecoins — tokens pegged to a currency by contract logic.\n- Bridges — move value between chains.\n- Wallets and multisigs — enforce who must approve a transfer.\n\nAlmost everything called \"DeFi\" is a set of smart contracts talking to each other."
+        },
+        {
+          "id": "failure-modes",
+          "heading": "Where They Fail",
+          "body": "- **Bugs.** The DAO lost roughly $60 million to a re-entrancy bug in 2016. Code is not law when the code is wrong.\n- **Oracle failures.** If a contract trusts a single price feed, manipulating that feed manipulates the contract.\n- **Economic design flaws.** A contract can be technically perfect and still be drained by a clever sequence of legitimate calls — flash loan attacks do exactly this.\n- **Upgrade keys.** Many contracts can be changed by whoever holds an admin key. That is a trust assumption, however decentralised the marketing sounds.\n- **Rug pulls.** Nothing stops a team from deploying a contract designed to take deposits and stop allowing withdrawals."
+        },
+        {
+          "id": "audits",
+          "heading": "What Audits Do and Do Not Do",
+          "body": "An audit is a review by a security firm looking for exploitable issues. A good one materially lowers risk. It does not eliminate it.\n\n- An audit covers the code as it existed on the audit date. Later changes are unaudited.\n- An audit does not cover economic design, oracle choice, or admin keys unless explicitly scoped.\n- The name on the report matters less than the report. Read it, or at least check it exists.\n\nOur security directory lists audit firms and contract-analysis tools, with each firm's audit history."
+        },
+        {
+          "id": "using-safely",
+          "heading": "Using Contracts Safely",
+          "body": "Approve the smallest amount you need, not unlimited. Revoke approvals when a position closes. Prefer contracts that have been live and heavily used for a long time — time and volume are the closest thing to proof available. And treat any single protocol as a position, not a vault."
+        }
+      ]
+    },
+    {
+      "slug": "how-to-avoid-rug-pull",
+      "directoryCategory": "security",
+      "title": "How to Avoid a Rug Pull: Checking a Token Before You Buy",
+      "description": "The concrete checks that catch most rug pulls before you buy — liquidity locks, holder concentration, contract permissions and sell tests.",
+      "category": "Security",
+      "readTime": 8,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "how to avoid rug pull",
+      "keywordVolume": "12000",
+      "keywordDifficulty": 52,
+      "tags": [
+        "rug pull",
+        "defi",
+        "liquidity",
+        "security"
+      ],
+      "toc": [
+        {
+          "id": "anatomy",
+          "title": "What a Rug Pull Actually Is"
+        },
+        {
+          "id": "liquidity",
+          "title": "Check 1 — Liquidity and Whether It Is Locked"
+        },
+        {
+          "id": "holders",
+          "title": "Check 2 — Holder Concentration"
+        },
+        {
+          "id": "permissions",
+          "title": "Check 3 — What the Contract Can Do"
+        },
+        {
+          "id": "sell-test",
+          "title": "Check 4 — Can Holders Actually Sell?"
+        },
+        {
+          "id": "exit",
+          "title": "The Only Defence That Always Works"
+        }
+      ],
+      "sections": [
+        {
+          "id": "anatomy",
+          "heading": "What a Rug Pull Actually Is",
+          "body": "A rug pull is the removal of the value you were relying on. It takes three common forms:\n\n1. **Liquidity removal.** The team withdraws the trading pool, and the token can no longer be sold at any price.\n2. **Unlimited minting.** A privileged function creates new supply and dumps it on holders.\n3. **Trading restrictions.** The contract quietly blocks sales while buys remain open — a honeypot.\n\nAlmost every rug leaves one of these doors open, and all three are checkable before you buy."
+        },
+        {
+          "id": "liquidity",
+          "heading": "Check 1 — Liquidity and Whether It Is Locked",
+          "body": "The trading pool is the money you sell into. If the deployer can withdraw it at will, you are trusting them not to.\n\n- Look at total liquidity. Small pools move violently on modest trades.\n- Check whether the liquidity is locked, and for how long. A lock that expires next week is not a lock.\n- Check who holds the LP tokens. If one wallet holds the pool and that wallet is the deployer, the rug is one transaction away."
+        },
+        {
+          "id": "holders",
+          "heading": "Check 2 — Holder Concentration",
+          "body": "A token where a handful of wallets hold most of the supply is a token whose price those wallets control.\n\n- Top-10 holder share above roughly 30-40% deserves scrutiny.\n- Check whether the top holders are contracts (pools, locks) or individuals. A locked liquidity pool is a healthy top holder.\n- Watch for wallets funded from the same source at the same time — that is usually one person wearing several hats."
+        },
+        {
+          "id": "permissions",
+          "heading": "Check 3 — What the Contract Can Do",
+          "body": "Read the permissions, or use a scanner that reads them for you. The dangerous ones:\n\n- **Mint** — create new supply at will.\n- **Pause / blacklist** — stop specific wallets from selling.\n- **Set tax** — raise the sell fee after you buy.\n- **Modify limits** — change maximum transaction or wallet size.\n\nA renounced contract has these disabled. Renounced is not a guarantee of honesty, but unrenounced with mint enabled is a countdown."
+        },
+        {
+          "id": "sell-test",
+          "heading": "Check 4 — Can Holders Actually Sell?",
+          "body": "If you cannot verify that other people have sold successfully, treat the token as unsellable. Holder count rising while sell volume stays at zero is the honeypot signature.\n\nIf you do buy into something new, buy the smallest amount the platform allows, sell a portion immediately, and only then consider a real position."
+        },
+        {
+          "id": "exit",
+          "heading": "The Only Defence That Always Works",
+          "body": "Size your position so that being wrong does not matter. Every check above reduces risk; none eliminates it. The people who survive rug pulls are the ones who treat any young token as money already spent."
+        }
+      ]
+    },
+    {
+      "slug": "what-is-a-hardware-wallet",
+      "directoryCategory": "wallet",
+      "title": "What Is a Hardware Wallet and Do You Need One?",
+      "description": "A hardware wallet keeps your private key offline and physically confirms each transaction. Here is what it protects against, and what it does not.",
+      "category": "Education",
+      "readTime": 8,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "what is a hardware wallet",
+      "keywordVolume": "15000",
+      "keywordDifficulty": 54,
+      "tags": [
+        "hardware wallet",
+        "cold storage",
+        "seed phrase",
+        "security"
+      ],
+      "toc": [
+        {
+          "id": "definition",
+          "title": "The Idea in One Paragraph"
+        },
+        {
+          "id": "what-it-stops",
+          "title": "What It Protects Against"
+        },
+        {
+          "id": "what-it-doesnt",
+          "title": "What It Does Not Protect Against"
+        },
+        {
+          "id": "setup",
+          "title": "How Setup Works"
+        },
+        {
+          "id": "who-needs",
+          "title": "Who Actually Needs One"
+        },
+        {
+          "id": "choosing",
+          "title": "Choosing One"
+        }
+      ],
+      "sections": [
+        {
+          "id": "definition",
+          "heading": "The Idea in One Paragraph",
+          "body": "A hardware wallet is a small device that stores your private key and signs transactions only after you physically confirm them. The key never touches your computer or phone, so malware on those devices has nothing to steal.\n\nThat is the whole design. Everything else — the screen, the buttons, the companion app — exists to make that one property usable."
+        },
+        {
+          "id": "what-it-stops",
+          "heading": "What It Protects Against",
+          "body": "- **Malware reading your key.** The key is not in a file on a machine that has internet access.\n- **Signing the wrong thing.** A malicious site cannot drain you without you approving on the device itself, where it shows the real recipient and amount.\n- **Compromised computer.** Even a fully infected machine cannot move funds it cannot sign for.\n- **Exchange failure.** You are the counterparty to no company."
+        },
+        {
+          "id": "what-it-doesnt",
+          "heading": "What It Does Not Protect Against",
+          "body": "A hardware wallet is not a magic shield, and understanding the gaps matters more than the feature list:\n\n- **You approving a bad transaction.** If you confirm it, it is authorised. Read the device screen.\n- **Your seed phrase being stolen.** The device is replaceable; the words are not. If someone photographs your backup, the hardware is irrelevant.\n- **Phishing that imitates the device flow.** Some attacks convince you to type your phrase into a fake \"recovery\" page.\n- **Supplier tampering.** Buy directly from the manufacturer, never a marketplace reseller."
+        },
+        {
+          "id": "setup",
+          "heading": "How Setup Works",
+          "body": "You receive a device and generate a new seed phrase on it. Write the words down by hand, in order, and store them offline. Verify the backup by restoring it once before you fund it — discovering a bad backup while holding a balance is the worst way to learn.\n\nSet a PIN. If the device offers a passphrase, understand that it creates a hidden wallet, and losing the passphrase loses that wallet permanently."
+        },
+        {
+          "id": "who-needs",
+          "heading": "Who Actually Needs One",
+          "body": "If the total you hold would genuinely hurt to lose, a hardware wallet is the cheapest insurance available, at a fraction of a percent of what it protects.\n\nIf you are holding a small amount you actively trade, a well-reviewed hot wallet plus disciplined approval hygiene is a reasonable choice. Most people settle on both: hot for spending, hardware for savings."
+        },
+        {
+          "id": "choosing",
+          "heading": "Choosing One",
+          "body": "Prioritise a long track record, open or independently audited firmware, a secure element chip, and a screen and buttons on the device itself so you can verify what you are signing. Our wallet directory compares cold storage options on exactly those attributes."
+        }
+      ]
+    },
+    {
+      "slug": "what-is-gas-fee",
+      "directoryCategory": "infra",
+      "title": "What Are Gas Fees? Why Crypto Transactions Cost Money",
+      "description": "Gas fees pay the network to process your transaction. Learn why they rise, how they are calculated, and how to pay less without waiting forever.",
+      "category": "Technology",
+      "readTime": 7,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "what is gas fee",
+      "keywordVolume": "20000",
+      "keywordDifficulty": 50,
+      "tags": [
+        "gas",
+        "ethereum",
+        "fees",
+        "layer 2"
+      ],
+      "toc": [
+        {
+          "id": "definition",
+          "title": "What Gas Actually Is"
+        },
+        {
+          "id": "why-vary",
+          "title": "Why Fees Swing So Far"
+        },
+        {
+          "id": "eip1559",
+          "title": "The Two-Part Fee on Ethereum"
+        },
+        {
+          "id": "paying-less",
+          "title": "How to Pay Less"
+        },
+        {
+          "id": "stuck",
+          "title": "If a Transaction Is Stuck"
+        }
+      ],
+      "sections": [
+        {
+          "id": "definition",
+          "heading": "What Gas Actually Is",
+          "body": "Gas is a unit of computational work. Every operation a transaction performs costs a fixed amount of gas, and you pay that gas at a price set by the market.\n\nYour fee is gas used multiplied by gas price. A simple transfer uses far less than a complex swap, which is why two transactions in the same block can cost wildly different amounts."
+        },
+        {
+          "id": "why-vary",
+          "heading": "Why Fees Swing So Far",
+          "body": "Block space is limited. When more transactions want into a block than fit, the price of inclusion rises until enough drop out. That is the entire mechanism.\n\nPractical consequences:\n\n- Congestion events — a popular mint or a market crash — push fees to absurd levels within minutes.\n- Quiet weekends are cheap.\n- Fees are usually quoted in the chain's own token, so a spike in that token's price raises the dollar cost of the same work."
+        },
+        {
+          "id": "eip1559",
+          "heading": "The Two-Part Fee on Ethereum",
+          "body": "Ethereum splits the fee into a base fee and a priority fee:\n\n- **Base fee** is set by the protocol from how full the last block was. It is burned — destroyed — rather than paid to anyone.\n- **Priority fee** (a tip) is what you offer validators to include you sooner.\n\nYou set a maximum you are willing to pay. If the base fee rises above it, your transaction waits. This is why a transaction can sit pending for hours during a spike."
+        },
+        {
+          "id": "paying-less",
+          "heading": "How to Pay Less",
+          "body": "- **Wait.** Fees are cyclical. Off-peak windows are common; a pending transaction can be cheaper to resubmit later than to push through now.\n- **Use a Layer 2.** Rollups settle to Ethereum while charging a fraction of the fee. For everyday use this is the single biggest saving.\n- **Check before you act.** Fee estimators show current conditions. A dapp that never displays them is hiding the cost.\n- **Do not over-tip in a quiet market.** When blocks are half empty, the minimum works.\n- **Batch when you can.** One well-constructed transaction beats several small ones."
+        },
+        {
+          "id": "stuck",
+          "heading": "If a Transaction Is Stuck",
+          "body": "A pending transaction occupies your nonce, so later ones queue behind it. You can either wait, or send a replacement with the same nonce and a higher fee. Cancelling means replacing with a zero-value self-transfer at a higher fee — you pay to undo it.\n\nOn most modern wallets this is a single \"speed up\" button. Understanding what it does prevents surprises."
+        }
+      ]
+    },
+    {
+      "slug": "crypto-portfolio-tracking",
+      "directoryCategory": "tools",
+      "title": "How to Track a Crypto Portfolio Across Wallets and Chains",
+      "description": "Manual spreadsheets break as soon as you use a second chain. Here is how portfolio trackers work, what to look for, and how to keep records clean.",
+      "category": "Education",
+      "readTime": 8,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "crypto portfolio tracker",
+      "keywordVolume": "11000",
+      "keywordDifficulty": 48,
+      "tags": [
+        "portfolio",
+        "tracker",
+        "tax",
+        "analytics"
+      ],
+      "toc": [
+        {
+          "id": "problem",
+          "title": "Why Tracking Gets Hard Fast"
+        },
+        {
+          "id": "two-approaches",
+          "title": "Two Approaches"
+        },
+        {
+          "id": "what-to-look-for",
+          "title": "What to Look For"
+        },
+        {
+          "id": "hygiene",
+          "title": "Habits That Keep Records Clean"
+        },
+        {
+          "id": "directory",
+          "title": "Where to Start"
+        }
+      ],
+      "sections": [
+        {
+          "id": "problem",
+          "heading": "Why Tracking Gets Hard Fast",
+          "body": "A single-exchange portfolio is easy to track: the exchange shows you a number. The moment you hold assets in a self-custody wallet, or use a second chain, the number becomes a research project.\n\nAdd staking rewards, an airdrop, a bridge between two chains, and a swap that is also a taxable event, and a spreadsheet built by hand stops being trustworthy within weeks."
+        },
+        {
+          "id": "two-approaches",
+          "heading": "Two Approaches",
+          "body": "**Read-only wallet tracking.** You give the tracker your public addresses (never a private key) and it reads balances and history directly from the chain. Nothing is deposited anywhere, and it works for any wallet you control.\n\n**Exchange integration.** You connect an API key with read-only permissions, and the tracker imports your trade history. Useful for cost-basis records, and only safe with trading and withdrawal permissions switched off."
+        },
+        {
+          "id": "what-to-look-for",
+          "heading": "What to Look For",
+          "body": "- **Chain coverage.** Trackers are only as useful as the chains they read. Check yours specifically.\n- **Read-only or nothing.** Any tool asking for a private key or seed phrase is not a tracker.\n- **Cost-basis support.** The method your jurisdiction requires should be available.\n- **Historical imports.** A tracker that only sees the present cannot reconstruct a past gain.\n- **Export.** You need to be able to get your data out, in a format an accountant can read."
+        },
+        {
+          "id": "hygiene",
+          "heading": "Habits That Keep Records Clean",
+          "body": "- Use one address per purpose — savings, trading, experiments — so history stays legible.\n- Label transfers between your own wallets immediately, while you still remember them.\n- Export history from every exchange at least annually. Exchanges close, and a closed exchange is a missing cost basis.\n- Reconcile monthly, not at tax time. Small corrections are cheap; a year of them is not.\n- Keep the raw exports even after importing. The tracker is a view, not the record."
+        },
+        {
+          "id": "directory",
+          "heading": "Where to Start",
+          "body": "Our utilities directory compares portfolio trackers and tax calculators on chains supported, features and cost. Start with one that covers the chains you actually use rather than the one with the longest feature list."
+        }
+      ]
+    },
+    {
+      "slug": "what-is-a-crypto-exchange",
+      "directoryCategory": "exchange",
+      "title": "What Is a Crypto Exchange? CEX vs DEX Explained",
+      "description": "Centralised and decentralised exchanges solve the same problem differently. Understand the trade-offs in custody, fees and control before you pick.",
+      "category": "Education",
+      "readTime": 9,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "what is a crypto exchange",
+      "keywordVolume": "16000",
+      "keywordDifficulty": 56,
+      "tags": [
+        "exchange",
+        "cex",
+        "dex",
+        "custody"
+      ],
+      "toc": [
+        {
+          "id": "role",
+          "title": "What an Exchange Does"
+        },
+        {
+          "id": "cex",
+          "title": "Centralised Exchanges (CEX)"
+        },
+        {
+          "id": "dex",
+          "title": "Decentralised Exchanges (DEX)"
+        },
+        {
+          "id": "comparison",
+          "title": "Choosing Between Them"
+        },
+        {
+          "id": "safety",
+          "title": "What to Check Before Depositing"
+        }
+      ],
+      "sections": [
+        {
+          "id": "role",
+          "heading": "What an Exchange Does",
+          "body": "An exchange matches buyers with sellers and sets a price. Beyond that simple job, the two families of exchange diverge sharply — and the difference determines who holds your coins."
+        },
+        {
+          "id": "cex",
+          "heading": "Centralised Exchanges (CEX)",
+          "body": "A centralised exchange is a company that runs the order book. You create an account, verify your identity, deposit funds, and the exchange holds them on your behalf.\n\n**Advantages:**\n- Fiat on-ramp — the easiest way to turn a bank transfer into crypto.\n- Deep liquidity, fast execution, and familiar order types.\n- Customer support and, in regulated jurisdictions, a complaints process.\n\n**Costs:**\n- You do not hold your keys. Withdrawals can be frozen, and exchange failures have lost customer funds before.\n- Identity verification is mandatory in most countries.\n- Trading fees plus spread, and withdrawal fees on top."
+        },
+        {
+          "id": "dex",
+          "heading": "Decentralised Exchanges (DEX)",
+          "body": "A DEX is a set of smart contracts. You connect a wallet and trade directly from it, and every trade settles on-chain.\n\n**Advantages:**\n- Self-custody throughout — you never hand over your coins.\n- No account, no identity check, no permission needed.\n- Censorship-resistant: no company can freeze your access.\n\n**Costs:**\n- You pay the network fee on every trade, which on a busy chain can exceed the trade value.\n- Liquidity is fragmented and slippage is real on thin pairs.\n- No one to call if something goes wrong. A mistaken swap is final.\n- Interacting with contracts exposes you to contract risk."
+        },
+        {
+          "id": "comparison",
+          "heading": "Choosing Between Them",
+          "body": "Most people use both, for different jobs:\n\n- Buying with a bank transfer, or selling a large position: a centralised exchange, for liquidity and a fiat ramp.\n- Swapping tokens without an account, or trading a long tail: a DEX.\n- Holding long-term: neither. Move savings to self-custody.\n\nThe mistake is treating an exchange balance as a wallet. It is a position at a company, and it carries that company's risk."
+        },
+        {
+          "id": "safety",
+          "heading": "What to Check Before Depositing",
+          "body": "For a CEX: is it licensed where you live, how long has it operated, and does it publish proof of reserves? Search its name with \"withdrawal delay\" first — deposits are always fast and withdrawals are where problems appear.\n\nFor a DEX: how much liquidity is in the pool you intend to use, and has the protocol been audited and live long enough to have a track record?\n\nOur exchange directory lists centralised and decentralised venues side by side with fees, chains and safety records."
+        }
+      ]
+    },
+    {
+      "slug": "how-to-use-a-crypto-wallet",
+      "directoryCategory": "wallet",
+      "title": "How to Use a Crypto Wallet Safely: A Practical Guide",
+      "description": "Sending, receiving, approvals and backups — the day-to-day habits that prevent the most common ways people lose crypto.",
+      "category": "Education",
+      "readTime": 8,
+      "author": "CryptoNav Team",
+      "publishedAt": "2026-02-10",
+      "keyword": "how to use a crypto wallet",
+      "keywordVolume": "14000",
+      "keywordDifficulty": 46,
+      "tags": [
+        "wallet",
+        "security",
+        "approvals",
+        "addresses"
+      ],
+      "toc": [
+        {
+          "id": "basics",
+          "title": "The Two Things a Wallet Does"
+        },
+        {
+          "id": "receiving",
+          "title": "Receiving: Addresses and Networks"
+        },
+        {
+          "id": "sending",
+          "title": "Sending: Verify Before You Sign"
+        },
+        {
+          "id": "approvals",
+          "title": "Approvals: The Most Ignored Risk"
+        },
+        {
+          "id": "backups",
+          "title": "Backups: The Part You Cannot Fix Later"
+        },
+        {
+          "id": "routine",
+          "title": "A Simple Routine That Works"
+        }
+      ],
+      "sections": [
+        {
+          "id": "basics",
+          "heading": "The Two Things a Wallet Does",
+          "body": "A wallet does not store coins. The coins exist on the blockchain; the wallet holds the key that proves they are yours, and signs transactions that move them.\n\nThat reframing explains almost every security rule below: the goal is never to expose the key, and never to sign something you did not mean."
+        },
+        {
+          "id": "receiving",
+          "heading": "Receiving: Addresses and Networks",
+          "body": "Every wallet has an address per network. Two rules prevent most lost funds:\n\n1. **Match the network.** Sending an Ethereum-network token to a Solana address is usually unrecoverable. Check the network on both sides.\n2. **Send a test amount first.** A small transfer costs little and proves the path works before the real one.\n\nSome chains also need a memo or tag when sending to an exchange. Omitting it can strand the deposit in the exchange's shared wallet."
+        },
+        {
+          "id": "sending",
+          "heading": "Sending: Verify Before You Sign",
+          "body": "Before confirming any transfer:\n\n- Paste the address; never retype it. Clipboard-hijacking malware exists and swaps addresses at paste time.\n- Check the first and last characters against the source, not just the middle.\n- Confirm the network and the fee.\n- Send a small test when the destination is new.\n\nIf a wallet popup shows a different amount or address than you intended, reject it and start over."
+        },
+        {
+          "id": "approvals",
+          "heading": "Approvals: The Most Ignored Risk",
+          "body": "When a dapp asks to \"spend\" your tokens, you are granting a contract permission — often an unlimited amount, forever. Those approvals persist after you close the tab.\n\n- Approve the specific amount you need, not unlimited, when the interface allows it.\n- Review and revoke approvals periodically. Most wallets and several free services show what you have granted and let you cancel.\n- An unlimited approval to a contract that later turns malicious is a standing drain on that token."
+        },
+        {
+          "id": "backups",
+          "heading": "Backups: The Part You Cannot Fix Later",
+          "body": "- Write the seed phrase by hand, in order, offline.\n- Never photograph it, never store it in cloud notes or a chat draft.\n- Never type it into any website. Every request for it is theft.\n- Store it where a fire cannot reach it and a house guest cannot find it.\n- Consider splitting storage across two locations so no single accident destroys it."
+        },
+        {
+          "id": "routine",
+          "heading": "A Simple Routine That Works",
+          "body": "Daily: use a hot wallet with a small balance for interactions, and read every confirmation. Monthly: revoke approvals you no longer need and reconcile what you hold. Yearly: export exchange history and verify a backup restore on a spare device.\n\nNone of this is exotic. It is the difference between losing funds to a mistake you could have prevented and not."
         }
       ]
     }

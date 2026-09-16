@@ -26,6 +26,25 @@ const seoTitle = category.seoTitle ?? `${category.name} - CryptoNav`;
 const seoDescription = (category.seoDescription ?? category.description)
   .replace('{n}', String(projects.length));
 
+// SEO depth: original intro copy + links into guides/comparisons for this
+// category. The intro uses the category's own seoDescription (already written,
+// previously only used as a meta tag) so the page carries real prose, not just
+// a project grid.
+const introCopy = (category.seoDescription ?? category.description)
+  .replace('{n}', String(projects.length));
+
+import learnData from '../../data/learn.json';
+const allArticles = (learnData as any).articles ?? learnData;
+const categoryGuides = allArticles
+  .filter((a: any) => a.directoryCategory === category.id)
+  .slice(0, 3);
+
+import comparisonsData from '../../data/comparisons.json';
+const comparisons = (comparisonsData as any).comparisons ?? comparisonsData;
+const categoryCompares = (comparisons as any[])
+  .filter((c: any) => (c.category ?? '').toLowerCase() === category.name.toLowerCase())
+  .slice(0, 3);
+
 const categoryUrl = `/category/${category.slug}`;
 const categorySchema = [
   collectionPage({
@@ -64,6 +83,24 @@ const categorySchema = [
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
     <h1 class="text-2xl font-bold text-surface-800 dark:text-surface-100">{category.name}</h1>
     <p class="text-sm text-surface-500 dark:text-surface-400 mt-1">{category.description} · {projects.length} projects</p>
+
+    <!-- SEO intro copy (uses the category's own seoDescription as real prose) -->
+    <p class="text-sm text-surface-600 dark:text-surface-300 leading-relaxed mt-4 max-w-3xl">{introCopy}</p>
+
+    {(categoryGuides.length > 0 || categoryCompares.length > 0) && (
+      <div class="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-sm">
+        {categoryGuides.map((a: any) => (
+          <a href={`/learn/${a.slug}`} class="text-brand-600 dark:text-brand-400 hover:underline">
+            {a.title}
+          </a>
+        ))}
+        {categoryCompares.map((c: any) => (
+          <a href={`/compare/${c.slug}`} class="text-brand-600 dark:text-brand-400 hover:underline">
+            {c.title}
+          </a>
+        ))}
+      </div>
+    )}
 
     <!-- Subcategory Filter -->
     <div class="flex flex-wrap gap-2 mt-4" id="subcategory-filters">

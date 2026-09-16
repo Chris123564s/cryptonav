@@ -123,6 +123,27 @@ const related = projects
   .filter((p) => p.id !== project.id && p.category.split('-')[0] === parentCat)
   .slice(0, 6);
 
+// SEO depth: link this verified project to matching guides and comparisons so
+// the authority graph is bidirectional (guides -> verify, verify -> guides).
+import learnData from '../../data/learn.json';
+const allArticles = (learnData as any).articles ?? learnData;
+const projectName = project.name.toLowerCase();
+const relatedGuides = allArticles
+  .filter((a: any) => {
+    const hay = `${a.title} ${a.description} ${a.tags?.join(' ')}`.toLowerCase();
+    return hay.includes(projectName) || projectName.includes(a.keyword?.toLowerCase() ?? '');
+  })
+  .slice(0, 3);
+
+import comparisonsData from '../../data/comparisons.json';
+const comparisons = (comparisonsData as any).comparisons ?? comparisonsData;
+const relatedCompares = (comparisons as any[])
+  .filter((c: any) =>
+    `${c.title} ${c.description ?? ''}`.toLowerCase().includes(projectName) ||
+    (c.projects ?? []).map((p: string) => p.toLowerCase()).includes(projectName)
+  )
+  .slice(0, 2);
+
 /*
  * Title variants, most descriptive first. `fitTitle` picks the richest one that
  * still fits; the bare question is always short enough to be the fallback, so a
@@ -372,6 +393,42 @@ const dims = [
       comes from the external sources named beside it.
     </p>
   </div>
+
+  <!-- Related Guides & Comparisons (bidirectional internal linking) -->
+  {(relatedGuides.length > 0 || relatedCompares.length > 0) && (
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {relatedGuides.length > 0 && (
+          <div>
+            <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3">Learn more</h2>
+            <ul class="space-y-2">
+              {relatedGuides.map((a: any) => (
+                <li>
+                  <a href={`/learn/${a.slug}`} class="text-sm text-surface-600 dark:text-surface-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                    {a.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {relatedCompares.length > 0 && (
+          <div>
+            <h2 class="text-sm font-semibold text-surface-700 dark:text-surface-200 mb-3">Compare</h2>
+            <ul class="space-y-2">
+              {relatedCompares.map((c: any) => (
+                <li>
+                  <a href={`/compare/${c.slug}`} class="text-sm text-surface-600 dark:text-surface-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+                    {c.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  )}
 
   <!-- Related -->
   {related.length > 0 && (
