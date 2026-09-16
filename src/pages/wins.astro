@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AdBanner from '../components/AdBanner.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 import winsData from '../data/wins.json';
 import { collectionPage, itemList } from '../utils/schema';
 
@@ -98,5 +99,10 @@ const winsSchema = [
       Auto-refreshed daily from DexScreener top 6h movers. Market data only — not investment advice. DYOR.
       Verify any contract on CryptoNav before interacting.
     </p>
+
+    <!-- Newsletter (AdSense-safe: content page, separate from ad slots) -->
+    <div class="my-6 max-w-md">
+      <NewsletterForm source="wins" variant="inline" />
+    </div>
   </div>
 </Layout>

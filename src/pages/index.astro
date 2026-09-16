@@ -11,6 +11,7 @@ import SuccessCases from '../components/SuccessCases.astro';
 import FeaturedCarousel from '../components/FeaturedCarousel.astro';
 import CategoryGrid from '../components/CategoryGrid.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 import { getLatestProjects, getActiveProjects, getVerifiedProjects, safety, gradeColor } from '../utils/data';
 import { organization, webSite, itemList } from '../utils/schema';
 
@@ -216,6 +217,9 @@ const homeSchema = [
       </div>
 
       <AdBanner slot="sidebar-bottom" format="sidebar" />
+
+      <!-- Newsletter: placed away from ad slots, on a content page (AdSense-safe) -->
+      <NewsletterForm source="home-sidebar" variant="sidebar" />
 
       <!-- Submit CTA -->
       <div class="bg-gradient-to-br from-brand-600 to-brand-700 rounded-xl p-5 text-white">

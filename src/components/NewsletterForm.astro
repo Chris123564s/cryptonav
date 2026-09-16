@@ -1,0 +1,102 @@
+---
+// Reusable newsletter signup form. Posts to /api/subscribe (Cloudflare Pages Function).
+// Endpoints handle provider plumbing; this component only collects + consents.
+interface Props {
+  source?: string;
+  variant?: 'sidebar' | 'inline';
+}
+const { source = 'site', variant = 'inline' } = Astro.props;
+// source identifies where the signup happened (for analytics in the provider).
+const sourceId = source;
+---
+
+<form
+  id={`newsletter-form-${sourceId}`}
+  class="newsletter-form"
+  data-source={sourceId}
+  class:list={[
+    variant === 'sidebar'
+      ? 'bg-white dark:bg-surface-800 rounded-xl border border-surface-200 dark:border-surface-700 p-5'
+      : 'w-full',
+  ]}
+>
+  {variant === 'sidebar' && (
+    <div class="mb-3">
+      <h3 class="font-semibold text-sm text-surface-800 dark:text-surface-100">Get the daily crypto digest</h3>
+      <p class="text-xs text-surface-500 dark:text-surface-400 mt-1 leading-relaxed">
+        Top DEX movers, token unlocks & airdrops — auto-compiled from public data, delivered when you want it. No spam, unsubscribe anytime.
+      </p>
+    </div>
+  )}
+
+  <div class="flex flex-col sm:flex-row gap-2">
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder="you@email.com"
+      aria-label="Email address"
+      class="flex-1 px-3 py-2 text-sm rounded-lg border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-900 text-surface-800 dark:text-surface-100 focus:outline-none focus:ring-2 focus:ring-brand-500"
+    />
+    <button
+      type="submit"
+      class="shrink-0 px-4 py-2 text-sm font-semibold bg-brand-600 hover:bg-brand-700 text-white rounded-lg transition-colors"
+    >
+      Subscribe
+    </button>
+  </div>
+
+  {/* Honeypot: real users never fill this; bots usually do. */}
+  <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+  <label class="flex items-start gap-2 mt-3 text-[11px] text-surface-400 dark:text-surface-500 leading-relaxed">
+    <input type="checkbox" name="consent" required class="mt-0.5 accent-brand-600" />
+    <span>
+      I agree to receive the CryptoNav digest and understand I can unsubscribe at any time.
+      See the <a href="/privacy" class="underline hover:text-brand-500">Privacy Policy</a>.
+    </span>
+  </label>
+
+  <p class="newsletter-msg mt-2 text-[12px] hidden" role="status" aria-live="polite"></p>
+</form>
+
+<script>
+  // Idempotent: guard against double-binding if the script runs more than once.
+  if (!(window as any).__cnNewsletterWired) {
+    (window as any).__cnNewsletterWired = true;
+    function wire(form: HTMLFormElement) {
+      const msg = form.querySelector('.newsletter-msg') as HTMLElement;
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const consent = form.querySelector('input[name="consent"]') as HTMLInputElement;
+        if (!consent?.checked) {
+          if (msg) { msg.textContent = 'Please tick the consent box to subscribe.'; msg.className = 'newsletter-msg mt-2 text-[12px] text-amber-600 dark:text-amber-400'; msg.classList.remove('hidden'); }
+          return;
+        }
+        const email = (form.querySelector('input[name="email"]') as HTMLInputElement).value.trim();
+        const honeypot = (form.querySelector('input[name="website"]') as HTMLInputElement).value;
+        if (honeypot) return; // bot trap
+        const source = form.dataset.source || 'site';
+        try {
+          const res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, source, website: honeypot }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.ok) {
+            if (msg) { msg.textContent = 'Subscribed — check your inbox to confirm.'; msg.className = 'newsletter-msg mt-2 text-[12px] text-green-600 dark:text-green-400'; msg.classList.remove('hidden'); }
+            form.reset();
+          } else if (data.unconfigured) {
+            if (msg) { msg.textContent = 'Subscriptions are temporarily paused. Please try again later.'; msg.className = 'newsletter-msg mt-2 text-[12px] text-amber-600 dark:text-amber-400'; msg.classList.remove('hidden'); }
+          } else {
+            if (msg) { msg.textContent = data.error || 'Subscription failed. Please try again.'; msg.className = 'newsletter-msg mt-2 text-[12px] text-red-600 dark:text-red-400'; msg.classList.remove('hidden'); }
+          }
+        } catch {
+          if (msg) { msg.textContent = 'Network error. Please try again.'; msg.className = 'newsletter-msg mt-2 text-[12px] text-red-600 dark:text-red-400'; msg.classList.remove('hidden'); }
+        }
+      });
+    }
+    document.querySelectorAll('.newsletter-form').forEach((f) => wire(f as HTMLFormElement));
+  }
+</script>

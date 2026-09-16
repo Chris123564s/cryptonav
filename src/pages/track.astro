@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import AdBanner from '../components/AdBanner.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 import unlocksData from '../data/unlocks.json';
 import winsData from '../data/wins.json';
 import airdropsData from '../data/airdrops.json';
@@ -127,5 +128,10 @@ const schema = collectionPage({
       All feeds refresh automatically from public sources. Bookmark this page and return daily — CryptoNav updates the data so you don't have to.
       Verify any token before interacting.
     </p>
+
+    <!-- Newsletter (AdSense-safe: content page, separate from ad slots) -->
+    <div class="mt-6 max-w-md mx-auto">
+      <NewsletterForm source="track" variant="sidebar" />
+    </div>
   </div>
 </Layout>
