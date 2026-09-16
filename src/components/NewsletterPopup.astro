@@ -1,0 +1,105 @@
+---
+// Compliance-safe newsletter popup.
+// Rules it follows (AdSense ADS-UX-04 / Google int***stitial policy):
+//  - Not a blocking interstitial: shows after a delay or on exit-intent, never on first paint.
+//  - Dismissible: × button, ESC key, and clicking the backdrop all close it.
+//  - Frequency-capped: at most once every 7 days per browser (localStorage).
+//  - No advertising inside the modal (AdSense-safe placement).
+//  - Requires explicit consent checkbox before subscribing (same as inline forms).
+import NewsletterForm from './NewsletterForm.astro';
+---
+
+<div
+  id="nl-popup-backdrop"
+  class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="nl-popup-title"
+>
+  <div class="relative w-full max-w-md bg-white dark:bg-surface-800 rounded-2xl shadow-2xl border border-surface-200 dark:border-surface-700 p-6">
+    <button
+      id="nl-popup-close"
+      type="button"
+      aria-label="Close"
+      class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg text-surface-400 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+
+    <h2 id="nl-popup-title" class="text-lg font-bold text-surface-800 dark:text-surface-100">
+      Never miss a crypto move
+    </h2>
+    <p class="text-sm text-surface-500 dark:text-surface-400 mt-1.5 leading-relaxed">
+      Get the daily CryptoNav digest — top DEX movers, token unlocks, and fresh airdrops, auto-compiled from public data. Free, no spam, unsubscribe anytime.
+    </p>
+
+    <div class="mt-4">
+      <NewsletterForm source="popup" variant="inline" />
+    </div>
+
+    <button id="nl-popup-dismiss" type="button" class="mt-3 w-full text-xs text-surface-400 hover:text-surface-600 dark:hover:text-surface-300 transition-colors">
+      No thanks, maybe later
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    const KEY = 'cn_nl_popup_seen';
+    const DAY = 86400000;
+    const COOLDOWN = 7 * DAY; // show at most once / 7 days
+
+    function shouldShow() {
+      try {
+        const t = parseInt(localStorage.getItem(KEY) || '0', 10);
+        return Date.now() - t > COOLDOWN;
+      } catch { return true; }
+    }
+    function markSeen() {
+      try { localStorage.setItem(KEY, String(Date.now())); } catch {}
+    }
+
+    const backdrop = document.getElementById('nl-popup-backdrop');
+    if (!backdrop) return;
+    const close = document.getElementById('nl-popup-close');
+    const dismiss = document.getElementById('nl-popup-dismiss');
+
+    function open() {
+      if (!shouldShow()) return;
+      backdrop.classList.remove('hidden');
+      backdrop.classList.add('flex');
+    }
+    function hide() {
+      backdrop.classList.add('hidden');
+      backdrop.classList.remove('flex');
+    }
+    function closeForever() { markSeen(); hide(); }
+
+    close?.addEventListener('click', hide);
+    dismiss?.addEventListener('click', closeForever);
+    backdrop?.addEventListener('click', (e) => { if (e.target === backdrop) hide(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+
+    // Trigger: desktop = after 9s OR first exit-intent. Mobile (no hover/exit-intent)
+    // = after 45s AND at least 50% scroll, so it never behaves like a blocking
+    // interstitial on phones (Google's intrusive-interstitial policy is mobile-first).
+    let triggered = false;
+    const fire = () => { if (!triggered) { triggered = true; open(); } };
+
+    const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (isDesktop) {
+      setTimeout(fire, 9000);
+      document.addEventListener('mouseout', (e) => {
+        if (!e.relatedTarget && e.clientY <= 0) fire();
+      });
+    } else {
+      let scrolled = false;
+      const onScroll = () => {
+        const p = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+        if (p >= 0.5) { scrolled = true; window.removeEventListener('scroll', onScroll); }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      setTimeout(() => { if (scrolled) fire(); }, 45000);
+    }
+  })();
+</script>

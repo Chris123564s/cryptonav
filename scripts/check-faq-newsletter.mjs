@@ -48,14 +48,18 @@ check('faq question count', qCount, 24);
 check('faq uses details/summary', (faq.match(/<details/g) || []).length, 24);
 check('faq group anchors', (faq.match(/<section id="/g) || []).length, 5);
 
-// Newsletter — off the site, so everything here asserts absence.
+// Newsletter — back on the site (2026-09-16), but as an EMBEDDED form on content
+// pages and the footer, NOT as a standalone /newsletter page. These assertions were
+// flipped from "absence" to "presence" when the form was reintroduced deliberately.
+// The /newsletter page must still not exist: an ad-bearing thin standalone page is
+// what caused the original removal (AdSense ADS-PROG-06 / ADS-PUB-11 risk).
 check('newsletter page not built', !!news, false);
 
 // Footer placement (footer appears on every page)
 check('footer links to /faq', /href="\/faq"/.test(home), true);
 check('footer has no /newsletter link', /href="\/newsletter"/.test(home), false);
-check('footer has no compact subscribe form', /data-source="footer"/.test(home), false);
-check('home has no subscribe-form markup', /class="subscribe-form/.test(home), false);
+check('footer has newsletter form', /data-source="footer"/.test(home), true);
+check('home has newsletter form', /class="newsletter-form/.test(home), true);
 
 // Sitemap
 const sm = read('dist/sitemap-0.xml');

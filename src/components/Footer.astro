@@ -1,5 +1,6 @@
 ---
 import { categories } from '../utils/data';
+import NewsletterForm from './NewsletterForm.astro';
 const year = new Date().getFullYear();
 ---
 
@@ -17,6 +18,15 @@ const year = new Date().getFullYear();
         <p class="text-sm text-surface-400 leading-relaxed">
           A comprehensive crypto navigation site for global users, aggregating quality resources to help you discover great projects.
         </p>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h3 class="text-sm font-semibold text-white mb-3">Daily digest</h3>
+        <p class="text-xs text-surface-500 mb-3 leading-relaxed">
+          Top DEX movers, token unlocks &amp; airdrops — auto-compiled. No spam, unsubscribe anytime.
+        </p>
+        <NewsletterForm source="footer" variant="inline" />
       </div>
 
       <!-- Categories -->
@@ -46,6 +56,7 @@ const year = new Date().getFullYear();
       <div>
         <h3 class="text-sm font-semibold text-white mb-3">About</h3>
         <ul class="space-y-2">
+          <li><a href="/dashboard" class="text-sm hover:text-brand-400 transition-colors">Dashboard</a></li>
           <li><a href="/verify" class="text-sm hover:text-brand-400 transition-colors">Safety Scores</a></li>
           <li><a href="/submit" class="text-sm hover:text-brand-400 transition-colors">Submit Project</a></li>
           <li><a href="/about" class="text-sm hover:text-brand-400 transition-colors">About Us</a></li>
