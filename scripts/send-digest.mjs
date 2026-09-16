@@ -44,8 +44,14 @@ const SINGLE = (args.find((a) => a.startsWith('--to=')) || '').split('=')[1] || 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
 const RESEND_KEY = process.env.RESEND_API_KEY;
-const FROM = process.env.EMAIL_FROM || 'CryptoNav <onboarding@resend.dev>';
-const POSTAL = process.env.EMAIL_POSTAL_ADDRESS || '';
+// Tolerate the common paste mistake of wrapping the value in quotes in the GitHub
+// Secrets UI — Resend rejects a leading quote as an invalid `from` format.
+function cleanEnv(v, fallback) {
+  const s = String(v ?? '').trim().replace(/^["']|["']$/g, '').trim();
+  return s || fallback;
+}
+const FROM = cleanEnv(process.env.EMAIL_FROM, 'CryptoNav <onboarding@resend.dev>');
+const POSTAL = cleanEnv(process.env.EMAIL_POSTAL_ADDRESS, '');
 const SITE = 'https://cryptonav.site';
 
 function readJson(p) {
@@ -150,7 +156,11 @@ async function fetchSubscribers() {
   });
   if (!res.ok) throw new Error(`Supabase select failed: HTTP ${res.status} ${(await res.text()).slice(0, 200)}`);
   const rows = await res.json();
-  return [...new Set(rows.map((r) => String(r.email).trim().toLowerCase()).filter(Boolean))];
+  const emails = [...new Set(rows.map((r) => String(r.email).trim().toLowerCase()).filter(Boolean))];
+  // Skip obviously-fake test addresses (e.g. example.com left over from integration
+  // tests) so we never hit Resend's "testing email only" 422 in production.
+  const TEST_RE = /@(example\.(com|org|net)|test\.com|localhost|invalid|example)$/;
+  return emails.filter((e) => !TEST_RE.test(e));
 }
 
 function unsubUrl(email) {
