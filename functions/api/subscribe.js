@@ -58,7 +58,15 @@ function buildRequest(email, source, origin, env) {
       merge_fields: { SOURCE: source || origin },
     };
   } else {
-    if (env.NEWSLETTER_TOKEN) headers.Authorization = `Bearer ${env.NEWSLETTER_TOKEN}`;
+    // Supabase PostgREST requires the key in BOTH `apikey` (for routing/auth) and
+    // `Authorization: Bearer` (for RLS role) headers. Sending only Authorization
+    // works for legacy `eyJ` anon JWTs but fails (PGRST301) for the new opaque
+    // `sb_publishable_*` keys, which are not JWTs. Mirror the key into `apikey`
+    // so either key type works.
+    if (env.NEWSLETTER_TOKEN) {
+      headers.Authorization = `Bearer ${env.NEWSLETTER_TOKEN}`;
+      headers.apikey = env.NEWSLETTER_TOKEN;
+    }
     payload = {
       email,
       source: source || '',

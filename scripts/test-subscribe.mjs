@@ -77,6 +77,7 @@ await call({ email: 'x@example.com' }, {
   NEWSLETTER_TOKEN: 'secret123',
 });
 check('generic -> bearer header', upstreamCalls[0].init.headers.Authorization, 'Bearer secret123');
+check('generic -> apikey header (Supabase PostgREST)', upstreamCalls[0].init.headers.apikey, 'secret123');
 
 // --- buttondown ---
 upstreamCalls = [];
