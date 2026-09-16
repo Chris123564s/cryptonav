@@ -1,0 +1,49 @@
+# ⚠️ 这是"内容模板",不是可执行 workflow —— 它放在 docs/ 下,故意不放进
+# .github/workflows/,因为当前 GitHub PAT 缺 `workflow` scope,推不进去。
+#
+# 启用方法:GitHub 仓库 → Actions → New workflow → 选 "set up a workflow yourself"
+#   文件名填 send-digest.yml,把下面 --- 之间的内容整段粘贴 → Commit changes
+# ---------------------------------------------------------------------------
+name: Send Newsletter Digest
+
+# Weekly self-hosted digest (option B). Sends via Resend to the Supabase subscriber
+# list. Secrets (SUPABASE_SERVICE_KEY, RESEND_API_KEY) live as encrypted GitHub
+# Secrets — they are never exposed to the browser or the Cloudflare runtime.
+#
+# Manual run: Actions → "Send Newsletter Digest" → Run workflow.
+# Scheduled: every Sunday 16:00 UTC.
+
+on:
+  schedule:
+    - cron: '0 16 * * 0'
+  workflow_dispatch: {}
+
+# Least privilege: only read the repo contents.
+permissions:
+  contents: read
+
+concurrency:
+  group: send-digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Send digest
+        env:
+          SUPABASE_URL:          ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY:  ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY:        ${{ secrets.RESEND_API_KEY }}
+          EMAIL_FROM:            ${{ secrets.EMAIL_FROM }}
+          EMAIL_POSTAL_ADDRESS:  ${{ secrets.EMAIL_POSTAL_ADDRESS }}
+        run: node scripts/send-digest.mjs
