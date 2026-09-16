@@ -105,3 +105,36 @@
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-surface-400 dark:bg-surface-500;
 }
+
+/* ---- Cookie consent banner (Consent Mode v2) ---------------------------- */
+.cn-consent-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  @apply border-t border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+.cn-consent-banner[hidden] { display: none; }
+.cn-consent-inner {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-6;
+}
+.cn-consent-text {
+  @apply text-xs sm:text-sm text-surface-600 dark:text-surface-400 flex-1;
+}
+.cn-consent-text a {
+  @apply text-brand-600 dark:text-brand-400 underline;
+}
+.cn-consent-actions {
+  @apply flex items-center gap-2 shrink-0;
+}
+.cn-btn {
+  @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-colors;
+}
+.cn-btn-primary {
+  @apply bg-brand-600 text-white hover:bg-brand-700;
+}
+.cn-btn-secondary {
+  @apply bg-surface-100 text-surface-700 hover:bg-surface-200 dark:bg-surface-700 dark:text-surface-200 dark:hover:bg-surface-600;
+}

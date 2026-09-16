@@ -78,7 +78,7 @@ if (schema) ldNodes.push(...(Array.isArray(schema) ? schema : [schema]));
     <!-- Structured data (JSON-LD) -->
     <JsonLd schema={ldNodes} />
 
-    <!-- Google Analytics 4 (gtag.js) -->
+    <!-- Google Analytics 4 (gtag.js) with Consent Mode v2 -->
     <!--
       GA4 sets first-party cookies (_ga, _ga_*) holding a randomly generated
       client id, and sends them to Google. That is a different privacy posture
@@ -86,8 +86,13 @@ if (schema) ldNodes.push(...(Array.isArray(schema) ? schema : [schema]));
       src/pages/privacy.astro documents both — keep the two in sync.
 
       PROD-only so local `astro dev` and test builds never report into the
-      property. A static build has no way to gate on the visitor's region; if a
-      consent banner is ever added, this is the block it should control.
+      property.
+
+      Consent Mode v2: analytics/ad cookies default to DENIED. A banner asks
+      visitors in GDPR/UK/CH/EEA regimes before any non-essential cookie is
+      set; everywhere else analytics is granted automatically (no banner). This
+      is the block a consent banner controls — see the inline script below and
+      the consent banner markup before </body>.
     -->
     {import.meta.env.PROD && (
       <>
@@ -97,7 +102,78 @@ if (schema) ldNodes.push(...(Array.isArray(schema) ? schema : [schema]));
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-MD66BHJN9Y');
+
+          // Consent Mode v2 defaults — DENIED until the visitor decides.
+          // Advertising signals stay denied permanently: this site runs no ads
+          // that build audiences, so there is nothing to grant.
+          gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 500,
+          });
+
+          // Country regimes that require prior consent before a non-essential
+          // cookie may be set. EU 27 + EEA (IS/LI/NO) + GB (UK) + CH (Swiss).
+          // Absent on purpose: US/CA/BR/JP/AU (opt-out or legitimate-interest
+          // regimes where a banner would only cost conversions).
+          var consentReq = new Set([
+            'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE',
+            'IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+            'IS','LI','NO','GB','CH'
+          ]);
+
+          var CN_COOKIE = 'cn_consent';
+
+          function cnReadConsent() {
+            if (typeof document === 'undefined') return null;
+            var m = document.cookie.match(/(?:^|;\s*)cn_consent=(granted|denied)/);
+            return m ? m[1] : null;
+          }
+
+          function cnWriteConsent(choice) {
+            var secure = window.location.protocol === 'https:' ? '; Secure' : '';
+            document.cookie = CN_COOKIE + '=' + choice +
+              '; Max-Age=' + (60*60*24*180) + '; Path=/; SameSite=Lax' + secure;
+          }
+
+          function cnApply(choice) {
+            gtag('consent', 'update', {
+              analytics_storage: choice,
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+            });
+            if (choice === 'granted') gtag('config', 'G-MD66BHJN9Y');
+          }
+
+          function cnShowBanner() {
+            var el = document.getElementById('cn-consent-banner');
+            if (el) el.removeAttribute('hidden');
+          }
+
+          var stored = cnReadConsent();
+          if (stored) {
+            cnApply(stored);
+          } else {
+            // Static build has no request-time country; read it from
+            // Cloudflare's edge trace. If the lookup fails, show the banner —
+            // failing safe is the right direction.
+            fetch('/cdn-cgi/trace')
+              .then(function (r) { return r.ok ? r.text() : Promise.reject(); })
+              .then(function (text) {
+                var m = text.match(/^loc=([A-Za-z]{2})$/m);
+                var cc = m ? m[1] : '';
+                if (cc && !consentReq.has(cc)) {
+                  cnWriteConsent('granted');
+                  cnApply('granted');
+                } else {
+                  cnShowBanner();
+                }
+              })
+              .catch(function () { cnShowBanner(); });
+          }
         </script>
       </>
     )}
@@ -141,6 +217,46 @@ if (schema) ldNodes.push(...(Array.isArray(schema) ? schema : [schema]));
         s.src = 'https://static.cloudflareinsights.com/beacon.min.js';
         s.setAttribute('data-cf-beacon', JSON.stringify({ token: t }));
         document.head.appendChild(s);
+      })();
+    </script>
+
+    <!-- Cookie consent banner (hidden until Consent Mode v2 decides it is needed) -->
+    <div id="cn-consent-banner" hidden role="region" aria-label="Cookie choices" class="cn-consent-banner">
+      <div class="cn-consent-inner">
+        <p class="cn-consent-text">
+          We would like to set one analytics cookie (Google Analytics) to see which pages
+          people actually read, so we know what is worth writing. It stays off until you
+          accept, and the site works the same either way. Details in our
+          <a href="/privacy">privacy policy</a>.
+        </p>
+        <div class="cn-consent-actions">
+          <button type="button" class="cn-btn cn-btn-secondary" data-cn-choice="denied">Decline</button>
+          <button type="button" class="cn-btn cn-btn-primary" data-cn-choice="granted">Accept</button>
+        </div>
+      </div>
+    </div>
+    <script is:inline>
+      (function () {
+        var banner = document.getElementById('cn-consent-banner');
+        if (!banner) return;
+        banner.addEventListener('click', function (e) {
+          var btn = e.target.closest('[data-cn-choice]');
+          if (!btn) return;
+          var choice = btn.getAttribute('data-cn-choice');
+          var secure = window.location.protocol === 'https:' ? '; Secure' : '';
+          document.cookie = 'cn_consent=' + choice +
+            '; Max-Age=' + (60*60*24*180) + '; Path=/; SameSite=Lax' + secure;
+          if (window.gtag) {
+            window.gtag('consent', 'update', {
+              analytics_storage: choice,
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+            });
+            if (choice === 'granted') window.gtag('config', 'G-MD66BHJN9Y');
+          }
+          banner.setAttribute('hidden', '');
+        });
       })();
     </script>
   </body>
