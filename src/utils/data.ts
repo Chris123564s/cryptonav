@@ -58,10 +58,21 @@ export function getFeaturedProjects(): ProjectData[] {
     .filter((p): p is ProjectData => p !== undefined);
 }
 
-/** 获取最新收录 */
+/** 获取最新收录。
+ * 排序信号真实化：featured 置顶（编辑精选），其次 sponsored（付费位），
+ * 最后才按 addedAt 兜底。原实现纯按 addedAt，但 63 个项目里 56 个
+ * addedAt=2026-01-01（占位默认值），导致"最新"永远是同一批 demo 数据打转。 */
 export function getLatestProjects(limit = 12): ProjectData[] {
   return getActiveProjects()
-    .sort((a, b) => new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime())
+    .sort((a, b) => {
+      const aFeat = a.featured ? 1 : 0;
+      const bFeat = b.featured ? 1 : 0;
+      if (aFeat !== bFeat) return bFeat - aFeat;
+      const aSpon = a.sponsored ? 1 : 0;
+      const bSpon = b.sponsored ? 1 : 0;
+      if (aSpon !== bSpon) return bSpon - aSpon;
+      return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
+    })
     .slice(0, limit);
 }
 

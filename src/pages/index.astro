@@ -11,7 +11,7 @@ import SuccessCases from '../components/SuccessCases.astro';
 import FeaturedCarousel from '../components/FeaturedCarousel.astro';
 import CategoryGrid from '../components/CategoryGrid.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { getLatestProjects, getActiveProjects, getReferralUrl, getVerifiedProjects, safety, gradeColor } from '../utils/data';
+import { getLatestProjects, getActiveProjects, getVerifiedProjects, safety, gradeColor } from '../utils/data';
 import { organization, webSite, itemList } from '../utils/schema';
 
 const latestProjects = getLatestProjects(12);
@@ -40,7 +40,7 @@ const homeSchema = [
     description: `Hand-reviewed crypto resources across exchanges, wallets, DeFi, NFTs and market tools (${totalProjects} total).`,
     items: latestProjects.map((p) => ({
       name: p.name,
-      url: getReferralUrl(p),
+      url: `/verify/${p.id}`,
       description: p.description,
     })),
   }),
@@ -169,12 +169,12 @@ const homeSchema = [
     <!-- Latest Projects -->
     <div class="lg:col-span-3">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Latest Listings</h2>
-        <a href="/category/exchange" class="text-sm text-brand-600 dark:text-brand-400 hover:underline">View All</a>
+        <h2 class="text-lg font-bold text-surface-800 dark:text-surface-100">Latest Verified Listings</h2>
+        <a href="/verify" class="text-sm text-brand-600 dark:text-brand-400 hover:underline">View All</a>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {latestProjects.map(project => (
-          <ProjectCard project={project} />
+          <ProjectCard project={project} href={`/verify/${project.id}`} />
         ))}
       </div>
     </div>

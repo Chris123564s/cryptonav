@@ -6,12 +6,16 @@ import { formatNumber, getProjectChains, getReferralUrl, getSafety } from '../ut
 interface Props {
   project: ProjectData;
   compact?: boolean;
+  /** Override the card link target. Defaults to the project's referral URL.
+   *  Pass an internal path (e.g. /verify/{id}) to keep traffic on-site. */
+  href?: string;
 }
 
-const { project, compact = false } = Astro.props;
+const { project, compact = false, href } = Astro.props;
 // Rendered as a non-interactive span: the card is already one big anchor, and
 // nesting a link here would both break the markup and hijack the outbound click.
 const safety = getSafety(project.id);
+const cardHref = href ?? getReferralUrl(project);
 
 // Get category slug
 function getCategorySlug(categoryId: string): string {
@@ -21,9 +25,9 @@ function getCategorySlug(categoryId: string): string {
 ---
 
 <a
-  href={getReferralUrl(project)}
-  target="_blank"
-  rel="noopener noreferrer"
+  href={cardHref}
+  target={href ? undefined : "_blank"}
+  rel={href ? undefined : "noopener noreferrer"}
   class="project-card group block"
 >
   <div class="flex items-start gap-3">
