@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "ARCT",
-      "name": "ArcTools",
-      "logo": "/logos/dex/0x1EA1e4f9.jpg",
-      "address": "0x1EA1e4f9A9975F1f6e9c0a9f6e8Ada7a66E6de52",
+      "symbol": "CINU",
+      "name": "Circle Inu",
+      "logo": "/logos/dex/0x33402A71.jpg",
+      "address": "0x33402A71cAF3ebDe88E27c7b94c161941AE0d039",
       "chain": "arc",
-      "change6h": 904.0,
-      "price": 0.0001382,
-      "date": "2026-09-16"
+      "change6h": 62776.0,
+      "price": 0.0006902,
+      "date": "2026-09-17"
     },
     {
-      "symbol": "MALA",
-      "name": "Malachite",
-      "logo": "/logos/dex/0x4F7DC89d.jpg",
-      "address": "0x4F7DC89dc44aD08c20d9680d2Ee9cfad69BFDa55",
-      "chain": "arc",
-      "change6h": 453.0,
-      "price": 7.449e-05,
-      "date": "2026-09-16"
-    },
-    {
-      "symbol": "ARGOS",
-      "name": "Argos Bot",
-      "logo": "/logos/dex/0xe8668853.jpg",
-      "address": "0xe86688530C456E099732f953ed7aA7C583026680",
-      "chain": "arc",
-      "change6h": 101.0,
-      "price": 0.0001209,
-      "date": "2026-09-16"
-    },
-    {
-      "symbol": "ARCL",
-      "name": "Arcl AI",
-      "logo": "/logos/dex/0xBF335c10.jpg",
-      "address": "0xBF335c10c222097a4358231F6377c71eaE107777",
-      "chain": "bsc",
-      "change6h": 72.5,
-      "price": 7.315e-05,
-      "date": "2026-09-16"
-    },
-    {
-      "symbol": "BUILDOG",
-      "name": "BUILDOG",
-      "logo": "/logos/dex/0x4cb8382b.jpg",
-      "address": "0x4cb8382b9dAF7992d3b27D32f7dB650C57881DaA",
-      "chain": "arc",
-      "change6h": 47.9,
-      "price": 0.0003162,
-      "date": "2026-09-16"
-    },
-    {
-      "symbol": "CYBERINU",
-      "name": "Cyber Inu",
-      "logo": "/logos/dex/0xC2703284.jpg",
-      "address": "0xC2703284E399a9778DcE9734e69dD6aB0dC71E18",
-      "chain": "robinhood",
-      "change6h": 16.4,
-      "price": 7.991e-05,
-      "date": "2026-09-16"
-    },
-    {
-      "symbol": "GOOD",
-      "name": "Good In The Hood",
+      "symbol": "casinu",
+      "name": "casinu",
       "logo": "",
-      "address": "0x5f62C57e5C537887117EeF828b7E3Ad41C009FEb",
-      "chain": "robinhood",
-      "change6h": 1.0,
-      "price": 0.002105,
-      "date": "2026-09-16"
+      "address": "2eMoMqs194VxPHSWtCCzkBGqwCUbD4ZcqhecoGuh4tTp",
+      "chain": "solana",
+      "change6h": 8009.0,
+      "price": 0.000308,
+      "date": "2026-09-17"
     },
     {
-      "symbol": "SANTACOIN",
-      "name": "SANTAHOOD",
-      "logo": "/logos/dex/0x38bb87Cf.jpg",
-      "address": "0x38bb87Cf3E7344A82be7CD671c191f015b97eEe6",
+      "symbol": "FAPMAX",
+      "name": "FAPMAX",
+      "logo": "/logos/dex/DLEdharFAL.gif",
+      "address": "DLEdharFALn6K65DxtKq29AzFERPvg45dY5rue9Wpump",
+      "chain": "solana",
+      "change6h": 467.0,
+      "price": 0.0002326,
+      "date": "2026-09-17"
+    },
+    {
+      "symbol": "ニーナ",
+      "name": "Nina",
+      "logo": "/logos/dex/4775QEyTS7.jpg",
+      "address": "4775QEyTS7ECpvhbeEg1a5XUjpK6CtEJwRpw6vvwpump",
+      "chain": "solana",
+      "change6h": 70.8,
+      "price": 0.0002949,
+      "date": "2026-09-17"
+    },
+    {
+      "symbol": "PAIDDOGE",
+      "name": "Paid Doge",
+      "logo": "/logos/dex/52qkNpgTHc.jpg",
+      "address": "52qkNpgTHcjuDYhKVcg6rJS4uYYtJHpDRcJoSdKqpump",
+      "chain": "solana",
+      "change6h": 41.7,
+      "price": 0.001043,
+      "date": "2026-09-17"
+    },
+    {
+      "symbol": "BV7X",
+      "name": "BV7X",
+      "logo": "/logos/dex/0x45947686.jpg",
+      "address": "0x459476869aF797Eb9061B41fA04dE46A60FBeDBD",
       "chain": "robinhood",
-      "change6h": -0.0,
-      "price": 0.000521,
-      "date": "2026-09-16"
+      "change6h": 22.5,
+      "price": 0.0005746,
+      "date": "2026-09-17"
+    },
+    {
+      "symbol": "TERA",
+      "name": "TeraWallet",
+      "logo": "/logos/dex/0x3c12E57f.jpg",
+      "address": "0x3c12E57fa7817a86CE7C254dB9Ea5Fe639e233F8",
+      "chain": "robinhood",
+      "change6h": 9.1,
+      "price": 7.594e-05,
+      "date": "2026-09-17"
+    },
+    {
+      "symbol": "DPONS",
+      "name": "Diamond Pons",
+      "logo": "/logos/dex/0x0E6D1eBb.jpg",
+      "address": "0x0E6D1eBb33F3b8f2D09Bacf3b1A1d5C581110C33",
+      "chain": "robinhood",
+      "change6h": -0.5,
+      "price": 0.0003644,
+      "date": "2026-09-17"
     }
   ]
 }
