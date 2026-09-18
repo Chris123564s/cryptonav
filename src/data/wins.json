@@ -1,84 +1,84 @@
 {
   "wins": [
     {
-      "symbol": "CINU",
-      "name": "Circle Inu",
-      "logo": "/logos/dex/0x33402A71.jpg",
-      "address": "0x33402A71cAF3ebDe88E27c7b94c161941AE0d039",
+      "symbol": "AD",
+      "name": "Artificial Doge",
+      "logo": "/logos/dex/0x63FFd4aA.jpg",
+      "address": "0x63FFd4aA844f4BEFCee1B4606E467D1D209A926B",
+      "chain": "robinhood",
+      "change6h": 110.0,
+      "price": 0.0007485,
+      "date": "2026-09-18"
+    },
+    {
+      "symbol": "TROLL",
+      "name": "Troll in Hood",
+      "logo": "/logos/dex/0xa206753e.jpg",
+      "address": "0xa206753eb19D8E3F9Ae3313ADb467BdC2a7a4d90",
+      "chain": "robinhood",
+      "change6h": 51.0,
+      "price": 0.0007654,
+      "date": "2026-09-18"
+    },
+    {
+      "symbol": "VOLT",
+      "name": "Volt Inu",
+      "logo": "/logos/dex/0x5d102d1E.jpg",
+      "address": "0x5d102d1E69E77591D486aa4f663B3645151BBdf6",
+      "chain": "robinhood",
+      "change6h": 42.2,
+      "price": 0.003482,
+      "date": "2026-09-18"
+    },
+    {
+      "symbol": "WORM",
+      "name": "Agent Wormhole",
+      "logo": "/logos/dex/0x3bA500F1.jpg",
+      "address": "0x3bA500F1AbabbCF0F0247D06D1c56Fd7E6C4c09D",
+      "chain": "robinhood",
+      "change6h": 30.0,
+      "price": 0.003982,
+      "date": "2026-09-18"
+    },
+    {
+      "symbol": "ARCT",
+      "name": "ArcTools",
+      "logo": "/logos/dex/0x1EA1e4f9.jpg",
+      "address": "0x1EA1e4f9A9975F1f6e9c0a9f6e8Ada7a66E6de52",
       "chain": "arc",
-      "change6h": 62776.0,
-      "price": 0.0006902,
-      "date": "2026-09-17"
+      "change6h": 23.0,
+      "price": 0.0004539,
+      "date": "2026-09-18"
     },
     {
-      "symbol": "casinu",
-      "name": "casinu",
-      "logo": "",
-      "address": "2eMoMqs194VxPHSWtCCzkBGqwCUbD4ZcqhecoGuh4tTp",
+      "symbol": "TCAT",
+      "name": "Artificial Cat",
+      "logo": "/logos/dex/BifUDWQFpb.jpg",
+      "address": "BifUDWQFpbTrSxYXBnqCpAVYgcyQGzHzJk2MDmeM2Gyv",
       "chain": "solana",
-      "change6h": 8009.0,
-      "price": 0.000308,
-      "date": "2026-09-17"
+      "change6h": 14.9,
+      "price": 0.0006891,
+      "date": "2026-09-18"
     },
     {
-      "symbol": "FAPMAX",
-      "name": "FAPMAX",
-      "logo": "/logos/dex/DLEdharFAL.gif",
-      "address": "DLEdharFALn6K65DxtKq29AzFERPvg45dY5rue9Wpump",
-      "chain": "solana",
-      "change6h": 467.0,
-      "price": 0.0002326,
-      "date": "2026-09-17"
-    },
-    {
-      "symbol": "ニーナ",
-      "name": "Nina",
-      "logo": "/logos/dex/4775QEyTS7.jpg",
-      "address": "4775QEyTS7ECpvhbeEg1a5XUjpK6CtEJwRpw6vvwpump",
-      "chain": "solana",
-      "change6h": 70.8,
-      "price": 0.0002949,
-      "date": "2026-09-17"
-    },
-    {
-      "symbol": "PAIDDOGE",
-      "name": "Paid Doge",
-      "logo": "/logos/dex/52qkNpgTHc.jpg",
-      "address": "52qkNpgTHcjuDYhKVcg6rJS4uYYtJHpDRcJoSdKqpump",
-      "chain": "solana",
-      "change6h": 41.7,
-      "price": 0.001043,
-      "date": "2026-09-17"
-    },
-    {
-      "symbol": "BV7X",
-      "name": "BV7X",
-      "logo": "/logos/dex/0x45947686.jpg",
-      "address": "0x459476869aF797Eb9061B41fA04dE46A60FBeDBD",
+      "symbol": "SANTACOIN",
+      "name": "SANTAHOOD",
+      "logo": "/logos/dex/0x38bb87Cf.jpg",
+      "address": "0x38bb87Cf3E7344A82be7CD671c191f015b97eEe6",
       "chain": "robinhood",
-      "change6h": 22.5,
-      "price": 0.0005746,
-      "date": "2026-09-17"
+      "change6h": 12.1,
+      "price": 0.0005954,
+      "date": "2026-09-18"
     },
     {
-      "symbol": "TERA",
-      "name": "TeraWallet",
-      "logo": "/logos/dex/0x3c12E57f.jpg",
-      "address": "0x3c12E57fa7817a86CE7C254dB9Ea5Fe639e233F8",
+      "symbol": "CGX",
+      "name": "CryptoGDEX",
+      "logo": "/logos/dex/0xf3067fE1.jpg",
+      "address": "0xf3067fE1db1fe7984e0a1dD647AcA8FD2aB4fE71",
       "chain": "robinhood",
-      "change6h": 9.1,
-      "price": 7.594e-05,
-      "date": "2026-09-17"
-    },
-    {
-      "symbol": "DPONS",
-      "name": "Diamond Pons",
-      "logo": "/logos/dex/0x0E6D1eBb.jpg",
-      "address": "0x0E6D1eBb33F3b8f2D09Bacf3b1A1d5C581110C33",
-      "chain": "robinhood",
-      "change6h": -0.5,
-      "price": 0.0003644,
-      "date": "2026-09-17"
+      "change6h": 6.9,
+      "price": 0.0002289,
+      "date": "2026-09-18"
     }
   ]
 }
